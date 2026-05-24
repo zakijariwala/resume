@@ -1,7 +1,7 @@
 ---
 import resume from '../data/resume.json';
 
-const { email, linkedin, github, contact_taglines } = resume.meta;
+const { email, phone, whatsapp, linkedin, github, contact_taglines } = resume.meta;
 
 // Clean URLs for display text
 const linkedinDisplay = linkedin.replace('https://', '');
@@ -55,5 +55,29 @@ const githubDisplay = github.replace('https://', '');
       <i class="ti ti-brand-github text-lg" aria-hidden="true"></i>
       <span>{githubDisplay}</span>
     </a>
+
+    {whatsapp && (
+      <a 
+        href={whatsapp} 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="inline-flex items-center gap-2 hover:text-accent hover:underline hover:underline-offset-2 focus-visible:outline-accent transition-all duration-150 py-1"
+        aria-label="Message on WhatsApp"
+      >
+        <i class="ti ti-brand-whatsapp text-lg" aria-hidden="true"></i>
+        <span>WhatsApp ({phone})</span>
+      </a>
+    )}
+
+    {phone && (
+      <a 
+        href={`tel:${phone.replace(/\s+/g, '')}`} 
+        class="inline-flex items-center gap-2 hover:text-accent hover:underline hover:underline-offset-2 focus-visible:outline-accent transition-all duration-150 py-1"
+        aria-label="Call mobile number"
+      >
+        <i class="ti ti-phone text-lg" aria-hidden="true"></i>
+        <span>Call ({phone})</span>
+      </a>
+    )}
   </div>
 </section>
