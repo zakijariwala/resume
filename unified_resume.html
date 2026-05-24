@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohammad Zaki Jariwala — Interactive Resume</title>
+    <!-- React & Babel -->
+    <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+    <!-- Framer Motion (for smooth interactions) -->
+    <script src="https://unpkg.com/framer-motion@11.0.8/dist/framer-motion.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            /* Precise Blue Palette */
+            --bg: oklch(99% 0.002 240);
+            --surface: oklch(100% 0 0);
+            --fg: oklch(18% 0.012 250);
+            --muted: oklch(54% 0.012 250);
+            --border: oklch(92% 0.005 250);
+            --accent: oklch(50% 0.18 250);
+            --accent-subtle: oklch(95% 0.02 250);
+            
+            --font-display: 'Iowan Old Style', 'Charter', Georgia, serif;
+            --font-body: 'Inter', -apple-system, system-ui, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme='dark'] {
+            --bg: oklch(15% 0.01 250);
+            --surface: oklch(18% 0.012 250);
+            --fg: oklch(95% 0.005 250);
+            --muted: oklch(65% 0.01 250);
+            --border: oklch(25% 0.015 250);
+            --accent: oklch(65% 0.15 250);
+            --accent-subtle: oklch(22% 0.04 250);
+            
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--fg);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            transition: background-color var(--transition), color var(--transition);
+            -webkit-font-smoothing: antialiased;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* PRINT STYLES */
+        @media print {
+            body { background: white; color: black; }
+            .no-print { display: none !important; }
+            .resume-wrapper { width: 100% !important; max-width: none !important; padding: 0 !important; margin: 0 !important; box-shadow: none !important; }
+            .page-break { page-break-before: always; }
+            a { text-decoration: none; color: black; }
+            :root { --accent: black; --border: #eee; }
+        }
+
+        .resume-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+
+        header {
+            margin-bottom: 60px;
+        }
+
+        .name {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            font-weight: 500;
+            line-height: 1.1;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 24px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--muted);
+            flex-wrap: wrap;
+        }
+
+        .contact-info a {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: var(--transition);
+        }
+
+        .contact-info a:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        /* MODE SWITCHER */
+        .mode-switcher {
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+            display: flex;
+            background: var(--surface);
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            width: fit-content;
+            margin: 0 auto 60px;
+            box-shadow: 0 4px 20px -5px rgba(0,0,0,0.1);
+        }
+
+        .mode-btn {
+            padding: 8px 20px;
+            border: none;
+            background: none;
+            color: var(--muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .mode-btn.active {
+            color: var(--accent);
+        }
+
+        .mode-btn-bg {
+            position: absolute;
+            inset: 0;
+            background: var(--accent-subtle);
+            border-radius: 8px;
+            z-index: -1;
+        }
+
+        /* SECTION STYLES */
+        section {
+            margin-bottom: 64px;
+        }
+
+        .section-title {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .summary-text {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            max-width: 800px;
+            color: var(--fg);
+        }
+
+        /* EXPERIENCE / PROJECTS */
+        .entry {
+            margin-bottom: 40px;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 640px) {
+            .entry { grid-template-columns: 1fr; gap: 8px; }
+        }
+
+        .entry-meta {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .entry-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .entry-org {
+            font-size: 0.95rem;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .entry-content {
+            font-size: 0.95rem;
+            color: var(--muted);
+        }
+
+        .bullets {
+            list-style: none;
+        }
+
+        .bullets li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .bullets li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* SKILLS GRID */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 32px;
+        }
+
+        .skill-group h4 {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-tag {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        .skill-tag:hover {
+            border-color: var(--accent);
+            background: var(--accent-subtle);
+            color: var(--accent);
+        }
+
+        /* THEME TOGGLE */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            z-index: 1000;
+        }
+
+        /* PROJECTS */
+        .project-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .project-grid { grid-template-columns: 1fr; }
+        }
+
+        .project-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 24px;
+            border-radius: 16px;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: 0 12px 30px -10px rgba(0,0,0,0.1);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .project-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .project-tag {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            background: var(--bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--muted);
+        }
+
+        .project-desc {
+            font-size: 0.9rem;
+            color: var(--muted);
+            flex: 1;
+        }
+
+        /* FOOTER */
+        footer {
+            margin-top: 100px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .timestamp {
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { motion, AnimatePresence } = window.Motion;
+
+        const DATA = {
+            name: "Mohammad Zaki Jariwala",
+            location: "Navi Mumbai, India (Global Relocation)",
+            email: "Jariwalazaki@gmail.com",
+            links: [
+                { label: "LinkedIn", url: "https://linkedin.com/in/zakijariwala" },
+                { label: "GitHub", url: "https://github.com/zakijariwala" }
+            ],
+            modes: {
+                recruiter: {
+                    label: "Recruiter",
+                    summary: "Systems Engineer and operations lead managing mission-critical banking infrastructure for 30,000+ users. Expert in Identity & Access Management (IDM) with a track record of 99.999% availability and 50% RTO reduction in Tier-1 environments. AWS Certified Solutions Architect specializing in secure, high-availability enterprise systems.",
+                    skills: [
+                        { category: "Infrastructure", items: ["Linux (RHEL/Ubuntu)", "Windows Server", "VMware / Hypervisors", "IDM", "Disaster Recovery", "Runbook Automation"] },
+                        { category: "Cloud & Ops", items: ["AWS (Solutions Architect)", "GCP", "Docker", "SRE", "CI/CD", "IaC", "Cloudflare"] },
+                        { category: "Leadership", items: ["Operations Management", "Team Mentorship (5+)", "Stakeholder Communication", "Incident Response"] }
+                    ],
+                    experience: [
+                        {
+                            title: "Systems Engineer (IDM & DB Ops Lead)",
+                            org: "Tata Consultancy Services (SBI GITC)",
+                            date: "2023 — Present",
+                            bullets: [
+                                "Lead operations for enterprise banking infrastructure supporting 30,000+ internal branch users with 99.999% availability.",
+                                "Administer a fleet of 150+ Linux (RHEL) and Windows servers, automating patch management and access governance.",
+                                "Architected and executed DR drills, successfully reducing Recovery Time Objective (RTO) by 50% for Tier-1 applications.",
+                                "Mentor a team of 5 junior engineers, fostering technical excellence and adherence to banking operational standards."
+                            ]
+                        }
+                    ],
+                    projects: [
+                        {
+                            name: "Zamaan Marine Digital Ecosystem",
+                            tags: ["Astro", "Cloudflare", "Claude API", "PostHog"],
+                            desc: "Engineered a zero-budget lead generation system using AI orchestration and eBay API integration for a global industrial business."
+                        },
+                        {
+                            name: "Medium Automation Pipeline",
+                            tags: ["Python", "Gemini Pro", "GitHub Actions", "Tauri"],
+                            desc: "Architected a full-stack AI orchestration layer to transform technical transcripts into professional 1500+ word articles."
+                        }
+                    ]
+                },
+                developer: {
+                    label: "Developer",
+                    summary: "Systems Engineer specializing in Python automation, AI orchestration, and embedded systems. Architect of the 'Failure First' humanization framework for LLMs and custom e-ink hardware. Expert in terminal-centric workflows, remote development, and on-premise containerization.",
+                    skills: [
+                        { category: "Languages", items: ["Python (ETL/Scripting)", "JavaScript/TS", "Embedded C++", "Dart", "C++ (ESP-IDF)"] },
+                        { category: "AI & Embedded", items: ["Prompt Engineering", "Agent Orchestration", "ESP32-S3", "E-Paper Integration", "Low-Power Design"] },
+                        { category: "Dev Workflow", items: ["Tauri (Rust)", "Zellij", "Termius", "Oracle Cloud", "Supabase", "GitPython"] }
+                    ],
+                    experience: [
+                        {
+                            title: "Systems Engineer (Infrastructure Automation)",
+                            org: "Tata Consultancy Services (SBI GITC)",
+                            date: "2023 — Present",
+                            bullets: [
+                                "Driving modernization from legacy AWS migration to high-security on-premise containerization (Docker).",
+                                "Engineered custom Python pipelines for automated infrastructure monitoring and access governance.",
+                                "Optimized a 'mobile-friendly powerhouse' dev environment using Zellij, Oracle Cloud, and secure persistent SSH."
+                            ]
+                        }
+                    ],
+                    projects: [
+                        {
+                            name: "ESP-Pocket Reader",
+                            tags: ["ESP32-S3", "ESP-IDF", "SQLite", "Python"],
+                            desc: "Designed custom e-ink hardware and firmware integrating SD storage and a Python-based EPUB-to-SQLite converter."
+                        },
+                        {
+                            name: "Raaz-o-Neyaz (ron.db)",
+                            tags: ["Python", "SQLite", "PWA", "Service Workers"],
+                            desc: "Engineered a reverse-engineering pipeline to extract 22k+ rows of SQLite data from Android APKs for an offline-first PWA."
+                        },
+                        {
+                            name: "run.to Activity Platform",
+                            tags: ["Flutter", "Supabase", "PostGIS", "Riverpod"],
+                            desc: "Developed a distance-based running app with GPS tracking, ghost routes, and robust geospatial backend management."
+                        }
+                    ]
+                },
+                curious: {
+                    label: "Just Curious",
+                    summary: "A technical soft-skills coach, technical writer, and lifelong tinkerer. I bridge the gap between complex engineering and human communication. From mentoring 50+ candidates on behavioral frameworks to researching Android ROM stability and marine parts logistics.",
+                    skills: [
+                        { category: "Communication", items: ["Soft Skills Coaching", "Technical Storytelling", "Behavioral Frameworks", "Mentorship"] },
+                        { category: "Exploration", items: ["Android ROM Research", "Odoo Accounting", "French (University-level)", "Market Analysis"] },
+                        { category: "Interests", items: ["Marine Industrial Hardware", "E-Ink Typography", "Executive Communication"] }
+                    ],
+                    experience: [
+                        {
+                            title: "Technical Soft Skills Coach & Founder",
+                            org: "Independent Practice",
+                            date: "2025 — 2026",
+                            bullets: [
+                                "Delivered interview readiness and executive communication coaching to 50+ engineering professionals.",
+                                "Conducted intensive 1:1 sessions focused on high-impact presentation and technical storytelling skills."
+                            ]
+                        }
+                    ],
+                    projects: [
+                        {
+                            name: "Medium Content Engine",
+                            tags: ["AWS Certification", "Writing", "AI Automation"],
+                            desc: "Authored 3-part guide series on AWS SAA-C03 for non-technical candidates, viewed by 1000s of readers."
+                        },
+                        {
+                            name: "Industrial Equipment Ops",
+                            tags: ["eBay API", "Marine Parts", "Logistics"],
+                            desc: "Digital transformation for a second-hand marine equipment business, integrating global marketplace APIs."
+                        }
+                    ]
+                }
+            },
+            timeline: [
+                { date: "2019", event: "B.Tech ECE @ DDU Begins", category: "Education" },
+                { date: "2023", event: "Systems Engineer @ TCS/SBI", category: "Career" },
+                { date: "2024", event: "Odoo 17 Accounting Seminar", category: "Learning" },
+                { date: "2025", event: "Soft Skills Coaching Founded", category: "Entrepreneurship" },
+                { date: "2026", event: "AWS SAA Certified / Google GenAI Leader", category: "Certification" }
+            ]
+        };
+
+        const Timeline = ({ items }) => (
+            <div style={{ position: 'relative', paddingLeft: '24px', borderLeft: '1px solid var(--border)' }}>
+                {items.map((item, idx) => (
+                    <motion.div 
+                        key={idx}
+                        className="timeline-item"
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        style={{ marginBottom: '32px', position: 'relative' }}
+                    >
+                        <div style={{ 
+                            position: 'absolute', 
+                            left: '-30px', 
+                            top: '4px', 
+                            width: '11px', 
+                            height: '11px', 
+                            borderRadius: '50%', 
+                            background: 'var(--accent)',
+                            border: '2px solid var(--bg)'
+                        }} />
+                        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--accent)', marginBottom: '4px' }}>
+                            {item.date} — {item.category}
+                        </div>
+                        <div style={{ fontWeight: '500' }}>{item.event}</div>
+                    </motion.div>
+                ))}
+            </div>
+        );
+
+        function App() {
+            const [mode, setMode] = useState('recruiter');
+            const [theme, setTheme] = useState('light');
+
+            useEffect(() => {
+                document.body.setAttribute('data-theme', theme);
+            }, [theme]);
+
+            const currentData = DATA.modes[mode];
+
+            return (
+                <div className="resume-wrapper">
+                    <div className="no-print" style={{ position: 'fixed', top: '20px', right: '20px', display: 'flex', gap: '12px', z-index: 1000 }}>
+                        <button className="theme-toggle" onClick={() => window.print()} style={{ borderRadius: '8px', width: 'auto', padding: '0 12px' }}>
+                            🖨️ Print PDF
+                        </button>
+                        <button className="theme-toggle" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+                            {theme === 'light' ? '🌙' : '☀️'}
+                        </button>
+                    </div>
+
+                    <header>
+                        <motion.h1 
+                            className="name"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                        >
+                            {DATA.name}
+                        </motion.h1>
+                        <div className="contact-info">
+                            <span>{DATA.location}</span>
+                            <a href={`mailto:${DATA.email}`}>{DATA.email}</a>
+                            {DATA.links.map(link => (
+                                <a key={link.label} href={link.url} target="_blank" rel="noopener noreferrer">{link.label}</a>
+                            ))}
+                        </div>
+                    </header>
+
+                    <nav className="mode-switcher no-print">
+                        {Object.keys(DATA.modes).map(m => (
+                            <button 
+                                key={m}
+                                className={`mode-btn ${mode === m ? 'active' : ''}`}
+                                onClick={() => setMode(m)}
+                            >
+                                {DATA.modes[m].label}
+                                {mode === m && (
+                                    <motion.div 
+                                        layoutId="mode-bg"
+                                        className="mode-btn-bg"
+                                        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                                    />
+                                )}
+                            </button>
+                        ))}
+                    </nav>
+
+                    <main>
+                        <AnimatePresence mode="wait">
+                            <motion.section 
+                                key={mode + '-summary'}
+                                initial={{ opacity: 0, x: -10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: 10 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <div className="section-title">Professional Summary</div>
+                                <p className="summary-text">{currentData.summary}</p>
+                            </motion.section>
+                        </AnimatePresence>
+
+                        <section>
+                            <div className="section-title">Technical Expertise</div>
+                            <div className="skills-container">
+                                {currentData.skills.map((group, idx) => (
+                                    <motion.div 
+                                        key={mode + group.category}
+                                        className="skill-group"
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: idx * 0.1 }}
+                                    >
+                                        <h4>{group.category}</h4>
+                                        <div className="skill-list">
+                                            {group.items.map(skill => (
+                                                <span key={skill} className="skill-tag">{skill}</span>
+                                            ))}
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </section>
+
+                        <section>
+                            <div className="section-title">Experience</div>
+                            <AnimatePresence mode="wait">
+                                <motion.div 
+                                    key={mode + '-exp'}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                >
+                                    {currentData.experience.map(exp => (
+                                        <div className="entry" key={exp.title + exp.org}>
+                                            <div className="entry-meta">{exp.date}</div>
+                                            <div className="entry-body">
+                                                <h3 className="entry-title">{exp.title}</h3>
+                                                <div className="entry-org">{exp.org}</div>
+                                                <ul className="bullets">
+                                                    {exp.bullets.map((b, i) => <li key={i}>{b}</li>)}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </motion.div>
+                            </AnimatePresence>
+                        </section>
+
+                        <section className="no-print">
+                            <div className="section-title">Interactive Timeline</div>
+                            <Timeline items={DATA.timeline} />
+                        </section>
+
+                        <section>
+                            <div className="section-title">Selected Projects</div>
+                            <div className="project-grid">
+                                {currentData.projects.map((proj, idx) => (
+                                    <motion.div 
+                                        key={mode + proj.name}
+                                        className="project-card"
+                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ delay: idx * 0.1 }}
+                                    >
+                                        <div className="project-header">
+                                            <h3 className="project-name">{proj.name}</h3>
+                                        </div>
+                                        <div className="project-tags">
+                                            {proj.tags.map(tag => <span key={tag} className="project-tag">{tag}</span>)}
+                                        </div>
+                                        <p className="project-desc">{proj.desc}</p>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </section>
+
+                        <section>
+                            <div className="section-title">Education & Certifications</div>
+                            <div className="entry">
+                                <div className="entry-meta">2019 — 2023</div>
+                                <div className="entry-body">
+                                    <h3 className="entry-title">B.Tech, Electronics & Communication</h3>
+                                    <div className="entry-org">Dharmsinh Desai University</div>
+                                </div>
+                            </div>
+                            <div className="entry">
+                                <div className="entry-meta">2026</div>
+                                <div className="entry-body">
+                                    <h3 className="entry-title">AWS Certified Solutions Architect – Associate</h3>
+                                    <div className="entry-org">Amazon Web Services</div>
+                                </div>
+                            </div>
+                        </section>
+                    </main>
+
+                    <footer>
+                        <div>Built for high performance by Mohammad Zaki Jariwala</div>
+                        <div className="timestamp">Updated May 2026</div>
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

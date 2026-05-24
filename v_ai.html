@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mohammad Zaki Jariwala — Resume (AI Infrastructure & Solutions)</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --ink: #0f172a; --muted: #475569; --accent: #8b5cf6; /* Modern AI Purple */ --rule: #e2e8f0; --bg: #ffffff; }
+body { background: #f8fafc; font-family: 'DM Sans', sans-serif; color: var(--ink); line-height: 1.6; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+.resume-container {
+  width: 210mm;
+  margin: 40px auto;
+  background: var(--bg);
+  padding: 20mm 22mm;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+@media print {
+  body { background: white; }
+  .resume-container { margin: 0; width: 210mm; box-shadow: none; padding: 15mm 18mm; }
+  .page-break { break-before: page; padding-top: 15mm; }
+  .entry, .skill-row, .cert-item { break-inside: avoid; }
+}
+
+header { border-bottom: 2.5px solid var(--ink); padding-bottom: 15px; margin-bottom: 28px; }
+.header-top { display: flex; justify-content: space-between; align-items: flex-end; }
+.name { font-family: 'DM Serif Display', serif; font-size: 38px; line-height: 1; }
+.name em { color: var(--accent); font-style: italic; }
+.contact { text-align: right; font-family: 'DM Mono', monospace; font-size: 10.5px; line-height: 1.6; color: var(--muted); }
+.contact a { color: var(--accent); text-decoration: none; font-weight: 700; }
+.title-tag { font-family: 'DM Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--accent); margin-top: 10px; font-weight: 700; }
+
+section { margin-bottom: 28px; }
+.section-label { font-family: 'DM Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.25em; color: var(--ink); font-weight: 800; border-bottom: 1.5px solid var(--rule); padding-bottom: 5px; margin-bottom: 16px; display: block; }
+.summary { font-size: 13.5px; line-height: 1.7; color: var(--muted); }
+
+.entry { margin-bottom: 22px; }
+.entry-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 3px; }
+.entry-title { font-size: 16px; font-weight: 700; }
+.entry-date { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
+.entry-org { font-size: 13.5px; font-weight: 500; font-style: italic; color: var(--accent); margin-bottom: 8px; }
+.bullets { list-style: none; margin-top: 8px; }
+.bullets li { position: relative; padding-left: 22px; font-size: 13px; margin-bottom: 6px; line-height: 1.6; color: #334155; }
+.bullets li::before { content: "✦"; position: absolute; left: 0; color: var(--accent); font-size: 14px; top: -1px; }
+
+.skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 48px; }
+.skill-row { font-size: 13px; line-height: 1.6; }
+.skill-cat { font-family: 'DM Mono', monospace; font-weight: 800; font-size: 10px; text-transform: uppercase; color: var(--ink); display: block; margin-bottom: 3px; }
+
+.certs-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.cert-item { font-size: 13px; border-left: 3px solid var(--accent); padding-left: 12px; }
+.cert-name { font-weight: 700; display: block; margin-bottom: 2px; }
+.cert-org { font-size: 11.5px; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="resume-container">
+  <header>
+    <div class="header-top">
+      <div class="name">Mohammad Zaki <em>Jariwala</em></div>
+      <div class="contact">
+        Seawoods, Navi Mumbai, India (Global Relocation)<br>
+        <a href="mailto:Jariwalazaki@gmail.com">Jariwalazaki@gmail.com</a><br>
+        <a href="https://linkedin.com/in/zakijariwala">LinkedIn</a> · <a href="https://github.com/zakijariwala">GitHub</a>
+      </div>
+    </div>
+    <div class="title-tag">AI Infrastructure Engineer · LLM Orchestration · Solutions Architect</div>
+  </header>
+
+  <section>
+    <div class="section-label">AI Strategy Profile</div>
+    <div class="summary">
+      Systems Engineer specializing in **LLM Orchestration and AI Infrastructure**. Expert in bridging the gap between cutting-edge foundation models and production-ready enterprise systems. Proven track record in building automated AI pipelines, designing secure agent execution frameworks, and managing mission-critical platforms for 30,000+ users. Focused on **Human-Centric AI Design** and secure GenAI deployment within regulated environments.
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">Engineering Experience</div>
+    <div class="entry">
+      <div class="entry-header">
+        <span class="entry-title">Systems Engineer (AI Infrastructure Lead)</span>
+        <span class="entry-date">2023 — Present</span>
+      </div>
+      <div class="entry-org">Tata Consultancy Services · State Bank of India (GITC)</div>
+      <ul class="bullets">
+        <li>Direct an operations team managing enterprise banking infrastructure for <strong>30,000+ users</strong>; maintaining 99.999% availability for mission-critical services.</li>
+        <li>Spearheaded on-premise <strong>Docker containerization</strong> to secure and modernize technical workflows, bypassing public cloud constraints for high-security banking applications.</li>
+        <li>Architected and executed high-stakes Disaster Recovery runbooks, reducing **RTO by 50%** through automated restoration procedures.</li>
+        <li>Lead cross-functional collaboration across security and database teams to ensure operational reliability and strict compliance.</li>
+        <li>Mentor 5 junior engineers in high-availability systems and modern infrastructure-as-code practices.</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="entry-title">AI Workflow Coach & Consultant</span>
+        <span class="entry-date">2025 — 2026</span>
+      </div>
+      <div class="entry-org">Independent Professional Practice (Concluded)</div>
+      <ul class="bullets">
+        <li>Mentored **50+ professionals** on the strategic application of AI in technical storytelling and behavioral leadership frameworks.</li>
+        <li>Designed curricula for "AI-Assisted Career Strategy," teaching candidates to leverage LLMs for high-impact communication while maintaining human-in-the-loop quality.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">AI & Technical Stack</div>
+    <div class="skills-grid">
+      <div class="skill-row"><span class="skill-cat">LLM Orchestration</span>Gemini 1.5 Pro, Anthropic Claude API, OpenAI, Prompt Engineering, Agentic Workflows</div>
+      <div class="skill-row"><span class="skill-cat">AI Infrastructure</span>Docker, Linux (RHEL), Kubernetes, CI/CD (GitHub Actions), Cloudflare Edge, SRE</div>
+      <div class="skill-row"><span class="skill-cat">Development</span>Python (ETL/AI Scripting), React 19, Tauri (Rust), Dart/Flutter, Supabase, PostGIS</div>
+      <div class="skill-row"><span class="skill-cat">Governance & Security</span>LLM Red Teaming, Prompt Injection Resistance, Access Governance, IDM, SecOps</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">Certifications</div>
+    <div class="certs-list">
+      <div class="cert-item"><span class="cert-name">Google GenAI Leader</span><span class="cert-org">Google Cloud (Completed)</span></div>
+      <div class="cert-item"><span class="cert-name">AWS Solutions Architect</span><span class="cert-org">Associate (Passed Feb 2026)</span></div>
+      <div class="cert-item"><span class="cert-name">Professional Cloud Architect</span><span class="cert-org">Google Cloud (In Progress)</span></div>
+    </div>
+  </section>
+
+  <!-- PAGE BREAK HERE -->
+  <section class="page-break">
+    <div class="section-label">AI & Automation Projects</div>
+    
+    <div class="entry">
+      <div class="entry-header">
+        <span class="entry-title">Medium Article Automation Pipeline</span>
+        <span class="entry-date">Python · Gemini 1.5 Pro · Tauri · React 19</span>
+      </div>
+      <div class="summary">Architected a production-ready AI pipeline to transform video transcripts into 1500+ word professional articles. Developed a **"Failure First" Humanization Framework** that enforces strict LLM governance to eliminate generic prose. Features Git-based state tracking and a high-performance desktop GUI built with **Tauri (Rust)** and React 19.</div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="entry-title">Private AI Security Harness</span>
+        <span class="entry-date">Python · LLM Red Teaming</span>
+      </div>
+      <div class="summary">Developed a secure experimentation framework for evaluating LLM workflow boundaries. Implemented automated security auditing to test for prompt injection resistance and controlled agent execution in private deployments.</div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="entry-title">Zamaan Marine Digital Transformation</span>
+        <span class="entry-date">Astro · Claude API · Lead Gen</span>
+      </div>
+      <div class="summary">Built an AI-driven digital ecosystem for a global equipment vendor. Engineered a zero-budget cold email engine using the **Claude API** for personalized, high-intent lead generation, automated via Google Sheets and Brevo.</div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="entry-title">DUASRON (Digital Modernization)</span>
+        <span class="entry-date">Python · PWA · SQLite</span>
+      </div>
+      <div class="summary">Engineered an ETL pipeline using Python to extract and optimize 22,000+ data records from legacy databases. Built an offline-first PWA delivering 80MB of structured content with zero operational cost.</div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="entry-title">Mobile-Friendly AI Development Server</span>
+        <span class="entry-date">Oracle Cloud · Linux · Zellij</span>
+      </div>
+      <div class="summary">Architected a persistent remote development powerhouse on Oracle Cloud. Optimized for highly-available coding sessions across smartphone and laptop, leveraging Zellij multiplexing and secure SSH protocols.</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">Education & Research</div>
+    <div class="entry">
+      <div class="entry-header">
+        <span class="entry-title">Bachelor of Technology — Electronics & Communication Engineering</span>
+        <span class="entry-date">2019 — 2023</span>
+      </div>
+      <div class="entry-org">Dharmsinh Desai University</div>
+      <ul class="bullets">
+        <li>Authored technical deep-dives on **Medium** regarding Cloud Architecture and AWS certifications.</li>
+        <li>Research focus on hardware-software integration and mobile infrastructure stability.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">Leadership & Communication</div>
+    <div class="summary">
+      Fluent in French (University Level). Specialized in **Technical ROI Analysis** and the ethical governance of LLMs. Committed to building AI systems that amplify human expertise rather than replacing it.
+    </div>
+  </section>
+</div>
+
+</body>
+</html>

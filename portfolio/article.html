@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demystifying AWS for Non-Technical Candidates | Zaki</title>
+  </head>
+  <body>
+    <nav>
+      <div class="container">
+        <h3 class="gradient-text"><a href="/index.html" style="color: inherit; text-decoration: none;">ZAKI</a></h3>
+        <ul class="nav-links">
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/blog.html" style="color: var(--accent-blue);">Blog</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <article class="container reveal active" style="max-width: 800px; padding-top: 10rem; padding-bottom: 6rem;">
+      <a href="/blog.html" style="display: inline-block; margin-bottom: 2rem; color: var(--text-secondary);">← Back to Blog</a>
+      
+      <div style="margin-bottom: 2rem;">
+        <span class="tag">AWS Certification</span>
+        <span style="color: var(--text-secondary); margin-left: 1rem;">Feb 2026</span>
+      </div>
+      
+      <h1 style="font-size: 3rem; margin-bottom: 2rem;">Demystifying AWS Solutions Architect for Non-Technical Candidates</h1>
+      
+      <div class="glass-panel" style="margin-bottom: 3rem; padding: 1.5rem; border-left: 4px solid var(--accent-blue);">
+        <p style="font-style: italic; color: var(--text-secondary);">
+          This is Part 1 of a 3-part series aimed at helping non-technical professionals understand the core concepts behind the AWS SAA-C03 certification.
+        </p>
+      </div>
+
+      <div style="color: var(--text-primary); font-size: 1.1rem; line-height: 1.8;">
+        <p style="margin-bottom: 1.5rem;">
+          Passing the AWS Certified Solutions Architect – Associate (SAA-C03) exam is often seen as a purely technical mountain to climb. But coming from a background in managing mission-critical enterprise infrastructure, I've realized that passing isn't just about memorizing services—it's about understanding constraints.
+        </p>
+        
+        <h2 style="margin-top: 3rem; margin-bottom: 1.5rem; font-size: 1.8rem;">The Banking Compliance Paradigm</h2>
+        <p style="margin-bottom: 1.5rem;">
+          In my day-to-day at SBI GITC, we deal with severe regulatory constraints. We actively shift focus from standard AWS migration strategies toward on-premise containerization. When you study for AWS, you have to invert that mental model. 
+        </p>
+
+        <p style="margin-bottom: 1.5rem;">
+          However, understanding strict on-premise security translates beautifully into AWS VPCs, Security Groups, and IAM roles. You just have to map the physical concepts to the logical ones. 
+        </p>
+
+        <pre style="background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--glass-border); margin: 2rem 0; overflow-x: auto; color: var(--text-secondary);">
+{
+  "Effect": "Allow",
+  "Action": "s3:ListBucket",
+  "Resource": "arn:aws:s3:::example_bucket"
+}</pre>
+
+        <h2 style="margin-top: 3rem; margin-bottom: 1.5rem; font-size: 1.8rem;">Failure First Framework</h2>
+        <p style="margin-bottom: 1.5rem;">
+          Just like my AI automation projects, you have to anticipate failure. High Availability (HA) isn't about perfectly preventing outages; it's about engineering systems so that when an outage happens, the blast radius is minimal. 
+        </p>
+
+        <p style="margin-bottom: 1.5rem;">
+          This concept is universal. Whether you are running 150+ Linux servers on-premise or deploying highly available multi-AZ infrastructure on AWS, the "Failure First" mentality is your greatest asset.
+        </p>
+      </div>
+    </article>
+
+    <footer class="section container" style="min-height: auto; text-align: center; border-top: 1px solid var(--glass-border); padding: 3rem 0;">
+      <p style="color: var(--text-secondary);">Mohammad Zaki Jariwala © 2026</p>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
