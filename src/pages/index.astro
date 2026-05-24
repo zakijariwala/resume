@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import ExperienceSection from '../components/ExperienceSection.astro';
+import ProjectsSection from '../components/ProjectsSection.astro';
+import SkillsSection from '../components/SkillsSection.astro';
+import CertificationsSection from '../components/CertificationsSection.astro';
+import ContactSection from '../components/ContactSection.astro';
+import resume from '../data/resume.json';
+
+const { name } = resume.meta;
+const pageTitle = `${name} | Interactive Portfolio`;
+const pageDescription = `Professional systems engineer portfolio and interactive resume for ${name}.`;
+---
+
+<Base title={pageTitle} description={pageDescription}>
+  <Nav />
+  
+  <!-- Content Wrapper padding offsets compensate for sticky top/bottom navigation panels to avoid overlap -->
+  <main class="flex-1 w-full max-w-4xl mx-auto px-4 pt-[52px] pb-[52px] lg:pb-0">
+    <!-- Hero Section (Rendered internally wrapped in section id="hero") -->
+    <Hero />
+
+    <!-- About Section (Rendered internally wrapped in section id="about") -->
+    <About />
+
+    <!-- Experience Section (Rendered internally wrapped in section id="experience") -->
+    <ExperienceSection />
+
+    <!-- Projects Section (Rendered internally wrapped in section id="projects") -->
+    <ProjectsSection />
+
+    <!-- Skills Section (Rendered internally wrapped in section id="skills") -->
+    <SkillsSection />
+
+    <!-- Certifications Section (Rendered internally wrapped in section id="certifications") -->
+    <CertificationsSection />
+
+    <!-- Contact Section (Rendered internally wrapped in section id="contact") -->
+    <ContactSection />
+  </main>
+</Base>

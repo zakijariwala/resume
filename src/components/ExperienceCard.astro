@@ -1,0 +1,173 @@
+---
+import type { Experience } from '../data/resume.json';
+
+interface Props {
+  entry: typeof import('../data/resume.json').experience[number];
+}
+
+const { entry } = Astro.props;
+
+// Determine if Zamaan Marine pro-bono independent business represents a family venture
+const isFamilyVenture = entry.context_tag === 'family_venture' || entry.context_tag === 'independent_business';
+
+// Evaluate if active entry is TCS
+const isTCS = entry.id === 'tcs';
+---
+
+<div class={`experience-card-wrapper border border-border bg-surface p-4 rounded-lg mb-3 ${isFamilyVenture ? 'dev-only curious-only' : 'all-modes'} transition-colors duration-150`}>
+  <!-- Collapsed Card Toggle Area -->
+  <div 
+    class="flex items-start justify-between cursor-pointer focus-visible:outline-accent select-none"
+    role="button"
+    tabindex="0"
+    aria-expanded="false"
+    aria-controls={`drawer-${entry.id}`}
+    id={`toggle-${entry.id}`}
+  >
+    <!-- Collapsed Entry Info -->
+    <div class="flex-1 min-w-0 pr-4">
+      <div class="flex flex-wrap items-baseline justify-between gap-x-2">
+        <h3 class="text-[17px] font-medium text-text-primary leading-tight">{entry.company}</h3>
+        <span class="text-xs text-text-secondary mt-0.5 lg:mt-0 font-medium whitespace-nowrap">{entry.dates}</span>
+      </div>
+      
+      {entry.subtitle && (
+        <p class="text-xs text-text-secondary italic mt-0.5 leading-snug">{entry.subtitle}</p>
+      )}
+      
+      <div class="flex items-center gap-2 mt-2">
+        <span class="text-sm font-semibold text-accent leading-none">{entry.title}</span>
+        {entry.featured_metric && (
+          <span class="text-[12px] font-mono leading-none bg-accent-muted text-accent px-2 py-0.5 rounded-sm whitespace-nowrap">
+            {entry.featured_metric}
+          </span>
+        )}
+      </div>
+
+      {entry.role_tagline && (
+        <p class="text-xs text-text-secondary italic mt-2.5 leading-relaxed">{entry.role_tagline}</p>
+      )}
+    </div>
+
+    <!-- Chevron Icon (Rotates via CSS sibling rules triggered by aria-expanded) -->
+    <div class="chevron-wrapper flex items-center justify-center pt-1">
+      <i class="ti ti-chevron-down text-lg text-text-secondary transition-transform duration-200" id={`chevron-${entry.id}`}></i>
+    </div>
+  </div>
+
+  <!-- Expanded Drawer Panel -->
+  <div 
+    id={`drawer-${entry.id}`}
+    class="experience-details-drawer max-h-0 overflow-hidden transition-[max-height] duration-300 ease-out"
+    aria-labelledby={`toggle-${entry.id}`}
+  >
+    <div class="pt-4 mt-3 border-t border-border">
+      <ul class="list-disc pl-4 space-y-2 text-[14.5px] leading-relaxed text-text-secondary">
+        {entry.bullets.map(bullet => (
+          <li data-audience={bullet.audience.join(',')}>
+            {bullet.text}
+          </li>
+        ))}
+      </ul>
+
+      <!-- SVG Uptime / Recovery curve visual graph -->
+      {isTCS && (
+        <div class="recruiter-dev mt-4 select-none">
+          <div class="text-[13px] font-mono text-text-secondary mb-2">
+            Recovery curve — 50% RTO reduction
+          </div>
+          <svg 
+            width="100%" 
+            height="120" 
+            viewBox="0 0 400 120" 
+            class="overflow-visible"
+            aria-label="Simulated recovery curve visual chart showing 50% RTO reduction"
+          >
+            <!-- SLA Baseline reference line -->
+            <line x1="10" y1="30" x2="390" y2="30" stroke="#888" stroke-width="0.5" stroke-dasharray="4 4" />
+            
+            <!-- Shaded area below the curve -->
+            <path 
+              d="M 10 30 L 130 30 L 155 30 L 175 95 L 220 95 L 260 95 L 290 25 L 320 30 L 390 30 L 390 120 L 10 120 Z" 
+              fill="var(--accent)" 
+              opacity="0.08" 
+            />
+            
+            <!-- Recovery Curve Line -->
+            <path 
+              d="M 10 30 L 130 30 L 155 30 L 175 95 L 220 95 L 260 95 L 290 25 L 320 30 L 390 30" 
+              stroke="var(--accent)" 
+              stroke-width="2" 
+              fill="none" 
+              stroke-linecap="round" 
+              stroke-linejoin="round" 
+            />
+            
+            <!-- Text Annotations -->
+            <text x="20" y="20" font-size="10" font-family="var(--font-sans)" fill="#888">Baseline</text>
+            <text x="155" y="115" font-size="10" font-family="var(--font-sans)" fill="#888">Incident</text>
+            <text x="300" y="20" font-size="10" font-family="var(--font-sans)" fill="#888">Recovery</text>
+          </svg>
+        </div>
+      )}
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  /* CSS-Driven Bullet Filters (Strict data-audience parsing mapped to data-mode state) */
+  [data-mode="recruiter"] li[data-audience]:not([data-audience*="recruiter"]):not([data-audience*="management"]) {
+    display: none !important;
+  }
+  
+  [data-mode="developer"] li[data-audience] {
+    display: list-item !important;
+  }
+  
+  [data-mode="curious"] li[data-audience] {
+    display: list-item !important;
+  }
+
+  /* Sibling Selectors for CSS Accordion Transitions */
+  [aria-expanded="true"] + .experience-details-drawer {
+    max-height: 2000px !important;
+  }
+  
+  [aria-expanded="true"] .ti-chevron-down {
+    transform: rotate(180deg) !important;
+  }
+</style>
+
+<script>
+  // Bind dynamic event listeners for clicks and keyboard events
+  function registerAccordionHandlers() {
+    const cards = document.querySelectorAll('[role="button"][aria-controls^="drawer-"]');
+    
+    cards.forEach(card => {
+      if (card.getAttribute('data-listener-active') === 'true') return;
+      
+      function toggleCard() {
+        const isExpanded = card.getAttribute('aria-expanded') === 'true';
+        card.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
+      }
+
+      card.addEventListener('click', (e) => {
+        if ((e.target as HTMLElement).tagName.toLowerCase() === 'a') return;
+        toggleCard();
+      });
+
+      card.addEventListener('keydown', (e: Event) => {
+        const keyEvent = e as KeyboardEvent;
+        if (keyEvent.key === 'Enter' || keyEvent.key === ' ') {
+          keyEvent.preventDefault();
+          toggleCard();
+        }
+      });
+
+      card.setAttribute('data-listener-active', 'true');
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', registerAccordionHandlers);
+  document.addEventListener('astro:page-load', registerAccordionHandlers);
+</script>

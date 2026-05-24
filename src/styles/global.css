@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS Custom Properties / Tokens on :root (Light Theme) */
+:root {
+  --background: #F8F7F4;
+  --surface: #FFFFFF;
+  --border: rgba(0, 0, 0, 0.08);
+  --text-primary: #1A1A1A;
+  --text-secondary: #6B6B6B;
+  
+  --accent-recruiter: #1A6BFF;
+  --accent-developer: #1A8A5A;
+  --accent-curious: #B87A00;
+
+  --accent-muted-recruiter: #E8F0FF;
+  --accent-muted-developer: #E8F8F0;
+  --accent-muted-curious: #FFF8E8;
+
+  /* Default active references (Recruiter) */
+  --accent: var(--accent-recruiter);
+  --accent-muted: var(--accent-muted-recruiter);
+}
+
+/* Dark Mode Overrides */
+[data-theme="dark"] {
+  --background: #111111;
+  --surface: #1C1C1C;
+  --border: rgba(255, 255, 255, 0.08);
+  --text-primary: #F0F0F0;
+  --text-secondary: #888888;
+
+  --accent-muted-recruiter: #1A2640;
+  --accent-muted-developer: #133020;
+  --accent-muted-curious: #3a2a10;
+}
+
+/* Mode-Specific Accent Colour Configurations */
+[data-mode="recruiter"] {
+  --accent: var(--accent-recruiter);
+  --accent-muted: var(--accent-muted-recruiter);
+}
+[data-mode="developer"] {
+  --accent: var(--accent-developer);
+  --accent-muted: var(--accent-muted-developer);
+}
+[data-mode="curious"] {
+  --accent: var(--accent-curious);
+  --accent-muted: var(--accent-muted-curious);
+}
+
+/* Base Resets */
+html {
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Audience Visibility Architecture via CSS data-mode attribute selectors */
+.recruiter-only,
+.dev-only,
+.curious-only,
+.recruiter-dev,
+.recruiter-mgmt {
+  display: none !important;
+}
+
+.all-modes {
+  display: block !important;
+}
+
+/* Active Recruiter Mode Layouts */
+[data-mode="recruiter"] .recruiter-only {
+  display: block !important;
+}
+[data-mode="recruiter"] span.recruiter-only {
+  display: inline !important;
+}
+[data-mode="recruiter"] li.recruiter-only {
+  display: list-item !important;
+}
+[data-mode="recruiter"] .recruiter-dev {
+  display: block !important;
+}
+[data-mode="recruiter"] li.recruiter-dev {
+  display: list-item !important;
+}
+[data-mode="recruiter"] .recruiter-mgmt {
+  display: block !important;
+}
+[data-mode="recruiter"] li.recruiter-mgmt {
+  display: list-item !important;
+}
+
+/* Active Developer Mode Layouts */
+[data-mode="developer"] .dev-only {
+  display: block !important;
+}
+[data-mode="developer"] span.dev-only {
+  display: inline !important;
+}
+[data-mode="developer"] li.dev-only {
+  display: list-item !important;
+}
+[data-mode="developer"] .recruiter-dev {
+  display: block !important;
+}
+[data-mode="developer"] li.recruiter-dev {
+  display: list-item !important;
+}
+
+/* Active Curious Mode Layouts */
+[data-mode="curious"] .curious-only {
+  display: block !important;
+}
+[data-mode="curious"] span.curious-only {
+  display: inline !important;
+}
+[data-mode="curious"] li.curious-only {
+  display: list-item !important;
+}
+
+/* --- Phase 1 Polish Visual Rules & Micro-Interactions --- */
+
+/* Page Fade-In Initial State */
+#app {
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+/* Section Heading Bottom Border Treatment */
+section h2 {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+  margin-bottom: 24px;
+}
+
+/* All Cards: transition on border colour, hover lifts, border accent */
+.experience-card-wrapper, .project-card-wrapper {
+  transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease !important;
+}
+.experience-card-wrapper:hover, .project-card-wrapper:hover {
+  border-color: var(--accent) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+[data-theme="dark"] .experience-card-wrapper:hover, 
+[data-theme="dark"] .project-card-wrapper:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* All Pill Tags: hover transform scale-105 transition */
+.tech-pill, .skill-pill {
+  transition: transform 100ms ease-out !important;
+}
+.tech-pill:hover, .skill-pill:hover {
+  transform: scale(1.05) !important;
+}
+
+/* All Links: underline offset-2 transition on hover */
+a {
+  transition: text-underline-offset 150ms ease, color 150ms ease;
+}
+a:hover {
+  text-underline-offset: 4px;
+}
+

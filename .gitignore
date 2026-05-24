@@ -1,0 +1,20 @@
+# Astro build outputs and cache
+.astro/
+dist/
+
+# Dependencies
+node_modules/
+
+# OS/System files
+.DS_Store
+Thumbs.db
+
+# Environmental files
+.env
+.env.production
+.env.development
+.env.local
+
+# Agent CLI cache and internal directories
+.antigravitycli/
+.gemini/

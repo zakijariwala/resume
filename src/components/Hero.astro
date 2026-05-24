@@ -1,0 +1,45 @@
+---
+import resume from '../data/resume.json';
+
+const { name, email, pdf_path, taglines } = resume.meta;
+
+// Dynamically resolve base path for subfolder deployments (e.g. Astro /resume path)
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+const resolvedPdfPath = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_path.replace(/^\//, '')}`;
+---
+
+<section id="hero" class="pt-20 pb-12 flex flex-col justify-center text-center lg:text-left transition-all duration-150">
+  <!-- Name Heading -->
+  <h1 class="text-[28px] leading-tight font-medium text-text-primary">
+    {name}
+  </h1>
+
+  <!-- Dynamic Role Tagline Spans (Resilient pure-CSS hiding mechanisms) -->
+  <p class="text-base font-medium text-text-secondary mt-3 min-h-[24px]">
+    <span class="recruiter-only inline-block">{taglines.recruiter}</span>
+    <span class="dev-only inline-block">{taglines.developer}</span>
+    <span class="curious-only inline-block">{taglines.curious}</span>
+  </p>
+
+  <!-- Outlined Action Buttons (Side-by-side flex layout with automatic wrap protection) -->
+  <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 mt-8">
+    <a 
+      href={resolvedPdfPath} 
+      download 
+      class="inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-2.5 border border-accent text-accent hover:bg-accent hover:text-white rounded-pill transition-colors duration-150 text-sm font-semibold focus-visible:outline-accent"
+      aria-label="Download PDF Resume"
+    >
+      <i class="ti ti-download text-base" aria-hidden="true"></i>
+      <span>Download resume</span>
+    </a>
+    
+    <a 
+      href={`mailto:${email}`} 
+      class="inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-2.5 border border-accent text-accent hover:bg-accent hover:text-white rounded-pill transition-colors duration-150 text-sm font-semibold focus-visible:outline-accent"
+      aria-label="Send direct email"
+    >
+      <i class="ti ti-mail text-base" aria-hidden="true"></i>
+      <span>Get in touch</span>
+    </a>
+  </div>
+</section>

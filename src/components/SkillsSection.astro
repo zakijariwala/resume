@@ -1,0 +1,73 @@
+---
+import resume from '../data/resume.json';
+
+const skillsData = resume.skills;
+---
+
+<section id="skills" class="py-12 border-b border-border transition-all duration-150">
+  <!-- Section Heading -->
+  <h2 class="text-[22px] leading-snug font-medium text-text-primary mb-2">
+    Skills
+  </h2>
+
+  <!-- Proficiency Legend (Visually distinct small indicators) -->
+  <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-text-secondary mt-3 mb-6 select-none" aria-hidden="true">
+    <div class="flex items-center gap-1.5">
+      <span class="inline-block w-2.5 h-2.5 rounded-full bg-accent"></span>
+      <span>Confident</span>
+    </div>
+    <div class="flex items-center gap-1.5">
+      <span class="inline-block w-2.5 h-2.5 rounded-full bg-accent-muted border border-accent/20"></span>
+      <span>Familiar</span>
+    </div>
+    <div class="flex items-center gap-1.5 dev-only">
+      <span class="inline-block w-2.5 h-2.5 rounded-full border border-accent"></span>
+      <span>Learning <span class="text-[10px] opacity-75">(dev mode)</span></span>
+    </div>
+  </div>
+
+  <!-- Two-Column Skill Grid (Desktop: Grid columns, Mobile: Single column stack) -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-6">
+    {skillsData.map(category => {
+      const isSoftOrLanguage = category.category === "Languages & Soft Skills";
+      
+      return (
+        <div class="skill-category-block">
+          <!-- Category Header Label -->
+          <span class="text-[13px] font-semibold tracking-[0.06em] text-text-secondary uppercase mb-3 block">
+            {category.category}
+          </span>
+          
+          <!-- Category Skill Pill Row -->
+          <div class="flex flex-wrap gap-2">
+            {category.items.map(skill => {
+              // Soft skills and languages bypass proficiency, always showing familiar styles
+              const effectiveProficiency = isSoftOrLanguage ? 'familiar' : skill.proficiency;
+              
+              if (effectiveProficiency === 'confident') {
+                return (
+                  <span class="skill-pill px-3 py-1 text-xs font-semibold bg-accent text-white rounded-pill select-none">
+                    {skill.name}
+                  </span>
+                );
+              } else if (effectiveProficiency === 'familiar') {
+                return (
+                  <span class="skill-pill px-3 py-1 text-xs font-semibold bg-accent-muted text-accent rounded-pill select-none border border-accent/10">
+                    {skill.name}
+                  </span>
+                );
+              } else if (effectiveProficiency === 'learning') {
+                return (
+                  <span class="skill-pill dev-only px-3 py-1 text-xs font-semibold border border-accent bg-transparent text-accent rounded-pill select-none">
+                    {skill.name}
+                  </span>
+                );
+              }
+              return null;
+            })}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</section>

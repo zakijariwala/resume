@@ -1,0 +1,18 @@
+---
+import resume from '../data/resume.json';
+import ProjectCard from './ProjectCard.astro';
+---
+
+<section id="projects" class="py-12 border-b border-border transition-all duration-150">
+  <!-- Section Heading -->
+  <h2 class="text-[22px] leading-snug font-medium text-text-primary mb-6">
+    Projects
+  </h2>
+
+  <!-- List container for Project Cards -->
+  <div class="projects-container">
+    {resume.projects.map(project => (
+      <ProjectCard project={project} />
+    ))}
+  </div>
+</section>

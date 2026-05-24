@@ -1,0 +1,59 @@
+---
+import resume from '../data/resume.json';
+
+const { email, linkedin, github, contact_taglines } = resume.meta;
+
+// Clean URLs for display text
+const linkedinDisplay = linkedin.replace('https://', '');
+const githubDisplay = github.replace('https://', '');
+---
+
+<section id="contact" class="pt-12 pb-[80px] lg:pb-12 transition-all duration-150">
+  <!-- Section Heading -->
+  <h2 class="text-[22px] leading-snug font-medium text-text-primary mb-6">
+    Contact
+  </h2>
+
+  <!-- Mode-Adaptive Tagline Spans -->
+  <p class="text-base text-text-secondary leading-relaxed mb-8 max-w-[600px] min-h-[24px]">
+    <span class="recruiter-only inline">{contact_taglines.recruiter}</span>
+    <span class="dev-only inline">{contact_taglines.developer}</span>
+    <span class="curious-only inline">{contact_taglines.curious}</span>
+  </p>
+
+  <!-- Large Mailto Target Link (Ensures >44px tap target height) -->
+  <div class="mb-8">
+    <a 
+      href={`mailto:${email}`} 
+      class="inline-flex items-center min-h-[44px] text-[22px] leading-none font-medium text-accent hover:underline hover:underline-offset-4 focus-visible:outline-accent transition-all duration-150"
+      aria-label={`Send email to ${email}`}
+    >
+      {email}
+    </a>
+  </div>
+
+  <!-- Social Channel Anchors (Structured flex rows with responsive typography) -->
+  <div class="flex flex-col gap-4 text-sm font-medium text-text-secondary">
+    <a 
+      href={linkedin} 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      class="inline-flex items-center gap-2 hover:text-accent hover:underline hover:underline-offset-2 focus-visible:outline-accent transition-all duration-150 py-1"
+      aria-label="Visit LinkedIn Profile"
+    >
+      <i class="ti ti-brand-linkedin text-lg" aria-hidden="true"></i>
+      <span>{linkedinDisplay}</span>
+    </a>
+    
+    <a 
+      href={github} 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      class="inline-flex items-center gap-2 hover:text-accent hover:underline hover:underline-offset-2 focus-visible:outline-accent transition-all duration-150 py-1"
+      aria-label="Visit GitHub Profile"
+    >
+      <i class="ti ti-brand-github text-lg" aria-hidden="true"></i>
+      <span>{githubDisplay}</span>
+    </a>
+  </div>
+</section>

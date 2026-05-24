@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohammad Zaki Jariwala | Portfolio</title>
+    <meta name="description" content="Systems Engineer specialising in Identity & Access Management (IDM) and enterprise infrastructure operations within banking environments. Experienced in leading operations teams and mentoring engineers while managing mission-critical platforms for 30,000+ users.">
+    
+    <meta property="og:title" content="Mohammad Zaki Jariwala | Portfolio">
+    <meta property="og:description" content="Systems Engineer specialising in Identity & Access Management (IDM) and enterprise infrastructure operations within banking environments.">
+    <meta name="theme-color" content="#1A6BFF">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+
+    <style>
+        /* CSS Design System and Color Variables */
+        :root {
+            --font-sans: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            /* Spacing Scale (4px base) */
+            --sp-1: 4px;
+            --sp-2: 8px;
+            --sp-3: 12px;
+            --sp-4: 16px;
+            --sp-6: 24px;
+            --sp-8: 32px;
+            --sp-12: 48px;
+            --sp-16: 64px;
+
+            /* Radii */
+            --radius-default: 8px;
+            --radius-card: 12px;
+            --radius-pill: 24px;
+
+            /* Light Theme Configuration */
+            --background: #F8F7F4;
+            --surface: #FFFFFF;
+            --border: rgba(0, 0, 0, 0.08);
+            --text-primary: #1A1A1A;
+            --text-secondary: #6B6B6B;
+            --accent: #1A6BFF;
+            --accent-muted: #E8F0FF;
+            --badge-completed: #D1FAE5;
+            --badge-completed-text: #065F46;
+            --badge-progress: #FEF3C7;
+            --badge-progress-text: #92400E;
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme Configuration */
+            --background: #111111;
+            --surface: #1C1C1C;
+            --border: rgba(255, 255, 255, 0.08);
+            --text-primary: #F0F0F0;
+            --text-secondary: #888888;
+            --accent: #4D8FFF;
+            --accent-muted: #1A2640;
+            --badge-completed: #064E3B;
+            --badge-completed-text: #A7F3D0;
+            --badge-progress: #78350F;
+            --badge-progress-text: #FDE68A;
+        }
+
+        /* Base Resets */
+        html {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--background);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            font-size: 16px;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+        h1, h2, h3, h4 {
+            font-weight: 500;
+            margin: 0;
+            color: var(--text-primary);
+        }
+        h1 { font-size: 28px; line-height: 1.3; }
+        h2 { font-size: 22px; line-height: 1.4; margin-bottom: var(--sp-4); }
+        h3 { font-size: 17px; line-height: 1.4; }
+        p { margin: 0 0 var(--sp-4) 0; }
+        p:last-child { margin-bottom: 0; }
+        a { color: var(--accent); text-decoration: none; }
+        
+        /* Focus styles for validation compliance */
+        a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /* Initial Page Layout Containers */
+        #app-wrapper {
+            opacity: 0;
+            transition: opacity 300ms ease-in-out;
+            padding-top: 52px; /* Sticky bar compensation */
+            padding-bottom: 72px; /* Bottom nav bar compensation */
+        }
+        .container {
+            width: 100%;
+            padding-left: var(--sp-4);
+            padding-right: var(--sp-4);
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Sticky Top System Control Architecture Bar */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 52px;
+            background-color: var(--surface);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--sp-4);
+        }
+        .top-bar .brand-name {
+            font-weight: 500;
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 130px;
+        }
+        .top-bar-controls {
+            display: flex;
+            align-items: center;
+            gap: var(--sp-2);
+        }
+
+        /* Multi-Segment Audience Selection Controller UI */
+        .audience-switch {
+            display: flex;
+            background-color: var(--background);
+            padding: var(--sp-1);
+            border-radius: var(--radius-pill);
+            border: 1px solid var(--border);
+        }
+        .audience-btn {
+            background: none;
+            border: none;
+            padding: var(--sp-1) var(--sp-3);
+            font-family: var(--font-sans);
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            border-radius: var(--radius-pill);
+            cursor: pointer;
+            min-height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 150ms, color 150ms;
+        }
+
+        /* Active engine conditions mapped over body attribute parameters */
+        body[data-mode="recruiter"] .audience-btn[data-target="recruiter"],
+        body[data-mode="developer"] .audience-btn[data-target="developer"],
+        body[data-mode="curious"] .audience-btn[data-target="curious"] {
+            background-color: var(--surface);
+            color: var(--accent);
+            box-shadow: none;
+        }
+
+        /* Utility System Theme Interface Toggle Action Button */
+        .theme-toggle-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+        .theme-toggle-btn i { font-size: 16px; }
+
+        /* Audience Routing Structural Dynamic Rules engine mapping */
+        .recruiter-only, .dev-only, .curious-only, .recruiter-dev, .recruiter-mgmt {
+            display: none !important;
+        }
+        body[data-mode="recruiter"] .recruiter-only { display: block !important; }
+        body[data-mode="recruiter"] span.recruiter-only { display: inline !important; }
+        body[data-mode="recruiter"] li.recruiter-only { display: list-item !important; }
+
+        body[data-mode="developer"] .dev-only { display: block !important; }
+        body[data-mode="developer"] span.dev-only { display: inline !important; }
+        body[data-mode="developer"] li.dev-only { display: list-item !important; }
+
+        body[data-mode="curious"] .curious-only { display: block !important; }
+        body[data-mode="curious"] span.curious-only { display: inline !important; }
+        body[data-mode="curious"] li.curious-only { display: list-item !important; }
+
+        body[data-mode="recruiter"] .recruiter-dev { display: block !important; }
+        body[data-mode="recruiter"] li.recruiter-dev { display: list-item !important; }
+        body[data-mode="developer"] .recruiter-dev { display: block !important; }
+        body[data-mode="developer"] li.recruiter-dev { display: list-item !important; }
+
+        body[data-mode="recruiter"] .recruiter-mgmt { display: block !important; }
+        body[data-mode="recruiter"] li.recruiter-mgmt { display: list-item !important; }
+
+        /* Generic Presentation Element Styles */
+        .section-block {
+            padding: var(--sp-12) 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .section-block:last-of-type {
+            border-bottom: none;
+        }
+        
+        /* Functional Card Block Element Architecture */
+        .ui-card {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-card);
+            padding: var(--sp-4);
+            margin-bottom: var(--sp-4);
+            width: 100%;
+            transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
+        }
+        .ui-card:last-child { margin-bottom: 0; }
+        
+        .ui-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            border-color: rgba(0, 0, 0, 0.12);
+        }
+        
+        [data-theme="dark"] .ui-card:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        /* Dynamic Functional Interface Action Buttons System */
+        .action-button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--sp-3);
+            margin-top: var(--sp-6);
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--sp-2);
+            min-height: 44px;
+            padding: 0 var(--sp-6);
+            border-radius: var(--radius-default);
+            font-family: var(--font-sans);
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 150ms, opacity 150ms;
+            border: none;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        .btn-primary {
+            background-color: var(--accent);
+            color: #FFFFFF;
+        }
+        .btn-secondary {
+            background-color: var(--accent-muted);
+            color: var(--accent);
+        }
+
+        /* Pills and Badges Systems */
+        .pill-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: var(--sp-1) var(--sp-3);
+            font-family: var(--font-sans);
+            font-size: 13px;
+            font-weight: 500;
+            border-radius: var(--radius-pill);
+            line-height: 1.2;
+        }
+        .pill-badge-completed {
+            background-color: var(--badge-completed);
+            color: var(--badge-completed-text);
+        }
+        .pill-badge-progress {
+            background-color: var(--badge-progress);
+            color: var(--badge-progress-text);
+        }
+
+        /* Section 1: Hero Node */
+        .hero-section h1 {
+            margin-bottom: var(--sp-2);
+        }
+        .hero-subtitle {
+            font-size: 17px;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        /* Section 3: Expandable Experience List Elements */
+        .experience-card-wrapper {
+            cursor: pointer;
+            transition: background-color 150ms;
+        }
+        .experience-card-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: var(--sp-2);
+        }
+        .exp-main-info {
+            flex: 1;
+        }
+        .exp-company-title {
+            font-weight: 600;
+            font-size: 17px;
+            color: var(--text-primary);
+        }
+        .exp-role-title {
+            font-weight: 500;
+            font-size: 15px;
+            color: var(--accent);
+            margin: var(--sp-1) 0;
+        }
+        .exp-timeframe-axis {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: var(--sp-2);
+        }
+        .exp-tagline-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: var(--sp-3);
+            font-style: italic;
+        }
+        .exp-chevron-icon {
+            font-size: 20px;
+            color: var(--text-secondary);
+            transition: transform 150ms ease-in-out;
+            padding-top: var(--sp-1);
+        }
+        .experience-card-wrapper[aria-expanded="true"] .exp-chevron-icon {
+            transform: rotate(180deg);
+        }
+        .experience-details-drawer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 200ms ease-out;
+        }
+        .experience-details-content {
+            padding-top: var(--sp-4);
+            border-top: 1px solid var(--border);
+            margin-top: var(--sp-2);
+        }
+        .experience-details-content ul, .project-card ul {
+            margin: 0;
+            padding-left: var(--sp-4);
+        }
+        .experience-details-content li, .project-card li {
+            margin-bottom: var(--sp-2);
+            font-size: 14.5px;
+        }
+        .experience-details-content li:last-child, .project-card li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Section 4: Projects Matrix Layout */
+        .project-card .proj-meta-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: var(--sp-2);
+            margin-bottom: var(--sp-2);
+        }
+        .project-card h3 {
+            font-weight: 600;
+        }
+        .project-one-liner {
+            font-size: 14.5px;
+            color: var(--text-secondary);
+            margin-bottom: var(--sp-3);
+        }
+        .project-tech-matrix {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--sp-2);
+            margin-bottom: var(--sp-4);
+        }
+        .tech-pill {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            background-color: var(--background);
+            color: var(--text-primary);
+            padding: var(--sp-1) var(--sp-2);
+            border-radius: var(--radius-default);
+            border: 1px solid var(--border);
+        }
+        .project-why-block {
+            margin-top: var(--sp-3);
+            padding: var(--sp-3);
+            background-color: var(--background);
+            border-radius: var(--radius-default);
+            font-size: 14px;
+            border-left: 3px solid var(--accent);
+        }
+        .project-why-title {
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: var(--sp-1);
+        }
+        .project-repo-link-bar {
+            margin-top: var(--sp-4);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: var(--sp-1);
+        }
+        .repo-muted-label {
+            color: var(--text-secondary);
+            font-style: italic;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--sp-1);
+        }
+        .proj-toggle-bullets-btn {
+            background: none;
+            border: none;
+            color: var(--accent);
+            font-family: var(--font-sans);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            padding: var(--sp-1) 0;
+            margin-top: var(--sp-2);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--sp-1);
+        }
+        .project-hidden-bullets {
+            display: none;
+            margin-top: var(--sp-2);
+        }
+        .project-card.bullets-expanded .project-hidden-bullets {
+            display: block;
+        }
+
+        /* Section 5: Dynamic Core Skill Matrix Render System */
+        .skill-group-block {
+            margin-bottom: var(--sp-6);
+        }
+        .skill-group-block:last-child {
+            margin-bottom: 0;
+        }
+        .skill-group-heading {
+            font-size: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: var(--sp-3);
+        }
+        .skills-pill-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--sp-2);
+        }
+        .skill-render-pill {
+            font-size: 14px;
+            padding: var(--sp-1) var(--sp-3);
+            border-radius: var(--radius-pill);
+            font-weight: 400;
+        }
+        .skill-render-pill.lvl-confident {
+            background-color: var(--accent);
+            color: #FFFFFF;
+            font-weight: 500;
+        }
+        .skill-render-pill.lvl-familiar {
+            background-color: var(--accent-muted);
+            color: var(--accent);
+        }
+        .skill-render-pill.lvl-learning {
+            background-color: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        /* Section 6: Certifications Elements Layout */
+        .certifications-list-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: var(--sp-3);
+        }
+        .cert-list-node {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: var(--sp-4);
+            padding-bottom: var(--sp-3);
+            border-bottom: 1px solid var(--border);
+        }
+        .cert-list-node:last-child {
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .cert-core-details h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .cert-sub-meta {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: var(--sp-1);
+        }
+        .cert-media-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--sp-1);
+            margin-top: var(--sp-2);
+            font-size: 13.5px;
+            font-weight: 500;
+        }
+        .cert-status-right {
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        /* Section 7: Unified Final Contact Interface Block */
+        .contact-headline-hook {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: var(--sp-4);
+        }
+        .primary-mailto-anchor {
+            display: inline-block;
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--accent);
+            margin-bottom: var(--sp-6);
+            word-break: break-all;
+            min-height: 44px;
+        }
+        .alternative-link-matrix {
+            display: flex;
+            flex-direction: column;
+            gap: var(--sp-3);
+        }
+        .matrix-channel-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--sp-3);
+            color: var(--text-primary);
+            font-weight: 500;
+            min-height: 44px;
+            font-size: 15px;
+        }
+        .matrix-channel-link i {
+            color: var(--text-secondary);
+            font-size: 20px;
+        }
+
+        /* System Navigation Overlay Configuration */
+        .bottom-nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 64px;
+            background-color: var(--surface);
+            border-top: 1px solid var(--border);
+            z-index: 100;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .nav-item-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 11px;
+            font-weight: 500;
+            text-decoration: none;
+            width: 20%;
+            height: 100%;
+            gap: var(--sp-1);
+        }
+        .nav-item-link i {
+            font-size: 20px;
+        }
+        .nav-item-link.is-active-nav {
+            color: var(--accent);
+        }
+
+        /* Responsive Layout Overrides via min-width media query boundaries */
+        @media (min-width: 768px) {
+            h1 { font-size: 32px; }
+            h2 { font-size: 24px; }
+            .container {
+                max-width: 720px;
+            }
+            .top-bar .brand-name {
+                max-width: none;
+                font-size: 15px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            #app-wrapper {
+                padding-top: 64px; /* Desktop top bar scale compensation */
+                padding-bottom: var(--sp-16);
+            }
+            .container {
+                max-width: 860px;
+            }
+            .top-bar {
+                height: 64px;
+                padding: 0 var(--sp-12);
+            }
+            .bottom-nav-bar {
+                display: none; /* Hide standard mobile grid view bar */
+            }
+            
+            /* Build top level menu alternative framework inside structural header */
+            .top-bar-desktop-navigation {
+                display: flex !important;
+                align-items: center;
+                gap: var(--sp-6);
+                margin-right: var(--sp-6);
+            }
+            .desktop-nav-anchor {
+                color: var(--text-secondary);
+                font-size: 14px;
+                font-weight: 500;
+                transition: color 150ms;
+            }
+            .desktop-nav-anchor:hover, .desktop-nav-anchor.is-active-nav {
+                color: var(--accent);
+            }
+            
+            /* Adjust dual-column grid parameters explicitly on Skills Section */
+            .desktop-skills-split-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                column-gap: var(--sp-8);
+                row-gap: var(--sp-6);
+            }
+            .desktop-skills-split-grid .skill-group-block {
+                margin-bottom: 0;
+            }
+        }
+        
+        /* Non-desktop horizontal navigation visibility prevention logic */
+        .top-bar-desktop-navigation {
+            display: none;
+        }
+
+        /* High-fidelity, clean print layout for professional PDF generation */
+        @media print {
+            /* Hide web-only, interactive controls and layout scaffolding */
+            .top-bar, 
+            .bottom-nav-bar, 
+            .theme-toggle-btn, 
+            .audience-switch, 
+            .proj-toggle-bullets-btn, 
+            .project-repo-link-bar,
+            .action-button-group {
+                display: none !important;
+            }
+            
+            /* Clear scroll gutters and page offsets */
+            #app-wrapper {
+                padding-top: 0 !important;
+                padding-bottom: 0 !important;
+                opacity: 1 !important;
+            }
+            .container {
+                max-width: 100% !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                margin: 0 !important;
+            }
+            
+            /* Force background and text color systems to pure print-friendly values */
+            body, html {
+                background: #FFFFFF !important;
+                color: #000000 !important;
+                font-size: 14px !important;
+                line-height: 1.5 !important;
+            }
+            
+            /* Automatically expand all details so they print fully based on active mode */
+            .experience-details-drawer {
+                max-height: none !important;
+                display: block !important;
+                opacity: 1 !important;
+                overflow: visible !important;
+            }
+            .project-hidden-bullets {
+                display: block !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+            }
+            
+            /* Flatten cards into clean text sections separated by hairline dividers */
+            .ui-card {
+                border: none !important;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+                background-color: transparent !important;
+                box-shadow: none !important;
+                padding: var(--sp-2) 0 !important;
+                margin-bottom: var(--sp-2) !important;
+                page-break-inside: avoid;
+            }
+            .section-block {
+                padding: var(--sp-4) 0 !important;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+                page-break-inside: avoid;
+            }
+            .section-block:last-of-type {
+                border-bottom: none !important;
+            }
+            
+            /* Hide decorative items */
+            .exp-chevron-icon {
+                display: none !important;
+            }
+            
+            /* Stylize badges for black and white ink print */
+            .pill-badge {
+                border: 1px solid #000000 !important;
+                background: transparent !important;
+                color: #000000 !important;
+                padding: 1px var(--sp-2) !important;
+                font-size: 11px !important;
+            }
+            
+            /* Prevent print breaking between headings and content */
+            h1, h2, h3, h4 {
+                page-break-after: avoid;
+            }
+        }
+    </style>
+</head>
+<body data-mode="recruiter">
+
+    <header class="top-bar">
+        <div class="brand-name" id="system-header-title">M. Zaki Jariwala</div>
+        
+        <nav class="top-bar-desktop-navigation" aria-label="Desktop Navigation Links">
+            <a href="#about" class="desktop-nav-anchor is-active-nav">About</a>
+            <a href="#experience" class="desktop-nav-anchor">Experience</a>
+            <a href="#projects" class="desktop-nav-anchor">Projects</a>
+            <a href="#skills" class="desktop-nav-anchor">Skills</a>
+            <a href="#certifications" class="desktop-nav-anchor">Certifications</a>
+        </nav>
+
+        <div class="top-bar-controls">
+            <div class="audience-switch" role="radiogroup" aria-label="Select resume audience focus mode">
+                <button class="audience-btn" data-target="recruiter" role="radio" aria-checked="true" aria-label="Recruiter Perspective Mode">Recruiter</button>
+                <button class="audience-btn" data-target="developer" role="radio" aria-checked="false" aria-label="Developer Technical Mode">Developer</button>
+                <button class="audience-btn" data-target="curious" role="radio" aria-checked="false" aria-label="Deep Technical Narrative Mode">Curious</button>
+            </div>
+
+            <button class="theme-toggle-btn" id="theme-switch-trigger" aria-label="Switch interface light and dark display theme configurations">
+                <i class="ti ti-moon" id="theme-switch-icon"></i>
+            </button>
+        </div>
+    </header>
+
+    <div id="app-wrapper">
+        <main class="container">
+
+            <section class="section-block hero-section" id="hero-node">
+                <h1>Mohammad Zaki Jariwala</h1>
+                <div class="hero-subtitle" aria-live="polite">
+                    <span class="recruiter-only">Systems Engineer &middot; 3 years &middot; TCS / SBI GITC</span>
+                    <span class="dev-only">Infrastructure + AI automation + whatever I'm building this month</span>
+                    <span class="curious-only">Engineer by day, builder of random things by night</span>
+                </div>
+                <div class="action-button-group">
+                    <a href="/resume.pdf" download class="btn btn-primary" id="download-resume-trigger">
+                        <i class="ti ti-download"></i> Download resume
+                    </a>
+                    <a href="mailto:Jariwalazaki@gmail.com" class="btn btn-secondary">
+                        <i class="ti ti-mail"></i> Get in touch
+                    </a>
+                </div>
+            </section>
+
+            <section class="section-block" id="about">
+                <div class="recruiter-only">
+                    <p class="summary-text">Systems Engineer at TCS, deployed at State Bank of India, keeping mission-critical banking infrastructure running at 99.999% uptime for 30,000+ users. Three years of hands-on infrastructure, IDM, and DR execution — with a team of five to lead and a track record of cutting RTO by 50%.</p>
+                </div>
+                <div class="dev-only">
+                    <p class="summary-text">I run infrastructure for a Tier-1 Indian bank by day and build automation pipelines, PWAs, and embedded devices by night. My stack spans Linux/RHEL server fleets, Python ETL, Flutter mobile, Astro JAMstack, and ESP32 firmware — usually on free-tier infrastructure and always with a bias toward shipping over theorising. Currently deep into LLM orchestration and GenAI workflow design.</p>
+                </div>
+                <div class="curious-only">
+                    <p class="summary-text">I'm an engineer based in Navi Mumbai who finds it hard to stop building things. My day job is keeping banking systems alive for tens of thousands of people. Outside that, I've built an offline Islamic supplication app used by a small community of Muslims worldwide, a running app with ghost routes and crowd radar, a pocket e-ink reader from scratch, and a marketing automation system for my family's marine parts business. I also spent a few months coaching engineers on how to talk about their work — which turned out to be more technical than it sounds.</p>
+                </div>
+            </section>
+
+            <section class="section-block" id="experience">
+                <h2>Experience</h2>
+                
+                <div class="ui-card experience-card-wrapper all-modes" role="button" aria-expanded="false" tabindex="0" aria-controls="exp-drawer-tcs" aria-label="Expand Tata Consultancy Services entry details">
+                    <div class="experience-card-summary">
+                        <div class="exp-main-info">
+                            <div class="exp-company-title">Tata Consultancy Services (TCS)</div>
+                            <div class="exp-role-title">Systems Engineer (IDM & DB)</div>
+                            <div class="exp-timeframe-axis">2023 &mdash; Present</div>
+                            <div class="exp-tagline-text">Deployed at State Bank of India (SBI GITC) &bull; Mission-critical IDM & infrastructure for 30,000+ SBI branch users</div>
+                            <div class="pill-badge pill-badge-completed">99.999% uptime &middot; 30,000+ users &middot; 150+ servers</div>
+                        </div>
+                        <i class="ti ti-chevron-down exp-chevron-icon" aria-hidden="true"></i>
+                    </div>
+                    <div class="experience-details-drawer" id="exp-drawer-tcs">
+                        <div class="experience-details-content">
+                            <ul>
+                                <li class="recruiter-dev">Lead an operations team supporting enterprise banking infrastructure and mission-critical IDM/database platforms for 30,000+ internal bank branch users.</li>
+                                <li class="recruiter-dev">Directly mentor a team of 5 junior engineers, fostering technical excellence and adherence to operational standards.</li>
+                                <li class="recruiter-dev">Maintain 99.999% system availability for Tier-1 banking applications.</li>
+                                <li class="recruiter-dev">Administer a multi-environment fleet of 150+ Linux (RHEL) and Windows servers, automating patch management, access governance workflows, and incident response.</li>
+                                <li class="dev-only">Drive infrastructure modernisation initiatives, explicitly shifting focus from cloud migration to on-premise containerisation and Docker-based workflows to streamline deployment cycles within banking compliance constraints.</li>
+                                <li class="recruiter-dev">Architected and executed Disaster Recovery drills and runbooks, successfully reducing Recovery Time Objective (RTO) by 50% for Tier-1 applications.</li>
+                                <li class="recruiter-dev">Collaborate across infrastructure, database, application, and security teams to improve operational reliability, reduce service disruption risks, and ensure strict regulatory compliance.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui-card experience-card-wrapper all-modes" role="button" aria-expanded="false" tabindex="0" aria-controls="exp-drawer-coaching" aria-label="Expand Professional Coaching entry details">
+                    <div class="experience-card-summary">
+                        <div class="exp-main-info">
+                            <div class="exp-company-title">Independent Professional Coaching Practice</div>
+                            <div class="exp-role-title">Technical Soft Skills Coach & Founder</div>
+                            <div class="exp-timeframe-axis">2025 &mdash; 2026</div>
+                            <div class="exp-tagline-text">Interview readiness coaching for 50+ engineering and management candidates</div>
+                            <div class="pill-badge pill-badge-completed">50+ clients &middot; 1:1 format &middot; Concluded Feb 2026</div>
+                        </div>
+                        <i class="ti ti-chevron-down exp-chevron-icon" aria-hidden="true"></i>
+                    </div>
+                    <div class="experience-details-drawer" id="exp-drawer-coaching">
+                        <div class="experience-details-content">
+                            <ul>
+                                <li class="recruiter-dev">Delivered technical interview readiness and executive communication coaching to 50+ engineering professionals and management candidates.</li>
+                                <li class="recruiter-dev">Conducted intensive 1:1 mentorship sessions focused on behavioural frameworks, technical storytelling, and high-impact presentation skills.</li>
+                                <li class="recruiter-dev">Designed and iterated a structured coaching curriculum covering STAR-method framing, stakeholder communication, and senior-level interview strategy.</li>
+                                <li class="recruiter-dev">Sourced and onboarded clients independently, managing end-to-end client relationships across the full engagement lifecycle.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui-card experience-card-wrapper dev-only curious-only" role="button" aria-expanded="false" tabindex="0" aria-controls="exp-drawer-zamaan" aria-label="Expand Zamaan Marine entry details">
+                    <div class="experience-card-summary">
+                        <div class="exp-main-info">
+                            <div class="exp-company-title">Zamaan Marine &mdash; Family Venture</div>
+                            <div class="exp-role-title">Co-Founder (Technology & Marketing Lead) &mdash; Pro Bono</div>
+                            <div class="exp-timeframe-axis">2025 &mdash; Present</div>
+                            <div class="exp-tagline-text">Technology & marketing lead for a family marine equipment venture</div>
+                            <div class="pill-badge pill-badge-completed">200+ B2B prospects per campaign &middot; Zero hosting cost</div>
+                        </div>
+                        <i class="ti ti-chevron-down exp-chevron-icon" aria-hidden="true"></i>
+                    </div>
+                    <div class="experience-details-drawer" id="exp-drawer-zamaan">
+                        <div class="experience-details-content">
+                            <ul>
+                                <li class="all-modes">Lead all technology and digital marketing operations for a family-owned business specialising in second-hand and refurbished industrial automation and marine equipment parts.</li>
+                                <li class="all-modes">Built and maintain the full digital ecosystem: JAMstack storefront (Astro + Cloudflare), WordPress brand site, professional email infrastructure (GoDaddy/cPanel, SPF/DKIM/DMARC), and product analytics via PostHog.</li>
+                                <li class="all-modes">Engineered a Python-based cold email marketing automation agent integrating Brevo, Google Sheets, Claude API, ZeroBounce, and Hunter.io for hyper-targeted B2B lead generation.</li>
+                                <li class="all-modes">Operate pro bono in a founder-equivalent capacity, applying enterprise-grade engineering practices to a zero-budget independent business stack.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-block" id="projects">
+                <h2>Projects</h2>
+
+                <div class="ui-card project-card all-modes" data-project-id="zamaan_marine">
+                    <div class="proj-meta-header">
+                        <h3>Zamaan Marine Digital Ecosystem</h3>
+                        <span class="pill-badge pill-badge-completed">~60% faster listing time</span>
+                    </div>
+                    <div class="project-one-liner">Full digital ecosystem for a family marine parts business — storefront, cold email automation, and analytics at zero hosting cost.</div>
+                    <div class="project-tech-matrix">
+                        <span class="tech-pill">Astro</span><span class="tech-pill">Cloudflare Pages</span><span class="tech-pill">GitHub Actions</span><span class="tech-pill">WordPress</span><span class="tech-pill">cPanel</span><span class="tech-pill">Brevo</span><span class="tech-pill">Claude API</span><span class="tech-pill">Python</span><span class="tech-pill">PostHog</span><span class="tech-pill">eBay Browse API</span>
+                    </div>
+                    
+                    <ul class="project-bullets-root">
+                        <li class="recruiter-dev">Built a comprehensive digital presence for a business selling second-hand industrial automation and marine equipment parts, reducing time-to-market for new listings by ~60% through eBay API automation and daily CI/CD rebuilds.</li>
+                        <li class="dev-only">Developed an Astro-based JAMstack storefront with eBay API integration, hosted on Cloudflare Pages with automated GitHub Actions rebuild pipeline — achieving zero hosting cost at production quality.</li>
+                        <li class="recruiter-dev">Engineered a full-stack cold email marketing automation agent in Python, integrating Brevo, ZeroBounce, and Hunter.io for lead validation and Claude API for personalised outreach copy — targeting 200+ B2B prospects per campaign cycle.</li>
+                        
+                        <span class="project-hidden-bullets">
+                            <li class="recruiter-dev">Implemented professional email infrastructure with SPF, DKIM, and DMARC records, achieving inbox delivery rates above 90% across cold outreach campaigns.</li>
+                            <li class="dev-only">Instrumented product analytics via PostHog, enabling funnel visibility from storefront visit to eBay click-through across all traffic sources.</li>
+                        </span>
+                    </ul>
+
+                    <button class="proj-toggle-bullets-btn" aria-label="Toggle remaining bullets for Zamaan Marine project"><i class="ti ti-plus"></i> Show details</button>
+
+                    <div class="project-why-block curious-only">
+                        <div class="project-why-title">Why I Built It</div>
+                        My family started a business selling refurbished marine and industrial parts, mostly through eBay. The digital side — website, email outreach, analytics — was an afterthought. I stepped in to build it properly, which meant treating a small family operation with the same engineering rigour I'd apply at work. The constraint of zero budget made it more interesting, not less.
+                    </div>
+                    <div class="project-repo-link-bar dev-only">
+                        <span class="repo-muted-label"><i class="ti ti-lock"></i> Private repo</span>
+                    </div>
+                </div>
+
+                <div class="ui-card project-card all-modes" data-project-id="content_automation">
+                    <div class="proj-meta-header">
+                        <h3>Content Automation Pipeline</h3>
+                        <span class="pill-badge pill-badge-completed">85% faster drafts</span>
+                    </div>
+                    <div class="project-one-liner">End-to-end pipeline that turns YouTube transcripts into publication-ready Medium articles across 12 niches, with an 85% reduction in time-to-draft.</div>
+                    <div class="project-tech-matrix">
+                        <span class="tech-pill">Python</span><span class="tech-pill">Gemini 1.5 Pro</span><span class="tech-pill">Tauri</span><span class="tech-pill">Rust</span><span class="tech-pill">React 19</span><span class="tech-pill">Vite</span><span class="tech-pill">Tailwind CSS</span><span class="tech-pill">GitHub Actions</span><span class="tech-pill">yt-dlp</span><span class="tech-pill">GitPython</span>
+                    </div>
+                    
+                    <ul class="project-bullets-root">
+                        <li class="recruiter-dev">Architected an end-to-end automation pipeline to transform high-intent YouTube transcripts into professional, 1500+ word Medium articles across 12 distinct niches.</li>
+                        <li class="recruiter-only">Reduced end-to-end content generation time-to-draft by 85%, enabling rapid scaling across specialised verticals without sacrificing editorial tone.</li>
+                        <li class="dev-only">Developed the "Failure First" Humanisation Framework — a strict LLM governance system eliminating generic AI prose, processing 20,000+ lines of unstructured transcript text per execution run.</li>
+                        
+                        <span class="project-hidden-bullets">
+                            <li class="dev-only">Engineered a modular orchestration layer (pipeline.py) managing state tracking via JSON, heuristic validation, and automated GitHub synchronisation via GitPython.</li>
+                            <li class="dev-only">Built a cross-platform desktop GUI using Tauri (Rust bridge) and React 19, enabling local filesystem access and Python execution within a high-performance dashboard.</li>
+                            <li class="dev-only">Integrated Telegram Bot and CLI interfaces for remote/interactive generation, optimising workflows for specialised content verticals.</li>
+                        </span>
+                    </ul>
+
+                    <button class="proj-toggle-bullets-btn" aria-label="Toggle remaining bullets for Content Automation Pipeline project"><i class="ti ti-plus"></i> Show details</button>
+
+                    <div class="project-why-block curious-only">
+                        <div class="project-why-title">Why I Built It</div>
+                        I was writing AWS certification articles for Medium and realised the research-to-draft process was almost entirely mechanical. I built a pipeline to handle the mechanical part — scraping transcripts, structuring content, enforcing quality rules — so the human part (judgment, voice, editing) could actually matter. The "Failure First" framework came from noticing that most AI-generated content fails the same way: it starts safe and stays safe. I built rules specifically to break that pattern.
+                    </div>
+                    <div class="project-repo-link-bar dev-only">
+                        <span class="repo-muted-label"><i class="ti ti-lock"></i> Private repo</span>
+                    </div>
+                </div>
+
+                <div class="ui-card project-card all-modes" data-project-id="raaz_o_neyaz">
+                    <div class="proj-meta-header">
+                        <h3>Raaz-o-Neyaz &mdash; Islamic Supplications PWA</h3>
+                        <span class="pill-badge pill-badge-completed">Sub-10ms queries</span>
+                    </div>
+                    <div class="project-one-liner">Offline-first PWA delivering 80MB of multilingual Islamic supplications — extracted, restructured, and rebuilt from scratch from an Android APK.</div>
+                    <div class="project-tech-matrix">
+                        <span class="tech-pill">Python</span><span class="tech-pill">JavaScript</span><span class="tech-pill">PWA</span><span class="tech-pill">Service Workers</span><span class="tech-pill">SQLite</span>
+                    </div>
+                    
+                    <ul class="project-bullets-root">
+                        <li class="dev-only">Engineered a Python reverse-engineering pipeline to extract and restructure a 22,000+ row SQLite database from an Android APK, converting legacy relational tables into optimised JSON, CSV, and PDF formats.</li>
+                        <li class="recruiter-dev">Achieved sub-10ms local query times by restructuring legacy tables into indexed data frameworks — a 4× improvement over the original APK's load performance.</li>
+                        <li class="recruiter-dev">Built an offline-first Progressive Web App using Service Workers and lazy caching to deliver 80MB of multilingual Islamic content (Arabic, Urdu, English) with zero server overhead.</li>
+                        
+                        <span class="project-hidden-bullets">
+                            <li class="recruiter-only">Recruited 40+ beta testers via Reddit (r/shias), gathering structured feedback across iOS Safari, Android Chrome, and desktop environments to drive iterative improvements.</li>
+                            <li class="dev-only">Maintained a zero-cost infrastructure footprint using GitHub Pages for hosting, with no backend dependency.</li>
+                        </span>
+                    </ul>
+
+                    <button class="proj-toggle-bullets-btn" aria-label="Toggle remaining bullets for Raaz-o-Neyaz project"><i class="ti ti-plus"></i> Show details</button>
+
+                    <div class="project-why-block curious-only">
+                        <div class="project-why-title">Why I Built It</div>
+                        The existing apps for Islamic supplications were clunky, ad-heavy, or required a constant internet connection. For something as personal as duas and ziyarat — prayers you turn to in quiet moments — that friction felt wrong. I wanted something that worked offline, in your language, on any device, with no ads and no backend. I also wanted to understand the data well enough to build proper search and filtering, which meant reverse-engineering the source database myself.
+                    </div>
+                    <div class="project-repo-link-bar dev-only">
+                        <a href="https://github.com/zakijariwala/raaz-o-neyaz" target="_blank" class="matrix-channel-link" style="font-size:14px; min-height:auto;"><i class="ti ti-brand-github" style="font-size:16px;"></i> View Repository</a>
+                    </div>
+                </div>
+
+                <div class="ui-card project-card all-modes" data-project-id="run_to">
+                    <div class="proj-meta-header">
+                        <h3>run.to &mdash; Activity Platform</h3>
+                        <span class="pill-badge pill-badge-completed">10 test users</span>
+                    </div>
+                    <div class="project-one-liner">A full-featured Flutter running app with GPS tracking, ghost routes, and crowd radar — built across 6 segments using Clean Architecture.</div>
+                    <div class="project-tech-matrix">
+                        <span class="tech-pill">Flutter</span><span class="tech-pill">Dart</span><span class="tech-pill">Supabase</span><span class="tech-pill">PostGIS</span><span class="tech-pill">Riverpod</span><span class="tech-pill">Google Maps API</span><span class="tech-pill">SQLite</span>
+                    </div>
+                    
+                    <ul class="project-bullets-root">
+                        <li class="recruiter-dev">Developed a Flutter mobile application for distance-based running, featuring GPS tracking, ghost route generation, and crowd radar across 6 complete feature segments.</li>
+                        <li class="dev-only">Implemented Clean Architecture principles with Riverpod full state machine implementation, producing ~8,000 lines of structured, testable Dart code.</li>
+                        <li class="dev-only">Integrated Supabase and PostGIS for geospatial backend management, supporting sub-100ms proximity queries for nearby runner detection.</li>
+                        
+                        <span class="project-hidden-bullets">
+                            <li class="dev-only">Built SQLite offline fallback, ensuring full GPS tracking functionality with zero data loss during network interruptions.</li>
+                            <li class="recruiter-dev">Validated core user flows with 10 internal test users across Android devices, confirming GPS accuracy within 5 metres across all tested routes.</li>
+                        </span>
+                    </ul>
+
+                    <button class="proj-toggle-bullets-btn" aria-label="Toggle remaining bullets for run.to project"><i class="ti ti-plus"></i> Show details</button>
+
+                    <div class="project-why-block curious-only">
+                        <div class="project-why-title">Why I Built It</div>
+                        I wanted to understand what it actually takes to build a consumer mobile product end to end — not a tutorial project, but something with real architecture decisions, a real backend, and real UX tradeoffs. Running was the use case because I run, and the features I wanted (ghost routes, nearby runners) didn't exist in a form I liked. Clean Architecture and Riverpod were deliberate choices to stress-test my ability to structure a non-trivial codebase.
+                    </div>
+                    <div class="project-repo-link-bar dev-only">
+                        <span class="repo-muted-label"><i class="ti ti-lock"></i> Private repo</span>
+                    </div>
+                </div>
+
+                <div class="ui-card project-card all-modes" data-project-id="esp_pocket">
+                    <div class="proj-meta-header">
+                        <h3>ESP-Pocket Reader</h3>
+                        <span class="pill-badge pill-badge-completed">Functional prototype</span>
+                    </div>
+                    <div class="project-one-liner">A pocket e-ink reading device built on ESP32-S3 — custom firmware, SQLite content storage, and a Python EPUB ingestion pipeline.</div>
+                    <div class="project-tech-matrix">
+                        <span class="tech-pill">Embedded C++</span><span class="tech-pill">ESP32-S3</span><span class="tech-pill">ESP-IDF</span><span class="tech-pill">PlatformIO</span><span class="tech-pill">Python</span><span class="tech-pill">SQLite</span>
+                    </div>
+                    
+                    <ul class="project-bullets-root">
+                        <li class="dev-only">Architected a custom pocket-sized e-ink reading device using an ESP32-S3 microcontroller and a 3.7-inch E-Paper display, achieving a functional firmware prototype with stable display rendering.</li>
+                        <li class="dev-only">Developed embedded C++ firmware (ESP-IDF/PlatformIO) integrating SD card storage and SQLite for robust content management — storing and paginating 50+ EPUB-converted documents in testing.</li>
+                        <li class="dev-only">Engineered a Python EPUB-to-SQLite conversion pipeline, reducing per-book ingestion time to under 30 seconds for titles up to 500 pages.</li>
+                        
+                        <span class="project-hidden-bullets">
+                            <li class="dev-only">Planned advanced features including FreeType font rendering and deep-sleep power management targeting &lt;10mA average draw.</li>
+                        </span>
+                    </ul>
+
+                    <button class="proj-toggle-bullets-btn" aria-label="Toggle remaining bullets for ESP-Pocket Reader project"><i class="ti ti-plus"></i> Show details</button>
+
+                    <div class="project-why-block curious-only">
+                        <div class="project-why-title">Why I Built It</div>
+                        Reading on a phone destroys your eyes and your battery life. E-readers exist but they're expensive, locked down, and designed around ecosystems I don't want to be in. I wanted a device that did exactly one thing — display text clearly — and cost almost nothing to run. Building the firmware myself meant I could understand every layer of the stack, from EPUB parsing down to the display driver.
+                    </div>
+                    <div class="project-repo-link-bar dev-only">
+                        <span class="repo-muted-label"><i class="ti ti-lock"></i> Private repo</span>
+                    </div>
+                </div>
+
+                <div class="ui-card project-card all-modes" data-project-id="remote_dev_server">
+                    <div class="proj-meta-header">
+                        <h3>Personal Remote Development Server</h3>
+                        <span class="pill-badge pill-badge-completed">99%+ uptime</span>
+                    </div>
+                    <div class="project-one-liner">A persistent cloud Linux dev environment on Oracle Free Tier — full-stack workflows from any device, zero cost, 99%+ uptime over 18 months.</div>
+                    <div class="project-tech-matrix">
+                        <span class="tech-pill">Oracle Cloud Free Tier</span><span class="tech-pill">Zellij</span><span class="tech-pill">Termius</span><span class="tech-pill">Linux</span><span class="tech-pill">Ubuntu</span>
+                    </div>
+                    
+                    <ul class="project-bullets-root">
+                        <li class="dev-only">Designed and configured a fully persistent remote Linux development environment on Oracle Cloud Free Tier — achieving production-equivalent compute at zero recurring cost (equivalent to ~$50/month on paid tiers).</li>
+                        <li class="dev-only">Optimised for smartphone and laptop accessibility via Zellij terminal multiplexing and Termius SSH, enabling full-stack development workflows from any device with a 4G connection.</li>
+                        <li class="recruiter-dev">Maintained 99%+ uptime over 18+ months of continuous use, with automated session persistence eliminating context loss between work sessions.</li>
+                        
+                        <span class="project-hidden-bullets">
+                            <li class="dev-only">Reduced local machine dependency to zero for all personal project development, freeing primary workstation for enterprise tooling only.</li>
+                        </span>
+                    </ul>
+
+                    <button class="proj-toggle-bullets-btn" aria-label="Toggle remaining bullets for Remote Dev Server project"><i class="ti ti-plus"></i> Show details</button>
+
+                    <div class="project-why-block curious-only">
+                        <div class="project-why-title">Why I Built It</div>
+                        My personal projects involve a lot of long-running processes — builds, pipelines, SSH tunnels — that don't play well with a laptop that goes to sleep. I also wanted to be able to develop from my phone when I'm away from a desk. Oracle Cloud's free tier is genuinely powerful if you configure it right, and Zellij with persistent sessions solves the context-loss problem that makes remote development frustrating. This setup has become the backbone of every personal project I've shipped.
+                    </div>
+                    <div class="project-repo-link-bar dev-only">
+                        <span class="repo-muted-label"><i class="ti ti-lock"></i> Private repo</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-block" id="skills">
+                <h2>Skills</h2>
+                <div class="desktop-skills-split-grid">
+                    
+                    <div class="skill-group-block">
+                        <div class="skill-group-heading">Infrastructure & Operations</div>
+                        <div class="skills-pill-cloud">
+                            <span class="skill-render-pill lvl-confident">Linux (RHEL / Ubuntu)</span>
+                            <span class="skill-render-pill lvl-confident">Identity & Access Management (IDM)</span>
+                            <span class="skill-render-pill lvl-confident">Disaster Recovery & Runbook Automation</span>
+                            <span class="skill-render-pill lvl-confident">Production Incident Management</span>
+                            <span class="skill-render-pill lvl-confident">High Availability Systems (99.999% SLA)</span>
+                            <span class="skill-render-pill lvl-confident">Windows Server</span>
+                            <span class="skill-render-pill lvl-confident">VMware / Hypervisors</span>
+                            <span class="skill-render-pill lvl-learning dev-only">WSL2</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-group-block">
+                        <div class="skill-group-heading">Cloud & Platform Engineering</div>
+                        <div class="skills-pill-cloud">
+                            <span class="skill-render-pill lvl-confident">Docker & Containerisation (On-premise)</span>
+                            <span class="skill-render-pill lvl-confident">Cloudflare &mdash; Hosting & Edge</span>
+                            <span class="skill-render-pill lvl-confident">GitHub Actions / CI/CD Pipelines</span>
+                            <span class="skill-render-pill lvl-familiar">AWS (Solutions Architect Associate)</span>
+                            <span class="skill-render-pill lvl-familiar">GCP &mdash; Monitoring & Observability</span>
+                            <span class="skill-render-pill lvl-familiar">Oracle Cloud (Dev Environment)</span>
+                            <span class="skill-render-pill lvl-familiar">Site Reliability Engineering (SRE)</span>
+                            <span class="skill-render-pill lvl-familiar">Platform Modernisation / IaC</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-group-block">
+                        <div class="skill-group-heading">AI Engineering & Automation</div>
+                        <div class="skills-pill-cloud">
+                            <span class="skill-render-pill lvl-confident">Anthropic Claude API Integration</span>
+                            <span class="skill-render-pill lvl-confident">Prompt Engineering</span>
+                            <span class="skill-render-pill lvl-confident">GenAI Workflow Design & Orchestration</span>
+                            <span class="skill-render-pill lvl-confident">Email Marketing Automation</span>
+                            <span class="skill-render-pill lvl-familiar">Agent Deployment & Orchestration</span>
+                            <span class="skill-render-pill lvl-familiar">LLM Governance & Output Frameworks</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-group-block">
+                        <div class="skill-group-heading">Security & Networking</div>
+                        <div class="skills-pill-cloud">
+                            <span class="skill-render-pill lvl-confident">TCP/IP, DNS, VPN</span>
+                            <span class="skill-render-pill lvl-confident">Firewall & ACL Management</span>
+                            <span class="skill-render-pill lvl-confident">Access Governance</span>
+                            <span class="skill-render-pill lvl-confident">Incident Response</span>
+                            <span class="skill-render-pill lvl-familiar">Security Operations Support (SecOps)</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-group-block">
+                        <div class="skill-group-heading">Development & Workflows</div>
+                        <div class="skills-pill-cloud">
+                            <span class="skill-render-pill lvl-confident">Python (ETL / Data Pipelines)</span>
+                            <span class="skill-render-pill lvl-confident">HTML / CSS</span>
+                            <span class="skill-render-pill lvl-confident">Astro (JAMstack)</span>
+                            <span class="skill-render-pill lvl-confident">SQLite (Embedded & Pipeline)</span>
+                            <span class="skill-render-pill lvl-familiar">JavaScript / TypeScript</span>
+                            <span class="skill-render-pill lvl-familiar">Dart</span>
+                            <span class="skill-render-pill lvl-familiar">C++ (Embedded Systems)</span>
+                            <span class="skill-render-pill lvl-familiar">Flutter (Mobile)</span>
+                            <span class="skill-render-pill lvl-familiar">Supabase / PostGIS</span>
+                            <span class="skill-render-pill lvl-familiar">PostHog (Analytics)</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-group-block dev-only">
+                        <div class="skill-group-heading">Hardware & Embedded Systems</div>
+                        <div class="skills-pill-cloud">
+                            <span class="skill-render-pill lvl-familiar">ESP32-S3 Microcontrollers</span>
+                            <span class="skill-render-pill lvl-familiar">Embedded C++ / ESP-IDF / PlatformIO</span>
+                            <span class="skill-render-pill lvl-familiar">E-Paper Display Integration</span>
+                            <span class="skill-render-pill lvl-learning">Hardware-Software Integration & Low-Power</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-group-block all-modes">
+                        <div class="skill-group-heading">Languages</div>
+                        <div class="skills-pill-cloud">
+                            <span class="skill-render-pill lvl-confident">English &mdash; C2 / Full Professional</span>
+                            <span class="skill-render-pill lvl-familiar">French &mdash; A2 / Elementary</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-group-block all-modes">
+                        <div class="skill-group-heading">Soft Skills</div>
+                        <div class="skills-pill-cloud">
+                            <span class="skill-render-pill lvl-confident">Executive Communication & Technical Storytelling</span>
+                            <span class="skill-render-pill lvl-confident">Behavioural Frameworks Mentorship</span>
+                            <span class="skill-render-pill lvl-confident">Team Leadership & Junior Engineer Development</span>
+                            <span class="skill-render-pill lvl-familiar">Project & Product Management</span>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="section-block" id="certifications">
+                <h2>Certifications</h2>
+                <div class="certifications-list-wrapper">
+                    
+                    <div class="cert-list-node all-modes">
+                        <div class="cert-core-details">
+                            <h4>AWS Certified Solutions Architect &ndash; Associate (SAA-C03)</h4>
+                            <div class="cert-sub-meta">Issuer: Amazon Web Services &bull; 2024</div>
+                            <a href="https://medium.com" target="_blank" class="cert-media-link dev-only curious-only">
+                                Published 3-part Medium series <i class="ti ti-arrow-up-right"></i>
+                            </a>
+                        </div>
+                        <div class="cert-status-right">
+                            <span class="pill-badge pill-badge-completed">Completed</span>
+                        </div>
+                    </div>
+
+                    <div class="cert-list-node all-modes">
+                        <div class="cert-core-details">
+                            <h4>Google GenAI Leader</h4>
+                            <div class="cert-sub-meta">Issuer: Google Cloud &bull; 2025</div>
+                        </div>
+                        <div class="cert-status-right">
+                            <span class="pill-badge pill-badge-completed">Completed</span>
+                        </div>
+                    </div>
+
+                    <div class="cert-list-node dev-only curious-only">
+                        <div class="cert-core-details">
+                            <h4>Professional Cloud Architect</h4>
+                            <div class="cert-sub-meta">Issuer: Google Cloud &bull; Expected 2026</div>
+                        </div>
+                        <div class="cert-status-right">
+                            <span class="pill-badge pill-badge-progress">In Progress</span>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="section-block" id="contact">
+                <h2>Contact</h2>
+                <div class="contact-headline-hook" aria-live="polite">
+                    <span class="recruiter-only">Open to roles in infrastructure, platform engineering, and SRE. Based in Mumbai, open to relocation.</span>
+                    <span class="dev-only">Always interested in interesting problems. Best reached over email.</span>
+                    <span class="curious-only">Say hello &mdash; I reply.</span>
+                </div>
+                
+                <a href="mailto:Jariwalazaki@gmail.com" class="primary-mailto-anchor">Jariwalazaki@gmail.com</a>
+                
+                <div class="alternative-link-matrix">
+                    <a href="https://linkedin.com/in/zakijariwala" target="_blank" class="matrix-channel-link">
+                        <i class="ti ti-brand-linkedin"></i> linkedin.com/in/zakijariwala
+                    </a>
+                    <a href="https://github.com/zakijariwala" target="_blank" class="matrix-channel-link">
+                        <i class="ti ti-brand-github"></i> github.com/zakijariwala
+                    </a>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <nav class="bottom-nav-bar" aria-label="Mobile Navigation Bar">
+        <a href="#about" class="nav-item-link is-active-nav">
+            <i class="ti ti-user"></i>
+            <span>About</span>
+        </a>
+        <a href="#experience" class="nav-item-link">
+            <i class="ti ti-briefcase"></i>
+            <span>Experience</span>
+        </a>
+        <a href="#projects" class="nav-item-link">
+            <i class="ti ti-code"></i>
+            <span>Projects</span>
+        </a>
+        <a href="#skills" class="nav-item-link">
+            <i class="ti ti-settings"></i>
+            <span>Skills</span>
+        </a>
+        <a href="#contact" class="nav-item-link">
+            <i class="ti ti-send"></i>
+            <span>Contact</span>
+        </a>
+    </nav>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- Core System State Initialization Node ---
+            const bodyNode = document.body;
+            const themeSwitchIcon = document.getElementById("theme-switch-icon");
+            const appWrapper = document.getElementById("app-wrapper");
+
+            // Initialize Audience Routing Matrix Cache States
+            let activePerspective = localStorage.getItem("portfolio_mode") || "recruiter";
+            bodyNode.setAttribute("data-mode", activePerspective);
+            updateAudienceControlUI(activePerspective);
+
+            // Initialize User Interface Display Color Theme Profiles
+            let activeColorTheme = localStorage.getItem("portfolio_theme") || "light";
+            document.documentElement.setAttribute("data-theme", activeColorTheme);
+            updateThemeToggleButton(activeColorTheme);
+
+            // Fire page entry transition layer animation sequence rules
+            appWrapper.style.opacity = "1";
+
+            // --- Audience Mode Mutation Registration Actions Pipeline ---
+            document.querySelectorAll(".audience-btn").forEach(button => {
+                button.addEventListener("click", function() {
+                    const nextMode = this.getAttribute("data-target");
+                    activePerspective = nextMode;
+                    
+                    bodyNode.setAttribute("data-mode", nextMode);
+                    localStorage.setItem("portfolio_mode", nextMode);
+                    
+                    updateAudienceControlUI(nextMode);
+                    recalculateActiveAccordionDrawers();
+                });
+            });
+
+            function updateAudienceControlUI(targetMode) {
+                document.querySelectorAll(".audience-btn").forEach(btn => {
+                    const isSelected = btn.getAttribute("data-target") === targetMode;
+                    btn.setAttribute("aria-checked", isSelected ? "true" : "false");
+                });
+            }
+
+            // --- Interface Theme Switching Execution Core Pipeline ---
+            document.getElementById("theme-switch-trigger").addEventListener("click", function() {
+                let currentTheme = document.documentElement.getAttribute("data-theme");
+                let targetTheme = (currentTheme === "dark") ? "light" : "dark";
+                
+                document.documentElement.setAttribute("data-theme", targetTheme);
+                localStorage.setItem("portfolio_theme", targetTheme);
+                updateThemeToggleButton(targetTheme);
+            });
+
+            function updateThemeToggleButton(theme) {
+                if (theme === "dark") {
+                    themeSwitchIcon.className = "ti ti-sun";
+                } else {
+                    themeSwitchIcon.className = "ti ti-moon";
+                }
+            }
+
+            // --- Accordion Drawer Structural Interaction Core Logic ---
+            document.querySelectorAll(".experience-card-wrapper").forEach(card => {
+                // Expand execution via keyboard structural activation patterns 
+                card.addEventListener("keydown", function(e) {
+                    if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        toggleExperienceCardDrawer(this);
+                    }
+                });
+
+                card.addEventListener("click", function(e) {
+                    // Prevent closing cards if a text anchor link inside gets fired
+                    if (e.target.tagName.toLowerCase() === 'a') return;
+                    toggleExperienceCardDrawer(this);
+                });
+            });
+
+            function toggleExperienceCardDrawer(cardElement) {
+                const isExpandedState = cardElement.getAttribute("aria-expanded") === "true";
+                const detailsDrawer = cardElement.querySelector(".experience-details-drawer");
+
+                if (isExpandedState) {
+                    cardElement.setAttribute("aria-expanded", "false");
+                    detailsDrawer.style.maxHeight = null;
+                } else {
+                    cardElement.setAttribute("aria-expanded", "true");
+                    detailsDrawer.style.maxHeight = detailsDrawer.scrollHeight + "px";
+                }
+            }
+
+            // Recalculate expanded heights dynamically upon perspective shifting rules execution
+            function recalculateActiveAccordionDrawers() {
+                document.querySelectorAll('.experience-card-wrapper[aria-expanded="true"]').forEach(card => {
+                    const drawer = card.querySelector(".experience-details-drawer");
+                    drawer.style.maxHeight = drawer.scrollHeight + "px";
+                });
+            }
+
+            // --- Multi-Bullet Project Sub-Element Display Handler Logics ---
+            document.querySelectorAll(".proj-toggle-bullets-btn").forEach(button => {
+                button.addEventListener("click", function() {
+                    const projectContainer = this.closest(".project-card");
+                    const internalHiddenSpan = projectContainer.querySelector(".project-hidden-bullets");
+                    const containsExpandedClass = projectContainer.classList.contains("bullets-expanded");
+
+                    if (containsExpandedClass) {
+                        projectContainer.classList.remove("bullets-expanded");
+                        this.innerHTML = '<i class="ti ti-plus"></i> Show details';
+                    } else {
+                        projectContainer.classList.add("bullets-expanded");
+                        this.innerHTML = '<i class="ti ti-minus"></i> Hide details';
+                    }
+                });
+            });
+
+            // --- Interface Viewport Active Context Interception Component Engine ---
+            const targetTrackingSections = document.querySelectorAll("section[id]");
+            const mobileLinks = document.querySelectorAll(".nav-item-link");
+            const desktopAnchors = document.querySelectorAll(".desktop-nav-anchor");
+
+            window.addEventListener("scroll", evaluateViewportIntersectionsPipeline);
+
+            function evaluateViewportIntersectionsPipeline() {
+                let currentActiveSectionId = "";
+                const scrollPositionAxis = window.scrollY + 120; // Structural offset compensation parameter
+
+                targetTrackingSections.forEach(section => {
+                    const elementTopOffset = section.offsetTop;
+                    const elementTotalHeight = section.offsetHeight;
+                    if (scrollPositionAxis >= elementTopOffset && scrollPositionAxis < (elementTopOffset + elementTotalHeight)) {
+                        currentActiveSectionId = section.getAttribute("id");
+                    }
+                });
+
+                if (!currentActiveSectionId) return;
+
+                // Update UI for mobile links
+                mobileLinks.forEach(link => {
+                    link.classList.remove("is-active-nav");
+                    if (link.getAttribute("href") === "#" + currentActiveSectionId) {
+                        link.classList.add("is-active-nav");
+                    }
+                });
+
+                // Update UI for desktop links
+                desktopAnchors.forEach(anchor => {
+                    anchor.classList.remove("is-active-nav");
+                    if (anchor.getAttribute("href") === "#" + currentActiveSectionId) {
+                        anchor.classList.add("is-active-nav");
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
