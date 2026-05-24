@@ -10,10 +10,10 @@ Last Updated: May 2026
 **GitHub:** https://github.com/zakijariwala
 
 ## PROFESSIONAL SUMMARY VERSIONS
-**Summary - Platform/SRE Focus (Current Base):**
+**Summary - Platform/SRE Focus:**
 Systems Engineer specializing in Identity & Access Management (IDM) and enterprise infrastructure operations within banking environments. Experienced in leading operations teams and mentoring engineers while managing mission-critical platforms for 30,000+ users. Expert in infrastructure modernization, on-premise containerization, and high-availability systems (99.999%), currently expanding into Platform Engineering, SRE, and multi-cloud architecture.
 
-**Summary - Management/MBA Target (Draft based on GMAT prep):**
+**Summary - Management/MBA Target:**
 Systems Engineer and technical coach with a strong foundation in managing mission-critical enterprise banking infrastructure for 30,000+ users. Proven leadership in directing operations teams, mentoring junior engineers, and executing Disaster Recovery drills. Combining deep technical expertise in on-premise containerization with strong executive communication skills, actively preparing for advanced management studies and technical product leadership roles.
 
 ## ALL SKILLS
@@ -96,19 +96,16 @@ Systems Engineer and technical coach with a strong foundation in managing missio
 
 ## EDUCATION
 **Bachelor of Technology (B.Tech) — Electronics & Communication Engineering**
-Dharmsinh Desai University | 2019 — 2023
-
-**Advanced Studies & Exam Preparation:**
-- **Career Transition Research:** Structured evaluation of product/project management roles (PRINCE2, CSM) in New Zealand, including AEWV visa process and employer targeting strategy.
+Dharmsinh Desai University 
 
 ## CERTIFICATIONS & PROFESSIONAL EVENTS
-- **AWS Certified Solutions Architect – Associate (SAA-C03)** - Completed (Passed Feb 2026). Authored a 3-part Medium article series on the certification aimed at non-technical candidates.
+- **AWS Certified Solutions Architect – Associate (SAA-C03)** - Completed. Authored a 3-part Medium article series on the certification aimed at non-technical candidates.
 - **Google GenAI Leader** (Google Cloud) - Completed
 - **Professional Cloud Architect** (Google Cloud) - In Progress
-- **Professional Event:** Discover Odoo 17 Accounting Seminar (May 2024)
+
 
 ## PROJECTS
-### Medium Article Automation Pipeline (Full-Stack AI Orchestration)
+### Content Automation Pipeline (Full-Stack AI Orchestration)
 - **Tech Stack:** Python 3.8+, Gemini 1.5 Pro, Tauri (Rust), React 19 (Vite), Tailwind CSS, GitHub Actions, `yt-dlp`, GitPython, Medium REST API.
 - **All Available Bullets:**
   - Architected an end-to-end automation pipeline to transform high-intent YouTube transcripts into professional, 1500+ word Medium articles across 12 distinct niches.
