@@ -38,7 +38,7 @@ const isTCS = entry.id === 'tcs';
       <div class="flex flex-wrap items-center gap-x-2 gap-y-1.5 mt-2">
         <span class="text-sm font-semibold text-accent leading-snug">{entry.title}</span>
         {entry.featured_metric && (
-          <span class="text-[12px] font-mono leading-none bg-accent-muted text-accent px-2 py-0.5 rounded-sm whitespace-nowrap">
+          <span class="text-[12px] font-mono leading-tight bg-accent-muted text-accent px-2 py-1 rounded-sm sm:whitespace-nowrap text-left break-words max-w-full">
             {entry.featured_metric}
           </span>
         )}

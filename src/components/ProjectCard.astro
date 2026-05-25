@@ -100,7 +100,7 @@ const isFullUrlVisible = project.github && project.github.startsWith('https://gi
   </div>
 
   <!-- Repository Link Row (Visible in Developer Mode only) -->
-  <div class="dev-only border-t border-border mt-4 pt-3 flex items-center text-sm">
+  <div class="dev-only border-t border-border mt-4 pt-3 flex items-center text-sm min-w-0">
     {isPrivate ? (
       <div class="flex items-center gap-1.5 text-text-secondary italic">
         <i class="ti ti-lock text-base"></i>
@@ -111,10 +111,10 @@ const isFullUrlVisible = project.github && project.github.startsWith('https://gi
         href={project.github}
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex items-center gap-1.5 text-accent font-medium hover:underline focus-visible:outline-accent"
+        class="inline-flex items-center gap-1.5 text-accent font-medium hover:underline focus-visible:outline-accent min-w-0 w-full"
       >
-        <i class="ti ti-brand-github text-base"></i>
-        <span>{isFullUrlVisible ? project.github : 'View Repository'}</span>
+        <i class="ti ti-brand-github text-base shrink-0"></i>
+        <span class="truncate">{isFullUrlVisible ? project.github : 'View Repository'}</span>
       </a>
     )}
   </div>
