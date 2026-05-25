@@ -4,6 +4,6 @@ import tailwind from '@astrojs/tailwind';
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
-  base: '/resume', // CHANGE THIS to match your exact GitHub repo name
+  base: '/', // Configured for custom domain zakijariwala.space
   integrations: [tailwind()]
 });
