@@ -43,7 +43,7 @@ const contactInfo = `Email: ${resume.meta.email}\nLinkedIn: ${resume.meta.linked
     <!-- Scrollable terminal console body -->
     <div class="flex-1 p-3 overflow-y-auto flex flex-col gap-2 cursor-text" id="terminal-body">
       <div class="terminal-history flex flex-col gap-2" id="terminal-history">
-        <div class="text-[#8B949E] mb-1 select-none">Mohammad Zaki Jariwala Portfolio Terminal. Type 'help' for options.</div>
+        <div class="text-[#8B949E] mb-1 select-none">J. Zaki Portfolio Terminal. Type 'help' for options.</div>
       </div>
       
       <!-- Input line row -->
@@ -114,7 +114,7 @@ const contactInfo = `Email: ${resume.meta.email}\nLinkedIn: ${resume.meta.linked
         } else if (cmdClean === 'help') {
           printLine('Available commands:\n  help                  - list available options\n  whoami                - bio summary\n  projects              - view project metrics\n  projects --filter=ai  - filter to AI pipelines\n  skills                - confident engineering skills\n  contact               - mail/linkedin links\n  clear                 - clear console history');
         } else if (cmdClean === 'whoami') {
-          printLine('Mohammad Zaki Jariwala — Systems Engineer, Mumbai');
+          printLine('J. Zaki — Systems Engineer, Mumbai');
         } else if (cmdClean === 'projects') {
           projectsList.forEach(p => printLine(p));
         } else if (cmdClean === 'projects --filter=ai') {
