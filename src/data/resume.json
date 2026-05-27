@@ -1,24 +1,14 @@
 {
   "meta": {
-    "name": "J. Zaki",
-    "preferred_name": "J. Zaki",
+    "preferred_name": "Mohammad Zaki Jariwala",
+    "legal_name": "Jariwala Mohammadzaki Mohammadabbas",
     "location": "Seawoods, Navi Mumbai, Maharashtra, India (Open to Global Relocation)",
     "email": "Jariwalazaki@gmail.com",
-    "phone": "+91 9601406034",
-    "whatsapp": "https://wa.me/919601406034",
     "linkedin": "https://linkedin.com/in/zakijariwala",
     "github": "https://github.com/zakijariwala",
-    "pdf_path": "/ZAKI.J_Resume.pdf",
-    "taglines": {
-      "recruiter": "Systems Engineer · 3 years · TCS / SBI GITC",
-      "developer": "Infrastructure + AI automation + whatever I'm building this month",
-      "curious": "Engineer by day, builder of random things by night"
-    },
-    "contact_taglines": {
-      "recruiter": "Open to roles in infrastructure, platform engineering, and SRE. Based in Mumbai, open to relocation.",
-      "developer": "Always interested in interesting problems. Best reached over email.",
-      "curious": "Say hello — I reply."
-    }
+    "pdf_path": "/resume.pdf",
+    "interests": "Embedded devices, hardware design, community-first app deployment, B2B cold email orchestration, French language, and advanced MBA research",
+    "rep_id": "MZJ_2026_01"
   },
   "summaries": {
     "platform_sre": "Systems Engineer specializing in Identity & Access Management (IDM) and enterprise infrastructure operations within banking environments. Experienced in leading operations teams and mentoring engineers while managing mission-critical platforms for 30,000+ users. Expert in infrastructure modernization, on-premise containerization, and high-availability systems (99.999%), currently expanding into Platform Engineering, SRE, and multi-cloud architecture.",
@@ -37,6 +27,7 @@
       "subtitle": "Deployed at State Bank of India (SBI GITC) · Mission-critical IDM & infrastructure for 30,000+ SBI branch users",
       "title": "Systems Engineer (IDM & DB)",
       "dates": "2023 — Present",
+      "is_current": true,
       "role_tagline": "Deployed at State Bank of India (SBI GITC) · Mission-critical IDM & infrastructure for 30,000+ SBI branch users",
       "featured_metric": "99.999% uptime · 30,000+ users · 150+ servers",
       "context_tag": "banking_compliance",
@@ -77,6 +68,7 @@
       "subtitle": "Interview readiness coaching for 50+ engineering and management candidates",
       "title": "Technical Soft Skills Coach & Founder",
       "dates": "2025 — 2026",
+      "is_current": false,
       "role_tagline": "Interview readiness coaching for 50+ engineering and management candidates",
       "featured_metric": "50+ clients · 1:1 format · Concluded Feb 2026",
       "context_tag": "leadership_communication",
@@ -90,7 +82,7 @@
           "audience": ["recruiter", "developer", "management"]
         },
         {
-          "text": "Designed and iterated a structured coaching curriculum covering STAR-method framing, stakeholder communication, and senior-level interview strategy.",
+          "text": "Design and iterated a structured coaching curriculum covering STAR-method framing, stakeholder communication, and senior-level interview strategy.",
           "audience": ["recruiter", "developer", "management"]
         },
         {
@@ -105,6 +97,7 @@
       "subtitle": "Technology & marketing lead for a family marine equipment venture",
       "title": "Co-Founder (Technology & Marketing Lead) — Pro Bono",
       "dates": "2025 — Present",
+      "is_current": true,
       "role_tagline": "Technology & marketing lead for a family marine equipment venture",
       "featured_metric": "200+ B2B prospects per campaign · Zero hosting cost",
       "context_tag": "independent_business",
@@ -132,11 +125,12 @@
     {
       "id": "zamaan_marine",
       "name": "Zamaan Marine Digital Ecosystem",
+      "mod_id": "MOD_01",
       "one_line_summary": "Full digital ecosystem for a family marine parts business — storefront, cold email automation, and analytics at zero hosting cost.",
       "featured_metric": "~60% faster listing time",
       "why_i_built_it": "My family started a business selling refurbished marine and industrial parts, mostly through eBay. The digital side — website, email outreach, analytics — was an afterthought. I stepped in to build it properly, which meant treating a small family operation with the same engineering rigour I'd apply at work. The constraint of zero budget made it more interesting, not less.",
       "tech": ["Astro", "Cloudflare Pages", "GitHub Actions", "WordPress", "cPanel", "Brevo", "Claude API", "Python", "PostHog", "eBay Browse API"],
-      "github": "",
+      "github": "private",
       "year": "2025",
       "bullets": [
         {
@@ -156,7 +150,7 @@
           "audience": ["recruiter", "developer"]
         },
         {
-          "text": "Instrumented product analytics via PostHog, enabling funnel visibility from storefront visit to eBay click-through across all traffic sources.",
+          "text": "Implemented product analytics via PostHog, enabling funnel visibility from storefront visit to eBay click-through across all traffic sources.",
           "audience": ["developer"]
         }
       ]
@@ -164,11 +158,12 @@
     {
       "id": "content_automation",
       "name": "Content Automation Pipeline",
+      "mod_id": "MOD_02",
       "one_line_summary": "End-to-end pipeline that turns YouTube transcripts into publication-ready Medium articles across 12 niches, with an 85% reduction in time-to-draft.",
       "featured_metric": "85% faster drafts",
-      "why_i_built_it": "I was writing AWS certification articles for Medium and realised the research-to-draft process was almost entirely mechanical. I built a pipeline to handle the mechanical part — scraping transcripts, structuring content, enforcing quality rules — so the human part (judgment, voice, editing) could actually matter. The \"Failure First\" framework came from noticing that most AI-generated content fails the same way: it starts safe and stays safe. I built rules specifically to break that pattern.",
+      "why_i_built_it": "I was writing AWS certification articles for Medium and realised the research-to-draft process was almost entirely mechanical. I built a pipeline to handle the mechanical part — scraping transcripts, structuring content, enforcing quality rules — so the human part (judgment, voice, editing) could actually matter. The 'Failure First' framework came from noticing that most AI-generated content fails the same way: it starts safe and stays safe. I built rules specifically to break that pattern.",
       "tech": ["Python", "Gemini 1.5 Pro", "Tauri", "Rust", "React 19", "Vite", "Tailwind CSS", "GitHub Actions", "yt-dlp", "GitPython"],
-      "github": "",
+      "github": "private",
       "year": "2026",
       "bullets": [
         {
@@ -180,7 +175,7 @@
           "audience": ["recruiter"]
         },
         {
-          "text": "Developed the \"Failure First\" Humanisation Framework — a strict LLM governance system eliminating generic AI prose, processing 20,000+ lines of unstructured transcript text per execution run.",
+          "text": "Developed the 'Failure First' Humanisation Framework — a strict LLM governance system eliminating generic AI prose, processing 20,000+ lines of unstructured transcript text per execution run.",
           "audience": ["developer"]
         },
         {
@@ -200,6 +195,7 @@
     {
       "id": "raaz_o_neyaz",
       "name": "Raaz-o-Neyaz — Islamic Supplications PWA",
+      "mod_id": "MOD_03",
       "one_line_summary": "Offline-first PWA delivering 80MB of multilingual Islamic supplications — extracted, restructured, and rebuilt from scratch from an Android APK.",
       "featured_metric": "Sub-10ms queries",
       "why_i_built_it": "The existing apps for Islamic supplications were clunky, ad-heavy, or required a constant internet connection. For something as personal as duas and ziyarat — prayers you turn to in quiet moments — that friction felt wrong. I wanted something that worked offline, in your language, on any device, with no ads and no backend. I also wanted to understand the data well enough to build proper search and filtering, which meant reverse-engineering the source database myself.",
@@ -232,11 +228,12 @@
     {
       "id": "run_to",
       "name": "run.to — Activity Platform",
+      "mod_id": "MOD_04",
       "one_line_summary": "A full-featured Flutter running app with GPS tracking, ghost routes, and crowd radar — built across 6 segments using Clean Architecture.",
       "featured_metric": "10 test users",
       "why_i_built_it": "I wanted to understand what it actually takes to build a consumer mobile product end to end — not a tutorial project, but something with real architecture decisions, a real backend, and real UX tradeoffs. Running was the use case because I run, and the features I wanted (ghost routes, nearby runners) didn't exist in a form I liked. Clean Architecture and Riverpod were deliberate choices to stress-test my ability to structure a non-trivial codebase.",
       "tech": ["Flutter", "Dart", "Supabase", "PostGIS", "Riverpod", "Google Maps API", "SQLite"],
-      "github": "",
+      "github": "private",
       "year": "2025",
       "bullets": [
         {
@@ -264,11 +261,12 @@
     {
       "id": "esp_pocket",
       "name": "ESP-Pocket Reader",
+      "mod_id": "MOD_05",
       "one_line_summary": "A pocket e-ink reading device built on ESP32-S3 — custom firmware, SQLite content storage, and a Python EPUB ingestion pipeline.",
       "featured_metric": "Functional prototype",
       "why_i_built_it": "Reading on a phone destroys your eyes and your battery life. E-readers exist but they're expensive, locked down, and designed around ecosystems I don't want to be in. I wanted a device that did exactly one thing — display text clearly — and cost almost nothing to run. Building the firmware myself meant I could understand every layer of the stack, from EPUB parsing down to the display driver.",
       "tech": ["Embedded C++", "ESP32-S3", "ESP-IDF", "PlatformIO", "Python", "SQLite"],
-      "github": "",
+      "github": "private",
       "year": "2025",
       "bullets": [
         {
@@ -292,11 +290,12 @@
     {
       "id": "remote_dev_server",
       "name": "Personal Remote Development Server",
+      "mod_id": "MOD_06",
       "one_line_summary": "A persistent cloud Linux dev environment on Oracle Free Tier — full-stack workflows from any device, zero cost, 99%+ uptime over 18 months.",
       "featured_metric": "99%+ uptime",
       "why_i_built_it": "My personal projects involve a lot of long-running processes — builds, pipelines, SSH tunnels — that don't play well with a laptop that goes to sleep. I also wanted to be able to develop from my phone when I'm away from a desk. Oracle Cloud's free tier is genuinely powerful if you configure it right, and Zellij with persistent sessions solves the context-loss problem that makes remote development frustrating. This setup has become the backbone of every personal project I've shipped.",
       "tech": ["Oracle Cloud Free Tier", "Zellij", "Termius", "Linux", "Ubuntu"],
-      "github": "",
+      "github": "private",
       "year": "2024",
       "bullets": [
         {

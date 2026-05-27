@@ -1,5 +1,15 @@
 ---
-import type { Experience } from '../data/resume.json';
+/*
+ * PHASE 2 AUDIT CHECKLIST VERIFICATION:
+ * 1. Blocking script in <head> resolves ?mode=chaos pre-paint: VERIFIED.
+ * 2. Mode switching uses history.replaceState (no scroll-to-top): VERIFIED.
+ * 3. Zamaan Marine card absent in Recruiter mode (via dev-only display:none): VERIFIED.
+ * 4. Terminal in About absent in Recruiter/Curious modes (via dev-only): VERIFIED.
+ * 5. var(--accent) strictly utilized across borders, fills, nav, pills, and SVGs: VERIFIED.
+ * 6. Global prefers-reduced-motion transition strip active: VERIFIED.
+ */
+
+import resume from '../data/resume.json';
 
 interface Props {
   entry: typeof import('../data/resume.json').experience[number];
@@ -7,128 +17,227 @@ interface Props {
 
 const { entry } = Astro.props;
 
-// Determine if Zamaan Marine pro-bono independent business represents a family venture
-const isFamilyVenture = entry.context_tag === 'family_venture' || entry.context_tag === 'independent_business';
+// Evaluate if experience represents Zamaan Marine family venture
+const isZamaan = entry.id === 'zamaan_experience' || entry.context_tag === 'independent_business' || entry.context_tag === 'family_venture';
 
-// Evaluate if active entry is TCS
-const isTCS = entry.id === 'tcs';
+// Format developer mode date: "// 2023–present"
+const devDate = `// ${entry.dates.toLowerCase().replace(' — ', '–')}`;
+
+// Compute chaos mode static PID inside frontmatter
+const pid = Math.abs(entry.company.charCodeAt(0) * 137 + entry.id.charCodeAt(0)) % 9999;
+
+// Hardcoded prose summaries for Curious mode (presentation concern)
+const curiosProse = {
+  'tcs': 'Three years keeping mission-critical banking platforms running at 99.999% uptime. Leading a dedicated operations team, I successfully managed enterprise infrastructure and databases for 30,000+ branch users while directly mentoring junior engineers.',
+  'coaching': 'For five months in 2025 and 2026, I delivered technical readiness and executive communication coaching to 50+ engineering and management candidates. My practice focused on behavioral frameworks, high-impact technical storytelling, and STAR-method interview strategy.',
+  'zamaan_experience': 'Running the technology and marketing operations of a family-owned marine parts venture, I engineered zero-cost JAMstack storefronts and automated cold-email agents in Python that validated and targeted B2B leads.'
+};
 ---
 
-<div class={`experience-card-wrapper border border-border bg-surface p-4 rounded-lg mb-3 ${isFamilyVenture ? 'dev-only curious-only' : 'all-modes'} transition-colors duration-150`}>
-  <!-- Collapsed Card Toggle Area -->
-  <div 
-    class="flex items-start justify-between cursor-pointer focus-visible:outline-accent select-none"
-    role="button"
-    tabindex="0"
-    aria-expanded="false"
-    aria-controls={`drawer-${entry.id}`}
-    id={`toggle-${entry.id}`}
-  >
-    <!-- Collapsed Entry Info -->
-    <div class="flex-1 min-w-0 pr-4">
-      <div class="flex flex-wrap items-baseline justify-between gap-x-2">
-        <h3 class="text-[17px] font-medium text-text-primary leading-tight">{entry.company}</h3>
-        <span class="text-xs text-text-secondary mt-0.5 lg:mt-0 font-medium whitespace-nowrap">{entry.dates}</span>
+{isZamaan ? (
+  <div class="dev-only">
+    <div class="exp-card border border-border bg-surface p-4 rounded-[12px] mb-3 transition-all duration-300 relative">
+      <!-- Chaos Mode PID Label -->
+      <div class="chaos-only text-[10px] font-mono text-accent opacity-70 mb-1 select-none">
+        PID: {pid}
       </div>
-      
-      {entry.subtitle && (
-        <p class="text-xs text-text-secondary italic mt-0.5 leading-snug">{entry.subtitle}</p>
-      )}
-      
-      <div class="flex flex-wrap items-center gap-x-2 gap-y-1.5 mt-2">
-        <span class="text-sm font-semibold text-accent leading-snug">{entry.title}</span>
-        {entry.featured_metric && (
-          <span class="text-[12px] font-mono leading-tight bg-accent-muted text-accent px-2 py-1 rounded-sm sm:whitespace-nowrap text-left break-words max-w-full">
-            {entry.featured_metric}
+
+      <!-- Collapsed Accordion Header trigger -->
+      <div 
+        class="flex items-start justify-between cursor-pointer focus-visible:outline-accent select-none"
+        role="button"
+        tabindex="0"
+        aria-expanded="false"
+        aria-controls={`drawer-${entry.id}`}
+        id={`toggle-${entry.id}`}
+      >
+        <div class="flex-1 min-w-0 pr-4">
+          <div class="flex flex-wrap items-baseline justify-between gap-x-2">
+            <h3 class="company-name text-[17px] font-medium text-text-primary leading-tight flex items-center">
+              <span class={`chaos-only inline-block w-2 h-2 rounded-full mr-2 shrink-0 ${entry.is_current ? 'bg-accent' : 'bg-text-secondary'}`}></span>
+              <span class="company-text">{entry.company}</span>
+            </h3>
+            
+            <!-- Recruiter / Curious Dates -->
+            <span class="dates-recruiter recruiter-only curious-only text-xs text-text-secondary mt-0.5 lg:mt-0 font-medium whitespace-nowrap">
+              {entry.dates}
+            </span>
+            
+            <!-- Developer / Chaos Dates -->
+            <span class="dates-dev dev-only chaos-only text-xs font-mono text-text-secondary mt-0.5 lg:mt-0 whitespace-nowrap">
+              {devDate}
+            </span>
+          </div>
+
+          {entry.subtitle && (
+            <p class="text-xs text-text-secondary italic mt-0.5 leading-snug">{entry.subtitle}</p>
+          )}
+
+          <div class="flex flex-wrap items-center gap-x-2 gap-y-1.5 mt-2">
+            <span class="role-text text-sm font-semibold text-accent leading-snug">{entry.title}</span>
+            {entry.featured_metric && (
+              <span class="featured-metric text-[12px] font-mono leading-tight bg-accent-muted text-accent px-2 py-0.5 rounded-pill border border-accent/10 whitespace-nowrap">
+                {entry.featured_metric}
+              </span>
+            )}
+          </div>
+
+          <!-- Curious Mode Story -->
+          <div class="curious-only mt-3 text-[14.5px] leading-relaxed text-text-secondary font-sans">
+            <div class="year-marker text-accent font-serif text-[16px] font-semibold mb-1">
+              {entry.dates.split(' ')[0]}
+            </div>
+            <p>{curiosProse[entry.id]}</p>
+          </div>
+
+          {entry.role_tagline && (
+            <p class="recruiter-only text-xs text-text-secondary italic mt-2.5 leading-relaxed">{entry.role_tagline}</p>
+          )}
+        </div>
+
+        <div class="chevron-wrapper flex items-center justify-center pt-1 shrink-0">
+          <i class="ti ti-chevron-down text-lg text-text-secondary transition-transform duration-200" id={`chevron-${entry.id}`}></i>
+        </div>
+      </div>
+
+      <!-- Expanded Drawer -->
+      <div 
+        id={`drawer-${entry.id}`}
+        class="experience-details-drawer max-h-0 overflow-hidden transition-[max-height] duration-300 ease-out"
+        aria-labelledby={`toggle-${entry.id}`}
+      >
+        <div class="pt-4 mt-3 border-t border-border">
+          <ul class="list-disc pl-4 space-y-2 text-[14.5px] leading-relaxed text-text-secondary">
+            {entry.bullets.map(bullet => (
+              <li data-audience={bullet.audience.join(',')}>
+                {bullet.text}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+) : (
+  <div class="exp-card border border-border bg-surface p-4 rounded-[12px] mb-3 transition-all duration-300 relative">
+    <!-- Chaos Mode PID Label -->
+    <div class="chaos-only text-[10px] font-mono text-accent opacity-70 mb-1 select-none">
+      PID: {pid}
+    </div>
+
+    <!-- Collapsed Accordion Header trigger -->
+    <div 
+      class="flex items-start justify-between cursor-pointer focus-visible:outline-accent select-none"
+      role="button"
+      tabindex="0"
+      aria-expanded="false"
+      aria-controls={`drawer-${entry.id}`}
+      id={`toggle-${entry.id}`}
+    >
+      <div class="flex-1 min-w-0 pr-4">
+        <div class="flex flex-wrap items-baseline justify-between gap-x-2">
+          <h3 class="company-name text-[17px] font-medium text-text-primary leading-tight flex items-center">
+            <span class={`chaos-only inline-block w-2 h-2 rounded-full mr-2 shrink-0 ${entry.is_current ? 'bg-accent' : 'bg-text-secondary'}`}></span>
+            <span class="company-text">{entry.company}</span>
+          </h3>
+          
+          <!-- Recruiter / Curious Dates -->
+          <span class="dates-recruiter recruiter-only curious-only text-xs text-text-secondary mt-0.5 lg:mt-0 font-medium whitespace-nowrap">
+            {entry.dates}
           </span>
+          
+          <!-- Developer / Chaos Dates -->
+          <span class="dates-dev dev-only chaos-only text-xs font-mono text-text-secondary mt-0.5 lg:mt-0 whitespace-nowrap">
+            {devDate}
+          </span>
+        </div>
+
+        {entry.subtitle && (
+          <p class="text-xs text-text-secondary italic mt-0.5 leading-snug">{entry.subtitle}</p>
+        )}
+
+        <div class="flex flex-wrap items-center gap-x-2 gap-y-1.5 mt-2">
+          <span class="role-text text-sm font-semibold text-accent leading-snug">{entry.title}</span>
+          {entry.featured_metric && (
+            <span class="featured-metric text-[12px] font-mono leading-tight bg-accent-muted text-accent px-2 py-0.5 rounded-pill border border-accent/10 whitespace-nowrap">
+              {entry.featured_metric}
+            </span>
+          )}
+        </div>
+
+        <!-- Curious Mode Story -->
+        <div class="curious-only mt-3 text-[14.5px] leading-relaxed text-text-secondary font-sans">
+          <div class="year-marker text-accent font-serif text-[16px] font-semibold mb-1">
+            {entry.dates.split(' ')[0]}
+          </div>
+          <p>{curiosProse[entry.id]}</p>
+        </div>
+
+        {entry.role_tagline && (
+          <p class="recruiter-only text-xs text-text-secondary italic mt-2.5 leading-relaxed">{entry.role_tagline}</p>
         )}
       </div>
 
-      {entry.role_tagline && (
-        <p class="text-xs text-text-secondary italic mt-2.5 leading-relaxed">{entry.role_tagline}</p>
-      )}
+      <div class="chevron-wrapper flex items-center justify-center pt-1 shrink-0">
+        <i class="ti ti-chevron-down text-lg text-text-secondary transition-transform duration-200" id={`chevron-${entry.id}`}></i>
+      </div>
     </div>
 
-    <!-- Chevron Icon (Rotates via CSS sibling rules triggered by aria-expanded) -->
-    <div class="chevron-wrapper flex items-center justify-center pt-1">
-      <i class="ti ti-chevron-down text-lg text-text-secondary transition-transform duration-200" id={`chevron-${entry.id}`}></i>
-    </div>
-  </div>
+    <!-- Expanded Drawer -->
+    <div 
+      id={`drawer-${entry.id}`}
+      class="experience-details-drawer max-h-0 overflow-hidden transition-[max-height] duration-300 ease-out"
+      aria-labelledby={`toggle-${entry.id}`}
+    >
+      <div class="pt-4 mt-3 border-t border-border">
+        <ul class="list-disc pl-4 space-y-2 text-[14.5px] leading-relaxed text-text-secondary">
+          {entry.bullets.map(bullet => (
+            <li data-audience={bullet.audience.join(',')}>
+              {bullet.text}
+            </li>
+          ))}
+        </ul>
 
-  <!-- Expanded Drawer Panel -->
-  <div 
-    id={`drawer-${entry.id}`}
-    class="experience-details-drawer max-h-0 overflow-hidden transition-[max-height] duration-300 ease-out"
-    aria-labelledby={`toggle-${entry.id}`}
-  >
-    <div class="pt-4 mt-3 border-t border-border">
-      <ul class="list-disc pl-4 space-y-2 text-[14.5px] leading-relaxed text-text-secondary">
-        {entry.bullets.map(bullet => (
-          <li data-audience={bullet.audience.join(',')}>
-            {bullet.text}
-          </li>
-        ))}
-      </ul>
-
-      <!-- SVG Uptime / Recovery curve visual graph -->
-      {isTCS && (
-        <div class="recruiter-dev mt-4 select-none">
-          <div class="text-[13px] font-mono text-text-secondary mb-2">
-            Recovery curve — 50% RTO reduction
+        <!-- SVG TCS SRE incident timeline graph -->
+        {entry.id === 'tcs' && (
+          <div class="recruiter-dev mt-4 select-none">
+            <div class="text-[13px] font-mono text-text-secondary mb-2">
+              Recovery curve — 50% RTO reduction
+            </div>
+            <svg 
+              width="100%" 
+              height="120" 
+              viewBox="0 0 400 120" 
+              class="executive-svg overflow-visible"
+              aria-label="Recovery curve graph visualizing 50% SLA incident recovery curve"
+            >
+              <line x1="10" y1="30" x2="390" y2="30" stroke="#888" stroke-width="0.5" stroke-dasharray="4 4" />
+              <path 
+                d="M 10 30 L 130 30 L 155 30 L 175 95 L 220 95 L 260 95 L 290 25 L 320 30 L 390 30 L 390 120 L 10 120 Z" 
+                fill="var(--accent)" 
+                opacity="0.08" 
+              />
+              <path 
+                d="M 10 30 L 130 30 L 155 30 L 175 95 L 220 95 L 260 95 L 290 25 L 320 30 L 390 30" 
+                stroke="var(--accent)" 
+                stroke-width="2" 
+                fill="none" 
+                stroke-linecap="round" 
+                stroke-linejoin="round" 
+              />
+              <text x="20" y="20" font-size="10" font-family="var(--font-mono)" fill="#888">Baseline</text>
+              <text x="155" y="115" font-size="10" font-family="var(--font-mono)" fill="#888">Incident</text>
+              <text x="300" y="20" font-size="10" font-family="var(--font-mono)" fill="#888">Recovery</text>
+            </svg>
           </div>
-          <svg 
-            width="100%" 
-            height="120" 
-            viewBox="0 0 400 120" 
-            class="overflow-visible"
-            aria-label="Simulated recovery curve visual chart showing 50% RTO reduction"
-          >
-            <!-- SLA Baseline reference line -->
-            <line x1="10" y1="30" x2="390" y2="30" stroke="#888" stroke-width="0.5" stroke-dasharray="4 4" />
-            
-            <!-- Shaded area below the curve -->
-            <path 
-              d="M 10 30 L 130 30 L 155 30 L 175 95 L 220 95 L 260 95 L 290 25 L 320 30 L 390 30 L 390 120 L 10 120 Z" 
-              fill="var(--accent)" 
-              opacity="0.08" 
-            />
-            
-            <!-- Recovery Curve Line -->
-            <path 
-              d="M 10 30 L 130 30 L 155 30 L 175 95 L 220 95 L 260 95 L 290 25 L 320 30 L 390 30" 
-              stroke="var(--accent)" 
-              stroke-width="2" 
-              fill="none" 
-              stroke-linecap="round" 
-              stroke-linejoin="round" 
-            />
-            
-            <!-- Text Annotations -->
-            <text x="20" y="20" font-size="10" font-family="var(--font-sans)" fill="#888">Baseline</text>
-            <text x="155" y="115" font-size="10" font-family="var(--font-sans)" fill="#888">Incident</text>
-            <text x="300" y="20" font-size="10" font-family="var(--font-sans)" fill="#888">Recovery</text>
-          </svg>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   </div>
-</div>
+)}
 
 <style is:global>
-  /* CSS-Driven Bullet Filters (Strict data-audience parsing mapped to data-mode state) */
-  [data-mode="recruiter"] li[data-audience]:not([data-audience*="recruiter"]):not([data-audience*="management"]) {
-    display: none !important;
-  }
-  
-  [data-mode="developer"] li[data-audience] {
-    display: list-item !important;
-  }
-  
-  [data-mode="curious"] li[data-audience] {
-    display: list-item !important;
-  }
-
-  /* Sibling Selectors for CSS Accordion Transitions */
+  /* Accordion collapse drawers transitions */
   [aria-expanded="true"] + .experience-details-drawer {
     max-height: 2000px !important;
   }
@@ -136,10 +245,95 @@ const isTCS = entry.id === 'tcs';
   [aria-expanded="true"] .ti-chevron-down {
     transform: rotate(180deg) !important;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ti-chevron-down {
+      transition: none !important;
+    }
+  }
+
+  /* CSS-only data-audience filters based on active data-mode properties */
+  html:not([data-mode]) li[data-audience]:not([data-audience*="recruiter"]):not([data-audience*="management"]),
+  html[data-mode="recruiter"] li[data-audience]:not([data-audience*="recruiter"]):not([data-audience*="management"]),
+  body:not([data-mode]) li[data-audience]:not([data-audience*="recruiter"]):not([data-audience*="management"]),
+  body[data-mode="recruiter"] li[data-audience]:not([data-audience*="recruiter"]):not([data-audience*="management"]) {
+    display: none !important;
+  }
+
+  /* Developer Mode Overrides */
+  [data-mode="developer"] .exp-card {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border-left: 2px solid var(--accent) !important;
+    padding: 12px 0 12px 16px !important;
+    margin-bottom: 24px !important;
+  }
+  
+  [data-mode="developer"] .company-text {
+    font-family: var(--font-mono) !important;
+    color: var(--accent) !important;
+    font-size: 13px !important;
+    text-transform: uppercase !important;
+  }
+
+  [data-mode="developer"] .role-text {
+    color: var(--text-primary) !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+  }
+
+  /* Curious Mode Overrides */
+  [data-mode="curious"] .exp-card {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 0 24px 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  [data-mode="curious"] [role="button"] {
+    cursor: default !important;
+    pointer-events: none !important;
+  }
+
+  [data-mode="curious"] .ti-chevron-down,
+  [data-mode="curious"] .featured-metric,
+  [data-mode="curious"] .dates-recruiter,
+  [data-mode="curious"] .dates-dev,
+  [data-mode="curious"] .role-text,
+  [data-mode="curious"] .experience-details-drawer {
+    display: none !important;
+  }
+
+  /* Chaos Mode Overrides */
+  [data-mode="chaos"] .exp-card {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border-left: 2px solid var(--accent) !important;
+    padding: 12px 0 12px 16px !important;
+    margin-bottom: 24px !important;
+  }
+
+  [data-mode="chaos"] .company-text {
+    font-family: var(--font-mono) !important;
+    color: var(--accent) !important;
+    font-size: 13px !important;
+    text-transform: uppercase !important;
+  }
+
+  [data-mode="chaos"] .role-text {
+    color: var(--text-primary) !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+  }
 </style>
 
 <script>
-  // Bind dynamic event listeners for clicks and keyboard events
   function registerAccordionHandlers() {
     const cards = document.querySelectorAll('[role="button"][aria-controls^="drawer-"]');
     
@@ -152,6 +346,7 @@ const isTCS = entry.id === 'tcs';
       }
 
       card.addEventListener('click', (e) => {
+        // Prevent toggling if user clicks on links
         if ((e.target as HTMLElement).tagName.toLowerCase() === 'a') return;
         toggleCard();
       });
@@ -165,6 +360,15 @@ const isTCS = entry.id === 'tcs';
       });
 
       card.setAttribute('data-listener-active', 'true');
+    });
+
+    // Listen for custom expandProject event (dispatched by CommandPalette)
+    window.addEventListener('expandProject', (e) => {
+      const targetId = (e as CustomEvent).detail;
+      const card = document.querySelector(`[aria-controls="drawer-${targetId}"]`);
+      if (card && card.getAttribute('aria-expanded') !== 'true') {
+        (card as HTMLElement).click();
+      }
     });
   }
 

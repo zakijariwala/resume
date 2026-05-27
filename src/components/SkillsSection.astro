@@ -2,16 +2,19 @@
 import resume from '../data/resume.json';
 
 const skillsData = resume.skills;
+const { interests } = resume.meta;
+const interestsContent = interests || "Fill in resume.json meta.interests";
 ---
 
-<section id="skills" class="py-12 border-b border-border transition-all duration-150">
-  <!-- Section Heading -->
-  <h2 class="text-[22px] leading-snug font-medium text-text-primary mb-2">
+<!-- Skills Section (Recruiter, Developer, Chaos) -->
+<section id="skills" class="skills-section py-12 border-b border-border transition-all duration-300">
+  <h2 class="text-2xl font-serif text-text-primary mb-6 relative inline-block">
     Skills
+    <span class="absolute bottom-[-6px] left-0 w-8 h-[2px] bg-accent transition-colors duration-150"></span>
   </h2>
 
-  <!-- Proficiency Legend (Visually distinct small indicators) -->
-  <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-text-secondary mt-3 mb-6 select-none" aria-hidden="true">
+  <!-- Legend Row (Recruiter & Dev/Chaos only) -->
+  <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px] text-text-secondary mt-1 mb-6 select-none" aria-hidden="true">
     <div class="flex items-center gap-1.5">
       <span class="inline-block w-2.5 h-2.5 rounded-full bg-accent"></span>
       <span>Confident</span>
@@ -26,39 +29,39 @@ const skillsData = resume.skills;
     </div>
   </div>
 
-  <!-- Two-Column Skill Grid (Desktop: Grid columns, Mobile: Single column stack) -->
+  <!-- Category List Container -->
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-6">
     {skillsData.map(category => {
       const isSoftOrLanguage = category.category === "Languages & Soft Skills";
-      
+
       return (
         <div class="skill-category-block">
           <!-- Category Header Label -->
-          <span class="text-[13px] font-semibold tracking-[0.06em] text-text-secondary uppercase mb-3 block">
+          <span class="text-[11px] font-semibold uppercase tracking-[0.06em] text-text-secondary mb-3 block">
+            <span class="chaos-only text-accent font-mono mr-1">&gt;</span>
             {category.category}
           </span>
-          
-          <!-- Category Skill Pill Row -->
-          <div class="flex flex-wrap gap-2">
+
+          <!-- A. Pills Layout (Visible under Recruiter Mode) -->
+          <div class="skills-pills-layout flex flex-wrap gap-2">
             {category.items.map(skill => {
-              // Soft skills and languages bypass proficiency, always showing familiar styles
               const effectiveProficiency = isSoftOrLanguage ? 'familiar' : skill.proficiency;
-              
+
               if (effectiveProficiency === 'confident') {
                 return (
-                  <span class="skill-pill px-3 py-1 text-xs font-semibold bg-accent text-white rounded-pill select-none">
+                  <span class="skill-pill px-3 py-1 text-[13px] font-medium bg-accent text-white rounded-pill select-none hover:scale-105 transition-transform duration-100">
                     {skill.name}
                   </span>
                 );
               } else if (effectiveProficiency === 'familiar') {
                 return (
-                  <span class="skill-pill px-3 py-1 text-xs font-semibold bg-accent-muted text-accent rounded-pill select-none border border-accent/10">
+                  <span class="skill-pill px-3 py-1 text-[13px] font-medium bg-accent-muted text-accent rounded-pill border border-accent/10 select-none hover:scale-105 transition-transform duration-100">
                     {skill.name}
                   </span>
                 );
               } else if (effectiveProficiency === 'learning') {
                 return (
-                  <span class="skill-pill dev-only px-3 py-1 text-xs font-semibold border border-accent bg-transparent text-accent rounded-pill select-none">
+                  <span class="skill-pill dev-only px-3 py-1 text-[13px] font-medium border border-accent bg-transparent text-accent rounded-pill select-none hover:scale-105 transition-transform duration-100">
                     {skill.name}
                   </span>
                 );
@@ -66,8 +69,76 @@ const skillsData = resume.skills;
               return null;
             })}
           </div>
+
+          <!-- B. Horizontal Bars Layout (Visible under Developer / Chaos Mode) -->
+          <div class="skills-bars-layout flex flex-col gap-3">
+            {category.items.map(skill => {
+              const effectiveProficiency = isSoftOrLanguage ? 'familiar' : skill.proficiency;
+              let fillWidth = '30%';
+              let fillOpacity = '0.3';
+              
+              if (effectiveProficiency === 'confident') {
+                fillWidth = '100%';
+                fillOpacity = '1';
+              } else if (effectiveProficiency === 'familiar') {
+                fillWidth = '65%';
+                fillOpacity = '0.6';
+              }
+
+              // Hide learning rows under recruiter/curious mode
+              const isLearning = effectiveProficiency === 'learning';
+
+              return (
+                <div class={`flex items-center gap-4 ${isLearning ? 'dev-only' : ''}`}>
+                  <span class="w-[200px] flex-shrink-0 font-mono text-[13px] text-text-primary truncate">
+                    {skill.name}
+                  </span>
+                  
+                  <div class="flex-1 h-1 bg-surface border border-border rounded-sm overflow-hidden relative">
+                    <div 
+                      class="h-full bg-accent transition-all duration-300"
+                      style={`width: ${fillWidth}; opacity: ${fillOpacity};`}
+                    ></div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       );
     })}
   </div>
 </section>
+
+<!-- Things I'm Into Section (Curious Mode Only) -->
+<section id="skills-curious" class="curious-only py-12 border-b border-border transition-all duration-300">
+  <h2 class="text-2xl font-serif text-text-primary mb-4">
+    Things I'm into
+  </h2>
+  
+  <p class="text-[16px] leading-[1.8] text-text-secondary max-w-[560px] select-text">
+    {interestsContent}
+  </p>
+</section>
+
+<style is:global>
+  /* Dynamic visibility controls for Skills layouts */
+  .skills-bars-layout {
+    display: none !important;
+  }
+  
+  [data-mode="developer"] .skills-pills-layout,
+  [data-mode="chaos"] .skills-pills-layout {
+    display: none !important;
+  }
+
+  [data-mode="developer"] .skills-bars-layout,
+  [data-mode="chaos"] .skills-bars-layout {
+    display: flex !important;
+  }
+
+  /* Curious mode hides Skills section entirely, replaced by Interests section */
+  [data-mode="curious"] .skills-section {
+    display: none !important;
+  }
+</style>

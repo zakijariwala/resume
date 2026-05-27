@@ -10,35 +10,35 @@ import CertificationsSection from '../components/CertificationsSection.astro';
 import ContactSection from '../components/ContactSection.astro';
 import resume from '../data/resume.json';
 
-const { name } = resume.meta;
-const pageTitle = `${name} | Interactive Portfolio`;
-const pageDescription = `Professional systems engineer portfolio and interactive resume for ${name}.`;
+const { preferred_name } = resume.meta;
+const pageTitle = `${preferred_name} | Interactive Executive Portfolio`;
+const pageDescription = `Interactive portfolio and professional resume for ${preferred_name}. Built for recruiters, developers, and curious minds.`;
 ---
 
 <Base title={pageTitle} description={pageDescription}>
   <Nav />
   
-  <!-- Content Wrapper padding offsets compensate for sticky top/bottom navigation panels to avoid overlap -->
-  <main class="flex-1 w-full max-w-4xl mx-auto px-4 pt-[52px] pb-[52px] lg:pb-0">
-    <!-- Hero Section (Rendered internally wrapped in section id="hero") -->
+  <!-- Content padding offsets compensate for sticky top/bottom navigation panels to avoid overlap -->
+  <main class="w-full max-w-4xl mx-auto px-4 pt-[52px] pb-[52px] lg:pb-0 transition-all duration-300">
+    <!-- Hero Section -->
     <Hero />
 
-    <!-- About Section (Rendered internally wrapped in section id="about") -->
+    <!-- About Section -->
     <About />
 
-    <!-- Experience Section (Rendered internally wrapped in section id="experience") -->
+    <!-- Experience Section -->
     <ExperienceSection />
 
-    <!-- Projects Section (Rendered internally wrapped in section id="projects") -->
+    <!-- Projects Section -->
     <ProjectsSection />
 
-    <!-- Skills Section (Rendered internally wrapped in section id="skills") -->
+    <!-- Skills Section -->
     <SkillsSection />
 
-    <!-- Certifications Section (Rendered internally wrapped in section id="certifications") -->
+    <!-- Certifications Section -->
     <CertificationsSection />
 
-    <!-- Contact Section (Rendered internally wrapped in section id="contact") -->
+    <!-- Contact Section -->
     <ContactSection />
   </main>
 </Base>

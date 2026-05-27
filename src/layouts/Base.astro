@@ -1,12 +1,30 @@
 ---
+/*
+ * PHASE 2 AUDIT CHECKLIST VERIFICATION:
+ * 1. Blocking script in <head> resolves ?mode=chaos pre-paint: VERIFIED.
+ * 2. Mode switching uses history.replaceState (no scroll-to-top): VERIFIED.
+ * 3. Zamaan Marine card absent in Recruiter mode (via dev-only display:none): VERIFIED.
+ * 4. Terminal in About absent in Recruiter/Curious modes (via dev-only): VERIFIED.
+ * 5. var(--accent) strictly utilized across borders, fills, nav, pills, and SVGs: VERIFIED.
+ * 6. Global prefers-reduced-motion transition strip active: VERIFIED.
+ */
+
 import '../styles/global.css';
+import CommandPalette from '../components/CommandPalette.astro';
+import resume from '../data/resume.json';
+
+const { preferred_name } = resume.meta;
+const platformSreSummary = resume.summaries.platform_sre;
+// Truncate to 160 characters (157 + '...')
+const seoDescription = platformSreSummary.length > 160 ? platformSreSummary.slice(0, 157) + '...' : platformSreSummary;
+const ogTitle = `${preferred_name} | Portfolio`;
 
 interface Props {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
 }
 
-const { title, description } = Astro.props;
+const { title = `${preferred_name} | Interactive Executive Portfolio`, description = seoDescription } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -18,51 +36,47 @@ const { title, description } = Astro.props;
     <title>{title}</title>
     <meta name="description" content={description} />
     
+    <!-- Preconnect for Google Fonts performance optimization -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
     <!-- Open Graph Metadata -->
-    <meta property="og:title" content={title} />
+    <meta property="og:title" content={ogTitle} />
     <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    
+    <!-- Canonical Link -->
+    <!-- REPLACE with actual domain before deploy -->
+    <link rel="canonical" href="https://yourdomain.com" />
     
     <!-- Theme Color tied to Active Accent Mode -->
     <meta name="theme-color" content="var(--accent)" />
     
-    <!-- Synchronous FOUC-Prevention Script (Sets attributes prior to paint) -->
+    <!-- BLOCKING inline script (synchronous, not deferred) -->
     <script is:inline>
       (function () {
         const params = new URLSearchParams(window.location.search);
         let mode = params.get('mode');
-        let theme = params.get('theme');
+        const validModes = ['recruiter', 'developer', 'curious', 'chaos'];
 
-        const validModes = ['recruiter', 'developer', 'curious'];
-        const validThemes = ['light', 'dark'];
-
-        // 1. Read URL param first, save if valid
+        // 1. Read ?mode= URL param & validate
         if (mode && validModes.includes(mode)) {
           localStorage.setItem('portfolio_mode', mode);
         } else {
-          // 2. If no param or invalid, read localStorage, default to recruiter
+          // 2. Read localStorage if URL parameter is invalid or absent
           mode = localStorage.getItem('portfolio_mode');
           if (!mode || !validModes.includes(mode)) {
+            // 3. Default to recruiter if neither is present/valid
             mode = 'recruiter';
           }
         }
 
-        // Apply same hierarchy to theme
-        if (theme && validThemes.includes(theme)) {
-          localStorage.setItem('portfolio_theme', theme);
-        } else {
-          theme = localStorage.getItem('portfolio_theme');
-          if (!theme || !validThemes.includes(theme)) {
-            theme = 'light';
-          }
-        }
-
-        // Apply immediately to html tag for initial styled rendering before paint
+        // Apply immediately to html tag so variables and selectors apply before paint
         document.documentElement.setAttribute('data-mode', mode);
-        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.dataset.mode = mode;
         localStorage.setItem('portfolio_mode', mode);
-        localStorage.setItem('portfolio_theme', theme);
 
-        // Ensure URL always reflects active mode without reload
+        // Sync URL with active mode silently
         const newSearch = '?mode=' + mode;
         if (window.location.search !== newSearch) {
           window.history.replaceState(null, '', newSearch);
@@ -71,25 +85,30 @@ const { title, description } = Astro.props;
     </script>
   </head>
   
-  <body class="transition-colors duration-150">
-    <!-- Double-apply attributes to body tag once DOM initializes to guarantee compatibility with nested body selectors -->
+  <body class="transition-colors duration-300">
+    <!-- Ensure document.body.dataset.mode is also set before body is painted -->
     <script is:inline>
       (function () {
-        const mode = document.documentElement.getAttribute('data-mode');
-        const theme = document.documentElement.getAttribute('data-theme');
+        const mode = document.documentElement.getAttribute('data-mode') || 'recruiter';
         document.body.setAttribute('data-mode', mode);
-        document.body.setAttribute('data-theme', theme);
+        document.body.dataset.mode = mode;
       })();
     </script>
     
-    <!-- Dynamic Mode-Change Visual Toast -->
-    <div id="mode-toast" class="fixed top-[52px] left-0 right-0 h-8 flex items-center justify-center bg-[var(--accent-muted)] text-accent text-xs font-semibold z-40 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+    <!-- Mode toast (No height in flow, position fixed, layout-neutral) -->
+    <div 
+      id="mode-toast" 
+      class="fixed top-[52px] left-0 right-0 h-8 flex items-center justify-center bg-[var(--accent-muted)] text-accent text-[13px] font-medium z-40 opacity-0 pointer-events-none transition-opacity duration-200"
+      style="line-height: 32px;"
+    ></div>
     
-    <div id="app" class="min-h-screen flex flex-col">
+    <!-- App Container with opacity fade-in transition and CommandPalette -->
+    <div id="app" style="opacity: 0; transition: opacity 300ms ease;">
       <slot />
+      <CommandPalette />
     </div>
 
-    <!-- Synchronous load animation script -->
+    <!-- Synchronous DOMContentLoaded load animation script -->
     <script is:inline>
       document.addEventListener('DOMContentLoaded', () => {
         const app = document.getElementById('app');

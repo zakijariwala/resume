@@ -1,18 +1,38 @@
 ---
 import resume from '../data/resume.json';
-import Terminal from './Terminal.astro';
 
 const { recruiter, developer, curious } = resume.about;
+
+// Pre-compute terminal responses at build time in Astro frontmatter
+const whoamiText = `${resume.meta.preferred_name} — Systems Engineer, Mumbai`;
+
+const projectsText = resume.projects.map(p => `${p.mod_id}: ${p.one_line_summary}`);
+
+const aiProjectsText = resume.projects
+  .filter(p => 
+    p.tech.some(t => t.toLowerCase().includes('claude api') || t.toLowerCase().includes('gemini')) ||
+    p.name.toLowerCase().includes('automation')
+  )
+  .map(p => `${p.mod_id}: ${p.one_line_summary}`);
+
+const skillsText = resume.skills
+  .flatMap(cat => cat.items)
+  .filter(s => s.proficiency === 'confident')
+  .map(s => s.name)
+  .join(', ');
+
+const contactText = `${resume.meta.email} | ${resume.meta.linkedin}`;
 ---
 
-<section id="about" class="py-12 border-b border-border transition-all duration-150">
+<section id="about" class="py-12 border-b border-border transition-all duration-300">
   <!-- Section Heading -->
-  <h2 class="text-[22px] leading-snug font-medium text-text-primary mb-6">
+  <h2 class="text-2xl font-serif text-text-primary mb-6 relative inline-block">
     About
+    <span class="absolute bottom-[-6px] left-0 width-10 w-8 h-[2px] bg-accent transition-colors duration-150"></span>
   </h2>
 
-  <!-- Editorial Text Container (Strict 640px max-width boundary for optimal readability) -->
-  <div class="max-w-[640px] text-base leading-[1.7] text-text-secondary">
+  <!-- About Paragraphs (Visually controlled by CSS visibility classes) -->
+  <div class="max-w-[640px] text-base leading-[1.7] text-text-secondary select-text">
     <p class="recruiter-only">
       {recruiter}
     </p>
@@ -24,8 +44,138 @@ const { recruiter, developer, curious } = resume.about;
     <p class="curious-only">
       {curious}
     </p>
-    
-    <!-- Developer Mode Terminal Easter Egg (Only rendered in Developer View) -->
-    <Terminal />
+
+    <!-- Chaos Mode inherits dev-only/curious-only appropriately -->
+    <p class="chaos-only">
+      {developer}
+    </p>
+  </div>
+
+  <!-- Interactive Terminal Easter Egg (Developer & Chaos modes only) -->
+  <div class="dev-only mt-8 select-none" aria-label="Interactive Terminal Command Prompt">
+    <!-- Interactive Label -->
+    <span class="block font-mono text-xs text-text-secondary opacity-60 mb-2">
+      // interactive
+    </span>
+
+    <!-- Hardcoded dark visual container -->
+    <div 
+      class="terminal-container w-full max-w-[640px] h-[280px] bg-[#0D1117] rounded-lg border border-[#30363D] flex flex-col font-mono text-[13px] text-[#C9D1D9] overflow-hidden shadow-lg cursor-text"
+      id="terminal-body"
+    >
+      <!-- Top Bar decoration -->
+      <div class="flex items-center justify-between px-4 py-2 bg-[#161B22] border-b border-[#30363D] select-none shrink-0">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-[#FF5F57]"></span>
+          <span class="w-3 h-3 rounded-full bg-[#FEBC2E]"></span>
+          <span class="w-3 h-3 rounded-full bg-[#28C840]"></span>
+        </div>
+        <span class="text-xs text-[#8B949E]">zaki@portfolio: ~</span>
+        <div class="w-12"></div>
+      </div>
+
+      <!-- Command History Output & Input Line -->
+      <div class="flex-1 p-3 overflow-y-auto flex flex-col gap-2" id="terminal-scroll-area">
+        <div class="terminal-history flex flex-col gap-2" id="terminal-history">
+          <div class="text-[#8B949E] mb-1 select-none">J. Zaki Portfolio Terminal. Type 'help' for options.</div>
+        </div>
+        
+        <!-- Interactive Prompt row -->
+        <div class="flex items-center gap-2 shrink-0">
+          <span class="text-[#58A6FF] font-semibold shrink-0 select-none">[zaki@portfolio ~]$</span>
+          <div class="flex-1 flex items-center relative min-w-0">
+            <input 
+              type="text" 
+              id="terminal-input"
+              class="w-full bg-transparent border-none outline-none text-[#C9D1D9] font-mono text-[13px] p-0 m-0 caret-[#58A6FF] focus:ring-0 focus:border-none focus:outline-none"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
+              aria-label="Terminal command prompt input"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
+<style>
+  /* Caret Blinking CSS Animation */
+  input::-webkit-contacts-auto-fill-button {
+    visibility: hidden;
+    display: none !important;
+  }
+</style>
+
+<script define:vars={{ whoamiText, projectsText, aiProjectsText, skillsText, contactText }}>
+  document.addEventListener('DOMContentLoaded', () => {
+    const termInput = document.getElementById('terminal-input');
+    const termHistory = document.getElementById('terminal-history');
+    const termBody = document.getElementById('terminal-body');
+    const termScrollArea = document.getElementById('terminal-scroll-area');
+    
+    if (!termInput || !termHistory || !termBody || !termScrollArea) return;
+    
+    let lastCommand = '';
+
+    // Auto-focus input line when clicking within container
+    termBody.addEventListener('click', () => {
+      termInput.focus();
+    });
+
+    function printLine(text, type = 'output') {
+      const line = document.createElement('div');
+      
+      if (type === 'prompt') {
+        line.innerHTML = `<span class="text-[#58A6FF] font-semibold select-none">[zaki@portfolio ~]$</span> <span class="select-text">${text}</span>`;
+      } else {
+        line.innerHTML = text.replace(/\n/g, '<br>');
+        if (type === 'error') {
+          line.classList.add('text-[#FF7B72]');
+        }
+      }
+      
+      termHistory.appendChild(line);
+      termScrollArea.scrollTop = termScrollArea.scrollHeight;
+    }
+
+    termInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const rawCmd = termInput.value.trim();
+        const cmdClean = rawCmd.toLowerCase().replace(/\s+/g, ' ');
+        termInput.value = '';
+
+        if (!rawCmd) return;
+
+        lastCommand = rawCmd;
+        printLine(rawCmd, 'prompt');
+
+        if (cmdClean === 'clear') {
+          termHistory.innerHTML = '';
+        } else if (cmdClean === 'help') {
+          printLine('Available commands:\n  help                  - list available options\n  whoami                - bio summary\n  projects              - view project metrics\n  projects --filter=ai  - filter to AI pipelines\n  skills                - confident engineering skills\n  contact               - mail/linkedin links\n  clear                 - clear console history');
+        } else if (cmdClean === 'whoami') {
+          printLine(whoamiText);
+        } else if (cmdClean === 'projects') {
+          projectsText.forEach(p => printLine(p));
+        } else if (cmdClean === 'projects --filter=ai') {
+          aiProjectsText.forEach(p => printLine(p));
+        } else if (cmdClean === 'skills') {
+          printLine(skillsText);
+        } else if (cmdClean === 'contact') {
+          printLine(contactText);
+        } else {
+          printLine(`command not found: ${rawCmd}. Type 'help'.`, 'error');
+        }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (lastCommand) {
+          termInput.value = lastCommand;
+        }
+      }
+    });
+  });
+</script>

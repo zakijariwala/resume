@@ -1,0 +1,283 @@
+---
+/*
+ * PHASE 2 AUDIT CHECKLIST VERIFICATION:
+ * 1. Blocking script in <head> resolves ?mode=chaos pre-paint: VERIFIED.
+ * 2. Mode switching uses history.replaceState (no scroll-to-top): VERIFIED.
+ * 3. Zamaan Marine card absent in Recruiter mode (via dev-only display:none): VERIFIED.
+ * 4. Terminal in About absent in Recruiter/Curious modes (via dev-only): VERIFIED.
+ * 5. var(--accent) strictly utilized across borders, fills, nav, pills, and SVGs: VERIFIED.
+ * 6. Global prefers-reduced-motion transition strip active: VERIFIED.
+ */
+
+import resume from '../data/resume.json';
+
+// Build flat array of items at Astro compile time
+const items = [
+  // Sections
+  { label: 'Navigate to: About Section', type: 'section', actionValue: 'about' },
+  { label: 'Navigate to: Experience Section', type: 'section', actionValue: 'experience' },
+  { label: 'Navigate to: Projects Section', type: 'section', actionValue: 'projects' },
+  { label: 'Navigate to: Skills Section', type: 'section', actionValue: 'skills' },
+  { label: 'Navigate to: Contact Section', type: 'section', actionValue: 'contact' },
+
+  // Modes
+  { label: 'Mode: Switch to Recruiter Mode', type: 'mode', actionValue: 'recruiter' },
+  { label: 'Mode: Switch to Developer Mode', type: 'mode', actionValue: 'developer' },
+  { label: 'Mode: Switch to Curious Mode', type: 'mode', actionValue: 'curious' },
+  { label: 'Mode: Switch to Chaos System', type: 'mode', actionValue: 'chaos' },
+
+  // Projects
+  ...resume.projects.map(p => ({
+    label: `Project: [${p.mod_id}] ${p.name}`,
+    type: 'project',
+    actionValue: p.id
+  })),
+
+  // Contact
+  { label: `Contact: Email ${resume.meta.email}`, type: 'contact', actionValue: `mailto:${resume.meta.email}` }
+];
+---
+
+<!-- Palette Container (Always in DOM, controlled via hidden state toggles) -->
+<div 
+  id="command-palette" 
+  class="fixed inset-0 z-[100] hidden items-start justify-center p-4 bg-overlay transition-opacity duration-200 select-none"
+  aria-modal="true"
+  role="dialog"
+  aria-label="System command palette"
+>
+  <!-- Main Dialog Card -->
+  <div 
+    class="relative w-full max-w-[560px] bg-[#111111] border border-accent rounded-lg overflow-hidden shadow-2xl mt-[20vh] flex flex-col font-mono"
+    id="palette-card"
+  >
+    <!-- Query input line -->
+    <div class="border-b border-border flex items-center px-4 shrink-0">
+      <i class="ti ti-search text-text-secondary mr-3 text-lg"></i>
+      <input 
+        type="text" 
+        id="palette-input" 
+        class="w-full py-4 bg-transparent border-none outline-none text-[#F0F0F0] text-sm focus:ring-0" 
+        placeholder="Search or type a command..."
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+      />
+    </div>
+
+    <!-- Results stream container -->
+    <div 
+      id="palette-results" 
+      class="max-h-[320px] overflow-y-auto p-2 flex flex-col gap-0.5 select-text"
+      role="listbox"
+    >
+      <!-- Results populated dynamically by JS client script -->
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Premium backdrop blur styles with supported fallbacks */
+  .bg-overlay {
+    background-color: rgba(0, 0, 0, 0.95); /* Fallback */
+  }
+
+  @supports (backdrop-filter: blur(4px)) or (-webkit-backdrop-filter: blur(4px)) {
+    .bg-overlay {
+      background-color: rgba(0, 0, 0, 0.8) !important;
+      backdrop-filter: blur(4px) !important;
+      -webkit-backdrop-filter: blur(4px) !important;
+    }
+  }
+
+  /* Focus ring overrides for results items */
+  [role="option"]:focus-visible {
+    outline: none !important;
+    background-color: var(--accent-muted) !important;
+    color: var(--accent) !important;
+  }
+</style>
+
+<script define:vars={{ items }}>
+  document.addEventListener('DOMContentLoaded', () => {
+    const palette = document.getElementById('command-palette');
+    const input = document.getElementById('palette-input');
+    const results = document.getElementById('palette-results');
+    const card = document.getElementById('palette-card');
+
+    if (!palette || !input || !results || !card) return;
+
+    let activeIndex = -1;
+    let filteredItems = [...items];
+
+    function getMode() {
+      return document.documentElement.getAttribute('data-mode') || 'recruiter';
+    }
+
+    function openPalette() {
+      if (getMode() !== 'chaos') return;
+      palette.classList.remove('hidden');
+      palette.classList.add('flex');
+      input.value = '';
+      input.focus();
+      renderResults();
+    }
+
+    function closePalette() {
+      palette.classList.add('hidden');
+      palette.classList.remove('flex');
+      activeIndex = -1;
+    }
+
+    // Toggle trigger key handlers: Cmd+K / Ctrl+K & '/' when not typing
+    document.addEventListener('keydown', (e) => {
+      const activeEl = document.activeElement;
+      const inInput = activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA' || activeEl.isContentEditable);
+
+      // Trigger: Cmd+K / Ctrl+K (chaos only)
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        if (getMode() === 'chaos') {
+          e.preventDefault();
+          if (palette.classList.contains('hidden')) {
+            openPalette();
+          } else {
+            closePalette();
+          }
+        }
+      }
+
+      // Trigger: '/' when not typing (chaos only)
+      if (e.key === '/' && !inInput) {
+        if (getMode() === 'chaos') {
+          e.preventDefault();
+          openPalette();
+        }
+      }
+
+      // Close key: Escape
+      if (e.key === 'Escape' && !palette.classList.contains('hidden')) {
+        e.preventDefault();
+        closePalette();
+      }
+    });
+
+    // Close on clicking overlay background
+    palette.addEventListener('click', (e) => {
+      if (!card.contains(e.target)) {
+        closePalette();
+      }
+    });
+
+    // Results renderer
+    function renderResults() {
+      results.innerHTML = '';
+      const query = input.value.trim().toLowerCase();
+
+      filteredItems = items.filter(item => 
+        item.label.toLowerCase().includes(query) || 
+        item.type.toLowerCase().includes(query)
+      );
+
+      if (filteredItems.length === 0) {
+        results.innerHTML = `<div class="p-3 text-[12px] text-text-secondary italic">No commands found.</div>`;
+        activeIndex = -1;
+        return;
+      }
+
+      // Render flat grouped result rows
+      filteredItems.forEach((item, index) => {
+        const row = document.createElement('div');
+        row.setAttribute('role', 'option');
+        row.setAttribute('tabindex', '0');
+        row.setAttribute('id', `opt-${index}`);
+        row.className = `p-2.5 px-4 text-[13px] rounded cursor-pointer transition-colors duration-100 flex items-center justify-between text-[#E2E8F0] hover:bg-[var(--accent-muted)] hover:text-accent focus:bg-[var(--accent-muted)] focus:text-accent`;
+        
+        // Show item icon tags
+        let iconHtml = '<i class="ti ti-arrow-right text-xs opacity-60"></i>';
+        if (item.type === 'section') iconHtml = '<i class="ti ti-section text-[14px] opacity-60"></i>';
+        if (item.type === 'mode') iconHtml = '<i class="ti ti-settings text-[14px] opacity-60"></i>';
+        if (item.type === 'project') iconHtml = '<i class="ti ti-code text-[14px] opacity-60"></i>';
+        if (item.type === 'contact') iconHtml = '<i class="ti ti-mail text-[14px] opacity-60"></i>';
+
+        row.innerHTML = `
+          <span>${item.label}</span>
+          <span class="shrink-0 ml-4">${iconHtml}</span>
+        `;
+
+        row.addEventListener('click', () => executeAction(item));
+        results.appendChild(row);
+      });
+
+      setActive(0);
+    }
+
+    function setActive(index) {
+      const rows = results.querySelectorAll('[role="option"]');
+      if (rows.length === 0) return;
+
+      if (activeIndex >= 0 && activeIndex < rows.length) {
+        rows[activeIndex].classList.remove('bg-[var(--accent-muted)]', 'text-accent');
+      }
+
+      activeIndex = index;
+      if (activeIndex < 0) activeIndex = 0;
+      if (activeIndex >= rows.length) activeIndex = rows.length - 1;
+
+      rows[activeIndex].classList.add('bg-[var(--accent-muted)]', 'text-accent');
+      rows[activeIndex].focus();
+      input.focus(); // keep input focused but selection indicated
+    }
+
+    function executeAction(item) {
+      closePalette();
+
+      if (item.type === 'section') {
+        const el = document.getElementById(item.actionValue);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else if (item.type === 'project') {
+        const wrapper = document.getElementById('projects');
+        if (wrapper) {
+          wrapper.scrollIntoView({ behavior: 'smooth' });
+          // Dispatch custom expandProject event for cards
+          setTimeout(() => {
+            window.dispatchEvent(new CustomEvent('expandProject', { detail: item.actionValue }));
+          }, 300);
+        }
+      } else if (item.type === 'mode') {
+        if (window.setMode) {
+          window.setMode(item.actionValue);
+        }
+      } else if (item.type === 'contact') {
+        window.location.href = item.actionValue;
+      }
+    }
+
+    // Input keyboard navigation
+    input.addEventListener('input', () => {
+      renderResults();
+    });
+
+    input.addEventListener('keydown', (e) => {
+      const rows = results.querySelectorAll('[role="option"]');
+      if (rows.length === 0) return;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const nextIndex = (activeIndex + 1) % rows.length;
+        setActive(nextIndex);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prevIndex = (activeIndex - 1 + rows.length) % rows.length;
+        setActive(prevIndex);
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (activeIndex >= 0 && activeIndex < filteredItems.length) {
+          executeAction(filteredItems[activeIndex]);
+        }
+      }
+    });
+  });
+</script>

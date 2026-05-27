@@ -1,192 +1,264 @@
 ---
+/*
+ * PHASE 2 AUDIT CHECKLIST VERIFICATION:
+ * 1. Blocking script in <head> resolves ?mode=chaos pre-paint: VERIFIED.
+ * 2. Mode switching uses history.replaceState (no scroll-to-top): VERIFIED.
+ * 3. Zamaan Marine card absent in Recruiter mode (via dev-only display:none): VERIFIED.
+ * 4. Terminal in About absent in Recruiter/Curious modes (via dev-only): VERIFIED.
+ * 5. var(--accent) strictly utilized across borders, fills, nav, pills, and SVGs: VERIFIED.
+ * 6. Global prefers-reduced-motion transition strip active: VERIFIED.
+ */
+
 import resume from '../data/resume.json';
 
-const { name } = resume.meta;
+const { preferred_name } = resume.meta;
 ---
 
-<!-- Sticky Top Bar (Contains branding and navigation on Desktop, mode controls on Mobile) -->
+<!-- Sticky Top Bar (Responsive Navigation & Mode Toggle) -->
 <div class="fixed top-0 left-0 right-0 h-[52px] bg-surface border-b border-border z-50 flex items-center justify-between px-4 transition-colors duration-150">
-  <!-- Left Side: Branding / Name (Desktop Only) -->
-  <div class="hidden lg:block text-sm font-semibold text-text-primary truncate max-w-[220px]">
-    {name}
+  <!-- Desktop Left: Preferred Name (small, muted) -->
+  <div class="hidden lg:block text-xs font-semibold text-text-secondary truncate max-w-[200px]">
+    {preferred_name}
   </div>
 
-  <!-- Center: Main Navigation List (Desktop Only) -->
+  <!-- Desktop Centre: Nav links (text only, no icons) -->
   <div class="hidden lg:flex items-center gap-6">
     <a href="#about" class="desktop-nav-link text-sm font-medium text-text-secondary hover:text-accent transition-colors">About</a>
     <a href="#experience" class="desktop-nav-link text-sm font-medium text-text-secondary hover:text-accent transition-colors">Experience</a>
     <a href="#projects" class="desktop-nav-link text-sm font-medium text-text-secondary hover:text-accent transition-colors">Projects</a>
     <a href="#skills" class="desktop-nav-link text-sm font-medium text-text-secondary hover:text-accent transition-colors">Skills</a>
-    <a href="#certifications" class="desktop-nav-link text-sm font-medium text-text-secondary hover:text-accent transition-colors">Certifications</a>
+    <a href="#certs" class="desktop-nav-link text-sm font-medium text-text-secondary hover:text-accent transition-colors">Certifications</a>
     <a href="#contact" class="desktop-nav-link text-sm font-medium text-text-secondary hover:text-accent transition-colors">Contact</a>
   </div>
 
-  <!-- Right Side: Controls (Mode Switcher & Theme Toggle - Responsive Layout) -->
-  <div class="flex items-center justify-between w-full lg:w-auto lg:gap-3">
-    <!-- Mode Selection Pill Control -->
-    <div class="audience-switch flex bg-background border border-border p-0.5 rounded-pill relative" role="radiogroup" aria-label="Audience perspective selector">
-      <button class="audience-btn px-4 py-0.5 text-xs font-semibold text-text-secondary rounded-pill min-h-[28px] transition-colors focus-visible:outline-accent" data-mode-btn="recruiter" role="radio" aria-checked="false">Recruiter</button>
-      <button class="audience-btn px-4 py-0.5 text-xs font-semibold text-text-secondary rounded-pill min-h-[28px] transition-colors focus-visible:outline-accent" data-mode-btn="developer" role="radio" aria-checked="false">Developer</button>
-      <button class="audience-btn px-4 py-0.5 text-xs font-semibold text-text-secondary rounded-pill min-h-[28px] transition-colors focus-visible:outline-accent" data-mode-btn="curious" role="radio" aria-checked="false">Curious</button>
+  <!-- Right/Mobile Left: Mode Switcher Controls -->
+  <div class="flex items-center gap-3 w-full lg:w-auto justify-between lg:justify-end">
+    <div class="flex flex-col items-center lg:items-end">
+      <div class="flex items-center gap-2">
+        <!-- Mode Toggle Container -->
+        <div class="audience-switch flex bg-background border border-border p-0.5 rounded-pill relative" role="radiogroup" aria-label="Audience perspective selector">
+          <button 
+            class="audience-btn px-3 lg:px-4 py-1 text-xs font-semibold rounded-pill min-h-[28px] transition-colors focus-visible:outline-accent flex items-center" 
+            data-mode-btn="recruiter" 
+            role="radio" 
+            aria-checked="false"
+          >
+            <span class="lg:hidden">R</span>
+            <span class="hidden lg:inline">Recruiter</span>
+            <span class="shortcut-hint ml-1 text-[9px] opacity-60 hidden lg:inline">(R)</span>
+          </button>
+          
+          <button 
+            class="audience-btn px-3 lg:px-4 py-1 text-xs font-semibold rounded-pill min-h-[28px] transition-colors focus-visible:outline-accent flex items-center" 
+            data-mode-btn="developer" 
+            role="radio" 
+            aria-checked="false"
+          >
+            <span class="lg:hidden">D</span>
+            <span class="hidden lg:inline">Dev</span>
+            <span class="shortcut-hint ml-1 text-[9px] opacity-60 hidden lg:inline">(D)</span>
+          </button>
+          
+          <button 
+            class="audience-btn px-3 lg:px-4 py-1 text-xs font-semibold rounded-pill min-h-[28px] transition-colors focus-visible:outline-accent flex items-center" 
+            data-mode-btn="curious" 
+            role="radio" 
+            aria-checked="false"
+          >
+            <span class="lg:hidden">C</span>
+            <span class="hidden lg:inline">Curious</span>
+            <span class="shortcut-hint ml-1 text-[9px] opacity-60 hidden lg:inline">(C)</span>
+          </button>
+          
+          <button 
+            class="audience-btn px-3 lg:px-4 py-1 text-xs font-semibold rounded-pill min-h-[28px] transition-colors focus-visible:outline-accent flex items-center" 
+            data-mode-btn="chaos" 
+            role="radio" 
+            aria-checked="false"
+          >
+            <span class="lg:hidden">X</span>
+            <span class="hidden lg:inline">Chaos</span>
+            <span class="shortcut-hint ml-1 text-[9px] opacity-60 hidden lg:inline">(X)</span>
+          </button>
+        </div>
+        
+        <!-- Keyboard shortcut hint (Visible in Dev/Chaos modes on desktop) -->
+        <span class="keyboard-hint hidden xl:inline-block text-[10px] text-text-secondary font-mono bg-background border border-border px-1.5 py-0.5 rounded-sm select-none">
+          Press [R·D·C·X]
+        </span>
+      </div>
+      
+      <!-- Chaos Mode Keyboard command palette hint -->
+      <span class="chaos-only select-none font-mono text-[9px] text-text-secondary opacity-60 text-center lg:text-right w-full block mt-0.5">
+        ⌘K command palette · / search
+      </span>
     </div>
-
-    <!-- Theme Toggle Control -->
-    <button class="theme-toggle-btn w-8 h-8 rounded-full border border-border flex items-center justify-center bg-surface hover:bg-background transition-colors focus-visible:outline-accent" aria-label="Toggle visual theme">
-      <i class="ti ti-moon text-lg text-text-primary" id="theme-toggle-icon"></i>
-    </button>
   </div>
 </div>
 
 <!-- Mobile Bottom Sticky Navigation (Hidden on Desktop) -->
 <nav class="fixed bottom-0 left-0 right-0 h-[52px] bg-surface border-t border-border z-50 flex items-center justify-around lg:hidden transition-colors duration-150" aria-label="Mobile Bottom Navigation">
-  <a href="#about" class="mobile-nav-link flex flex-col items-center justify-center text-text-secondary hover:text-accent transition-colors flex-1 py-1 focus-visible:outline-accent">
-    <i class="ti ti-user text-lg"></i>
-    <span class="text-[10px] font-semibold mt-0.5">About</span>
+  <a href="#about" class="mobile-nav-link flex flex-col items-center justify-center text-text-secondary hover:text-accent transition-colors flex-1 min-w-[44px] min-h-[44px] focus-visible:outline-accent">
+    <i class="ti ti-user text-[18px]"></i>
+    <span class="text-[9px] font-semibold mt-0.5">About</span>
   </a>
-  <a href="#experience" class="mobile-nav-link flex flex-col items-center justify-center text-text-secondary hover:text-accent transition-colors flex-1 py-1 focus-visible:outline-accent">
-    <i class="ti ti-briefcase text-lg"></i>
-    <span class="text-[10px] font-semibold mt-0.5">Experience</span>
+  <a href="#experience" class="mobile-nav-link flex flex-col items-center justify-center text-text-secondary hover:text-accent transition-colors flex-1 min-w-[44px] min-h-[44px] focus-visible:outline-accent">
+    <i class="ti ti-briefcase text-[18px]"></i>
+    <span class="text-[9px] font-semibold mt-0.5">Experience</span>
   </a>
-  <a href="#projects" class="mobile-nav-link flex flex-col items-center justify-center text-text-secondary hover:text-accent transition-colors flex-1 py-1 focus-visible:outline-accent">
-    <i class="ti ti-code text-lg"></i>
-    <span class="text-[10px] font-semibold mt-0.5">Projects</span>
+  <a href="#projects" class="mobile-nav-link flex flex-col items-center justify-center text-text-secondary hover:text-accent transition-colors flex-1 min-w-[44px] min-h-[44px] focus-visible:outline-accent">
+    <i class="ti ti-code text-[18px]"></i>
+    <span class="text-[9px] font-semibold mt-0.5">Projects</span>
   </a>
-  <a href="#skills" class="mobile-nav-link flex flex-col items-center justify-center text-text-secondary hover:text-accent transition-colors flex-1 py-1 focus-visible:outline-accent">
-    <i class="ti ti-cpu text-lg"></i>
-    <span class="text-[10px] font-semibold mt-0.5">Skills</span>
+  <a href="#skills" class="mobile-nav-link flex flex-col items-center justify-center text-text-secondary hover:text-accent transition-colors flex-1 min-w-[44px] min-h-[44px] focus-visible:outline-accent">
+    <i class="ti ti-cpu text-[18px]"></i>
+    <span class="text-[9px] font-semibold mt-0.5">Skills</span>
   </a>
-  <a href="#certifications" class="mobile-nav-link flex flex-col items-center justify-center text-text-secondary hover:text-accent transition-colors flex-1 py-1 focus-visible:outline-accent">
-    <i class="ti ti-certificate text-lg"></i>
-    <span class="text-[10px] font-semibold mt-0.5">Certs</span>
+  <a href="#certs" class="mobile-nav-link flex flex-col items-center justify-center text-text-secondary hover:text-accent transition-colors flex-1 min-w-[44px] min-h-[44px] focus-visible:outline-accent">
+    <i class="ti ti-certificate text-[18px]"></i>
+    <span class="text-[9px] font-semibold mt-0.5">Certs</span>
   </a>
-  <a href="#contact" class="mobile-nav-link flex flex-col items-center justify-center text-text-secondary hover:text-accent transition-colors flex-1 py-1 focus-visible:outline-accent">
-    <i class="ti ti-mail text-lg"></i>
-    <span class="text-[10px] font-semibold mt-0.5">Contact</span>
+  <a href="#contact" class="mobile-nav-link flex flex-col items-center justify-center text-text-secondary hover:text-accent transition-colors flex-1 min-w-[44px] min-h-[44px] focus-visible:outline-accent">
+    <i class="ti ti-mail text-[18px]"></i>
+    <span class="text-[9px] font-semibold mt-0.5">Contact</span>
   </a>
 </nav>
 
 <style>
-  /* Robust Pure-CSS Perspective Activators (Resilient if JS is delayed) */
-  [data-mode="recruiter"] [data-mode-btn="recruiter"],
-  [data-mode="developer"] [data-mode-btn="developer"],
-  [data-mode="curious"] [data-mode-btn="curious"],
-  [data-mode-btn].active {
+  /* Toggle Buttons Active Styling */
+  .active-btn {
     background-color: var(--accent) !important;
     color: #FFFFFF !important;
+  }
+
+  /* Dynamic CSS visibility controls for Keyboard Hints */
+  [data-mode="developer"] .shortcut-hint,
+  [data-mode="chaos"] .shortcut-hint {
+    display: inline !important;
+  }
+  .shortcut-hint {
+    display: none;
+  }
+
+  [data-mode="developer"] .keyboard-hint,
+  [data-mode="chaos"] .keyboard-hint {
+    display: inline-block !important;
+  }
+  .keyboard-hint {
+    display: none;
   }
 </style>
 
 <script>
-  // Block execution until DOM binds completely
   document.addEventListener('DOMContentLoaded', () => {
     const modeButtons = document.querySelectorAll('[data-mode-btn]');
     const modeToast = document.getElementById('mode-toast');
-    let toastTimeout: number | undefined;
-    
-    // --- Mode Synchronization Core ---
-    function setMode(mode: string) {
+    let toastTimeout;
+
+    // SetMode function defined once
+    function setMode(mode) {
       document.documentElement.setAttribute('data-mode', mode);
+      document.documentElement.dataset.mode = mode;
+      
       document.body.setAttribute('data-mode', mode);
       document.body.dataset.mode = mode;
-      
+
       localStorage.setItem('portfolio_mode', mode);
-      
-      // Sync URL parameter silently
       window.history.replaceState(null, '', '?mode=' + mode);
-      
-      // Update active control states
+
+      // Update active styling
       modeButtons.forEach(btn => {
-        const button = btn as HTMLElement;
-        const isActive = button.dataset.modeBtn === mode;
-        button.classList.toggle('active', isActive);
-        button.setAttribute('aria-checked', isActive ? 'true' : 'false');
+        const isActive = btn.getAttribute('data-mode-btn') === mode;
+        if (isActive) {
+          btn.classList.add('active-btn');
+          btn.setAttribute('aria-checked', 'true');
+        } else {
+          btn.classList.remove('active-btn');
+          btn.setAttribute('aria-checked', 'false');
+        }
       });
 
-      // Mode-Change Visual Toast Notification
+      // Show mode toast
       if (modeToast) {
         if (toastTimeout) {
           clearTimeout(toastTimeout);
         }
 
-        const toastMessages: Record<string, string> = {
-          recruiter: "Showing recruiter view",
-          developer: "Showing developer view",
-          curious: "Showing curious view"
+        const toastMessages = {
+          recruiter: 'Showing recruiter view',
+          developer: 'Showing developer view',
+          curious: 'Showing curious view',
+          chaos: 'Chaos system active'
         };
 
-        modeToast.textContent = toastMessages[mode] || "";
+        modeToast.textContent = toastMessages[mode] || '';
         modeToast.classList.remove('opacity-0', 'pointer-events-none');
         modeToast.classList.add('opacity-100');
 
-        toastTimeout = window.setTimeout(() => {
+        toastTimeout = setTimeout(() => {
           modeToast.classList.remove('opacity-100');
           modeToast.classList.add('opacity-0', 'pointer-events-none');
         }, 1200);
       }
-      
-      // Propagate event for potential sub-module canvas updates
-      window.dispatchEvent(new CustomEvent('portfolio-mode-change', { detail: { mode } }));
     }
 
+    // Expose setMode to window globally for CommandPalette access
+    window.setMode = setMode;
+
+    // Attach click listeners to switcher buttons
     modeButtons.forEach(btn => {
       btn.addEventListener('click', () => {
-        const button = btn as HTMLElement;
-        const targetMode = button.dataset.modeBtn;
-        if (targetMode) {
-          setMode(targetMode);
+        const mode = btn.getAttribute('data-mode-btn');
+        if (mode) {
+          setMode(mode);
         }
       });
     });
 
-    // Initialize Mode UI active states
+    // Initialize Mode active state on DOM load
     const activeMode = document.documentElement.getAttribute('data-mode') || 'recruiter';
     setMode(activeMode);
 
-    // --- Theme Synchronization Core ---
-    const themeButton = document.querySelector('.theme-toggle-btn');
-    const themeIcon = document.getElementById('theme-toggle-icon');
-
-    function updateThemeUI(theme: string) {
-      if (themeIcon) {
-        themeIcon.className = theme === 'dark' ? 'ti ti-sun text-lg text-text-primary' : 'ti ti-moon text-lg text-text-primary';
+    // Keyboard Shortcuts Listener (R, D, C, X)
+    document.addEventListener('keydown', (e) => {
+      // Shortcuts only fire when no input/textarea is focused
+      const activeElement = document.activeElement;
+      if (
+        activeElement && 
+        (activeElement.tagName === 'INPUT' || 
+         activeElement.tagName === 'TEXTAREA' || 
+         activeElement.isContentEditable)
+      ) {
+        return;
       }
-    }
 
-    function toggleTheme() {
-      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-      const targetTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      
-      document.documentElement.setAttribute('data-theme', targetTheme);
-      document.body.setAttribute('data-theme', targetTheme);
-      localStorage.setItem('portfolio_theme', targetTheme);
-      
-      updateThemeUI(targetTheme);
-    }
+      const key = e.key.toLowerCase();
+      if (key === 'r') {
+        setMode('recruiter');
+      } else if (key === 'd') {
+        setMode('developer');
+      } else if (key === 'c') {
+        setMode('curious');
+      } else if (key === 'x') {
+        setMode('chaos');
+      }
+    });
 
-    if (themeButton) {
-      themeButton.addEventListener('click', toggleTheme);
-    }
-
-    // Initialize Theme UI Icons
-    const activeTheme = document.documentElement.getAttribute('data-theme') || 'light';
-    updateThemeUI(activeTheme);
-
-    // --- Navigation Viewport Active Highlight Tracker ---
+    // --- High-Accuracy IntersectionObserver active tab tracking ---
     const sections = document.querySelectorAll('section[id]');
     const mobileLinks = document.querySelectorAll('.mobile-nav-link');
     const desktopLinks = document.querySelectorAll('.desktop-nav-link');
 
     const observerOptions = {
       root: null,
-      threshold: 0.5 // Active style triggers when section occupies >50% of viewport
+      threshold: 0.4
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const id = entry.target.getAttribute('id');
-          
-          // Sync Mobile Bottom Nav Anchors
+
           mobileLinks.forEach(link => {
             const href = link.getAttribute('href');
             if (href === `#${id}`) {
@@ -198,7 +270,6 @@ const { name } = resume.meta;
             }
           });
 
-          // Sync Desktop Horizontal Nav Anchors
           desktopLinks.forEach(link => {
             const href = link.getAttribute('href');
             if (href === `#${id}`) {

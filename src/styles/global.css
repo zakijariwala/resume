@@ -1,56 +1,61 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
-@import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:wght@400&family=Inter:wght@300;400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* CSS Custom Properties / Tokens on :root (Light Theme) */
+/* CSS Custom Properties & Design Tokens */
 :root {
-  --background: #F8F7F4;
+  --bg: #F8F7F4;
   --surface: #FFFFFF;
-  --border: rgba(0, 0, 0, 0.08);
+  --border-color: rgba(0, 0, 0, 0.08);
   --text-primary: #1A1A1A;
   --text-secondary: #6B6B6B;
-  
-  --accent-recruiter: #1A6BFF;
-  --accent-developer: #1A8A5A;
-  --accent-curious: #B87A00;
-
-  --accent-muted-recruiter: #E8F0FF;
-  --accent-muted-developer: #E8F8F0;
-  --accent-muted-curious: #FFF8E8;
-
-  /* Default active references (Recruiter) */
-  --accent: var(--accent-recruiter);
-  --accent-muted: var(--accent-muted-recruiter);
+  --accent: #1A6BFF;
+  --accent-muted: #E8F0FF;
+  --font-heading: 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --border-style: 1px solid var(--border-color);
+  --radius-card: 12px;
+  --motion-fast: 150ms;
+  --motion-mid: 300ms;
 }
 
-/* Dark Mode Overrides */
-[data-theme="dark"] {
-  --background: #111111;
+[data-mode="developer"] {
+  --bg: #111111;
   --surface: #1C1C1C;
-  --border: rgba(255, 255, 255, 0.08);
+  --border-color: rgba(255, 255, 255, 0.08);
   --text-primary: #F0F0F0;
   --text-secondary: #888888;
-
-  --accent-muted-recruiter: #1A2640;
-  --accent-muted-developer: #133020;
-  --accent-muted-curious: #3a2a10;
+  --accent: #1A8A5A;
+  --accent-muted: #0D2B1E;
+  --font-heading: 'IBM Plex Mono', monospace;
+  --font-body: 'Inter', system-ui, sans-serif;
 }
 
-/* Mode-Specific Accent Colour Configurations */
-[data-mode="recruiter"] {
-  --accent: var(--accent-recruiter);
-  --accent-muted: var(--accent-muted-recruiter);
-}
-[data-mode="developer"] {
-  --accent: var(--accent-developer);
-  --accent-muted: var(--accent-muted-developer);
-}
 [data-mode="curious"] {
-  --accent: var(--accent-curious);
-  --accent-muted: var(--accent-muted-curious);
+  --bg: #F8F7F4;
+  --surface: #FFFFFF;
+  --border-color: rgba(0, 0, 0, 0.06);
+  --text-primary: #1A1A1A;
+  --text-secondary: #6B6B6B;
+  --accent: #B87A00;
+  --accent-muted: #FEF3C7;
+  --font-heading: 'Instrument Serif', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+[data-mode="chaos"] {
+  --bg: #0A0A0A;
+  --surface: #111111;
+  --border-color: rgba(255, 51, 102, 0.2);
+  --text-primary: #F0F0F0;
+  --text-secondary: #888888;
+  --accent: #FF3366;
+  --accent-muted: #2D0011;
+  --font-heading: 'IBM Plex Mono', monospace;
+  --font-body: 'IBM Plex Mono', monospace;
 }
 
 /* Base Resets */
@@ -64,107 +69,58 @@ html {
 }
 
 body {
-  background-color: var(--background);
+  background: var(--bg);
   color: var(--text-primary);
-  font-family: 'Inter', sans-serif;
-  margin: 0;
-  padding: 0;
+  font-family: var(--font-body);
+  transition: background var(--motion-mid) ease, color var(--motion-mid) ease;
 }
 
-/* Audience Visibility Architecture via CSS data-mode attribute selectors */
-.recruiter-only,
-.dev-only,
-.curious-only,
-.recruiter-dev,
-.recruiter-mgmt {
-  display: none !important;
+/* CRT Scanline Effect (Chaos Mode Only) */
+body[data-mode="chaos"]::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
 }
 
-.all-modes {
-  display: block !important;
-}
-
-/* Active Recruiter Mode Layouts */
-[data-mode="recruiter"] .recruiter-only {
-  display: block !important;
-}
-[data-mode="recruiter"] span.recruiter-only {
-  display: inline !important;
-}
-[data-mode="recruiter"] li.recruiter-only {
-  display: list-item !important;
-}
-[data-mode="recruiter"] .recruiter-dev {
-  display: block !important;
-}
-[data-mode="recruiter"] li.recruiter-dev {
-  display: list-item !important;
-}
-[data-mode="recruiter"] .recruiter-mgmt {
-  display: block !important;
-}
-[data-mode="recruiter"] li.recruiter-mgmt {
-  display: list-item !important;
-}
-
-/* Active Developer Mode Layouts */
-[data-mode="developer"] .dev-only {
-  display: block !important;
-}
-[data-mode="developer"] span.dev-only {
-  display: inline !important;
-}
-[data-mode="developer"] li.dev-only {
-  display: list-item !important;
-}
-[data-mode="developer"] .recruiter-dev {
-  display: block !important;
-}
-[data-mode="developer"] li.recruiter-dev {
-  display: list-item !important;
-}
-
-/* Active Curious Mode Layouts */
-[data-mode="curious"] .curious-only {
-  display: block !important;
-}
-[data-mode="curious"] span.curious-only {
-  display: inline !important;
-}
-[data-mode="curious"] li.curious-only {
-  display: list-item !important;
-}
-
-/* --- Phase 1 Polish Visual Rules & Micro-Interactions --- */
-
-/* Page Fade-In Initial State */
-#app {
-  opacity: 0;
-  transition: opacity 300ms ease;
-}
-
-/* Section Heading Bottom Border Treatment */
+/* --- Section Headings Styles & Polish --- */
 section h2 {
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: 8px;
   margin-bottom: 24px;
 }
 
-/* All Cards: transition on border colour, hover lifts, border accent */
-.experience-card-wrapper, .project-card-wrapper {
-  transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease !important;
-}
-.experience-card-wrapper:hover, .project-card-wrapper:hover {
-  border-color: var(--accent) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-}
-[data-theme="dark"] .experience-card-wrapper:hover, 
-[data-theme="dark"] .project-card-wrapper:hover {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+[data-mode="curious"] section h2 {
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 16px !important;
 }
 
-/* All Pill Tags: hover transform scale-105 transition */
+/* --- Micro-Interactions & Transitions --- */
+/* Executive card hovers and borders transitions */
+.exp-card, .proj-card {
+  transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease !important;
+}
+
+.exp-card:hover, .proj-card:hover {
+  border-color: var(--accent) !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.02), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+}
+
+[data-theme="dark"] .exp-card:hover, 
+[data-theme="dark"] .proj-card:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Pill Tags transitions */
 .tech-pill, .skill-pill {
   transition: transform 100ms ease-out !important;
 }
@@ -172,7 +128,7 @@ section h2 {
   transform: scale(1.05) !important;
 }
 
-/* All Links: underline offset-2 transition on hover */
+/* Link underlines transitions */
 a {
   transition: text-underline-offset 150ms ease, color 150ms ease;
 }
@@ -180,3 +136,79 @@ a:hover {
   text-underline-offset: 4px;
 }
 
+/* High-contrast premium focus rings (outline targets) */
+:focus-visible {
+  outline: 2px solid var(--accent) !important;
+  outline-offset: 2px !important;
+}
+
+/* Global Prefers-Reduced-Motion resets (strips ALL transitions/animations) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Audience Visibility Architectures (CSS Only, No JS) */
+/* Default (no data-mode attribute, or explicitly set to recruiter) */
+html:not([data-mode]),
+html[data-mode="recruiter"],
+body:not([data-mode]),
+body[data-mode="recruiter"] {
+  .dev-only,
+  .curious-only,
+  .chaos-only {
+    display: none !important;
+  }
+  .recruiter-only,
+  .recruiter-dev,
+  .recruiter-mgmt,
+  .all-modes {
+    display: revert;
+  }
+}
+
+/* Developer Perspective Visibility */
+[data-mode="developer"] {
+  .recruiter-only,
+  .curious-only,
+  .chaos-only {
+    display: none !important;
+  }
+  .dev-only,
+  .recruiter-dev,
+  .all-modes {
+    display: revert;
+  }
+}
+
+/* Curious Perspective Visibility */
+[data-mode="curious"] {
+  .recruiter-only,
+  .dev-only,
+  .chaos-only,
+  .recruiter-dev,
+  .recruiter-mgmt {
+    display: none !important;
+  }
+  .curious-only,
+  .all-modes {
+    display: revert;
+  }
+}
+
+/* Chaos Perspective Visibility */
+[data-mode="chaos"] {
+  .recruiter-only,
+  .curious-only,
+  .recruiter-mgmt {
+    display: none !important;
+  }
+  .chaos-only,
+  .dev-only,
+  .recruiter-dev,
+  .all-modes {
+    display: revert;
+  }
+}
