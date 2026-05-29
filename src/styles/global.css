@@ -115,11 +115,15 @@
    ────────────────────────────────────────────────────── */
 :root {
   --nav-height:       56px;
+  --nav-bg:           rgba(248, 247, 244, 0.85);
   --card-padding:     var(--space-5);
   --card-radius:      var(--radius-md);
   --layout-max:       900px;
   --layout-gutter:    var(--space-5);
   --section-padding:  var(--space-28);
+}
+[data-theme="dark"] {
+  --nav-bg: rgba(15, 15, 15, 0.85);
 }
 
 /* ──────────────────────────────────────────────────────
@@ -249,14 +253,6 @@ a {
 [data-mode="curious"] .curious-only         { display: block; }
 [data-mode="curious"] span.curious-only     { display: inline; }
 [data-mode="curious"] li.curious-only       { display: list-item; }
-
-/* ──────────────────────────────────────────────────────
-   PAGE FADE-IN
-   ────────────────────────────────────────────────────── */
-#app {
-  opacity: 0;
-  transition: opacity 350ms ease;
-}
 
 /* ──────────────────────────────────────────────────────
    SCROLL REVEAL
