@@ -1,0 +1,32 @@
+---
+interface Kpi {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  kpis: Kpi[];
+}
+
+const { kpis } = Astro.props;
+---
+
+<div class="kpi-row">
+  {kpis.map(kpi => (
+    <div class="kpi">
+      <span class="kpi-val">{kpi.value}</span>
+      <span class="kpi-label">{kpi.label}</span>
+    </div>
+  ))}
+</div>
+
+<style>
+.kpi-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border);
+}
+</style>

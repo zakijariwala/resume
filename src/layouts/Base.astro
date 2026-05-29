@@ -14,18 +14,17 @@ const { title, description } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
     <title>{title}</title>
     <meta name="description" content={description} />
-    
-    <!-- Open Graph Metadata -->
+
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    
-    <!-- Theme Color tied to Active Accent Mode -->
-    <meta name="theme-color" content="var(--accent)" />
-    
-    <!-- Synchronous FOUC-Prevention Script (Sets attributes prior to paint) -->
+    <meta property="og:type" content="website" />
+
+    <meta name="theme-color" content="#1A6BFF" />
+
+    <!-- FOUC prevention: sets data-mode and data-theme before first paint -->
     <script is:inline>
       (function () {
         const params = new URLSearchParams(window.location.search);
@@ -35,34 +34,25 @@ const { title, description } = Astro.props;
         const validModes = ['recruiter', 'developer', 'curious'];
         const validThemes = ['light', 'dark'];
 
-        // 1. Read URL param first, save if valid
         if (mode && validModes.includes(mode)) {
           localStorage.setItem('portfolio_mode', mode);
         } else {
-          // 2. If no param or invalid, read localStorage, default to recruiter
           mode = localStorage.getItem('portfolio_mode');
-          if (!mode || !validModes.includes(mode)) {
-            mode = 'recruiter';
-          }
+          if (!mode || !validModes.includes(mode)) mode = 'recruiter';
         }
 
-        // Apply same hierarchy to theme
         if (theme && validThemes.includes(theme)) {
           localStorage.setItem('portfolio_theme', theme);
         } else {
           theme = localStorage.getItem('portfolio_theme');
-          if (!theme || !validThemes.includes(theme)) {
-            theme = 'light';
-          }
+          if (!theme || !validThemes.includes(theme)) theme = 'light';
         }
 
-        // Apply immediately to html tag for initial styled rendering before paint
         document.documentElement.setAttribute('data-mode', mode);
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('portfolio_mode', mode);
         localStorage.setItem('portfolio_theme', theme);
 
-        // Ensure URL always reflects active mode without reload
         const newSearch = '?mode=' + mode;
         if (window.location.search !== newSearch) {
           window.history.replaceState(null, '', newSearch);
@@ -70,9 +60,8 @@ const { title, description } = Astro.props;
       })();
     </script>
   </head>
-  
-  <body class="transition-colors duration-150">
-    <!-- Double-apply attributes to body tag once DOM initializes to guarantee compatibility with nested body selectors -->
+
+  <body>
     <script is:inline>
       (function () {
         const mode = document.documentElement.getAttribute('data-mode');
@@ -81,21 +70,28 @@ const { title, description } = Astro.props;
         document.body.setAttribute('data-theme', theme);
       })();
     </script>
-    
-    <!-- Dynamic Mode-Change Visual Toast -->
-    <div id="mode-toast" class="fixed top-[52px] left-0 right-0 h-8 flex items-center justify-center bg-[var(--accent-muted)] text-accent text-xs font-semibold z-40 opacity-0 pointer-events-none transition-opacity duration-300"></div>
-    
+
+    <!-- Mode-change toast -->
+    <div
+      id="mode-toast"
+      class="fixed left-0 right-0 z-40 flex items-center justify-center h-8 text-xs font-semibold opacity-0 pointer-events-none transition-opacity duration-300"
+      style="top: var(--nav-height); background: var(--accent-subtle); color: var(--accent-text);"
+    ></div>
+
     <div id="app" class="min-h-screen flex flex-col">
       <slot />
     </div>
 
-    <!-- Synchronous load animation script -->
+    <!-- Scroll reveal -->
     <script is:inline>
       document.addEventListener('DOMContentLoaded', () => {
-        const app = document.getElementById('app');
-        if (app) {
-          app.style.opacity = '1';
-        }
+        const observer = new IntersectionObserver(
+          (entries) => entries.forEach(e => {
+            if (e.isIntersecting) e.target.classList.add('visible');
+          }),
+          { threshold: 0.12 }
+        );
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
       });
     </script>
   </body>

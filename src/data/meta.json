@@ -1,0 +1,91 @@
+{
+  "name": "J. Zaki",
+  "preferred_name": "J. Zaki",
+  "location": "Navi Mumbai, India",
+  "location_detail": "Seawoods, Navi Mumbai — open to global relocation",
+  "email": "Jariwalazaki@gmail.com",
+  "phone": "+91 9601406034",
+  "whatsapp": "https://wa.me/919601406034",
+  "linkedin": "https://linkedin.com/in/zakijariwala",
+  "github": "https://github.com/zakijariwala",
+  "pdf_path": "/ZAKI.J_Resume.pdf",
+  "availability": "Open to infrastructure, SRE, and platform engineering roles. Based in Mumbai, open to relocation.",
+
+  "taglines": {
+    "recruiter": "Systems Engineer · TCS / SBI GITC",
+    "developer": "Infrastructure + AI automation",
+    "curious":   "Engineer by day, builder by night"
+  },
+
+  "hero_subline": {
+    "recruiter": "3 years · Banking infrastructure for 30,000+ users",
+    "developer": "whatever I'm building this month",
+    "curious":   "I find it hard to stop building things"
+  },
+
+  "contact_taglines": {
+    "recruiter": "Open to infrastructure, platform engineering, and SRE roles. Based in Mumbai, open to relocation.",
+    "developer": "Always interested in interesting problems. Best reached over email.",
+    "curious":   "Say hello — I reply."
+  },
+
+  "contact_headline": {
+    "recruiter": "Let's talk infrastructure",
+    "developer": "Let's build something",
+    "curious":   "Say hello"
+  },
+
+  "stats": [
+    {
+      "value":    "99.999%",
+      "label":    "Uptime SLA",
+      "sublabel": "five-nine SLA compliance"
+    },
+    {
+      "value":    "30,000+",
+      "label":    "Branch Users",
+      "sublabel": "internal SBI branch users"
+    },
+    {
+      "value":    "150+",
+      "label":    "Servers Managed",
+      "sublabel": "RHEL + Windows fleet"
+    },
+    {
+      "value":    "50%",
+      "label":    "RTO Reduction",
+      "sublabel": "disaster recovery runbooks"
+    }
+  ],
+
+  "currently": "Building a content automation pipeline that turns YouTube transcripts into publication-ready articles across 12 niches. Studying for GCP Professional Cloud Architect. Thinking about offline-first data architecture for mobile apps. Reading about FreeType font rendering for the e-ink reader that's still on the bench.",
+
+  "about": {
+    "left_framing": {
+      "recruiter": "Systems Engineer at TCS, deployed at SBI. Three years keeping mission-critical banking infrastructure running at 99.999% uptime for 30,000+ users.",
+      "developer": "I run infrastructure for a Tier-1 Indian bank by day and build automation pipelines, PWAs, and embedded devices by night.",
+      "curious":   "Based in Navi Mumbai. Engineer by profession, builder by disposition."
+    },
+    "callout": "Built an offline Islamic supplication app used by a small community worldwide — extracted from an Android APK, restructured a 22,000-row SQLite database, shipped it as a PWA with zero hosting cost.",
+    "paragraphs": {
+      "recruiter": "Systems Engineer at TCS, deployed at State Bank of India, keeping mission-critical banking infrastructure running at 99.999% uptime for 30,000+ users. Three years of hands-on infrastructure, IDM, and DR execution — with a team of five to lead and a track record of cutting RTO by 50%.",
+      "developer": "I run infrastructure for a Tier-1 Indian bank by day and build automation pipelines, PWAs, and embedded devices by night. My stack spans Linux/RHEL server fleets, Python ETL, Flutter mobile, Astro JAMstack, and ESP32 firmware — usually on free-tier infrastructure and always with a bias toward shipping over theorising. Currently deep into LLM orchestration and GenAI workflow design.",
+      "curious_p1": "I'm an engineer based in Navi Mumbai who finds it hard to stop building things. My day job is keeping banking systems alive for tens of thousands of people.",
+      "curious_p2": "Outside that, I've built an offline Islamic supplication app used by a small community of Muslims worldwide, a running app with ghost routes and crowd radar, a pocket e-ink reader from scratch, and a marketing automation system for my family's marine parts business.",
+      "curious_p3": "I also spent a few months coaching engineers on how to talk about their work — which turned out to be more technical than it sounds.",
+      "curious_p4": "Right now I'm building a content automation pipeline and thinking about what a genuinely useful AI-native workflow tool would look like if you weren't trying to impress a demo audience."
+    }
+  },
+
+  "summaries": {
+    "platform_sre": "Systems Engineer specialising in Identity & Access Management (IDM) and enterprise infrastructure operations within banking environments. Experienced in leading operations teams and mentoring engineers while managing mission-critical platforms for 30,000+ users. Expert in infrastructure modernisation, on-premise containerisation, and high-availability systems (99.999%), currently expanding into Platform Engineering, SRE, and multi-cloud architecture.",
+    "management": "Systems Engineer and technical coach with a strong foundation in managing mission-critical enterprise banking infrastructure for 30,000+ users. Proven leadership in directing operations teams, mentoring junior engineers, and executing Disaster Recovery drills. Combining deep technical expertise in on-premise containerisation with strong executive communication skills.",
+    "ai_automation": "Systems Engineer and automation architect specialising in end-to-end LLM orchestration, GenAI workflow design, and data pipeline engineering. Expert in building secure, high-performance automation frameworks using Python, multi-model API integration, and headless distribution systems."
+  },
+
+  "education": {
+    "degree": "Bachelor of Technology (B.Tech) — Electronics & Communication Engineering",
+    "institution": "Dharmsinh Desai University",
+    "year": "2023"
+  }
+}

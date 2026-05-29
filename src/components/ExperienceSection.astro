@@ -1,18 +1,30 @@
 ---
-import resume from '../data/resume.json';
+import experience from '../data/experience.json';
 import ExperienceCard from './ExperienceCard.astro';
+import SectionHeader from './SectionHeader.astro';
 ---
 
-<section id="experience" class="py-12 border-b border-border transition-all duration-150">
-  <!-- Section Heading -->
-  <h2 class="text-[22px] leading-snug font-medium text-text-primary mb-6">
-    Experience
-  </h2>
+<section id="experience" class="section-spacing" style="border-bottom: 1px solid var(--border);">
+  <SectionHeader
+    label="WORK HISTORY"
+    labelDev="work_history"
+    labelCurious="Where I've worked"
+    title="Experience"
+  />
 
-  <!-- List container for Experience Cards -->
-  <div class="experience-cards-container">
-    {resume.experience.map(entry => (
+  <div class="exp-list">
+    {experience.map(entry => (
       <ExperienceCard entry={entry} />
     ))}
   </div>
 </section>
+
+<style>
+.section-spacing {
+  padding: var(--section-padding) 0;
+}
+.exp-list {
+  display: flex;
+  flex-direction: column;
+}
+</style>

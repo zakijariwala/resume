@@ -1,0 +1,176 @@
+# Decap CMS configuration
+# See CMS-SETUP-GUIDE.md for OAuth activation steps
+
+backend:
+  name: github
+  repo: zakijariwala/resume
+  branch: main
+  auth_type: implicit
+  app_id: YOUR_GITHUB_OAUTH_APP_ID  # Replace with your OAuth App Client ID
+
+media_folder: public
+public_folder: /
+
+# Disable drafts — every save commits directly to main and triggers a rebuild
+publish_mode: simple
+
+collections:
+  # ── Meta & Contact ──────────────────────────────────────────────────────────
+  - name: meta
+    label: Site Meta & Contact
+    files:
+      - name: meta
+        label: Meta, Hero & Contact
+        file: src/data/meta.json
+        fields:
+          - { name: name,            label: Display Name,     widget: string }
+          - { name: location,        label: Location,         widget: string }
+          - { name: email,           label: Email,            widget: string }
+          - { name: phone,           label: Phone,            widget: string }
+          - { name: whatsapp,        label: WhatsApp URL,     widget: string }
+          - { name: linkedin,        label: LinkedIn URL,     widget: string }
+          - { name: github,          label: GitHub URL,       widget: string }
+          - { name: availability,    label: Availability,     widget: string }
+          - { name: currently,       label: Currently (Curious hero block), widget: text }
+          - name: taglines
+            label: Mode Taglines
+            widget: object
+            fields:
+              - { name: recruiter, label: Recruiter, widget: string }
+              - { name: developer, label: Developer, widget: string }
+              - { name: curious,   label: Curious,   widget: string }
+          - name: hero_subline
+            label: Hero Sub-lines
+            widget: object
+            fields:
+              - { name: recruiter, label: Recruiter, widget: string }
+              - { name: developer, label: Developer, widget: string }
+              - { name: curious,   label: Curious,   widget: string }
+          - name: stats
+            label: Hero Stat Cards (max 4)
+            widget: list
+            max: 4
+            fields:
+              - { name: value,    label: Value,    widget: string }
+              - { name: label,    label: Label,    widget: string }
+              - { name: sublabel, label: Sublabel (Developer mode), widget: string, required: false }
+          - name: contact_headline
+            label: Contact Headlines
+            widget: object
+            fields:
+              - { name: recruiter, label: Recruiter, widget: string }
+              - { name: developer, label: Developer, widget: string }
+              - { name: curious,   label: Curious,   widget: string }
+          - name: contact_taglines
+            label: Contact Taglines
+            widget: object
+            fields:
+              - { name: recruiter, label: Recruiter, widget: string }
+              - { name: developer, label: Developer, widget: string }
+              - { name: curious,   label: Curious,   widget: string }
+
+  # ── Experience ──────────────────────────────────────────────────────────────
+  - name: experience
+    label: Experience
+    files:
+      - name: experience
+        label: Work History
+        file: src/data/experience.json
+        widget: list
+        fields:
+          - { name: id,      label: ID,      widget: string }
+          - { name: company, label: Company, widget: string }
+          - { name: subtitle, label: Subtitle, widget: string, required: false }
+          - { name: title,   label: Title,   widget: string }
+          - { name: dates,   label: Dates,   widget: string }
+          - name: status
+            label: Status
+            widget: select
+            options: [active, ongoing, dim, done]
+          - { name: context_tag, label: Context Tag, widget: string }
+          - name: kpis
+            label: KPI Cards
+            widget: list
+            fields:
+              - { name: value, label: Value, widget: string }
+              - { name: label, label: Label, widget: string }
+          - name: bullets
+            label: Bullets
+            widget: list
+            fields:
+              - { name: text, label: Text, widget: text }
+              - name: audience
+                label: Audience
+                widget: select
+                multiple: true
+                options: [recruiter, developer, curious, management]
+          - { name: show_recovery_chart, label: Show Recovery Chart, widget: boolean, default: false }
+
+  # ── Projects ────────────────────────────────────────────────────────────────
+  - name: projects
+    label: Projects
+    files:
+      - name: projects
+        label: Projects
+        file: src/data/projects.json
+        widget: list
+        fields:
+          - { name: id,                label: ID,                widget: string }
+          - { name: name,              label: Name,              widget: string }
+          - { name: tagline,           label: Tagline,           widget: string }
+          - { name: featured,          label: Featured,          widget: boolean, default: false }
+          - { name: one_line_summary,  label: One-line Summary,  widget: string }
+          - { name: featured_metric,   label: Featured Metric,   widget: string }
+          - { name: why_i_built_it,    label: Why I Built It,    widget: text }
+          - { name: tech,              label: Tech Stack,        widget: list }
+          - { name: github,            label: GitHub URL,        widget: string, required: false }
+          - { name: year,              label: Year,              widget: string }
+          - name: bullets
+            label: Bullets
+            widget: list
+            fields:
+              - { name: text, label: Text, widget: text }
+              - name: audience
+                label: Audience
+                widget: select
+                multiple: true
+                options: [recruiter, developer, curious, management]
+
+  # ── Skills ──────────────────────────────────────────────────────────────────
+  - name: skills
+    label: Skills
+    files:
+      - name: skills
+        label: Skills
+        file: src/data/skills.json
+        widget: list
+        fields:
+          - { name: category,  label: Category,  widget: string }
+          - { name: tab_label, label: Tab Label,  widget: string }
+          - name: items
+            label: Skills
+            widget: list
+            fields:
+              - { name: name, label: Name, widget: string }
+              - name: proficiency
+                label: Proficiency
+                widget: select
+                options: [confident, familiar, learning]
+
+  # ── Certifications ──────────────────────────────────────────────────────────
+  - name: certifications
+    label: Certifications
+    files:
+      - name: certifications
+        label: Certifications
+        file: src/data/certifications.json
+        widget: list
+        fields:
+          - { name: name,   label: Name,   widget: string }
+          - { name: issuer, label: Issuer, widget: string }
+          - name: status
+            label: Status
+            widget: select
+            options: [completed, in_progress]
+          - { name: year, label: Year, widget: string }
+          - { name: note, label: Note, widget: text, required: false }
