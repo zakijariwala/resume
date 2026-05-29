@@ -1,0 +1,29 @@
+---
+import meta from '../data/meta.json';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <span class="footer-name">{meta.name}</span>
+  <span class="footer-sep" aria-hidden="true">·</span>
+  <span class="footer-location">{meta.location}</span>
+  <span class="footer-sep" aria-hidden="true">·</span>
+  <span class="footer-year">{year}</span>
+</footer>
+
+<style>
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: var(--space-6) 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-disabled);
+  letter-spacing: 0.04em;
+  margin-top: var(--space-8);
+}
+.footer-sep { opacity: 0.4; }
+</style>

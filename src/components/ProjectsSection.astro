@@ -1,18 +1,40 @@
 ---
-import resume from '../data/resume.json';
+import projects from '../data/projects.json';
+import SectionHeader from './SectionHeader.astro';
+import FeaturedProjectCard from './FeaturedProjectCard.astro';
 import ProjectCard from './ProjectCard.astro';
+
+const featured = projects.find(p => p.featured);
+const grid = projects.filter(p => !p.featured);
 ---
 
-<section id="projects" class="py-12 border-b border-border transition-all duration-150">
-  <!-- Section Heading -->
-  <h2 class="text-[22px] leading-snug font-medium text-text-primary mb-6">
-    Projects
-  </h2>
+<section id="projects" class="section-spacing" style="border-bottom: 1px solid var(--border);">
+  <SectionHeader
+    label="PROJECTS"
+    labelDev="projects"
+    labelCurious="Things I've built"
+    title="Projects"
+  />
 
-  <!-- List container for Project Cards -->
-  <div class="projects-container">
-    {resume.projects.map(project => (
+  {featured && <FeaturedProjectCard project={featured} />}
+
+  <div class="projects-grid">
+    {grid.map((project, i) => (
       <ProjectCard project={project} />
     ))}
   </div>
 </section>
+
+<style>
+.section-spacing {
+  padding: var(--section-padding) 0;
+}
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+@media (max-width: 768px) {
+  .projects-grid { grid-template-columns: 1fr; }
+}
+</style>

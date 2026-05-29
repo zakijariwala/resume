@@ -1,0 +1,201 @@
+---
+interface Bullet {
+  text: string;
+  audience: string[];
+}
+
+interface Props {
+  project: {
+    id: string;
+    name: string;
+    tagline: string;
+    one_line_summary: string;
+    featured_metric: string;
+    why_i_built_it: string;
+    tech: string[];
+    github: string;
+    year: string;
+    bullets: Bullet[];
+  };
+}
+
+const { project } = Astro.props;
+const isPrivate = !project.github || project.github === 'private';
+---
+
+<div class="featured-card fade-in">
+  <div class="featured-card-header">
+    <div class="featured-card-meta">
+      <span class="featured-badge">Featured</span>
+      <span class="project-tagline">{project.tagline}</span>
+      <span class="project-year recruiter-dev">{project.year}</span>
+    </div>
+    {project.featured_metric && (
+      <span class="project-metric">{project.featured_metric}</span>
+    )}
+  </div>
+
+  <h3 class="featured-card-name">{project.name}</h3>
+  <p class="featured-card-summary">{project.one_line_summary}</p>
+
+  <ul class="featured-bullets">
+    {project.bullets.map(bullet => (
+      <li data-audience={bullet.audience.join(',')}>{bullet.text}</li>
+    ))}
+  </ul>
+
+  {project.why_i_built_it && (
+    <div class="callout curious-only">
+      <p class="why-text">{project.why_i_built_it}</p>
+    </div>
+  )}
+
+  <div class="featured-card-footer">
+    <div class="stack-chips">
+      {project.tech.map(t => (
+        <span class="stack-chip">{t}</span>
+      ))}
+    </div>
+    {!isPrivate ? (
+      <a
+        href={project.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="github-link dev-only"
+        aria-label={`View ${project.name} on GitHub`}
+      >
+        <i class="ti ti-brand-github"></i>
+        <span>View repo</span>
+      </a>
+    ) : (
+      <span class="private-repo dev-only">
+        <i class="ti ti-lock"></i>
+        <span>Private repo</span>
+      </span>
+    )}
+  </div>
+</div>
+
+<style is:global>
+  /* Bullet audience filtering is handled globally */
+  [data-mode="recruiter"] .featured-bullets li[data-audience]:not([data-audience*="recruiter"]):not([data-audience*="management"]) {
+    display: none;
+  }
+</style>
+
+<style>
+.featured-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--card-radius);
+  padding: var(--space-8);
+  margin-bottom: var(--space-6);
+  transition: border-color var(--motion-base);
+}
+.featured-card:hover {
+  border-color: var(--border-strong);
+}
+.featured-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+.featured-card-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.featured-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  background: var(--accent-subtle);
+  color: var(--accent-text);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-sm);
+  padding: 2px 8px;
+}
+.project-tagline {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+.project-year {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-disabled);
+}
+.featured-card-name {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 400;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 0 0 var(--space-3);
+  font-optical-sizing: auto;
+}
+.featured-card-summary {
+  font-size: var(--text-base);
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-5);
+}
+.featured-bullets {
+  list-style: disc;
+  padding-left: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.featured-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+}
+.stack-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.github-link,
+.private-repo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--accent-text);
+  text-decoration: none;
+  transition: color var(--motion-fast);
+}
+.github-link:hover {
+  text-decoration: underline;
+}
+.private-repo {
+  color: var(--text-disabled);
+  font-style: italic;
+}
+.why-text {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  line-height: 1.75;
+  font-style: italic;
+  margin: 0;
+}
+</style>

@@ -1,53 +1,37 @@
 ---
-import resume from '../data/resume.json';
-
-const certificationsData = resume.certifications;
+import certifications from '../data/certifications.json';
+import SectionHeader from './SectionHeader.astro';
 ---
 
-<section id="certifications" class="py-12 border-b border-border transition-all duration-150">
-  <!-- Section Heading -->
-  <h2 class="text-[22px] leading-snug font-medium text-text-primary mb-6">
-    Certifications
-  </h2>
+<section id="certifications" class="section-spacing" style="border-bottom: 1px solid var(--border);">
+  <SectionHeader
+    label="CERTIFICATIONS"
+    labelDev="certifications"
+    labelCurious="Certifications"
+    title="Certifications"
+  />
 
-  <!-- Editorial Layout Row List -->
-  <div class="certifications-list divide-y divide-border/50 border-t border-b border-border/30">
-    {certificationsData.map(cert => {
+  <div class="cert-grid">
+    {certifications.map((cert, i) => {
       const isProgress = cert.status === 'in_progress';
-      
       return (
-        <div class={`py-4 flex flex-col justify-between gap-3 ${isProgress ? 'dev-only curious-only' : 'all-modes'}`}>
-          <div class="flex items-start justify-between gap-4">
-            <!-- Left Side: Certification Identity -->
-            <div class="flex-1 min-w-0">
-              <h3 class="text-sm font-semibold text-text-primary leading-tight">
-                {cert.name}
-              </h3>
-              <p class="text-xs text-text-secondary mt-1">
-                {cert.issuer} &bull; {cert.year}
-              </p>
-            </div>
-            
-            <!-- Right Side: Status Badge -->
-            <div class="flex items-center justify-end">
-              {cert.status === 'completed' ? (
-                <span class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[var(--badge-completed)] text-[var(--badge-completed-text)] whitespace-nowrap">
-                  Completed
-                </span>
-              ) : (
-                <span class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[var(--badge-progress)] text-[var(--badge-progress-text)] whitespace-nowrap">
-                  In Progress
-                </span>
-              )}
-            </div>
+        <div
+          class={`cert-card card fade-in ${isProgress ? 'dev-only curious-only' : 'all-modes'}`}
+          style={`transition-delay: ${i * 0.05}s`}
+        >
+          <div class="cert-top">
+            <span class={`badge ${isProgress ? 'badge-ongoing' : 'badge-done'}`}>
+              {isProgress ? 'In Progress' : 'Completed'}
+            </span>
+            <span class="cert-year">{cert.year}</span>
           </div>
-          
-          <!-- Special Note Handling (e.g. AWS article series note) -->
+
+          <h3 class="cert-name">{cert.name}</h3>
+          <p class="cert-issuer">{cert.issuer}</p>
+
           {cert.note && (
-            <div class="dev-only curious-only mt-0.5">
-              <p class="text-xs text-text-secondary italic pl-3 border-l border-accent/40 leading-relaxed">
-                {cert.note}
-              </p>
+            <div class="callout dev-only curious-only cert-note">
+              <p>{cert.note}</p>
             </div>
           )}
         </div>
@@ -55,3 +39,58 @@ const certificationsData = resume.certifications;
     })}
   </div>
 </section>
+
+<style>
+.section-spacing {
+  padding: var(--section-padding) 0;
+}
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+@media (max-width: 768px) {
+  .cert-grid { grid-template-columns: 1fr; }
+}
+.cert-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.cert-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+.cert-year {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-disabled);
+}
+.cert-name {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.3;
+  margin: 0;
+  font-optical-sizing: auto;
+}
+.cert-issuer {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  margin: 0;
+}
+.cert-note {
+  margin-top: auto;
+}
+.cert-note p {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  line-height: 1.65;
+  font-style: italic;
+  margin: 0;
+}
+</style>

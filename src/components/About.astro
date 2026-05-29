@@ -1,31 +1,104 @@
 ---
-import resume from '../data/resume.json';
-import Terminal from './Terminal.astro';
+import meta from '../data/meta.json';
+import SectionHeader from './SectionHeader.astro';
 
-const { recruiter, developer, curious } = resume.about;
+const { about } = meta;
 ---
 
-<section id="about" class="py-12 border-b border-border transition-all duration-150">
-  <!-- Section Heading -->
-  <h2 class="text-[22px] leading-snug font-medium text-text-primary mb-6">
-    About
-  </h2>
+<section id="about" class="about-section section-spacing">
+  <SectionHeader
+    label="ABOUT"
+    labelDev="about"
+    labelCurious="About me"
+    title="About"
+  />
 
-  <!-- Editorial Text Container (Strict 640px max-width boundary for optimal readability) -->
-  <div class="max-w-[640px] text-base leading-[1.7] text-text-secondary">
-    <p class="recruiter-only">
-      {recruiter}
-    </p>
-    
-    <p class="dev-only">
-      {developer}
-    </p>
-    
-    <p class="curious-only">
-      {curious}
-    </p>
-    
-    <!-- Developer Mode Terminal Easter Egg (Only rendered in Developer View) -->
-    <Terminal />
+  <div class="about-grid">
+    <!-- Left: sticky framing + callout -->
+    <aside class="about-sidebar">
+      <p class="about-framing fade-in">
+        <span class="recruiter-only">{about.left_framing.recruiter}</span>
+        <span class="dev-only">{about.left_framing.developer}</span>
+        <span class="curious-only">{about.left_framing.curious}</span>
+      </p>
+
+      {about.callout && (
+        <div class="callout fade-in" style="transition-delay: 0.1s;">
+          <p>{about.callout}</p>
+        </div>
+      )}
+    </aside>
+
+    <!-- Right: prose -->
+    <div class="about-prose">
+      <!-- Recruiter mode -->
+      <div class="recruiter-only">
+        <p class="about-para fade-in">{about.paragraphs.recruiter}</p>
+      </div>
+
+      <!-- Developer mode -->
+      <div class="dev-only">
+        <p class="about-para fade-in">{about.paragraphs.developer}</p>
+      </div>
+
+      <!-- Curious mode -->
+      <div class="curious-only">
+        <p class="about-para fade-in">{about.paragraphs.curious_p1}</p>
+        <p class="about-para fade-in" style="transition-delay: 0.05s;">{about.paragraphs.curious_p2}</p>
+        <p class="about-para fade-in" style="transition-delay: 0.10s;">{about.paragraphs.curious_p3}</p>
+        <p class="about-para fade-in" style="transition-delay: 0.15s;">{about.paragraphs.curious_p4}</p>
+      </div>
+    </div>
   </div>
 </section>
+
+<style>
+.about-section {
+  padding: var(--section-padding) 0;
+  border-bottom: 1px solid var(--border);
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: var(--space-12);
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+}
+.about-sidebar {
+  position: sticky;
+  top: calc(var(--nav-height) + var(--space-8));
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+@media (max-width: 768px) {
+  .about-sidebar { position: static; }
+}
+.about-framing {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+.about-prose {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.about-para {
+  font-size: var(--text-base);
+  color: var(--text-muted);
+  line-height: 1.75;
+  margin: 0 0 var(--space-5);
+}
+.about-para:last-child { margin-bottom: 0; }
+[data-mode="curious"] .about-para {
+  font-size: var(--text-lg);
+  line-height: 1.8;
+}
+</style>

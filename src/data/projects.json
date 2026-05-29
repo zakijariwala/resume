@@ -1,0 +1,182 @@
+[
+  {
+    "id": "zamaan_marine",
+    "name": "Zamaan Marine Digital Ecosystem",
+    "tagline": "JAMstack · B2B Automation",
+    "featured": true,
+    "one_line_summary": "Full digital ecosystem for a family marine parts business — storefront, cold email automation, and analytics at zero hosting cost.",
+    "featured_metric": "~60% faster listing time",
+    "why_i_built_it": "My family started a business selling refurbished marine and industrial parts, mostly through eBay. The digital side was an afterthought. I stepped in to build it properly, which meant treating a small family operation with the same engineering rigour I'd apply at work. The constraint of zero budget made it more interesting, not less.",
+    "tech": ["Astro", "Cloudflare Pages", "GitHub Actions", "Python", "Claude API", "Brevo", "PostHog", "eBay Browse API"],
+    "github": "",
+    "year": "2025",
+    "bullets": [
+      {
+        "text": "Built a comprehensive digital presence for a business selling second-hand industrial and marine parts, reducing time-to-market for new listings by ~60% through eBay API automation and daily CI/CD rebuilds.",
+        "audience": ["recruiter", "developer"]
+      },
+      {
+        "text": "Developed an Astro JAMstack storefront with eBay API integration, hosted on Cloudflare Pages with automated GitHub Actions rebuild pipeline — zero hosting cost at production quality.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "Engineered a full-stack cold email automation agent in Python integrating Brevo, ZeroBounce, and Hunter.io for lead validation and Claude API for personalised outreach copy — targeting 200+ B2B prospects per campaign.",
+        "audience": ["recruiter", "developer"]
+      },
+      {
+        "text": "Implemented professional email infrastructure with SPF, DKIM, and DMARC records, achieving inbox delivery rates above 90% across cold outreach campaigns.",
+        "audience": ["recruiter", "developer"]
+      },
+      {
+        "text": "Instrumented product analytics via PostHog, enabling funnel visibility from storefront visit to eBay click-through.",
+        "audience": ["developer"]
+      }
+    ]
+  },
+  {
+    "id": "content_automation",
+    "name": "Content Automation Pipeline",
+    "tagline": "CLI · LLM Orchestration",
+    "featured": false,
+    "one_line_summary": "End-to-end pipeline that turns YouTube transcripts into publication-ready Medium articles across 12 niches — 85% reduction in time-to-draft.",
+    "featured_metric": "85% faster drafts",
+    "why_i_built_it": "I was writing AWS certification articles for Medium and realised the research-to-draft process was almost entirely mechanical. I built a pipeline to handle the mechanical part so the human part — judgment, voice, editing — could actually matter. The Failure First framework came from noticing that AI-generated content fails the same way every time: it starts safe and stays safe. I built rules specifically to break that pattern.",
+    "tech": ["Python", "Gemini 1.5 Pro", "Tauri", "Rust", "React 19", "GitHub Actions", "yt-dlp"],
+    "github": "",
+    "year": "2026",
+    "bullets": [
+      {
+        "text": "Architected an end-to-end automation pipeline transforming high-intent YouTube transcripts into professional 1,500+ word Medium articles across 12 distinct niches.",
+        "audience": ["recruiter", "developer"]
+      },
+      {
+        "text": "Reduced end-to-end content generation time-to-draft by 85%, enabling rapid scaling across specialised verticals without sacrificing editorial tone.",
+        "audience": ["recruiter"]
+      },
+      {
+        "text": "Developed the Failure First humanisation framework — a strict LLM governance system eliminating generic AI prose, processing 20,000+ lines of unstructured transcript text per run.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "Engineered a modular orchestration layer managing state tracking via JSON, heuristic validation, and automated GitHub synchronisation via GitPython.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "Built a cross-platform desktop GUI using Tauri (Rust bridge) and React 19, enabling local filesystem access and Python execution within a performance dashboard.",
+        "audience": ["developer"]
+      }
+    ]
+  },
+  {
+    "id": "raaz_o_neyaz",
+    "name": "Raaz-o-Neyaz",
+    "tagline": "PWA · Offline-first",
+    "featured": false,
+    "one_line_summary": "Offline-first PWA delivering 80MB of multilingual Islamic supplications — extracted, restructured, and rebuilt from scratch from an Android APK.",
+    "featured_metric": "Sub-10ms queries",
+    "why_i_built_it": "The existing apps for Islamic supplications were clunky, ad-heavy, or required a constant internet connection. For something as personal as duas and ziyarat, that friction felt wrong. I wanted something that worked offline, in your language, on any device, with no ads and no backend. I also needed to understand the data well enough to build proper search — which meant reverse-engineering the source database myself.",
+    "tech": ["Python", "JavaScript", "PWA", "Service Workers", "SQLite"],
+    "github": "https://github.com/zakijariwala/raaz-o-neyaz",
+    "year": "2025",
+    "bullets": [
+      {
+        "text": "Engineered a Python reverse-engineering pipeline to extract and restructure a 22,000+ row SQLite database from an Android APK, converting legacy relational tables into optimised JSON, CSV, and PDF formats.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "Achieved sub-10ms local query times by restructuring legacy tables into indexed data frameworks — a 4× improvement over the original APK's load performance.",
+        "audience": ["recruiter", "developer"]
+      },
+      {
+        "text": "Built an offline-first Progressive Web App using Service Workers and lazy caching to deliver 80MB of multilingual content (Arabic, Urdu, English) with zero server overhead.",
+        "audience": ["recruiter", "developer"]
+      },
+      {
+        "text": "Recruited 40+ beta testers via Reddit (r/shias), gathering structured feedback across iOS Safari, Android Chrome, and desktop to drive iterative improvements.",
+        "audience": ["recruiter"]
+      }
+    ]
+  },
+  {
+    "id": "run_to",
+    "name": "run.to — Activity Platform",
+    "tagline": "Mobile · Flutter",
+    "featured": false,
+    "one_line_summary": "A full-featured Flutter running app with GPS tracking, ghost routes, and crowd radar — built across 6 segments using Clean Architecture.",
+    "featured_metric": "10 test users",
+    "why_i_built_it": "I wanted to understand what it actually takes to build a consumer mobile product end to end — not a tutorial project, but something with real architecture decisions, a real backend, and real UX tradeoffs. Running was the use case because I run, and the features I wanted didn't exist in a form I liked. Clean Architecture and Riverpod were deliberate choices to stress-test my ability to structure a non-trivial codebase.",
+    "tech": ["Flutter", "Dart", "Supabase", "PostGIS", "Riverpod", "Google Maps API", "SQLite"],
+    "github": "",
+    "year": "2025",
+    "bullets": [
+      {
+        "text": "Developed a Flutter mobile application featuring GPS tracking, ghost route generation, and crowd radar across 6 complete feature segments.",
+        "audience": ["recruiter", "developer"]
+      },
+      {
+        "text": "Implemented Clean Architecture with Riverpod full state machine, producing ~8,000 lines of structured, testable Dart code.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "Integrated Supabase and PostGIS for geospatial backend management, supporting sub-100ms proximity queries for nearby runner detection.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "Validated core user flows with 10 internal test users across Android devices, confirming GPS accuracy within 5 metres across all tested routes.",
+        "audience": ["recruiter", "developer"]
+      }
+    ]
+  },
+  {
+    "id": "esp_pocket",
+    "name": "ESP-Pocket Reader",
+    "tagline": "Embedded · Hardware",
+    "featured": false,
+    "one_line_summary": "A pocket e-ink reading device built on ESP32-S3 — custom firmware, SQLite content storage, and a Python EPUB ingestion pipeline.",
+    "featured_metric": "Functional prototype",
+    "why_i_built_it": "Reading on a phone destroys your eyes and your battery life. E-readers exist but they're expensive, locked down, and designed around ecosystems I don't want to be in. I wanted a device that did exactly one thing — display text clearly — and cost almost nothing to run. Building the firmware myself meant understanding every layer of the stack, from EPUB parsing down to the display driver.",
+    "tech": ["Embedded C++", "ESP32-S3", "ESP-IDF", "PlatformIO", "Python", "SQLite"],
+    "github": "",
+    "year": "2025",
+    "bullets": [
+      {
+        "text": "Architected a custom pocket-sized e-ink reading device using an ESP32-S3 microcontroller and a 3.7-inch E-Paper display, achieving a functional firmware prototype with stable display rendering.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "Developed embedded C++ firmware (ESP-IDF/PlatformIO) integrating SD card storage and SQLite for robust content management — storing and paginating 50+ EPUB-converted documents in testing.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "Engineered a Python EPUB-to-SQLite conversion pipeline, reducing per-book ingestion time to under 30 seconds for titles up to 500 pages.",
+        "audience": ["developer"]
+      }
+    ]
+  },
+  {
+    "id": "remote_dev_server",
+    "name": "Personal Remote Dev Server",
+    "tagline": "Infrastructure · DevOps",
+    "featured": false,
+    "one_line_summary": "A persistent cloud Linux dev environment on Oracle Free Tier — full-stack workflows from any device, zero cost, 99%+ uptime over 18 months.",
+    "featured_metric": "99%+ uptime · 18 months",
+    "why_i_built_it": "My personal projects involve a lot of long-running processes — builds, pipelines, SSH tunnels — that don't play well with a laptop that goes to sleep. I also wanted to be able to develop from my phone when away from a desk. Oracle Cloud's free tier is genuinely powerful if you configure it right, and Zellij with persistent sessions solves the context-loss problem that makes remote development frustrating.",
+    "tech": ["Oracle Cloud Free Tier", "Zellij", "Termius", "Linux", "Ubuntu"],
+    "github": "",
+    "year": "2024",
+    "bullets": [
+      {
+        "text": "Designed and configured a fully persistent remote Linux development environment on Oracle Cloud Free Tier — production-equivalent compute at zero recurring cost.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "Optimised for smartphone and laptop access via Zellij terminal multiplexing and Termius SSH, enabling full-stack development workflows from any device.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "Maintained 99%+ uptime over 18+ months of continuous use, with automated session persistence eliminating context loss between work sessions.",
+        "audience": ["recruiter", "developer"]
+      }
+    ]
+  }
+]

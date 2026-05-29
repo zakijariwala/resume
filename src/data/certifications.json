@@ -1,0 +1,23 @@
+[
+  {
+    "name": "AWS Certified Solutions Architect – Associate (SAA-C03)",
+    "issuer": "Amazon Web Services",
+    "status": "completed",
+    "year": "2024",
+    "note": "Authored a 3-part Medium article series on SAA-C03 aimed at non-technical candidates."
+  },
+  {
+    "name": "Google GenAI Leader",
+    "issuer": "Google Cloud",
+    "status": "completed",
+    "year": "2024",
+    "note": ""
+  },
+  {
+    "name": "Professional Cloud Architect",
+    "issuer": "Google Cloud",
+    "status": "in_progress",
+    "year": "2026",
+    "note": "Actively studying — expected completion mid-2026."
+  }
+]

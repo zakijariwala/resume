@@ -1,73 +1,185 @@
 ---
-import resume from '../data/resume.json';
-
-const skillsData = resume.skills;
+import skills from '../data/skills.json';
+import SectionHeader from './SectionHeader.astro';
 ---
 
-<section id="skills" class="py-12 border-b border-border transition-all duration-150">
-  <!-- Section Heading -->
-  <h2 class="text-[22px] leading-snug font-medium text-text-primary mb-2">
-    Skills
-  </h2>
+<section id="skills" class="section-spacing" style="border-bottom: 1px solid var(--border);">
+  <SectionHeader
+    label="SKILLS"
+    labelDev="skills"
+    labelCurious="Skills"
+    title="Skills"
+  />
 
-  <!-- Proficiency Legend (Visually distinct small indicators) -->
-  <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-text-secondary mt-3 mb-6 select-none" aria-hidden="true">
-    <div class="flex items-center gap-1.5">
-      <span class="inline-block w-2.5 h-2.5 rounded-full bg-accent"></span>
+  <!-- Proficiency legend -->
+  <div class="skill-legend fade-in" aria-hidden="true">
+    <div class="legend-item">
+      <span class="legend-dot confident"></span>
       <span>Confident</span>
     </div>
-    <div class="flex items-center gap-1.5">
-      <span class="inline-block w-2.5 h-2.5 rounded-full bg-accent-muted border border-accent/20"></span>
+    <div class="legend-item">
+      <span class="legend-dot familiar"></span>
       <span>Familiar</span>
     </div>
-    <div class="flex items-center gap-1.5 dev-only">
-      <span class="inline-block w-2.5 h-2.5 rounded-full border border-accent"></span>
-      <span>Learning <span class="text-[10px] opacity-75">(dev mode)</span></span>
+    <div class="legend-item dev-only">
+      <span class="legend-dot learning"></span>
+      <span>Learning</span>
     </div>
   </div>
 
-  <!-- Two-Column Skill Grid (Desktop: Grid columns, Mobile: Single column stack) -->
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-6">
-    {skillsData.map(category => {
-      const isSoftOrLanguage = category.category === "Languages & Soft Skills";
-      
-      return (
-        <div class="skill-category-block">
-          <!-- Category Header Label -->
-          <span class="text-[13px] font-semibold tracking-[0.06em] text-text-secondary uppercase mb-3 block">
-            {category.category}
-          </span>
-          
-          <!-- Category Skill Pill Row -->
-          <div class="flex flex-wrap gap-2">
-            {category.items.map(skill => {
-              // Soft skills and languages bypass proficiency, always showing familiar styles
-              const effectiveProficiency = isSoftOrLanguage ? 'familiar' : skill.proficiency;
-              
-              if (effectiveProficiency === 'confident') {
-                return (
-                  <span class="skill-pill px-3 py-1 text-xs font-semibold bg-accent text-white rounded-pill select-none">
-                    {skill.name}
-                  </span>
-                );
-              } else if (effectiveProficiency === 'familiar') {
-                return (
-                  <span class="skill-pill px-3 py-1 text-xs font-semibold bg-accent-muted text-accent rounded-pill select-none border border-accent/10">
-                    {skill.name}
-                  </span>
-                );
-              } else if (effectiveProficiency === 'learning') {
-                return (
-                  <span class="skill-pill dev-only px-3 py-1 text-xs font-semibold border border-accent bg-transparent text-accent rounded-pill select-none">
-                    {skill.name}
-                  </span>
-                );
-              }
-              return null;
-            })}
-          </div>
-        </div>
-      );
-    })}
+  <!-- Tab nav -->
+  <div class="skill-tabs fade-in" role="tablist" aria-label="Skill categories">
+    {skills.map((cat, i) => (
+      <button
+        class={`skill-tab-btn${i === 0 ? ' active' : ''}`}
+        role="tab"
+        data-skill-tab={cat.tab_label}
+        aria-selected={i === 0 ? 'true' : 'false'}
+        aria-controls={`skill-panel-${cat.tab_label}`}
+        id={`skill-tab-${cat.tab_label}`}
+      >
+        {cat.tab_label}
+      </button>
+    ))}
   </div>
+
+  <!-- Tab panels -->
+  {skills.map((cat, i) => (
+    <div
+      class={`skill-panel${i === 0 ? ' active' : ''}`}
+      role="tabpanel"
+      id={`skill-panel-${cat.tab_label}`}
+      aria-labelledby={`skill-tab-${cat.tab_label}`}
+      data-skill-panel={cat.tab_label}
+    >
+      <div class="skill-pills">
+        {cat.items.map(skill => {
+          if (skill.proficiency === 'confident') {
+            return (
+              <span class="skill-pill confident">{skill.name}</span>
+            );
+          } else if (skill.proficiency === 'familiar') {
+            return (
+              <span class="skill-pill familiar">{skill.name}</span>
+            );
+          } else {
+            return (
+              <span class="skill-pill learning dev-only">{skill.name}</span>
+            );
+          }
+        })}
+      </div>
+    </div>
+  ))}
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.skill-tab-btn');
+  const panels = document.querySelectorAll<HTMLElement>('.skill-panel');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.skillTab;
+
+      tabs.forEach(t => {
+        t.classList.toggle('active', t === tab);
+        t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
+      });
+      panels.forEach(p => {
+        p.classList.toggle('active', p.dataset.skillPanel === target);
+      });
+    });
+  });
+});
+</script>
+
+<style>
+.section-spacing {
+  padding: var(--section-padding) 0;
+}
+.skill-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  margin-bottom: var(--space-6);
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+.legend-dot.confident { background: var(--accent); }
+.legend-dot.familiar  { background: var(--accent-subtle); border: 1px solid var(--accent-border); }
+.legend-dot.learning  { border: 1px solid var(--accent); background: transparent; }
+
+.skill-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: var(--space-3);
+}
+.skill-tab-btn {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-4);
+  cursor: pointer;
+  transition: color var(--motion-fast), background var(--motion-fast), border-color var(--motion-fast);
+}
+.skill-tab-btn:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+.skill-tab-btn.active {
+  background: var(--accent-subtle);
+  color: var(--accent-text);
+  border-color: var(--accent-border);
+}
+
+.skill-panel { display: none; }
+.skill-panel.active { display: block; }
+
+.skill-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: var(--space-4) 0;
+}
+.skill-pill {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+}
+.skill-pill.confident {
+  background: var(--accent);
+  color: #fff;
+}
+.skill-pill.familiar {
+  background: var(--accent-subtle);
+  color: var(--accent-text);
+  border: 1px solid var(--accent-border);
+}
+.skill-pill.learning {
+  background: transparent;
+  color: var(--accent-text);
+  border: 1px solid var(--accent-border);
+}
+</style>

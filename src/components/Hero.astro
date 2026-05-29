@@ -1,49 +1,182 @@
 ---
-import resume from '../data/resume.json';
+import meta from '../data/meta.json';
+import StatCard from './StatCard.astro';
 
-const { name, email, pdf_path, taglines, whatsapp } = resume.meta;
+const { name, pdf_path, taglines, hero_subline, whatsapp, stats, currently } = meta;
 
-// Dynamically resolve base path for subfolder deployments (e.g. Astro /resume path)
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
-const resolvedPdfPath = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_path.replace(/^\//, '')}`;
+const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_path.replace(/^\//, '')}`;
 ---
 
-<section id="hero" class="pt-20 pb-12 flex flex-col justify-center text-center lg:text-left transition-all duration-150">
-  <!-- Name Heading -->
-  <h1 class="text-[28px] leading-tight font-medium text-text-primary">
-    {name}
-  </h1>
+<section id="hero" class="hero-section">
+  <!-- Left column: identity + CTAs -->
+  <div class="hero-left fade-in">
+    <!-- Availability indicator -->
+    <div class="availability-line recruiter-only">
+      <span class="avail-dot"></span>
+      <span class="avail-text">Open to infrastructure, SRE, and platform engineering roles</span>
+    </div>
 
-  <!-- Dynamic Role Tagline Spans (Resilient pure-CSS hiding mechanisms) -->
-  <p class="text-base font-medium text-text-secondary mt-3 min-h-[24px]">
-    <span class="recruiter-only inline-block">{taglines.recruiter}</span>
-    <span class="dev-only inline-block">{taglines.developer}</span>
-    <span class="curious-only inline-block">{taglines.curious}</span>
-  </p>
+    <h1 class="hero-name">{name}</h1>
 
-  <!-- Outlined Action Buttons (Side-by-side flex layout with automatic wrap protection) -->
-  <div class="flex flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 mt-8">
-    <a 
-      href={resolvedPdfPath} 
-      download 
-      class="inline-flex items-center justify-center gap-1.5 sm:gap-2 min-h-[44px] px-4 sm:px-6 py-2 border border-accent text-accent hover:bg-accent hover:text-white rounded-pill transition-colors duration-150 text-xs sm:text-sm font-semibold focus-visible:outline-accent whitespace-nowrap"
-      aria-label="Download PDF Resume"
-    >
-      <i class="ti ti-download text-sm sm:text-base" aria-hidden="true"></i>
-      <span>Download resume</span>
-    </a>
-    
-    {whatsapp && (
-      <a 
-        href={whatsapp} 
-        target="_blank" 
-        rel="noopener noreferrer"
-        class="inline-flex items-center justify-center gap-1.5 sm:gap-2 min-h-[44px] px-4 sm:px-6 py-2 border border-accent text-accent hover:bg-accent hover:text-white rounded-pill transition-colors duration-150 text-xs sm:text-sm font-semibold focus-visible:outline-accent whitespace-nowrap"
-        aria-label="Talk to me on WhatsApp"
-      >
-        <i class="ti ti-brand-whatsapp text-sm sm:text-base" aria-hidden="true"></i>
-        <span>Talk to me</span>
+    <p class="hero-tagline">
+      <span class="recruiter-only">{taglines.recruiter}</span>
+      <span class="dev-only">{taglines.developer}</span>
+      <span class="curious-only">{taglines.curious}</span>
+    </p>
+
+    <p class="hero-subline">
+      <span class="recruiter-only">{hero_subline.recruiter}</span>
+      <span class="dev-only">{hero_subline.developer}</span>
+      <span class="curious-only">{hero_subline.curious}</span>
+    </p>
+
+    <div class="hero-ctas">
+      <a href={resolvedPdf} download class="btn-primary" aria-label="Download resume PDF">
+        <i class="ti ti-download" aria-hidden="true"></i>
+        <span>Download resume</span>
       </a>
-    )}
+      <a href="#contact" class="btn-ghost">
+        <span>Get in touch</span>
+        <i class="ti ti-arrow-right" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- Right column: mode-adaptive -->
+  <div class="hero-right">
+    <!-- Recruiter + Developer: stat card grid -->
+    <div class="stat-grid recruiter-dev fade-in" style="transition-delay: 0.1s;">
+      {stats.map((stat, i) => (
+        <StatCard value={stat.value} label={stat.label} sublabel={stat.sublabel} />
+      ))}
+    </div>
+
+    <!-- Curious: personal currently block -->
+    <div class="currently-block curious-only fade-in" style="transition-delay: 0.1s;">
+      <div class="currently-label">Currently</div>
+      <p class="currently-text">{currently}</p>
+    </div>
   </div>
 </section>
+
+<style>
+.hero-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-12);
+  align-items: center;
+  padding-top: calc(var(--nav-height) + var(--space-16));
+  padding-bottom: var(--space-20);
+  border-bottom: 1px solid var(--border);
+}
+@media (max-width: 768px) {
+  .hero-section {
+    grid-template-columns: 1fr;
+    padding-top: calc(var(--nav-height) + var(--space-10));
+    padding-bottom: var(--space-12);
+  }
+  .hero-right { order: -1; }
+}
+
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.availability-line {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+.avail-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--status-active-text);
+  flex-shrink: 0;
+  animation: pulse 2.5s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.avail-text {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+.hero-name {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(40px, 5vw, 58px);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin: 0 0 var(--space-4);
+  font-optical-sizing: auto;
+}
+[data-mode="curious"] .hero-name {
+  font-style: italic;
+  font-size: clamp(44px, 6vw, 64px);
+}
+
+.hero-tagline {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--accent-text);
+  letter-spacing: 0.04em;
+  margin: 0 0 var(--space-3);
+  min-height: 1.4em;
+}
+
+.hero-subline {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin: 0 0 var(--space-8);
+  min-height: 1.65em;
+}
+
+.hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+/* Stat grid */
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+/* Currently block */
+.currently-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--card-radius);
+  padding: var(--space-6);
+}
+.currently-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  margin-bottom: var(--space-4);
+}
+.currently-text {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  line-height: 1.75;
+  margin: 0;
+}
+</style>
