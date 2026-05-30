@@ -135,18 +135,14 @@ const { name } = meta;
 .mode-switch-label {
   font-family: var(--font-mono);
   font-size: 10px;
-  color: var(--text-disabled);
+  color: var(--attention);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   white-space: nowrap;
   border-radius: 9999px;
   padding: 2px 7px;
-  transition: color var(--motion-base), background var(--motion-base);
-}
-/* Heartbeat halo — pulses until the visitor interacts with the switcher */
-.mode-switch-wrapper.attention .mode-switch-label {
-  color: var(--attention);
   background: var(--attention-glow-soft);
+  /* Heartbeat halo — always pulsing to draw attention to the switcher */
   animation: heartbeat-halo 1.6s ease-in-out infinite;
 }
 @keyframes heartbeat-halo {
@@ -157,7 +153,7 @@ const { name } = meta;
   100% { box-shadow: 0 0 0 0 var(--attention-glow-soft); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .mode-switch-wrapper.attention .mode-switch-label {
+  .mode-switch-label {
     animation: none;
     box-shadow: 0 0 0 2px var(--attention-glow);
   }
@@ -218,21 +214,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const toast = document.getElementById('mode-toast');
   let toastTimer: ReturnType<typeof setTimeout> | undefined;
 
-  // Coachmark + heartbeat halo — show once on first visit, dismiss on interaction
+  // Coachmark — show once on first visit, dismiss on mode switch or close
   const coachmark = document.getElementById('mode-coachmark');
   const coachmarkClose = document.getElementById('coachmark-close');
-  const switchWrapper = document.querySelector<HTMLElement>('.mode-switch-wrapper');
 
   function dismissCoachmark() {
     if (coachmark) coachmark.classList.add('hidden');
-    if (switchWrapper) switchWrapper.classList.remove('attention');
     localStorage.setItem('portfolio_coachmark_seen', '1');
   }
 
   if (localStorage.getItem('portfolio_coachmark_seen')) {
     if (coachmark) coachmark.classList.add('hidden');
-  } else if (switchWrapper) {
-    switchWrapper.classList.add('attention');
   }
   if (coachmarkClose) {
     coachmarkClose.addEventListener('click', dismissCoachmark);
