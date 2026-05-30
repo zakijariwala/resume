@@ -33,7 +33,7 @@ const { name } = meta;
   <div class="flex items-center gap-3">
     <!-- Mode switcher with label + coachmark -->
     <div class="mode-switch-wrapper">
-      <span class="mode-switch-label">Viewing as</span>
+      <span class="mode-switch-label" id="mode-switch-label">Viewing as</span>
       <div
         class="audience-switch flex p-0.5 rounded-full"
         style="background: var(--bg); border: 1px solid var(--border);"
@@ -139,6 +139,28 @@ const { name } = meta;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   white-space: nowrap;
+  border-radius: 9999px;
+  padding: 2px 7px;
+  transition: color var(--motion-base), background var(--motion-base);
+}
+/* Heartbeat halo — pulses until the visitor interacts with the switcher */
+.mode-switch-wrapper.attention .mode-switch-label {
+  color: var(--attention);
+  background: var(--attention-glow-soft);
+  animation: heartbeat-halo 1.6s ease-in-out infinite;
+}
+@keyframes heartbeat-halo {
+  0%   { box-shadow: 0 0 0 0 var(--attention-glow); }
+  18%  { box-shadow: 0 0 0 4px var(--attention-glow-soft); }
+  32%  { box-shadow: 0 0 0 0 var(--attention-glow); }
+  55%  { box-shadow: 0 0 0 6px var(--attention-glow-soft); }
+  100% { box-shadow: 0 0 0 0 var(--attention-glow-soft); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mode-switch-wrapper.attention .mode-switch-label {
+    animation: none;
+    box-shadow: 0 0 0 2px var(--attention-glow);
+  }
 }
 .mode-coachmark {
   position: absolute;
@@ -196,24 +218,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const toast = document.getElementById('mode-toast');
   let toastTimer: ReturnType<typeof setTimeout> | undefined;
 
-  // Coachmark — show once on first visit, dismiss on mode switch or close
+  // Coachmark + heartbeat halo — show once on first visit, dismiss on interaction
   const coachmark = document.getElementById('mode-coachmark');
   const coachmarkClose = document.getElementById('coachmark-close');
+  const switchWrapper = document.querySelector<HTMLElement>('.mode-switch-wrapper');
 
   function dismissCoachmark() {
-    if (coachmark) {
-      coachmark.classList.add('hidden');
-      localStorage.setItem('portfolio_coachmark_seen', '1');
-    }
+    if (coachmark) coachmark.classList.add('hidden');
+    if (switchWrapper) switchWrapper.classList.remove('attention');
+    localStorage.setItem('portfolio_coachmark_seen', '1');
   }
 
-  if (coachmark) {
-    if (localStorage.getItem('portfolio_coachmark_seen')) {
-      coachmark.classList.add('hidden');
-    }
-    if (coachmarkClose) {
-      coachmarkClose.addEventListener('click', dismissCoachmark);
-    }
+  if (localStorage.getItem('portfolio_coachmark_seen')) {
+    if (coachmark) coachmark.classList.add('hidden');
+  } else if (switchWrapper) {
+    switchWrapper.classList.add('attention');
+  }
+  if (coachmarkClose) {
+    coachmarkClose.addEventListener('click', dismissCoachmark);
   }
 
   function setMode(mode: string) {

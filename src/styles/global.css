@@ -89,6 +89,10 @@
   --status-dim:           var(--prim-gray-100);
   --status-dim-text:      var(--prim-gray-500);
 
+  --attention:            #E5484D;
+  --attention-glow:       rgba(229, 72, 77, 0.55);
+  --attention-glow-soft:  rgba(229, 72, 77, 0.0);
+
   --font-display: 'Fraunces', Georgia, serif;
   --font-body:    'Inter', system-ui, sans-serif;
   --font-mono:    'JetBrains Mono', 'Courier New', monospace;
