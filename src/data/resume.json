@@ -10,9 +10,9 @@
     "github": "https://github.com/zakijariwala",
     "pdf_path": "/ZAKI.J_Resume.pdf",
     "taglines": {
-      "recruiter": "Systems Engineer · 3 years · TCS / SBI GITC",
-      "developer": "Infrastructure + AI automation + whatever I'm building this month",
-      "curious": "Engineer by day, builder of random things by night"
+      "recruiter": "AI Product Manager (Technical) · 0→1 Builder · TCS / SBI GITC",
+      "developer": "AI Product Manager (Technical) · 0→1 Builder · TCS / SBI GITC",
+      "curious": "AI Product Manager (Technical) · 0→1 Builder · TCS / SBI GITC"
     },
     "contact_taglines": {
       "recruiter": "Open to roles in infrastructure, platform engineering, and SRE. Based in Mumbai, open to relocation.",
@@ -23,10 +23,10 @@
   "summaries": {
     "platform_sre": "Systems Engineer specializing in Identity & Access Management (IDM) and enterprise infrastructure operations within banking environments. Experienced in leading operations teams and mentoring engineers while managing mission-critical platforms for 30,000+ users. Expert in infrastructure modernization, on-premise containerization, and high-availability systems (99.999%), currently expanding into Platform Engineering, SRE, and multi-cloud architecture.",
     "management": "Systems Engineer and technical coach with a strong foundation in managing mission-critical enterprise banking infrastructure for 30,000+ users. Proven leadership in directing operations teams, mentoring junior engineers, and executing Disaster Recovery drills. Combining deep technical expertise in on-premise containerization with strong executive communication skills, actively preparing for advanced management studies and technical product leadership roles.",
-    "ai_automation": "Systems Engineer and automation architect specializing in end-to-end LLM orchestration, GenAI workflow design, and data pipeline engineering. Expert in building secure, high-performance automation frameworks using Python, multi-model API integration (Claude/Gemini), and headless distribution systems. Adept at bridging the gap between legacy enterprise infrastructure restrictions and modern, localized AI workflows to drive operational efficiency."
+    "ai_automation": "Technical AI Product Manager and former Systems Engineer with a proven track record of shipping 0→1 products, orchestrating LLM workflows, and driving data-informed decisions. Blending deep engineering expertise in AI orchestration with strong product discovery and stakeholder management skills. Experienced in leading cross-functional teams to deliver secure, high-performance automation frameworks and user-centric applications that drive measurable business outcomes and operational efficiency."
   },
   "about": {
-    "recruiter": "Systems Engineer at TCS, deployed at State Bank of India, keeping mission-critical banking infrastructure running at 99.999% uptime for 30,000+ users. Three years of hands-on infrastructure, IDM, and DR execution — with a team of five to lead and a track record of cutting RTO by 50%.",
+    "recruiter": "Technical AI Product Manager and former Systems Engineer with a proven track record of shipping 0→1 products, orchestrating LLM workflows, and driving data-informed decisions. Blending deep engineering expertise in AI orchestration with strong product discovery and stakeholder management skills. Experienced in leading cross-functional teams to deliver secure, high-performance automation frameworks and user-centric applications that drive measurable business outcomes and operational efficiency.",
     "developer": "I run infrastructure for a Tier-1 Indian bank by day and build automation pipelines, PWAs, and embedded devices by night. My stack spans Linux/RHEL server fleets, Python ETL, Flutter mobile, Astro JAMstack, and ESP32 firmware — usually on free-tier infrastructure and always with a bias toward shipping over theorising. Currently deep into LLM orchestration and GenAI workflow design.",
     "curious": "I'm an engineer based in Navi Mumbai who finds it hard to stop building things. My day job is keeping banking systems alive for tens of thousands of people. Outside that, I've built an offline Islamic supplication app used by a small community of Muslims worldwide, a running app with ghost routes and crowd radar, a pocket e-ink reader from scratch, and a marketing automation system for my family's marine parts business. I also spent a few months coaching engineers on how to talk about their work — which turned out to be more technical than it sounds."
   },
@@ -42,31 +42,19 @@
       "context_tag": "banking_compliance",
       "bullets": [
         {
-          "text": "Lead an operations team supporting enterprise banking infrastructure and mission-critical IDM/database platforms for 30,000+ internal bank branch users.",
+          "text": "Directed a cross-functional operations team supporting enterprise banking infrastructure and mission-critical platforms for 30,000+ internal users, balancing strict regulatory compliance with rapid feature delivery.",
           "audience": ["recruiter", "developer", "management"]
         },
         {
-          "text": "Directly mentor a team of 5 junior engineers, fostering technical excellence and adherence to operational standards.",
+          "text": "Gathered requirements and aligned priorities across infrastructure, database, application, and security stakeholders to drive modernization initiatives and reduce service disruption risks.",
           "audience": ["recruiter", "developer", "management"]
         },
         {
-          "text": "Maintain 99.999% system availability for Tier-1 banking applications.",
+          "text": "Architected and led the execution of Disaster Recovery drills, making critical technical tradeoffs to successfully reduce Recovery Time Objective (RTO) by 50% for Tier-1 applications.",
           "audience": ["recruiter", "developer", "management"]
         },
         {
-          "text": "Administer a multi-environment fleet of 150+ Linux (RHEL) and Windows servers, automating patch management, access governance workflows, and incident response.",
-          "audience": ["recruiter", "developer", "management"]
-        },
-        {
-          "text": "Drive infrastructure modernisation initiatives, explicitly shifting focus from cloud migration to on-premise containerisation and Docker-based workflows to streamline deployment cycles within banking compliance constraints.",
-          "audience": ["developer"]
-        },
-        {
-          "text": "Architected and executed Disaster Recovery drills and runbooks, successfully reducing Recovery Time Objective (RTO) by 50% for Tier-1 applications.",
-          "audience": ["recruiter", "developer", "management"]
-        },
-        {
-          "text": "Collaborate across infrastructure, database, application, and security teams to improve operational reliability, reduce service disruption risks, and ensure strict regulatory compliance.",
+          "text": "Mentored 5 junior engineers in operational standards and problem-solving, fostering technical excellence and cross-team collaboration.",
           "audience": ["recruiter", "developer", "management"]
         }
       ]
@@ -102,27 +90,31 @@
     {
       "id": "zamaan_experience",
       "company": "Zamaan Marine — Family Venture",
-      "subtitle": "Technology & marketing lead for a family marine equipment venture",
-      "title": "Co-Founder (Technology & Marketing Lead) — Pro Bono",
+      "subtitle": "Founder — 0→1 Product & GTM",
+      "title": "Founder — 0→1 Product & GTM",
       "dates": "2025 — Present",
-      "role_tagline": "Technology & marketing lead for a family marine equipment venture",
+      "role_tagline": "Founder — 0→1 Product & GTM",
       "featured_metric": "200+ B2B prospects per campaign · Zero hosting cost",
       "context_tag": "independent_business",
       "bullets": [
         {
-          "text": "Lead all technology and digital marketing operations for a family-owned business specialising in second-hand and refurbished industrial automation and marine equipment parts.",
+          "text": "Led end-to-end product discovery, go-to-market strategy, and technical execution for a B2B marine parts business, identifying core customer segments and mapping the user journey.",
           "audience": ["recruiter", "developer", "curious", "management"]
         },
         {
-          "text": "Built and maintain the full digital ecosystem: JAMstack storefront (Astro + Cloudflare), WordPress brand site, professional email infrastructure (GoDaddy/cPanel, SPF/DKIM/DMARC), and product analytics via PostHog.",
+          "text": "Achieved product-market fit for our digital storefront by automating inventory listings, resulting in a ~60% faster time-to-market for new SKUs.",
           "audience": ["recruiter", "developer", "curious", "management"]
         },
         {
-          "text": "Engineered a Python-based cold email marketing automation agent integrating Brevo, Google Sheets, Claude API, ZeroBounce, and Hunter.io for hyper-targeted B2B lead generation.",
+          "text": "Designed and iterated on an automated customer acquisition funnel, integrating AI-driven personalized outreach to consistently generate 200+ qualified B2B prospects per campaign.",
           "audience": ["recruiter", "developer", "curious", "management"]
         },
         {
-          "text": "Operate pro bono in a founder-equivalent capacity, applying enterprise-grade engineering practices to a zero-budget independent business stack.",
+          "text": "Utilized PostHog product analytics to track user behavior from initial visit to conversion, applying data-driven insights to refine the conversion funnel and optimize the storefront experience.",
+          "audience": ["recruiter", "developer", "curious", "management"]
+        },
+        {
+          "text": "Managed professional email infrastructure and deliverability, executing A/B tests on outreach copy to sustain inbox delivery rates above 90%.",
           "audience": ["recruiter", "developer", "curious", "management"]
         }
       ]
@@ -132,32 +124,32 @@
     {
       "id": "zamaan_marine",
       "name": "Zamaan Marine Digital Ecosystem",
-      "one_line_summary": "Full digital ecosystem for a family marine parts business — storefront, cold email automation, and analytics at zero hosting cost.",
+      "one_line_summary": "Full digital ecosystem for a marine parts business — storefront, cold email automation, and analytics at zero hosting cost.",
       "featured_metric": "~60% faster listing time",
-      "why_i_built_it": "My family started a business selling refurbished marine and industrial parts, mostly through eBay. The digital side — website, email outreach, analytics — was an afterthought. I stepped in to build it properly, which meant treating a small family operation with the same engineering rigour I'd apply at work. The constraint of zero budget made it more interesting, not less.",
+      "why_i_built_it": "My family's business needed a digital presence, but building a website wasn't enough—it needed a scalable customer acquisition strategy. I approached it as a product manager: identified the target B2B segment, mapped the user journey, and built a zero-budget automated funnel. By instrumenting analytics and iterating on cold outreach data, we transformed a manual sales process into a predictable lead generation engine.",
       "tech": ["Astro", "Cloudflare Pages", "GitHub Actions", "WordPress", "cPanel", "Brevo", "Claude API", "Python", "PostHog", "eBay Browse API"],
       "github": "",
       "year": "2025",
       "bullets": [
         {
-          "text": "Built a comprehensive digital presence for a business selling second-hand industrial automation and marine equipment parts, reducing time-to-market for new listings by ~60% through eBay API automation and daily CI/CD rebuilds.",
+          "text": "Led end-to-end product discovery, go-to-market strategy, and technical execution for a B2B marine parts business, identifying core customer segments and mapping the user journey.",
           "audience": ["recruiter", "developer"]
         },
         {
-          "text": "Developed an Astro-based JAMstack storefront with eBay API integration, hosted on Cloudflare Pages with automated GitHub Actions rebuild pipeline — achieving zero hosting cost at production quality.",
-          "audience": ["developer"]
-        },
-        {
-          "text": "Engineered a full-stack cold email marketing automation agent in Python, integrating Brevo, ZeroBounce, and Hunter.io for lead validation and Claude API for personalised outreach copy — targeting 200+ B2B prospects per campaign cycle.",
+          "text": "Achieved product-market fit for our digital storefront by automating inventory listings, resulting in a ~60% faster time-to-market for new SKUs.",
           "audience": ["recruiter", "developer"]
         },
         {
-          "text": "Implemented professional email infrastructure with SPF, DKIM, and DMARC records, achieving inbox delivery rates above 90% across cold outreach campaigns.",
+          "text": "Designed and iterated on an automated customer acquisition funnel, integrating AI-driven personalized outreach to consistently generate 200+ qualified B2B prospects per campaign.",
           "audience": ["recruiter", "developer"]
         },
         {
-          "text": "Instrumented product analytics via PostHog, enabling funnel visibility from storefront visit to eBay click-through across all traffic sources.",
-          "audience": ["developer"]
+          "text": "Utilized PostHog product analytics to track user behavior from initial visit to conversion, applying data-driven insights to refine the conversion funnel and optimize the storefront experience.",
+          "audience": ["recruiter", "developer"]
+        },
+        {
+          "text": "Managed professional email infrastructure and deliverability, executing A/B tests on outreach copy to sustain inbox delivery rates above 90%.",
+          "audience": ["recruiter", "developer"]
         }
       ]
     },
@@ -198,34 +190,30 @@
       ]
     },
     {
-      "id": "raaz_o_neyaz",
-      "name": "Raaz-o-Neyaz — Islamic Supplications PWA",
-      "one_line_summary": "Offline-first PWA delivering 80MB of multilingual Islamic supplications — extracted, restructured, and rebuilt from scratch from an Android APK.",
+      "id": "path_of_supplication",
+      "name": "Path of Supplication — Islamic PWA",
+      "one_line_summary": "Offline-first PWA delivering 80MB of multilingual Islamic supplications using a publicly available database.",
       "featured_metric": "Sub-10ms queries",
-      "why_i_built_it": "The existing apps for Islamic supplications were clunky, ad-heavy, or required a constant internet connection. For something as personal as duas and ziyarat — prayers you turn to in quiet moments — that friction felt wrong. I wanted something that worked offline, in your language, on any device, with no ads and no backend. I also wanted to understand the data well enough to build proper search and filtering, which meant reverse-engineering the source database myself.",
+      "why_i_built_it": "Existing apps in this space were ad-heavy and required constant connectivity, causing friction for users during personal moments. I validated this pain point within the community and set out to build a seamless, offline-first alternative. By focusing heavily on beta tester feedback and prioritizing multilingual accessibility without backend bloat, I delivered a product that truly resonated with users.",
       "tech": ["Python", "JavaScript", "PWA", "Service Workers", "SQLite"],
-      "github": "https://github.com/zakijariwala/raaz-o-neyaz",
+      "github": "https://github.com/zakijariwala/path-of-supplication",
       "year": "2025",
       "bullets": [
         {
-          "text": "Engineered a Python reverse-engineering pipeline to extract and restructure a 22,000+ row SQLite database from an Android APK, converting legacy relational tables into optimised JSON, CSV, and PDF formats.",
-          "audience": ["developer"]
-        },
-        {
-          "text": "Achieved sub-10ms local query times by restructuring legacy tables into indexed data frameworks — a 4× improvement over the original APK's load performance.",
+          "text": "Identified a core user pain point regarding ad-heavy, online-dependent religious apps, defining product requirements for a seamless, offline-first multilingual experience.",
           "audience": ["recruiter", "developer"]
         },
         {
-          "text": "Built an offline-first Progressive Web App using Service Workers and lazy caching to deliver 80MB of multilingual Islamic content (Arabic, Urdu, English) with zero server overhead.",
+          "text": "Recruited 40+ beta testers, conducting structured user research and iterating on cross-platform feedback to refine UX across iOS, Android, and desktop environments.",
           "audience": ["recruiter", "developer"]
         },
         {
-          "text": "Recruited 40+ beta testers via Reddit (r/shias), gathering structured feedback across iOS Safari, Android Chrome, and desktop environments to drive iterative improvements.",
-          "audience": ["recruiter"]
+          "text": "Sourced and integrated a publicly available database of 22,000+ rows, optimizing the data structure to achieve sub-10ms local query times.",
+          "audience": ["recruiter", "developer"]
         },
         {
-          "text": "Maintained a zero-cost infrastructure footprint using GitHub Pages for hosting, with no backend dependency.",
-          "audience": ["developer"]
+          "text": "Delivered an offline-first Progressive Web App using Service Workers, providing 80MB of content (Arabic, Urdu, English) with zero server overhead.",
+          "audience": ["recruiter", "developer"]
         }
       ]
     },
@@ -320,71 +308,59 @@
   ],
   "skills": [
     {
-      "category": "Infrastructure & Operations",
+      "category": "Product Management & Discovery",
       "items": [
-        { "name": "Linux (RHEL / Ubuntu)", "proficiency": "confident" },
-        { "name": "Identity & Access Management (IDM)", "proficiency": "confident" },
-        { "name": "Disaster Recovery & Runbook Automation", "proficiency": "confident" },
-        { "name": "Production Incident Management", "proficiency": "confident" },
-        { "name": "High Availability Systems (99.999% SLA)", "proficiency": "confident" },
-        { "name": "Windows Server", "proficiency": "confident" },
-        { "name": "VMware / Hypervisors", "proficiency": "confident" },
-        { "name": "WSL2 developer tooling", "proficiency": "confident" }
+        { "name": "Product Discovery" },
+        { "name": "User Research" },
+        { "name": "Roadmapping & Prioritization (RICE/MoSCoW)" },
+        { "name": "Product Analytics (PostHog)" },
+        { "name": "Funnel Analysis" },
+        { "name": "A/B Testing" },
+        { "name": "Go-to-Market (GTM)" },
+        { "name": "Stakeholder Management" },
+        { "name": "PRD Writing" }
       ]
     },
     {
-      "category": "Cloud & Platform Engineering",
+      "category": "AI & Automation",
       "items": [
-        { "name": "Docker & Containerization", "proficiency": "confident" },
-        { "name": "GitHub Actions / CI/CD Pipelines", "proficiency": "confident" },
-        { "name": "AWS (Certified Solutions Architect)", "proficiency": "confident" },
-        { "name": "Google Cloud Platform (GCP)", "proficiency": "familiar" },
-        { "name": "Oracle Cloud Free Tier configuration", "proficiency": "confident" },
-        { "name": "Cloudflare hosting & edge deployment", "proficiency": "confident" },
-        { "name": "Site Reliability Engineering (SRE)", "proficiency": "confident" },
-        { "name": "Infrastructure as Code (IaC)", "proficiency": "familiar" }
-      ]
-    },
-    {
-      "category": "AI Engineering & Automation",
-      "items": [
-        { "name": "Anthropic Claude API & Prompt Engineering", "proficiency": "confident" },
-        { "name": "GenAI Workflow Design & LLM orchestration", "proficiency": "confident" },
-        { "name": "Agent Deployment & Orchestration", "proficiency": "confident" },
-        { "name": "Email marketing automation (Brevo, Google Sheets)", "proficiency": "confident" },
-        { "name": "Private AI Security Harnesses / Red Teaming", "proficiency": "familiar" }
+        { "name": "Anthropic Claude API" },
+        { "name": "GenAI Workflow Design" },
+        { "name": "Prompt Engineering" },
+        { "name": "LLM Orchestration" },
+        { "name": "Email Marketing Automation" }
       ]
     },
     {
       "category": "Development & Workflows",
       "items": [
-        { "name": "Python (ETL / Pipelines / Scripting)", "proficiency": "confident" },
-        { "name": "JavaScript/TypeScript", "proficiency": "confident" },
-        { "name": "Dart / Flutter", "proficiency": "confident" },
-        { "name": "C++ (Embedded)", "proficiency": "familiar" },
-        { "name": "Astro JAMstack", "proficiency": "confident" },
-        { "name": "Supabase & PostGIS", "proficiency": "confident" },
-        { "name": "SQLite (embedded and pipeline storage)", "proficiency": "confident" },
-        { "name": "PostHog & Product Analytics", "proficiency": "confident" }
+        { "name": "Python" },
+        { "name": "JavaScript/TypeScript" },
+        { "name": "Dart/Flutter" },
+        { "name": "Astro JAMstack" },
+        { "name": "Supabase & PostGIS" },
+        { "name": "SQLite" }
       ]
     },
     {
-      "category": "Hardware & Systems",
+      "category": "Infrastructure & Cloud",
       "items": [
-        { "name": "ESP32-S3 Microcontrollers", "proficiency": "familiar" },
-        { "name": "Embedded C++ / ESP-IDF / PlatformIO", "proficiency": "familiar" },
-        { "name": "E-Paper Display Integration", "proficiency": "familiar" },
-        { "name": "Hardware-Software Integration & Low-Power Design", "proficiency": "learning" }
+        { "name": "Linux" },
+        { "name": "Docker & Containerization" },
+        { "name": "Cloudflare" },
+        { "name": "GitHub Actions" },
+        { "name": "AWS" },
+        { "name": "Oracle Cloud" },
+        { "name": "IDM" }
       ]
     },
     {
       "category": "Languages & Soft Skills",
       "items": [
-        { "name": "Technical Storytelling", "proficiency": "confident" },
-        { "name": "Behavioral Frameworks Mentorship", "proficiency": "confident" },
-        { "name": "Executive Communication", "proficiency": "confident" },
-        { "name": "French", "proficiency": "learning" },
-        { "name": "Product and Project Management (PRINCE2, CSM)", "proficiency": "familiar" }
+        { "name": "Technical Storytelling" },
+        { "name": "Behavioral Frameworks Mentorship" },
+        { "name": "Executive Communication" },
+        { "name": "French" }
       ]
     }
   ],
