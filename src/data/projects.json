@@ -68,23 +68,23 @@
     ]
   },
   {
-    "id": "raaz_o_neyaz",
-    "name": "Raaz-o-Neyaz",
+    "id": "path_of_supplication",
+    "name": "Path of Supplication",
     "tagline": "PWA · Offline-first",
     "featured": false,
-    "one_line_summary": "Offline-first PWA delivering 80MB of multilingual Islamic supplications — extracted, restructured, and rebuilt from scratch from an Android APK.",
+    "one_line_summary": "Offline-first PWA delivering 80MB of multilingual Islamic supplications — built around a publicly available liturgical database, restructured for sub-10ms search.",
     "featured_metric": "Sub-10ms queries",
-    "why_i_built_it": "The existing apps for Islamic supplications were clunky, ad-heavy, or required a constant internet connection. For something as personal as duas and ziyarat, that friction felt wrong. I wanted something that worked offline, in your language, on any device, with no ads and no backend. I also needed to understand the data well enough to build proper search — which meant reverse-engineering the source database myself.",
+    "why_i_built_it": "The existing apps for Islamic supplications were clunky, ad-heavy, or required a constant internet connection. For something as personal as duas and ziyarat, that friction felt wrong. I wanted something that worked offline, in your language, on any device, with no ads and no backend. A big part of the work was understanding the data well enough to build proper search.",
     "tech": ["Python", "JavaScript", "PWA", "Service Workers", "SQLite"],
-    "github": "https://github.com/zakijariwala/raaz-o-neyaz",
+    "github": "",
     "year": "2025",
     "bullets": [
       {
-        "text": "Engineered a Python reverse-engineering pipeline to extract and restructure a 22,000+ row SQLite database from an Android APK, converting legacy relational tables into optimised JSON, CSV, and PDF formats.",
+        "text": "Structured a publicly available liturgical database of 22,000+ records into an optimised, indexed SQLite schema, converting it into JSON, CSV, and PDF formats for offline use.",
         "audience": ["developer"]
       },
       {
-        "text": "Achieved sub-10ms local query times by restructuring legacy tables into indexed data frameworks — a 4× improvement over the original APK's load performance.",
+        "text": "Achieved sub-10ms local query times by restructuring the data into indexed frameworks — a 4× improvement over existing alternatives.",
         "audience": ["recruiter", "developer"]
       },
       {
@@ -103,7 +103,7 @@
     "tagline": "Mobile · Flutter",
     "featured": false,
     "one_line_summary": "A full-featured Flutter running app with GPS tracking, ghost routes, and crowd radar — built across 6 segments using Clean Architecture.",
-    "featured_metric": "10 test users",
+    "featured_metric": "50+ alpha users",
     "why_i_built_it": "I wanted to understand what it actually takes to build a consumer mobile product end to end — not a tutorial project, but something with real architecture decisions, a real backend, and real UX tradeoffs. Running was the use case because I run, and the features I wanted didn't exist in a form I liked. Clean Architecture and Riverpod were deliberate choices to stress-test my ability to structure a non-trivial codebase.",
     "tech": ["Flutter", "Dart", "Supabase", "PostGIS", "Riverpod", "Google Maps API", "SQLite"],
     "github": "",
@@ -122,7 +122,7 @@
         "audience": ["developer"]
       },
       {
-        "text": "Validated core user flows with 10 internal test users across Android devices, confirming GPS accuracy within 5 metres across all tested routes.",
+        "text": "Grew to 50+ local alpha users in early testing, validating core flows and confirming GPS accuracy within 5 metres before deliberately taking the product private to polish based on feedback.",
         "audience": ["recruiter", "developer"]
       }
     ]

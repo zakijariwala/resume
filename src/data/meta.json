@@ -8,7 +8,7 @@
   "whatsapp": "https://wa.me/919601406034",
   "linkedin": "https://linkedin.com/in/zakijariwala",
   "github": "https://github.com/zakijariwala",
-  "pdf_path": "/ZAKI.J_Resume.pdf",
+  "pdf_path": "/Mohammad_Zaki_Jariwala_Resume.pdf",
   "availability": "Open to infrastructure, SRE, and platform engineering roles. Based in Mumbai, open to relocation.",
 
   "taglines": {
@@ -66,7 +66,7 @@
       "developer": "I run infrastructure for a Tier-1 Indian bank by day and build automation pipelines, PWAs, and embedded devices by night.",
       "curious":   "Based in Navi Mumbai. Engineer by profession, builder by disposition."
     },
-    "callout": "Built an offline Islamic supplication app used by a small community worldwide — extracted from an Android APK, restructured a 22,000-row SQLite database, shipped it as a PWA with zero hosting cost.",
+    "callout": "Built Path of Supplication, an offline Islamic supplication app used by a small community worldwide — structured a publicly available 22,000-record liturgical database into an indexed schema with sub-10ms search, shipped as a PWA at zero hosting cost.",
     "paragraphs": {
       "recruiter": "Systems Engineer at TCS, deployed at State Bank of India, keeping mission-critical banking infrastructure running at 99.999% uptime for 30,000+ users. Three years of hands-on infrastructure, IDM, and DR execution — with a team of five to lead and a track record of cutting RTO by 50%.",
       "developer": "I run infrastructure for a Tier-1 Indian bank by day and build automation pipelines, PWAs, and embedded devices by night. My stack spans Linux/RHEL server fleets, Python ETL, Flutter mobile, Astro JAMstack, and ESP32 firmware — usually on free-tier infrastructure and always with a bias toward shipping over theorising. Currently deep into LLM orchestration and GenAI workflow design.",
