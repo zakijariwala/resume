@@ -20,6 +20,7 @@ interface Props {
     dates: string;
     status: string;
     context_tag: string;
+    curious_intro?: string;
     kpis: Kpi[];
     bullets: Bullet[];
     show_recovery_chart?: boolean;
@@ -59,6 +60,10 @@ const statusLabel = {
     <h3 class="exp-company">{entry.company}</h3>
     {entry.subtitle && <p class="exp-subtitle">{entry.subtitle}</p>}
     <p class="exp-title">{entry.title}</p>
+
+    {entry.curious_intro && (
+      <p class="exp-curious-intro curious-only">{entry.curious_intro}</p>
+    )}
 
     <ul class="exp-bullets">
       {entry.bullets.map(bullet => (
@@ -100,8 +105,8 @@ const statusLabel = {
 [data-mode="recruiter"] .exp-bullets li[data-audience]:not([data-audience*="recruiter"]):not([data-audience*="management"]) {
   display: none;
 }
-[data-mode="developer"] .exp-bullets li[data-audience] { display: list-item; }
-[data-mode="curious"]   .exp-bullets li[data-audience] { display: list-item; }
+[data-mode="developer"] .exp-bullets li[data-audience]:not([data-audience*="developer"]) { display: none; }
+[data-mode="curious"]   .exp-bullets li[data-audience]:not([data-audience*="curious"])   { display: none; }
 </style>
 
 <style>
@@ -167,6 +172,13 @@ const statusLabel = {
   margin: 0 0 var(--space-5);
   font-family: var(--font-mono);
   letter-spacing: 0.02em;
+}
+.exp-curious-intro {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  line-height: 1.75;
+  font-style: italic;
+  margin: 0 0 var(--space-4);
 }
 .exp-bullets {
   list-style: disc;

@@ -77,10 +77,11 @@ const isPrivate = !project.github || project.github === 'private';
 </div>
 
 <style is:global>
-  /* Bullet audience filtering is handled globally */
   [data-mode="recruiter"] .featured-bullets li[data-audience]:not([data-audience*="recruiter"]):not([data-audience*="management"]) {
     display: none;
   }
+  [data-mode="developer"] .featured-bullets li[data-audience]:not([data-audience*="developer"]) { display: none; }
+  [data-mode="curious"]   .featured-bullets li[data-audience]:not([data-audience*="curious"])   { display: none; }
 </style>
 
 <style>

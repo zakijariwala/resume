@@ -12,20 +12,40 @@
     "year": "2025",
     "bullets": [
       {
-        "text": "Identified the digital gap in a family marine-parts business through direct conversations with 200+ B2B prospects — validating channels, value proposition, and pricing signals before building.",
-        "audience": ["recruiter", "developer", "curious"]
+        "text": "Identified the digital gap through direct conversations with 200+ B2B prospects — validating channels, value proposition, and pricing signals before writing a line of code.",
+        "audience": ["recruiter"]
       },
       {
         "text": "Defined and prioritised a zero-budget digital stack: JAMstack storefront for discoverability, eBay API automation for listings (~60% faster time-to-market), and an AI-powered cold-email funnel for B2B acquisition.",
-        "audience": ["recruiter", "developer", "curious"]
+        "audience": ["recruiter"]
       },
       {
         "text": "Instrumented product analytics via PostHog, tracking the full funnel from storefront visit to eBay conversion — using data to reprioritise listing categories and outreach targeting.",
-        "audience": ["recruiter", "developer", "curious"]
+        "audience": ["recruiter"]
       },
       {
-        "text": "Shipped an AI cold-email agent (Claude API + Python + Brevo) achieving 90%+ inbox delivery across campaign cycles.",
-        "audience": ["recruiter", "developer", "curious"]
+        "text": "Shipped an AI cold-email agent achieving 90%+ inbox delivery across campaign cycles.",
+        "audience": ["recruiter"]
+      },
+      {
+        "text": "Cold-email agent: Claude API prompt templates per industry vertical → Python orchestrator → Brevo SMTP with sender rotation and bounce handling → delivery rate tracking. 90%+ inbox rate across campaign cycles.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "eBay Browse API integration: Python ingestion pipeline parses product data, maps to eBay taxonomy, and pushes listings in batch — ~60% reduction in per-SKU listing time vs. manual entry.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "PostHog JS SDK on a fully static Astro/Cloudflare Pages frontend: custom event schema tracking browse → click → eBay redirect funnel, session replay configured to exclude contact fields.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "Zero-persistent-backend architecture: Astro SSG → Cloudflare Pages CDN, GitHub Actions CI, all serverless — total recurring cost: $0.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "My family's business had no real digital presence. I built the whole thing — website, automated email campaigns, product listings — in spare time, at zero cost.",
+        "audience": ["curious"]
       }
     ]
   },
@@ -43,15 +63,31 @@
     "bullets": [
       {
         "text": "Identified that content creators spend most research-to-draft time on mechanical, repeatable work — designed and shipped a pipeline automating transcript ingestion, LLM transformation, and publishing.",
-        "audience": ["recruiter", "developer", "curious"]
+        "audience": ["recruiter"]
       },
       {
-        "text": "Defined and built an LLM governance layer (\"Failure First\" framework) to solve a specific output-quality problem — eliminating safe, generic AI prose across 12 distinct content niches.",
-        "audience": ["recruiter", "developer", "curious"]
+        "text": "Defined and built an LLM governance layer ('Failure First' framework) to solve a specific output-quality problem — eliminating safe, generic AI prose across 12 distinct content niches.",
+        "audience": ["recruiter"]
       },
       {
         "text": "Reduced time-to-draft by 85%; built a cross-platform desktop GUI (Tauri/React 19) enabling non-technical users to operate the pipeline without CLI access.",
-        "audience": ["recruiter", "developer", "curious"]
+        "audience": ["recruiter"]
+      },
+      {
+        "text": "Pipeline: yt-dlp transcript ingestion → Gemini 1.5 Pro transformation → JSON state machine for progress tracking and resumable runs → GitPython sync to GitHub-backed article store.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "'Failure First' framework: heuristic validators detect safe/generic LLM output patterns (hedging language, filler phrases, passive-voice saturation) and trigger re-generation with escalating specificity constraints until prose passes quality gates.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "Desktop GUI: Tauri (Rust shell) + React 19 frontend — IPC bridge spawns the Python pipeline subprocess and streams real-time progress back to the UI. Cross-platform: macOS, Windows, Linux.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "I was writing articles and realised most of the process was the same mechanical steps every time. So I automated those steps — which meant the parts that needed actual judgment got more of my attention.",
+        "audience": ["curious"]
       }
     ]
   },
@@ -69,19 +105,35 @@
     "bullets": [
       {
         "text": "Identified a gap in available supplication apps — existing options were ad-heavy, required constant connectivity, or lacked multilingual support — and validated the problem before building.",
-        "audience": ["recruiter", "developer", "curious"]
+        "audience": ["recruiter"]
       },
       {
-        "text": "Structured a publicly available liturgical database of 22,000+ records into an optimised, indexed SQLite schema, achieving sub-10ms local query times — 4× faster than existing alternatives.",
-        "audience": ["recruiter", "developer", "curious"]
+        "text": "Structured a publicly available liturgical database of 22,000+ records into an optimised, indexed SQLite schema achieving sub-10ms local query times.",
+        "audience": ["recruiter"]
       },
       {
-        "text": "Shipped as an offline-first PWA (Service Workers, lazy caching), delivering 80MB of multilingual content (Arabic, Urdu, English) at zero hosting cost.",
-        "audience": ["recruiter", "developer", "curious"]
+        "text": "Shipped as an offline-first PWA with service worker caching, delivering 80MB of multilingual content (Arabic, Urdu, English) at zero hosting cost.",
+        "audience": ["recruiter"]
       },
       {
         "text": "Ran a structured beta with 40+ testers across iOS Safari, Android Chrome, and desktop — triaging feedback and shipping iterative improvements based on user-reported priorities.",
-        "audience": ["recruiter", "developer", "curious"]
+        "audience": ["recruiter"]
+      },
+      {
+        "text": "SQLite schema: 22,000+ records normalised across language, category, sequence, and metadata tables — composite indexes on (category_id, sequence) and FTS5 virtual table for full-text Arabic/Urdu/English search. Sub-10ms queries on mobile WebAssembly runtime.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "Service worker strategy: static app shell pre-cached at install; content database lazy-loaded on first access and persisted in Cache API indefinitely — 80MB offline payload, zero recurring cost.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "Python ETL pipeline: XLSX source normalisation → schema validation against known data inconsistencies → FTS5 virtual table generation → SQLite binary packaged as a WASM-compatible asset.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "The apps that existed for Islamic supplications were slow, cluttered, or needed an internet connection. I built one that works offline, in three languages, on any device, for free.",
+        "audience": ["curious"]
       }
     ]
   },
@@ -99,15 +151,27 @@
     "bullets": [
       {
         "text": "Built a consumer running app (GPS tracking, ghost routes, crowd radar) end-to-end across 6 feature segments — owning architecture, backend, and UX decisions.",
-        "audience": ["recruiter", "developer", "curious"]
+        "audience": ["recruiter"]
       },
       {
         "text": "Grew to 50+ local alpha users in early testing, validating core flows and GPS accuracy before deliberately taking the product private to polish based on feedback.",
-        "audience": ["recruiter", "developer", "curious"]
+        "audience": ["recruiter"]
       },
       {
-        "text": "Integrated Supabase + PostGIS for geospatial features, supporting sub-100ms proximity queries for nearby-runner detection.",
+        "text": "Clean Architecture with Riverpod as the state machine layer — ~8k LOC across feature modules (auth, GPS, routes, social, settings) with strict separation between data, domain, and presentation layers.",
         "audience": ["developer"]
+      },
+      {
+        "text": "PostGIS on Supabase: sub-100ms geospatial queries for nearby-runner detection using ST_DWithin on indexed geography columns; ghost route playback via LineString geometries interpolated to real-time pace in Flutter isolates.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "Local SQLite cache for offline route history and GPS track storage — synced to Supabase on reconnect via a custom conflict-resolution strategy.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "I wanted a running app that did what I wanted, so I built one. It took longer than expected, and now I actually know what it takes to ship a real mobile product.",
+        "audience": ["curious"]
       }
     ]
   },
@@ -124,6 +188,10 @@
     "year": "2025",
     "bullets": [
       {
+        "text": "Designed and built a working hardware product end-to-end — from EPUB ingestion pipeline to custom embedded firmware with stable e-ink display rendering.",
+        "audience": ["recruiter"]
+      },
+      {
         "text": "Architected a custom pocket-sized e-ink reading device using an ESP32-S3 microcontroller and a 3.7-inch E-Paper display, achieving a functional firmware prototype with stable display rendering.",
         "audience": ["developer"]
       },
@@ -134,6 +202,10 @@
       {
         "text": "Engineered a Python EPUB-to-SQLite conversion pipeline, reducing per-book ingestion time to under 30 seconds for titles up to 500 pages.",
         "audience": ["developer"]
+      },
+      {
+        "text": "Reading on a phone is miserable. I built my own pocket e-ink reader from scratch — designing every layer yourself, from the EPUB parser to the display driver, turns out to be more satisfying than buying one.",
+        "audience": ["curious"]
       }
     ]
   },
@@ -150,6 +222,10 @@
     "year": "2024",
     "bullets": [
       {
+        "text": "Set up and maintained a persistent cloud development environment with 99%+ uptime over 18 months — enabling full-stack development workflows from any device at zero recurring cost.",
+        "audience": ["recruiter"]
+      },
+      {
         "text": "Designed and configured a fully persistent remote Linux development environment on Oracle Cloud Free Tier — production-equivalent compute at zero recurring cost.",
         "audience": ["developer"]
       },
@@ -159,7 +235,11 @@
       },
       {
         "text": "Maintained 99%+ uptime over 18+ months of continuous use, with automated session persistence eliminating context loss between work sessions.",
-        "audience": ["recruiter", "developer"]
+        "audience": ["developer"]
+      },
+      {
+        "text": "I got tired of long-running builds dying when my laptop went to sleep. I set up a server in the cloud that's always on — which means I can write code from my phone when I'm away from a desk.",
+        "audience": ["curious"]
       }
     ]
   }

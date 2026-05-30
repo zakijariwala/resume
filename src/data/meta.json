@@ -1,5 +1,5 @@
 {
-  "name": "J. Zaki",
+  "name": "Mohammad Zaki Jariwala",
   "preferred_name": "J. Zaki",
   "location": "Navi Mumbai, India",
   "location_detail": "Seawoods, Navi Mumbai — open to global relocation",
@@ -12,13 +12,13 @@
   "availability": "Open to AI Product Manager and product roles. Based in Mumbai, open to relocation.",
 
   "taglines": {
-    "recruiter": "AI Product Manager · Systems Engineer · TCS / SBI GITC",
+    "recruiter": "AI Product Manager · Technical Lead",
     "developer": "Infrastructure + AI — shipping products in the gaps",
     "curious":   "Engineer who builds products and wants to do it full-time"
   },
 
   "hero_subline": {
-    "recruiter": "3 years enterprise infrastructure · 4 shipped products · AWS + GenAI certified",
+    "recruiter": "4 products shipped 0-to-1 · 3 years enterprise engineering · AWS + GenAI certified",
     "developer": "whatever I'm building this month",
     "curious":   "I find it hard to stop building things"
   },
@@ -37,24 +37,24 @@
 
   "stats": [
     {
-      "value":    "99.999%",
-      "label":    "Uptime SLA",
-      "sublabel": "five-nine SLA compliance"
+      "value":    "4",
+      "label":    "Products Shipped",
+      "sublabel": "PWA · mobile · JAMstack · automation"
     },
     {
       "value":    "30,000+",
-      "label":    "Users Supported",
-      "sublabel": "internal SBI branch users"
+      "label":    "Users Reached",
+      "sublabel": "enterprise platform scale"
     },
     {
-      "value":    "4",
-      "label":    "Products Shipped",
-      "sublabel": "PWA · mobile · JAMstack · embedded"
+      "value":    "50+",
+      "label":    "Alpha Users",
+      "sublabel": "run.to early testing"
     },
     {
-      "value":    "50%",
-      "label":    "RTO Reduction",
-      "sublabel": "disaster recovery runbooks"
+      "value":    "85%",
+      "label":    "Faster Drafts",
+      "sublabel": "content automation pipeline"
     }
   ],
 

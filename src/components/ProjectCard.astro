@@ -79,8 +79,8 @@ const isPrivate = !project.github || project.github === 'private';
 [data-mode="recruiter"] .proj-bullets li[data-audience]:not([data-audience*="recruiter"]):not([data-audience*="management"]) {
   display: none;
 }
-[data-mode="developer"] .proj-bullets li[data-audience] { display: list-item; }
-[data-mode="curious"]   .proj-bullets li[data-audience] { display: list-item; }
+[data-mode="developer"] .proj-bullets li[data-audience]:not([data-audience*="developer"]) { display: none; }
+[data-mode="curious"]   .proj-bullets li[data-audience]:not([data-audience*="curious"])   { display: none; }
 </style>
 
 <style>

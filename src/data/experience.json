@@ -7,6 +7,7 @@
     "dates": "2023 — Present",
     "status": "active",
     "context_tag": "banking_infrastructure",
+    "curious_intro": "For my day job I keep a major bank's systems running for tens of thousands of people — the kind of work where success means nobody ever notices it.",
     "kpis": [
       { "value": "99.999%", "label": "System Uptime" },
       { "value": "30,000+", "label": "Users Supported" },
@@ -16,23 +17,43 @@
     "bullets": [
       {
         "text": "Led an operations team delivering 99.999% availability for Tier-1 banking applications across 30,000+ branch users — setting team priorities, mentoring 5 engineers, and managing escalations end-to-end.",
-        "audience": ["recruiter", "developer", "curious", "management"]
+        "audience": ["recruiter", "management"]
       },
       {
         "text": "Collaborated across infrastructure, application, database, and security teams to align delivery priorities and maintain regulatory compliance under strict banking constraints.",
-        "audience": ["recruiter", "developer", "curious", "management"]
+        "audience": ["recruiter", "management"]
       },
       {
         "text": "Drove infrastructure modernisation, evaluated build-vs-buy tradeoffs, secured stakeholder alignment, and led adoption of on-premise container-based workflows within compliance boundaries — translating engineering constraints into a prioritised delivery roadmap for leadership.",
-        "audience": ["recruiter", "developer", "curious", "management"]
+        "audience": ["recruiter", "management"]
       },
       {
         "text": "Architected and executed Disaster Recovery runbooks in cross-functional coordination with application and database teams, reducing Recovery Time Objective (RTO) by 50%.",
-        "audience": ["recruiter", "developer", "curious", "management"]
+        "audience": ["recruiter", "management"]
       },
       {
         "text": "Translate complex incident data and technical risk into clear communications for business stakeholders and senior leadership.",
-        "audience": ["recruiter", "developer", "curious", "management"]
+        "audience": ["recruiter", "management"]
+      },
+      {
+        "text": "Operated IBM Security Identity Manager (ISIM) on RHEL 8 — managing user provisioning, access governance, and policy enforcement across 150+ application servers in an on-premise Tier-1 banking datacenter maintaining 99.999% platform SLA via active-passive HA clustering and automated health monitoring.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "Led on-premise containerisation of legacy IDM workflows: evaluated Podman vs Docker within RBI/SEBI compliance boundaries, defined container topology and orchestration approach, secured sign-off from security and compliance stakeholders.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "Authored cross-team DR runbooks covering IDM primary/replica switchover, application server restart sequences, and database consistency validation — reducing RTO from ~4 hours to under 2 hours (50% reduction) through structured tabletop drills and live execution.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "Automated recurring ops tasks (patch compliance checks, certificate rotation tracking, capacity utilisation reports) in Python and Bash — eliminating ~8 hours/week of manual overhead across the team.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "The day job means keeping banking infrastructure alive for tens of thousands of people. Success is invisible — if nobody notices, everything went right.",
+        "audience": ["curious"]
       }
     ],
     "show_recovery_chart": true
@@ -45,6 +66,7 @@
     "dates": "2025 — Present",
     "status": "ongoing",
     "context_tag": "independent_product",
+    "curious_intro": "I stepped in to build the digital side of my family's marine parts business — and treated a zero-budget operation with the same engineering rigour I'd apply at work.",
     "kpis": [
       { "value": "200+", "label": "B2B Prospects / Campaign" },
       { "value": "90%+", "label": "Inbox Delivery Rate" },
@@ -53,19 +75,35 @@
     "bullets": [
       {
         "text": "Identified the digital gap in a family marine-parts business through direct conversations with 200+ B2B prospects — validating channels, value proposition, and pricing signals before building.",
-        "audience": ["recruiter", "developer", "curious", "management"]
+        "audience": ["recruiter", "management"]
       },
       {
         "text": "Defined and prioritised a zero-budget digital stack: JAMstack storefront for discoverability, eBay API automation for listings (~60% faster time-to-market), and an AI-powered cold-email funnel for B2B acquisition.",
-        "audience": ["recruiter", "developer", "curious", "management"]
+        "audience": ["recruiter", "management"]
       },
       {
         "text": "Instrumented product analytics via PostHog, tracking the full funnel from storefront visit to eBay conversion — using data to reprioritise listing categories and outreach targeting.",
-        "audience": ["recruiter", "developer", "curious", "management"]
+        "audience": ["recruiter", "management"]
       },
       {
         "text": "Shipped an AI cold-email agent (Claude API + Python + Brevo) achieving 90%+ inbox delivery across campaign cycles.",
-        "audience": ["recruiter", "developer", "curious", "management"]
+        "audience": ["recruiter", "management"]
+      },
+      {
+        "text": "Cold-email agent: Claude API prompt templates per industry vertical → Python orchestrator → Brevo SMTP with sender rotation and bounce handling → delivery rate tracking. 90%+ inbox rate across campaign cycles.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "eBay Browse API integration: Python ingestion pipeline parses product data, maps to eBay taxonomy, and pushes listings in batch — ~60% reduction in per-SKU listing time vs. manual entry.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "Zero-persistent-backend architecture: Astro SSG → Cloudflare Pages CDN, GitHub Actions CI, PostHog JS SDK on static frontend — full funnel tracking at zero recurring cost.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "My family started a business and the digital side was basically an afterthought. I stepped in and built the whole thing — storefront, outreach, analytics — in spare time, at zero cost.",
+        "audience": ["curious"]
       }
     ],
     "show_recovery_chart": false
@@ -78,6 +116,7 @@
     "dates": "2025 — 2026 (Concluded)",
     "status": "dim",
     "context_tag": "communication",
+    "curious_intro": "For a while I ran a small coaching practice helping engineers talk about their work in a way that actually lands with people who aren't engineers.",
     "kpis": [
       { "value": "50+", "label": "Clients Coached" },
       { "value": "1:1", "label": "Session Format" }
@@ -85,15 +124,19 @@
     "bullets": [
       {
         "text": "Founded and scaled a coaching practice from zero — handling client acquisition, curriculum design, and end-to-end delivery for 50+ engineering and management professionals.",
-        "audience": ["recruiter", "developer", "curious", "management"]
+        "audience": ["recruiter", "developer", "management"]
       },
       {
         "text": "Designed a structured curriculum covering STAR-method framing, stakeholder communication, and senior-level interview strategy — iterating based on client outcomes and session feedback.",
-        "audience": ["recruiter", "developer", "curious", "management"]
+        "audience": ["recruiter", "developer", "management"]
       },
       {
         "text": "Developed repeatable frameworks for technical storytelling, enabling clients to translate complex engineering work into language accessible to non-technical decision-makers.",
-        "audience": ["recruiter", "developer", "curious", "management"]
+        "audience": ["recruiter", "developer", "management"]
+      },
+      {
+        "text": "Turned out that teaching engineers to explain themselves clearly is a harder problem than it looks — and more satisfying to solve than I expected.",
+        "audience": ["curious"]
       }
     ],
     "show_recovery_chart": false
