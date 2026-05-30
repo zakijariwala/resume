@@ -66,7 +66,7 @@
 
   --text:            #000000;
   --text-muted:      #000000;
-  --text-disabled:   #000000;
+  --text-disabled:   #6B6B6B;
 
   /* Mode-reactive accent (defaults to recruiter blue) */
   --accent:          var(--prim-blue);
@@ -141,7 +141,7 @@
   --border-strong:   rgba(255, 255, 255, 0.16);
   --text:            #FFFFFF;
   --text-muted:      #FFFFFF;
-  --text-disabled:   #FFFFFF;
+  --text-disabled:   #9A9A9A;
 
   --status-active:        #064E3B;
   --status-active-text:   #A7F3D0;
