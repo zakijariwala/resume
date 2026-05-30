@@ -2,7 +2,7 @@
 import meta from '../data/meta.json';
 import StatCard from './StatCard.astro';
 
-const { name, pdf_path, taglines, hero_subline, whatsapp, stats, currently } = meta;
+const { name, pdf_path, taglines, hero_subline, whatsapp, stats, currently, availability } = meta;
 
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
 const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_path.replace(/^\//, '')}`;
@@ -14,7 +14,7 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
     <!-- Availability indicator -->
     <div class="availability-line recruiter-only">
       <span class="avail-dot"></span>
-      <span class="avail-text">Open to infrastructure, SRE, and platform engineering roles</span>
+      <span class="avail-text">{availability}</span>
     </div>
 
     <h1 class="hero-name">{name}</h1>

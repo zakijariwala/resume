@@ -28,7 +28,6 @@ interface Props {
 
 const { entry } = Astro.props;
 const isTCS = entry.id === 'tcs';
-const isIndependentBusiness = entry.context_tag === 'independent_business';
 
 const statusClass = {
   active: 'badge-active',
@@ -45,7 +44,7 @@ const statusLabel = {
 }[entry.status] ?? entry.status;
 ---
 
-<div class={`exp-card fade-in ${isIndependentBusiness ? 'dev-only curious-only' : 'all-modes'}`}>
+<div class="exp-card fade-in all-modes">
   <!-- Left sidebar: period, badge, context -->
   <div class="exp-sidebar">
     <span class="exp-dates">{entry.dates}</span>

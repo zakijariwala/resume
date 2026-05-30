@@ -10,20 +10,20 @@
     "kpis": [
       { "value": "99.999%", "label": "System Uptime" },
       { "value": "30,000+", "label": "Users Supported" },
-      { "value": "150+",    "label": "Servers Managed" },
+      { "value": "5",       "label": "Engineers Led" },
       { "value": "50%",     "label": "RTO Reduction" }
     ],
     "bullets": [
       {
-        "text": "Lead an operations team supporting enterprise banking infrastructure and mission-critical IDM and database platforms for 30,000+ internal SBI branch users.",
+        "text": "Lead an operations team of 5 engineers supporting enterprise banking infrastructure and mission-critical IDM and database platforms for 30,000+ internal SBI branch users.",
         "audience": ["recruiter", "developer", "management"]
       },
       {
-        "text": "Directly mentor a team of 5 junior engineers, setting technical standards and conducting structured knowledge transfer sessions.",
+        "text": "Maintain 99.999% system availability for Tier-1 banking applications across production, UAT, and DR environments — coordinating across infrastructure, database, application, and security teams.",
         "audience": ["recruiter", "developer", "management"]
       },
       {
-        "text": "Maintain 99.999% system availability for Tier-1 banking applications across production, UAT, and DR environments.",
+        "text": "Directly mentor 5 junior engineers, setting technical standards, conducting structured knowledge transfer sessions, and handling escalations.",
         "audience": ["recruiter", "developer", "management"]
       },
       {
@@ -31,28 +31,57 @@
         "audience": ["recruiter", "developer", "management"]
       },
       {
-        "text": "Drive infrastructure modernisation by shifting from cloud-migration dependency to on-premise containerisation and Docker-based deployment workflows within banking compliance constraints.",
-        "audience": ["developer"]
-      },
-      {
         "text": "Architected and executed Disaster Recovery drills and runbooks, reducing Recovery Time Objective (RTO) by 50% for Tier-1 applications.",
         "audience": ["recruiter", "developer", "management"]
       },
       {
-        "text": "Collaborate across infrastructure, database, application, and security teams to maintain regulatory compliance and reduce service disruption risk.",
-        "audience": ["recruiter", "developer", "management"]
+        "text": "Drive infrastructure modernisation by shifting from cloud-migration dependency to on-premise containerisation and Docker-based deployment workflows within banking compliance constraints.",
+        "audience": ["developer"]
       }
     ],
     "show_recovery_chart": true
   },
   {
+    "id": "zamaan_experience",
+    "company": "Zamaan Marine",
+    "subtitle": "Technology and marketing lead for a family marine equipment venture",
+    "title": "Technology & Product Lead · Family venture · Unpaid",
+    "dates": "2025 — Present",
+    "status": "ongoing",
+    "context_tag": "independent_product",
+    "kpis": [
+      { "value": "200+", "label": "B2B Prospects / Campaign" },
+      { "value": "90%+", "label": "Inbox Delivery Rate" },
+      { "value": "~60%", "label": "Faster Listing Time" }
+    ],
+    "bullets": [
+      {
+        "text": "Own all technology and product decisions for a zero-budget digital business: defined requirements, prioritised features, built and shipped every piece of the stack.",
+        "audience": ["recruiter", "developer", "curious", "management"]
+      },
+      {
+        "text": "Built the full digital ecosystem: JAMstack storefront (Astro + Cloudflare Pages), eBay API automation, daily CI/CD rebuild pipeline, professional email infrastructure (SPF/DKIM/DMARC), and product analytics via PostHog.",
+        "audience": ["recruiter", "developer", "curious", "management"]
+      },
+      {
+        "text": "Engineered a Python cold email automation agent integrating Brevo, Claude API, ZeroBounce, and Hunter.io — reduced time-to-listing by ~60%, targeting 200+ B2B prospects per campaign cycle with 90%+ inbox delivery.",
+        "audience": ["recruiter", "developer", "curious", "management"]
+      },
+      {
+        "text": "Applied enterprise-grade engineering practices (observability, automation, structured testing) to a family business operating on zero budget — proving that constraints sharpen rather than limit product thinking.",
+        "audience": ["recruiter", "developer", "curious", "management"]
+      }
+    ],
+    "show_recovery_chart": false
+  },
+  {
     "id": "coaching",
     "company": "Independent Coaching Practice",
     "subtitle": "Technical interview readiness for engineering and management candidates",
-    "title": "Technical Soft Skills Coach — Founder",
+    "title": "Technical Soft Skills Coach",
     "dates": "2025 — 2026",
     "status": "dim",
-    "context_tag": "leadership_communication",
+    "context_tag": "communication",
     "kpis": [
       { "value": "50+",  "label": "Clients Coached" },
       { "value": "1:1",  "label": "Session Format" }
@@ -63,48 +92,12 @@
         "audience": ["recruiter", "developer", "management"]
       },
       {
-        "text": "Conducted intensive 1:1 mentorship sessions focused on behavioural frameworks, technical storytelling, and senior-level interview strategy.",
+        "text": "Designed a structured coaching curriculum covering STAR-method framing, technical storytelling, and senior-level interview strategy.",
         "audience": ["recruiter", "developer", "management"]
       },
       {
-        "text": "Designed a structured coaching curriculum covering STAR-method framing, stakeholder communication, and high-impact presentation skills.",
+        "text": "Sourced and managed end-to-end client relationships independently — from initial consultation through outcome tracking.",
         "audience": ["recruiter", "developer", "management"]
-      },
-      {
-        "text": "Sourced and onboarded clients independently, managing end-to-end client relationships across the full engagement lifecycle.",
-        "audience": ["recruiter", "developer", "management"]
-      }
-    ],
-    "show_recovery_chart": false
-  },
-  {
-    "id": "zamaan_experience",
-    "company": "Zamaan Marine",
-    "subtitle": "Technology and marketing lead for a family marine equipment venture",
-    "title": "Co-Founder — Technology & Marketing Lead (Pro Bono)",
-    "dates": "2025 — Present",
-    "status": "ongoing",
-    "context_tag": "independent_business",
-    "kpis": [
-      { "value": "200+", "label": "B2B Prospects / Campaign" },
-      { "value": "90%+", "label": "Inbox Delivery Rate" }
-    ],
-    "bullets": [
-      {
-        "text": "Lead all technology and digital marketing operations for a family business selling second-hand industrial automation and marine equipment parts.",
-        "audience": ["recruiter", "developer", "curious", "management"]
-      },
-      {
-        "text": "Built and maintain the full digital ecosystem: JAMstack storefront (Astro + Cloudflare Pages), WordPress brand site, professional email infrastructure (SPF/DKIM/DMARC), and product analytics via PostHog.",
-        "audience": ["recruiter", "developer", "curious", "management"]
-      },
-      {
-        "text": "Engineered a Python cold email automation agent integrating Brevo, Google Sheets, Claude API, ZeroBounce, and Hunter.io — targeting 200+ B2B prospects per campaign cycle.",
-        "audience": ["recruiter", "developer", "curious", "management"]
-      },
-      {
-        "text": "Operate in a founder-equivalent capacity, applying enterprise-grade engineering practices to a zero-budget independent business stack.",
-        "audience": ["recruiter", "developer", "curious", "management"]
       }
     ],
     "show_recovery_chart": false

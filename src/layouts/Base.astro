@@ -24,6 +24,10 @@ const { title, description } = Astro.props;
 
     <meta name="theme-color" content="#1A6BFF" />
 
+    <!-- Cloudflare Web Analytics — replace token with value from Cloudflare Pages dashboard -->
+    <!-- Alternatively, enable via Cloudflare Pages Settings → Web Analytics (no code change needed) -->
+    <!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"YOUR_CF_ANALYTICS_TOKEN"}'></script> -->
+
     <!-- FOUC prevention: sets data-mode and data-theme before first paint -->
     <script is:inline>
       (function () {

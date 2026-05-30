@@ -9,28 +9,28 @@
   "linkedin": "https://linkedin.com/in/zakijariwala",
   "github": "https://github.com/zakijariwala",
   "pdf_path": "/Mohammad_Zaki_Jariwala_Resume.pdf",
-  "availability": "Open to infrastructure, SRE, and platform engineering roles. Based in Mumbai, open to relocation.",
+  "availability": "Open to AI Product Manager and product roles. Based in Mumbai, open to relocation.",
 
   "taglines": {
-    "recruiter": "Systems Engineer · TCS / SBI GITC",
-    "developer": "Infrastructure + AI automation",
-    "curious":   "Engineer by day, builder by night"
+    "recruiter": "AI Product Manager · Systems Engineer · TCS / SBI GITC",
+    "developer": "Infrastructure + AI — shipping products in the gaps",
+    "curious":   "Engineer who builds products and wants to do it full-time"
   },
 
   "hero_subline": {
-    "recruiter": "3 years · Banking infrastructure for 30,000+ users",
+    "recruiter": "3 years enterprise infrastructure · 4 shipped products · AWS + GenAI certified",
     "developer": "whatever I'm building this month",
     "curious":   "I find it hard to stop building things"
   },
 
   "contact_taglines": {
-    "recruiter": "Open to infrastructure, platform engineering, and SRE roles. Based in Mumbai, open to relocation.",
+    "recruiter": "Open to AI PM, product, and innovation roles. Technical background with real 0-to-1 product experience. Based in Mumbai, open to relocation.",
     "developer": "Always interested in interesting problems. Best reached over email.",
     "curious":   "Say hello — I reply."
   },
 
   "contact_headline": {
-    "recruiter": "Let's talk infrastructure",
+    "recruiter": "Let's talk product",
     "developer": "Let's build something",
     "curious":   "Say hello"
   },
@@ -43,13 +43,13 @@
     },
     {
       "value":    "30,000+",
-      "label":    "Branch Users",
+      "label":    "Users Supported",
       "sublabel": "internal SBI branch users"
     },
     {
-      "value":    "150+",
-      "label":    "Servers Managed",
-      "sublabel": "RHEL + Windows fleet"
+      "value":    "4",
+      "label":    "Products Shipped",
+      "sublabel": "PWA · mobile · JAMstack · embedded"
     },
     {
       "value":    "50%",
@@ -58,28 +58,28 @@
     }
   ],
 
-  "currently": "Building a content automation pipeline that turns YouTube transcripts into publication-ready articles across 12 niches. Studying for GCP Professional Cloud Architect. Thinking about offline-first data architecture for mobile apps. Reading about FreeType font rendering for the e-ink reader that's still on the bench.",
+  "currently": "Building a content automation pipeline that turns YouTube transcripts into publication-ready articles across 12 niches. Studying for GCP Professional Cloud Architect. Reading about product discovery frameworks and what makes an AI product actually useful once the novelty wears off.",
 
   "about": {
     "left_framing": {
-      "recruiter": "Systems Engineer at TCS, deployed at SBI. Three years keeping mission-critical banking infrastructure running at 99.999% uptime for 30,000+ users.",
-      "developer": "I run infrastructure for a Tier-1 Indian bank by day and build automation pipelines, PWAs, and embedded devices by night.",
-      "curious":   "Based in Navi Mumbai. Engineer by profession, builder by disposition."
+      "recruiter": "Systems Engineer at TCS, deployed at SBI. Three years of enterprise infrastructure — now bringing that technical depth and four shipped products into product management.",
+      "developer": "I run enterprise infra by day and ship products at night. Stack spans Linux/RHEL server fleets, Python AI pipelines, Flutter mobile, and Astro JAMstack.",
+      "curious":   "Based in Navi Mumbai. Engineer by profession, builder by habit — slowly realising the builder part is the job I actually want."
     },
     "callout": "Built Path of Supplication, an offline Islamic supplication app used by a small community worldwide — structured a publicly available 22,000-record liturgical database into an indexed schema with sub-10ms search, shipped as a PWA at zero hosting cost.",
     "paragraphs": {
-      "recruiter": "Systems Engineer at TCS, deployed at State Bank of India, keeping mission-critical banking infrastructure running at 99.999% uptime for 30,000+ users. Three years of hands-on infrastructure, IDM, and DR execution — with a team of five to lead and a track record of cutting RTO by 50%.",
-      "developer": "I run infrastructure for a Tier-1 Indian bank by day and build automation pipelines, PWAs, and embedded devices by night. My stack spans Linux/RHEL server fleets, Python ETL, Flutter mobile, Astro JAMstack, and ESP32 firmware — usually on free-tier infrastructure and always with a bias toward shipping over theorising. Currently deep into LLM orchestration and GenAI workflow design.",
-      "curious_p1": "I'm an engineer based in Navi Mumbai who finds it hard to stop building things. My day job is keeping banking systems alive for tens of thousands of people.",
-      "curious_p2": "Outside that, I've built an offline Islamic supplication app used by a small community of Muslims worldwide, a running app with ghost routes and crowd radar, a pocket e-ink reader from scratch, and a marketing automation system for my family's marine parts business.",
-      "curious_p3": "I also spent a few months coaching engineers on how to talk about their work — which turned out to be more technical than it sounds.",
-      "curious_p4": "Right now I'm building a content automation pipeline and thinking about what a genuinely useful AI-native workflow tool would look like if you weren't trying to impress a demo audience."
+      "recruiter": "Systems Engineer at TCS, deployed at State Bank of India, keeping mission-critical banking infrastructure running at 99.999% uptime for 30,000+ users. The day job built the technical credibility: three years leading a team of five, managing 150+ servers, cutting RTO by 50%. The nights built the product experience: an offline supplication app with 22,000 records and sub-10ms search, a running app with 50+ alpha users, a marine equipment digital ecosystem with AI-powered B2B outreach, and a content automation pipeline. I know what engineers are actually talking about — and I know what it takes to ship something real.",
+      "developer": "I run infrastructure for a Tier-1 Indian bank by day and build AI automation pipelines, PWAs, and embedded devices by night. My stack spans Linux/RHEL server fleets, Python ETL and LLM orchestration, Flutter mobile, Astro JAMstack, and ESP32 firmware — usually on free-tier infrastructure and always with a bias toward shipping over theorising. Currently deep into GenAI workflow design and thinking hard about what product management looks like when the core technology is still moving.",
+      "curious_p1": "I'm an engineer based in Navi Mumbai who finds it hard to stop building things. My day job is keeping banking systems alive for tens of thousands of people. That part I'm good at. But it's not the part that keeps me up.",
+      "curious_p2": "Outside that, I've built an offline Islamic supplication app used by a small community of Muslims worldwide, a running app with ghost routes and crowd radar, a pocket e-ink reader from scratch, and a marketing automation system for my family's marine parts business. None of these were assigned to me. I built them because the alternatives were bad and I thought I could do better.",
+      "curious_p3": "I also spent a few months coaching engineers on how to talk about their work — which turned out to be more technical than it sounds. Understanding what makes a story land is not that different from understanding what makes a product land.",
+      "curious_p4": "Right now I'm building a content automation pipeline and thinking seriously about moving into product management. Not because it sounds good on a resume, but because the part of every project I've enjoyed most is always the same: deciding what to build and why."
     }
   },
 
   "summaries": {
-    "platform_sre": "Systems Engineer specialising in Identity & Access Management (IDM) and enterprise infrastructure operations within banking environments. Experienced in leading operations teams and mentoring engineers while managing mission-critical platforms for 30,000+ users. Expert in infrastructure modernisation, on-premise containerisation, and high-availability systems (99.999%), currently expanding into Platform Engineering, SRE, and multi-cloud architecture.",
-    "management": "Systems Engineer and technical coach with a strong foundation in managing mission-critical enterprise banking infrastructure for 30,000+ users. Proven leadership in directing operations teams, mentoring junior engineers, and executing Disaster Recovery drills. Combining deep technical expertise in on-premise containerisation with strong executive communication skills.",
+    "ai_pm": "AI Product Manager candidate with 3 years of enterprise systems engineering and a track record of shipping AI-powered products independently. Expertise in LLM orchestration, GenAI workflow design, and infrastructure systems — combined with 0-to-1 product experience across mobile, PWA, and automation pipelines. AWS Certified Solutions Architect, Google GenAI Leader. Proven team leadership (5 engineers), strong stakeholder communication developed through formal coaching practice.",
+    "platform_sre": "Systems Engineer specialising in Identity & Access Management (IDM) and enterprise infrastructure operations within banking environments. Experienced in leading operations teams and mentoring engineers while managing mission-critical platforms for 30,000+ users. Expert in infrastructure modernisation, on-premise containerisation, and high-availability systems (99.999%).",
     "ai_automation": "Systems Engineer and automation architect specialising in end-to-end LLM orchestration, GenAI workflow design, and data pipeline engineering. Expert in building secure, high-performance automation frameworks using Python, multi-model API integration, and headless distribution systems."
   },
 
