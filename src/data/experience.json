@@ -3,7 +3,7 @@
     "id": "tcs",
     "company": "Tata Consultancy Services",
     "subtitle": "Deployed at State Bank of India (SBI GITC)",
-    "title": "Systems Engineer — IDM & Infrastructure",
+    "title": "Systems Engineer, IDM & Infrastructure",
     "dates": "2023 — Present",
     "status": "active",
     "context_tag": "banking_infrastructure",
@@ -15,28 +15,24 @@
     ],
     "bullets": [
       {
-        "text": "Lead an operations team of 5 engineers supporting enterprise banking infrastructure and mission-critical IDM and database platforms for 30,000+ internal SBI branch users.",
-        "audience": ["recruiter", "developer", "management"]
+        "text": "Led an operations team delivering 99.999% availability for Tier-1 banking applications across 30,000+ branch users — setting team priorities, mentoring 5 engineers, and managing escalations end-to-end.",
+        "audience": ["recruiter", "developer", "curious", "management"]
       },
       {
-        "text": "Maintain 99.999% system availability for Tier-1 banking applications across production, UAT, and DR environments — coordinating across infrastructure, database, application, and security teams.",
-        "audience": ["recruiter", "developer", "management"]
+        "text": "Collaborated across infrastructure, application, database, and security teams to align delivery priorities and maintain regulatory compliance under strict banking constraints.",
+        "audience": ["recruiter", "developer", "curious", "management"]
       },
       {
-        "text": "Directly mentor 5 junior engineers, setting technical standards, conducting structured knowledge transfer sessions, and handling escalations.",
-        "audience": ["recruiter", "developer", "management"]
+        "text": "Drove infrastructure modernisation, evaluated build-vs-buy tradeoffs, secured stakeholder alignment, and led adoption of on-premise container-based workflows within compliance boundaries — translating engineering constraints into a prioritised delivery roadmap for leadership.",
+        "audience": ["recruiter", "developer", "curious", "management"]
       },
       {
-        "text": "Administer a fleet of 150+ Linux (RHEL) and Windows servers — automating patch management, access governance workflows, and incident response procedures.",
-        "audience": ["recruiter", "developer", "management"]
+        "text": "Architected and executed Disaster Recovery runbooks in cross-functional coordination with application and database teams, reducing Recovery Time Objective (RTO) by 50%.",
+        "audience": ["recruiter", "developer", "curious", "management"]
       },
       {
-        "text": "Architected and executed Disaster Recovery drills and runbooks, reducing Recovery Time Objective (RTO) by 50% for Tier-1 applications.",
-        "audience": ["recruiter", "developer", "management"]
-      },
-      {
-        "text": "Drive infrastructure modernisation by shifting from cloud-migration dependency to on-premise containerisation and Docker-based deployment workflows within banking compliance constraints.",
-        "audience": ["developer"]
+        "text": "Translate complex incident data and technical risk into clear communications for business stakeholders and senior leadership.",
+        "audience": ["recruiter", "developer", "curious", "management"]
       }
     ],
     "show_recovery_chart": true
@@ -56,19 +52,19 @@
     ],
     "bullets": [
       {
-        "text": "Own all technology and product decisions for a zero-budget digital business: defined requirements, prioritised features, built and shipped every piece of the stack.",
+        "text": "Identified the digital gap in a family marine-parts business through direct conversations with 200+ B2B prospects — validating channels, value proposition, and pricing signals before building.",
         "audience": ["recruiter", "developer", "curious", "management"]
       },
       {
-        "text": "Built the full digital ecosystem: JAMstack storefront (Astro + Cloudflare Pages), eBay API automation, daily CI/CD rebuild pipeline, professional email infrastructure (SPF/DKIM/DMARC), and product analytics via PostHog.",
+        "text": "Defined and prioritised a zero-budget digital stack: JAMstack storefront for discoverability, eBay API automation for listings (~60% faster time-to-market), and an AI-powered cold-email funnel for B2B acquisition.",
         "audience": ["recruiter", "developer", "curious", "management"]
       },
       {
-        "text": "Engineered a Python cold email automation agent integrating Brevo, Claude API, ZeroBounce, and Hunter.io — reduced time-to-listing by ~60%, targeting 200+ B2B prospects per campaign cycle with 90%+ inbox delivery.",
+        "text": "Instrumented product analytics via PostHog, tracking the full funnel from storefront visit to eBay conversion — using data to reprioritise listing categories and outreach targeting.",
         "audience": ["recruiter", "developer", "curious", "management"]
       },
       {
-        "text": "Applied enterprise-grade engineering practices (observability, automation, structured testing) to a family business operating on zero budget — proving that constraints sharpen rather than limit product thinking.",
+        "text": "Shipped an AI cold-email agent (Claude API + Python + Brevo) achieving 90%+ inbox delivery across campaign cycles.",
         "audience": ["recruiter", "developer", "curious", "management"]
       }
     ],
@@ -78,26 +74,26 @@
     "id": "coaching",
     "company": "Independent Coaching Practice",
     "subtitle": "Technical interview readiness for engineering and management candidates",
-    "title": "Technical Soft Skills Coach",
-    "dates": "2025 — 2026",
+    "title": "Founder & Technical Communication Coach",
+    "dates": "2025 — 2026 (Concluded)",
     "status": "dim",
     "context_tag": "communication",
     "kpis": [
-      { "value": "50+",  "label": "Clients Coached" },
-      { "value": "1:1",  "label": "Session Format" }
+      { "value": "50+", "label": "Clients Coached" },
+      { "value": "1:1", "label": "Session Format" }
     ],
     "bullets": [
       {
-        "text": "Delivered technical interview readiness and executive communication coaching to 50+ engineering professionals and management candidates.",
-        "audience": ["recruiter", "developer", "management"]
+        "text": "Founded and scaled a coaching practice from zero — handling client acquisition, curriculum design, and end-to-end delivery for 50+ engineering and management professionals.",
+        "audience": ["recruiter", "developer", "curious", "management"]
       },
       {
-        "text": "Designed a structured coaching curriculum covering STAR-method framing, technical storytelling, and senior-level interview strategy.",
-        "audience": ["recruiter", "developer", "management"]
+        "text": "Designed a structured curriculum covering STAR-method framing, stakeholder communication, and senior-level interview strategy — iterating based on client outcomes and session feedback.",
+        "audience": ["recruiter", "developer", "curious", "management"]
       },
       {
-        "text": "Sourced and managed end-to-end client relationships independently — from initial consultation through outcome tracking.",
-        "audience": ["recruiter", "developer", "management"]
+        "text": "Developed repeatable frameworks for technical storytelling, enabling clients to translate complex engineering work into language accessible to non-technical decision-makers.",
+        "audience": ["recruiter", "developer", "curious", "management"]
       }
     ],
     "show_recovery_chart": false

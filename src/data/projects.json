@@ -12,24 +12,20 @@
     "year": "2025",
     "bullets": [
       {
-        "text": "Built a comprehensive digital presence for a business selling second-hand industrial and marine parts, reducing time-to-market for new listings by ~60% through eBay API automation and daily CI/CD rebuilds.",
-        "audience": ["recruiter", "developer"]
+        "text": "Identified the digital gap in a family marine-parts business through direct conversations with 200+ B2B prospects — validating channels, value proposition, and pricing signals before building.",
+        "audience": ["recruiter", "developer", "curious"]
       },
       {
-        "text": "Developed an Astro JAMstack storefront with eBay API integration, hosted on Cloudflare Pages with automated GitHub Actions rebuild pipeline — zero hosting cost at production quality.",
-        "audience": ["developer"]
+        "text": "Defined and prioritised a zero-budget digital stack: JAMstack storefront for discoverability, eBay API automation for listings (~60% faster time-to-market), and an AI-powered cold-email funnel for B2B acquisition.",
+        "audience": ["recruiter", "developer", "curious"]
       },
       {
-        "text": "Engineered a full-stack cold email automation agent in Python integrating Brevo, ZeroBounce, and Hunter.io for lead validation and Claude API for personalised outreach copy — targeting 200+ B2B prospects per campaign.",
-        "audience": ["recruiter", "developer"]
+        "text": "Instrumented product analytics via PostHog, tracking the full funnel from storefront visit to eBay conversion — using data to reprioritise listing categories and outreach targeting.",
+        "audience": ["recruiter", "developer", "curious"]
       },
       {
-        "text": "Implemented professional email infrastructure with SPF, DKIM, and DMARC records, achieving inbox delivery rates above 90% across cold outreach campaigns.",
-        "audience": ["recruiter", "developer"]
-      },
-      {
-        "text": "Instrumented product analytics via PostHog, enabling funnel visibility from storefront visit to eBay click-through.",
-        "audience": ["developer"]
+        "text": "Shipped an AI cold-email agent (Claude API + Python + Brevo) achieving 90%+ inbox delivery across campaign cycles.",
+        "audience": ["recruiter", "developer", "curious"]
       }
     ]
   },
@@ -43,27 +39,19 @@
     "why_i_built_it": "I was writing AWS certification articles for Medium and realised the research-to-draft process was almost entirely mechanical. I built a pipeline to handle the mechanical part so the human part — judgment, voice, editing — could actually matter. The Failure First framework came from noticing that AI-generated content fails the same way every time: it starts safe and stays safe. I built rules specifically to break that pattern.",
     "tech": ["Python", "Gemini 1.5 Pro", "Tauri", "Rust", "React 19", "GitHub Actions", "yt-dlp"],
     "github": "",
-    "year": "2026",
+    "year": "2025",
     "bullets": [
       {
-        "text": "Architected an end-to-end automation pipeline transforming high-intent YouTube transcripts into professional 1,500+ word Medium articles across 12 distinct niches.",
-        "audience": ["recruiter", "developer"]
+        "text": "Identified that content creators spend most research-to-draft time on mechanical, repeatable work — designed and shipped a pipeline automating transcript ingestion, LLM transformation, and publishing.",
+        "audience": ["recruiter", "developer", "curious"]
       },
       {
-        "text": "Reduced end-to-end content generation time-to-draft by 85%, enabling rapid scaling across specialised verticals without sacrificing editorial tone.",
-        "audience": ["recruiter"]
+        "text": "Defined and built an LLM governance layer (\"Failure First\" framework) to solve a specific output-quality problem — eliminating safe, generic AI prose across 12 distinct content niches.",
+        "audience": ["recruiter", "developer", "curious"]
       },
       {
-        "text": "Developed the Failure First humanisation framework — a strict LLM governance system eliminating generic AI prose, processing 20,000+ lines of unstructured transcript text per run.",
-        "audience": ["developer"]
-      },
-      {
-        "text": "Engineered a modular orchestration layer managing state tracking via JSON, heuristic validation, and automated GitHub synchronisation via GitPython.",
-        "audience": ["developer"]
-      },
-      {
-        "text": "Built a cross-platform desktop GUI using Tauri (Rust bridge) and React 19, enabling local filesystem access and Python execution within a performance dashboard.",
-        "audience": ["developer"]
+        "text": "Reduced time-to-draft by 85%; built a cross-platform desktop GUI (Tauri/React 19) enabling non-technical users to operate the pipeline without CLI access.",
+        "audience": ["recruiter", "developer", "curious"]
       }
     ]
   },
@@ -80,20 +68,20 @@
     "year": "2025",
     "bullets": [
       {
-        "text": "Structured a publicly available liturgical database of 22,000+ records into an optimised, indexed SQLite schema, converting it into JSON, CSV, and PDF formats for offline use.",
-        "audience": ["developer"]
+        "text": "Identified a gap in available supplication apps — existing options were ad-heavy, required constant connectivity, or lacked multilingual support — and validated the problem before building.",
+        "audience": ["recruiter", "developer", "curious"]
       },
       {
-        "text": "Achieved sub-10ms local query times by restructuring the data into indexed frameworks — a 4× improvement over existing alternatives.",
-        "audience": ["recruiter", "developer"]
+        "text": "Structured a publicly available liturgical database of 22,000+ records into an optimised, indexed SQLite schema, achieving sub-10ms local query times — 4× faster than existing alternatives.",
+        "audience": ["recruiter", "developer", "curious"]
       },
       {
-        "text": "Built an offline-first Progressive Web App using Service Workers and lazy caching to deliver 80MB of multilingual content (Arabic, Urdu, English) with zero server overhead.",
-        "audience": ["recruiter", "developer"]
+        "text": "Shipped as an offline-first PWA (Service Workers, lazy caching), delivering 80MB of multilingual content (Arabic, Urdu, English) at zero hosting cost.",
+        "audience": ["recruiter", "developer", "curious"]
       },
       {
-        "text": "Recruited 40+ beta testers via Reddit (r/shias), gathering structured feedback across iOS Safari, Android Chrome, and desktop to drive iterative improvements.",
-        "audience": ["recruiter"]
+        "text": "Ran a structured beta with 40+ testers across iOS Safari, Android Chrome, and desktop — triaging feedback and shipping iterative improvements based on user-reported priorities.",
+        "audience": ["recruiter", "developer", "curious"]
       }
     ]
   },
@@ -110,20 +98,16 @@
     "year": "2025",
     "bullets": [
       {
-        "text": "Developed a Flutter mobile application featuring GPS tracking, ghost route generation, and crowd radar across 6 complete feature segments.",
-        "audience": ["recruiter", "developer"]
+        "text": "Built a consumer running app (GPS tracking, ghost routes, crowd radar) end-to-end across 6 feature segments — owning architecture, backend, and UX decisions.",
+        "audience": ["recruiter", "developer", "curious"]
       },
       {
-        "text": "Implemented Clean Architecture with Riverpod full state machine, producing ~8,000 lines of structured, testable Dart code.",
+        "text": "Grew to 50+ local alpha users in early testing, validating core flows and GPS accuracy before deliberately taking the product private to polish based on feedback.",
+        "audience": ["recruiter", "developer", "curious"]
+      },
+      {
+        "text": "Integrated Supabase + PostGIS for geospatial features, supporting sub-100ms proximity queries for nearby-runner detection.",
         "audience": ["developer"]
-      },
-      {
-        "text": "Integrated Supabase and PostGIS for geospatial backend management, supporting sub-100ms proximity queries for nearby runner detection.",
-        "audience": ["developer"]
-      },
-      {
-        "text": "Grew to 50+ local alpha users in early testing, validating core flows and confirming GPS accuracy within 5 metres before deliberately taking the product private to polish based on feedback.",
-        "audience": ["recruiter", "developer"]
       }
     ]
   },
