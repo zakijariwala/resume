@@ -64,9 +64,9 @@
   --border:          rgba(0, 0, 0, 0.08);
   --border-strong:   rgba(0, 0, 0, 0.16);
 
-  --text:            var(--prim-gray-900);
-  --text-muted:      var(--prim-gray-500);
-  --text-disabled:   var(--prim-gray-300);
+  --text:            #000000;
+  --text-muted:      #000000;
+  --text-disabled:   #000000;
 
   /* Mode-reactive accent (defaults to recruiter blue) */
   --accent:          var(--prim-blue);
@@ -90,7 +90,7 @@
   --status-dim-text:      var(--prim-gray-500);
 
   --attention:            #E5484D;
-  --attention-glow:       rgba(229, 72, 77, 0.55);
+  --attention-glow:       rgba(229, 72, 77, 0.85);
   --attention-glow-soft:  rgba(229, 72, 77, 0.0);
 
   --font-display: 'Fraunces', Georgia, serif;
@@ -139,9 +139,9 @@
   --surface-raised:  var(--prim-dark-raised);
   --border:          rgba(255, 255, 255, 0.09);
   --border-strong:   rgba(255, 255, 255, 0.16);
-  --text:            #EBEBEB;
-  --text-muted:      #888888;
-  --text-disabled:   #555555;
+  --text:            #FFFFFF;
+  --text-muted:      #FFFFFF;
+  --text-disabled:   #FFFFFF;
 
   --status-active:        #064E3B;
   --status-active-text:   #A7F3D0;

@@ -135,27 +135,30 @@ const { name } = meta;
 .mode-switch-label {
   font-family: var(--font-mono);
   font-size: 10px;
-  color: var(--attention);
-  letter-spacing: 0.06em;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   white-space: nowrap;
   border-radius: 9999px;
-  padding: 2px 7px;
-  background: var(--attention-glow-soft);
+  padding: 3px 10px;
+  background: var(--attention);
   /* Heartbeat halo — always pulsing to draw attention to the switcher */
-  animation: heartbeat-halo 1.6s ease-in-out infinite;
+  animation: heartbeat-halo 1.3s ease-in-out infinite;
+  will-change: box-shadow, transform;
 }
 @keyframes heartbeat-halo {
-  0%   { box-shadow: 0 0 0 0 var(--attention-glow); }
-  18%  { box-shadow: 0 0 0 4px var(--attention-glow-soft); }
-  32%  { box-shadow: 0 0 0 0 var(--attention-glow); }
-  55%  { box-shadow: 0 0 0 6px var(--attention-glow-soft); }
-  100% { box-shadow: 0 0 0 0 var(--attention-glow-soft); }
+  0%   { box-shadow: 0 0 0 0 var(--attention-glow);      transform: scale(1); }
+  12%  { box-shadow: 0 0 0 8px var(--attention-glow-soft); transform: scale(1.06); }
+  24%  { box-shadow: 0 0 0 0 var(--attention-glow);      transform: scale(1); }
+  44%  { box-shadow: 0 0 0 13px var(--attention-glow-soft); transform: scale(1.06); }
+  60%  { box-shadow: 0 0 0 0 var(--attention-glow-soft); transform: scale(1); }
+  100% { box-shadow: 0 0 0 0 var(--attention-glow-soft); transform: scale(1); }
 }
 @media (prefers-reduced-motion: reduce) {
   .mode-switch-label {
     animation: none;
-    box-shadow: 0 0 0 2px var(--attention-glow);
+    box-shadow: 0 0 0 3px var(--attention-glow);
   }
 }
 .mode-coachmark {
@@ -214,20 +217,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const toast = document.getElementById('mode-toast');
   let toastTimer: ReturnType<typeof setTimeout> | undefined;
 
-  // Coachmark — show once on first visit, dismiss on mode switch or close
+  // Coachmark — appears every new session until the visitor interacts
+  // with the mode pill. Interacting with the pill dismisses it for good;
+  // the close button only hides it for the current view.
   const coachmark = document.getElementById('mode-coachmark');
   const coachmarkClose = document.getElementById('coachmark-close');
 
-  function dismissCoachmark() {
+  function hideCoachmark() {
     if (coachmark) coachmark.classList.add('hidden');
-    localStorage.setItem('portfolio_coachmark_seen', '1');
   }
 
-  if (localStorage.getItem('portfolio_coachmark_seen')) {
-    if (coachmark) coachmark.classList.add('hidden');
+  // Permanent dismiss only after the visitor has used the switcher.
+  if (localStorage.getItem('portfolio_mode_interacted')) {
+    hideCoachmark();
   }
   if (coachmarkClose) {
-    coachmarkClose.addEventListener('click', dismissCoachmark);
+    coachmarkClose.addEventListener('click', hideCoachmark);
   }
 
   function setMode(mode: string) {
@@ -235,7 +240,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.setAttribute('data-mode', mode);
     localStorage.setItem('portfolio_mode', mode);
     window.history.replaceState(null, '', '?mode=' + mode);
-    dismissCoachmark();
 
     modeButtons.forEach(btn => {
       const active = btn.dataset.modeBtn === mode;
@@ -265,7 +269,11 @@ document.addEventListener('DOMContentLoaded', () => {
   modeButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       const mode = btn.dataset.modeBtn;
-      if (mode) setMode(mode);
+      if (mode) {
+        localStorage.setItem('portfolio_mode_interacted', '1');
+        hideCoachmark();
+        setMode(mode);
+      }
     });
   });
 
