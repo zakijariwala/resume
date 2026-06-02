@@ -59,56 +59,6 @@
     "show_recovery_chart": true
   },
   {
-    "id": "zamaan_experience",
-    "company": "Zamaan Marine",
-    "subtitle": "Technology and marketing lead for a family marine equipment venture",
-    "title": "Technology & Product Lead · Family venture · Unpaid",
-    "dates": "2025 — Present",
-    "status": "ongoing",
-    "context_tag": "independent_product",
-    "curious_intro": "I stepped in to build the digital side of my family's marine parts business — and treated a zero-budget operation with the same engineering rigour I'd apply at work.",
-    "kpis": [
-      { "value": "200+", "label": "B2B Prospects / Campaign" },
-      { "value": "90%+", "label": "Inbox Delivery Rate" },
-      { "value": "~60%", "label": "Faster Listing Time" }
-    ],
-    "bullets": [
-      {
-        "text": "Identified the digital gap in a family marine-parts business through direct conversations with 200+ B2B prospects — validating channels, value proposition, and pricing signals before building.",
-        "audience": ["recruiter", "management"]
-      },
-      {
-        "text": "Defined and prioritised a zero-budget digital stack: JAMstack storefront for discoverability, eBay API automation for listings (~60% faster time-to-market), and an AI-powered cold-email funnel for B2B acquisition.",
-        "audience": ["recruiter", "management"]
-      },
-      {
-        "text": "Instrumented product analytics via PostHog, tracking the full funnel from storefront visit to eBay conversion — using data to reprioritise listing categories and outreach targeting.",
-        "audience": ["recruiter", "management"]
-      },
-      {
-        "text": "Shipped an AI cold-email agent (Claude API + Python + Brevo) achieving 90%+ inbox delivery across campaign cycles.",
-        "audience": ["recruiter", "management"]
-      },
-      {
-        "text": "Cold-email agent: Claude API prompt templates per industry vertical → Python orchestrator → Brevo SMTP with sender rotation and bounce handling → delivery rate tracking. 90%+ inbox rate across campaign cycles.",
-        "audience": ["developer"]
-      },
-      {
-        "text": "eBay Browse API integration: Python ingestion pipeline parses product data, maps to eBay taxonomy, and pushes listings in batch — ~60% reduction in per-SKU listing time vs. manual entry.",
-        "audience": ["developer"]
-      },
-      {
-        "text": "Zero-persistent-backend architecture: Astro SSG → Cloudflare Pages CDN, GitHub Actions CI, PostHog JS SDK on static frontend — full funnel tracking at zero recurring cost.",
-        "audience": ["developer"]
-      },
-      {
-        "text": "My family started a business and the digital side was basically an afterthought. I stepped in and built the whole thing — storefront, outreach, analytics — in spare time, at zero cost.",
-        "audience": ["curious"]
-      }
-    ],
-    "show_recovery_chart": false
-  },
-  {
     "id": "coaching",
     "company": "Independent Coaching Practice",
     "subtitle": "Technical interview readiness for engineering and management candidates",

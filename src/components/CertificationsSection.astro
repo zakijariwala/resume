@@ -1,6 +1,9 @@
 ---
 import certifications from '../data/certifications.json';
+import meta from '../data/meta.json';
 import SectionHeader from './SectionHeader.astro';
+
+const { education } = meta;
 ---
 
 <section id="certifications" class="section-spacing" style="border-bottom: 1px solid var(--border);">
@@ -30,7 +33,7 @@ import SectionHeader from './SectionHeader.astro';
           <p class="cert-issuer">{cert.issuer}</p>
 
           {cert.note && (
-            <div class="callout dev-only curious-only cert-note">
+            <div class="callout all-modes cert-note">
               <p>{cert.note}</p>
             </div>
           )}
@@ -38,6 +41,16 @@ import SectionHeader from './SectionHeader.astro';
       );
     })}
   </div>
+
+  {education && (
+    <div class="education-line all-modes">
+      <span class="edu-degree">{education.degree}</span>
+      <span class="edu-sep" aria-hidden="true">·</span>
+      <span class="edu-institution">{education.institution}</span>
+      <span class="edu-sep" aria-hidden="true">·</span>
+      <span class="edu-year">{education.year}</span>
+    </div>
+  )}
 </section>
 
 <style>
@@ -93,4 +106,19 @@ import SectionHeader from './SectionHeader.astro';
   font-style: italic;
   margin: 0;
 }
+.education-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-disabled);
+  letter-spacing: 0.02em;
+}
+.edu-degree { color: var(--text-muted); }
+.edu-sep { opacity: 0.4; }
 </style>

@@ -96,7 +96,7 @@
     "name": "Path of Supplication",
     "tagline": "PWA · Offline-first",
     "featured": false,
-    "one_line_summary": "Offline-first PWA delivering 80MB of multilingual Islamic supplications — built around a publicly available liturgical database, restructured for sub-10ms search.",
+    "one_line_summary": "Offline-first PWA with a 22,000-record indexed SQLite database, sub-10ms full-text search, and 80MB multilingual payload — zero hosting cost, validated with 40+ beta testers.",
     "featured_metric": "Sub-10ms queries",
     "why_i_built_it": "The existing apps for Islamic supplications were clunky, ad-heavy, or required a constant internet connection. For something as personal as duas and ziyarat, that friction felt wrong. I wanted something that worked offline, in your language, on any device, with no ads and no backend. A big part of the work was understanding the data well enough to build proper search.",
     "tech": ["Python", "JavaScript", "PWA", "Service Workers", "SQLite"],
