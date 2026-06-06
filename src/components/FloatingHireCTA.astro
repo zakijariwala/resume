@@ -27,29 +27,29 @@ const href = `${meta.whatsapp_client}?text=${encodeURIComponent(message)}`;
   display: inline-flex;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-3) var(--space-5);
+  padding: 12px 20px;
   border-radius: 9999px;
   background: var(--whatsapp);
   color: #fff;
   font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  font-weight: 600;
+  font-size: var(--text-sm);
+  font-weight: 700;
   letter-spacing: 0.01em;
   text-decoration: none;
   border: 1px solid var(--whatsapp-strong);
   transition: background var(--motion-fast), transform var(--motion-fast);
-  animation: fhc-pulse 2.6s ease-in-out infinite;
+  animation: fhc-pulse 2.4s ease-in-out infinite;
   will-change: box-shadow;
 }
 .floating-hire-cta:hover {
   background: var(--whatsapp-strong);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 .fhc-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
+  font-size: 22px;
   line-height: 1;
 }
 .fhc-label {
@@ -57,27 +57,20 @@ const href = `${meta.whatsapp_client}?text=${encodeURIComponent(message)}`;
 }
 @keyframes fhc-pulse {
   0%   { box-shadow: 0 0 0 0 var(--whatsapp-glow); }
-  70%  { box-shadow: 0 0 0 12px var(--whatsapp-glow-soft); }
+  70%  { box-shadow: 0 0 0 16px var(--whatsapp-glow-soft); }
   100% { box-shadow: 0 0 0 0 var(--whatsapp-glow-soft); }
 }
-@media (max-width: 600px) {
+
+/* Below the lg breakpoint the fixed mobile bottom nav is visible —
+   lift the CTA clear of it and keep it against the right edge,
+   matching the placement indicated by the owner. */
+@media (max-width: 1023px) {
   .floating-hire-cta {
-    bottom: var(--space-4);
+    bottom: calc(var(--nav-height) + var(--space-4));
     right: var(--space-4);
-    padding: var(--space-3);
-  }
-  .fhc-label {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
   }
 }
+
 @media (prefers-reduced-motion: reduce) {
   .floating-hire-cta { animation: none; }
 }
