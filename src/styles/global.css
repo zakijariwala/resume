@@ -93,6 +93,11 @@
   --attention-glow:       rgba(229, 72, 77, 0.85);
   --attention-glow-soft:  rgba(229, 72, 77, 0.0);
 
+  --whatsapp:             #25D366;
+  --whatsapp-strong:      #1EBE5A;
+  --whatsapp-glow:        rgba(37, 211, 102, 0.45);
+  --whatsapp-glow-soft:   rgba(37, 211, 102, 0.0);
+
   --font-display: 'Fraunces', Georgia, serif;
   --font-body:    'Inter', system-ui, sans-serif;
   --font-mono:    'JetBrains Mono', 'Courier New', monospace;

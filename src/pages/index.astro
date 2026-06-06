@@ -9,6 +9,7 @@ import SkillsSection from '../components/SkillsSection.astro';
 import CertificationsSection from '../components/CertificationsSection.astro';
 import ContactSection from '../components/ContactSection.astro';
 import Footer from '../components/Footer.astro';
+import FloatingHireCTA from '../components/FloatingHireCTA.astro';
 import meta from '../data/meta.json';
 
 const pageTitle = `${meta.name} | Portfolio`;
@@ -31,4 +32,6 @@ const pageDescription = `Portfolio of ${meta.name} — AI Product Manager candid
     <ContactSection />
     <Footer />
   </main>
+
+  <FloatingHireCTA />
 </Base>
