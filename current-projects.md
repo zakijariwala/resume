@@ -2,20 +2,18 @@
 
 This file documents all active repos (excluding the three JJ Consulting client/tool repos)
 with portfolio-ready content for each. Each entry maps to the `projects.json` schema used
-by zakijariwala.space.
+by zakijariwala.space. All descriptions are verified against actual repo code.
 
-**Status key per project:**
-- `IN PORTFOLIO` — entry already exists in `src/data/projects.json`; notes below describe
-  what to update
-- `NEW` — not yet in portfolio; full entry provided ready to add
+**Status key:**
+- `IN PORTFOLIO` — entry exists in `src/data/projects.json`; update notes below
+- `NEW` — not yet in portfolio; full entry ready to add
 
 ---
 
 ## 1. Path of Supplication
 **Repo:** `zakijariwala/DUASRON`
 **Live URL:** https://duas.zakijariwala.space
-**Status in portfolio:** IN PORTFOLIO (`id: "path_of_supplication"`) — update GitHub link and
-add the Deep Search and multilingual chip detail which is missing from the current entry.
+**Status:** IN PORTFOLIO (`id: "path_of_supplication"`) — add GitHub + live URL links (both blank in current entry); expand content scope to reflect all 5 categories.
 
 ### Meta
 ```json
@@ -24,41 +22,44 @@ add the Deep Search and multilingual chip detail which is missing from the curre
   "name": "Path of Supplication",
   "tagline": "PWA · Offline-first",
   "featured": false,
-  "one_line_summary": "Offline-first PWA serving 22,000+ lines of multilingual Islamic liturgical content with sub-10ms full-text search — zero hosting cost, 40+ beta testers.",
-  "featured_metric": "Sub-10ms search · 0 dependencies",
+  "one_line_summary": "Offline-first PWA delivering 22,000+ lines of multilingual Islamic liturgical content across 5 categories — sub-10ms search, 80MB offline payload, zero hosting cost.",
+  "featured_metric": "22,000+ lines · Sub-10ms search · SW v9",
   "year": "2025",
-  "tech": ["JavaScript", "PWA", "Service Workers", "SQLite", "Python"],
+  "tech": ["JavaScript", "PWA", "Service Workers", "Python", "SQLite"],
   "live_url": "https://duas.zakijariwala.space",
   "github": "https://github.com/zakijariwala/DUASRON"
 }
 ```
 
+### What the app actually contains (from `docs/data/categories.json`)
+Five content categories: **Qur'an**, **Namaz** (prayers), **Dua** (supplications), **Ziyarat**, **A'maal**. Within these: full Qur'an (Arabic/English/Roman Urdu/Urdu/transliteration), all Namaz prayers, major duas (Kumayl, Nudbah, Tawassul, Simaat, Mashlool, and others), all major Ziyarat (Ashura, Arbaeen, Ameenullah, etc.), Taaqeebat, Path to Supplication shortcut. 2,704 individual content files under `docs/data/lines/`.
+
+### How the data model actually works
+`ron.db` (87MB SQLite, never committed) → `scripts/export.py` → 2,704 JSON files in `docs/data/lines/` + `categories.json`, `nav.json`, `search.json`, `audio.json`. The browser loads pre-exported JSON. There is no SQLite runtime in the browser — the database is a local authoring tool only. Deep Search (`search.json`) is a pre-built full-text index scanned client-side in vanilla JS.
+
 ### Bullets
 
 **Recruiter**
 - Identified the gap: existing Islamic supplication apps were ad-heavy, required constant connectivity, and lacked multilingual support across Arabic, Urdu, and English.
-- Structured 22,000+ liturgical records into an indexed local database achieving sub-10ms full-text search, then shipped as a zero-cost offline-first PWA.
-- Ran a structured beta with 40+ testers across iOS, Android, and desktop — triaging feedback and shipping iterative improvements.
-- Took product from private beta to public soft-launch with a planned community announcement on r/shia.
+- Structured 22,000+ liturgical records across 5 content categories into an indexed export pipeline achieving sub-10ms client-side search, then shipped as a zero-cost offline-first PWA.
+- Ran a structured beta with 40+ testers across iOS Safari, Android Chrome, and desktop — triaging feedback and shipping iterative improvements across service worker versions up to v9.
+- Took product from private beta to public soft-launch; community announcement on r/shia planned.
 
 **Developer**
-- Zero-build architecture: pure HTML/CSS/JS, no framework, no npm. Service worker pre-caches the app shell; 80MB content payload (Arabic/Urdu/English) is lazy-loaded and persisted in Cache API indefinitely.
-- SQLite export pipeline (`scripts/export.py`): reads `ron.db` (never committed — 87MB), produces 2,704 JSON files under `docs/data/lines/` plus category, nav, search, and audio index files. Committed JSON only.
-- Deep Search: scans all 22,000+ lines across all language columns in a single pass — the content equivalent of `grep -r` across multilingual structured data, implemented in vanilla JS without a query engine.
-- Service worker versioned at `v9` — bump `VERSION` constant to force all clients to flush stale cache on next visit.
-- Content update flow: `ron.db` edit → `python3 scripts/export.py` → commit changed JSON → merge to master → live in 60 seconds.
+- Zero-build architecture: pure HTML/CSS/JS, no framework, no npm. Service worker (`sw.js`, currently `v9`) pre-caches the app shell; 80MB content payload is lazy-loaded and persisted in Cache API indefinitely.
+- Content pipeline: `ron.db` (87MB SQLite, never committed) → `scripts/export.py` → 2,704 JSON files in `docs/data/lines/` + 4 index files (`categories.json`, `nav.json`, `search.json`, `audio.json`). The browser fetches pre-exported JSON — no SQLite runtime in the browser.
+- Deep Search: `search.json` is a pre-built multilingual full-text index (Arabic/Urdu/English/Roman Urdu) scanned in a single vanilla JS pass — no query engine, no dependency.
+- Cache invalidation: bump `VERSION` constant in `sw.js` to force all clients to flush stale caches. Currently at `v9`.
+- Active design work: `Mockups/` directory contains 10+ screen specs and design files used for iterative UI refinement.
 
 **Curious**
-- The apps that existed for Islamic duas and ziyarat were slow, plastered with ads, or useless offline. I built one that works on any device, in your language, with no internet after the first load. The hardest part wasn't the code — it was getting the data right across 22,000 lines of multilingual liturgical text.
+- The apps that existed for Islamic duas and ziyarat were slow, plastered with ads, or useless offline. I built one that works on any device, in your language, with no internet after the first load. The hardest part wasn't the code — it was structuring 22,000 lines of multilingual text across five content types so search actually worked across all of them.
 
 ---
 
 ## 2. Content Automation Pipeline
 **Repo:** `zakijariwala/medium-workflow`
-**Status in portfolio:** IN PORTFOLIO (`id: "content_automation"`) — current portfolio entry describes
-the original Tauri/React 19 desktop GUI version. The repo has since been fully rebuilt as a
-Python + Gemini + GitHub Actions pipeline with 7-platform output and a GitHub Actions mobile
-trigger. Update the entry to reflect the current version.
+**Status:** IN PORTFOLIO (`id: "content_automation"`) — current entry describes the old Tauri/React 19 desktop GUI version. The repo is now a Python + Gemini 1.5 Flash pipeline with 6-platform output and a GitHub Actions mobile trigger. Update the entry entirely.
 
 ### Meta
 ```json
@@ -67,85 +68,90 @@ trigger. Update the entry to reflect the current version.
   "name": "Content Automation Pipeline",
   "tagline": "LLM Orchestration · Multi-platform",
   "featured": false,
-  "one_line_summary": "YouTube Short → 7-platform publication-ready content pack in one command — Medium article (2000+ words), Twitter thread, LinkedIn, Facebook, Bluesky, Reddit, Threads.",
-  "featured_metric": "85% faster drafts · 7 platforms · ~$0/run",
+  "one_line_summary": "YouTube Short → 6-platform publication-ready content pack in under 3 minutes — Medium article (2000+ words) plus Twitter/X, LinkedIn, Bluesky, Reddit, and Threads variants.",
+  "featured_metric": "85% faster drafts · 6 platforms · ~$0/run",
   "year": "2025–2026",
-  "tech": ["Python", "Gemini 1.5 Flash", "yt-dlp", "GitHub Actions", "atproto"],
+  "tech": ["Python", "Gemini 1.5 Flash", "google-generativeai", "yt-dlp", "GitHub Actions", "atproto"],
   "github": "https://github.com/zakijariwala/medium-workflow"
 }
 ```
 
+### Actual platform output (from `pipeline.py`)
+**6 platforms:** Medium, Twitter/X, LinkedIn, Bluesky, Reddit, Threads. Facebook is **not** in the pipeline. The previous portfolio description mentioning Facebook was incorrect.
+
+Output files per run committed to `output/[niche]/[niche]_[YYYY-MM-DD_HH-MM].md`. Four actual output sets already in the repo: ai-productivity, consumer-tech, personal-finance, self-improvement.
+
+### Stack specifics (from `requirements.txt`)
+`yt-dlp>=2024.1.0`, `google-generativeai>=0.8.0`, `python-dotenv>=1.0.0`, `markdown2medium>=1.0.0`, `atproto>=0.0.54`. Default model: `gemini-1.5-flash` (overridable via `GEMINI_MODEL` env var). Max tokens per call: 8192.
+
 ### Bullets
 
 **Recruiter**
-- Identified that content-to-publication time was dominated by mechanical, repeatable steps — designed and shipped a pipeline automating transcript ingestion, LLM transformation, and multi-platform output.
-- Reduced time-to-draft by 85%; pipeline runs on a GitHub Actions mobile trigger — open GitHub app, fill two fields, green checkmark in 3 minutes, output committed to repo.
-- Expanded output from single-platform (Medium) to 7 platforms in one run: Medium, Twitter/X, LinkedIn, Facebook, Bluesky, Reddit, Threads — each adapted to platform format and character constraints.
-- Built a quality gate layer ("Failure First") that detects safe/generic LLM output patterns and forces re-generation until prose passes specificity checks.
+- Identified that content-to-publication time was dominated by mechanical, repeatable steps — designed and shipped a pipeline automating transcript ingestion, LLM transformation, and multi-platform output across 6 platforms.
+- Reduced time-to-draft by 85%; pipeline runs on a GitHub Actions `workflow_dispatch` trigger — open GitHub app, enter URL and niche, green checkmark in under 3 minutes, output committed to repo.
+- Built a quality gate layer ("Failure First") that detects safe/generic LLM output and forces re-generation until prose passes specificity checks — addresses the core failure mode of LLM-generated content.
+- 12 niche-specific prompt frameworks adapt tone, structure, and framing per domain without modifying the core pipeline.
 
 **Developer**
-- Two-call Gemini architecture: Call 1 generates the full Medium article (2000+ word hard floor enforced by the system prompt); Call 2 derives all 6 social platform variants from the finished article — not the raw transcript — ensuring coherence across outputs.
-- Failure First framework: heuristic validators scan for hedging language, filler phrases, and passive-voice saturation; any triggered gate sends the output back for re-generation with escalating specificity constraints.
-- GitHub Actions `workflow_dispatch` trigger: mobile-friendly UI in the GitHub app — enter URL and niche, workflow fetches transcript via yt-dlp, runs both Gemini calls, commits all 7 output files, and pushes. CI mode prevents any stdin hang.
-- Bluesky auto-posting via `atproto` library — thread built from the generated posts, posted live if credentials are set. Medium auto-posts as draft only (human review before publish).
-- yt-dlp transcript extraction with manual-paste fallback for Shorts that lack caption tracks.
-- 12 niche-specific prompt files drive content framing — `prompts/ai-productivity.md`, `prompts/geopolitics.md`, etc. — so the same pipeline adapts tone and structure per domain.
+- Two-call Gemini 1.5 Flash architecture: Call 1 generates the full Medium article (2000+ word hard floor enforced in `prompts/system.md`); Call 2 derives all 5 social platform variants from the finished article body — not the raw transcript — ensuring coherence across outputs.
+- Failure First framework: heuristic validators scan for hedging language, filler phrases, and passive-voice saturation; triggered gates resubmit with escalating specificity constraints until output clears all checks.
+- CI mode: `_IS_CI = bool(os.getenv("CI"))` — GitHub Actions sets this automatically, eliminating all `input()` calls that would hang the workflow runner.
+- Bluesky auto-posting via `atproto` library — thread constructed from generated posts, published live if `BLUESKY_HANDLE` + `BLUESKY_APP_PASSWORD` are set. Medium pushes as draft only via `markdown2medium`.
+- yt-dlp subtitle extraction with `_manual_transcript()` fallback for Shorts that lack caption tracks.
+- 12 niche prompt files (`prompts/ai-productivity.md` through `prompts/tech-career.md`) — same pipeline adapts framing per domain.
 
 **Curious**
-- I was writing articles and the process was the same mechanical steps every time: watch the video, pull the transcript, restructure it, add context, post to six places. I automated those steps. The only interesting problem was making the output not sound like a robot — which turned into a whole framework for detecting when AI writing is being safe and forcing it to be specific instead.
+- I was writing articles and the process was the same mechanical steps every time. I automated those steps. The only interesting problem was making the output not sound like a robot — which became a framework for detecting when AI writing is being safe and forcing it to be specific instead.
 
 ---
 
-## 3. run.to — Route Generator
+## 3. run.to
 **Repo:** `zakijariwala/run.to`
-**Status in portfolio:** IN PORTFOLIO (`id: "run_to"`) — **NOTE: the current portfolio entry
-describes a Flutter app (GPS tracking, ghost routes, crowd radar, Supabase PostGIS). The
-current repo is a vanilla JS web app (closed-loop route generation via OSRM API). These appear
-to be two different versions or a rewrite. Clarify with Zaki before updating the entry —
-either update to reflect the web app or keep the Flutter description if that version is
-the primary portfolio story.**
+**Status:** IN PORTFOLIO (`id: "run_to"`) — **the portfolio entry describes a Flutter app with GPS tracking, ghost routes, crowd radar, and a Supabase PostGIS backend. The current repo is a completely different implementation: a vanilla JS PWA with a geometric route generation engine.** These are not the same product. Update the entry to reflect the current repo, or clarify with Zaki whether a Flutter version exists separately and which one to feature.
 
-If updating to the current repo (vanilla JS web app):
-
-### Meta
+### Meta (current repo)
 ```json
 {
   "id": "run_to",
   "name": "run.to",
-  "tagline": "Vanilla JS · Route Generation",
+  "tagline": "PWA · Route Generation",
   "featured": false,
-  "one_line_summary": "Zero-build web app that generates precise closed-loop running routes to a target distance — geometric projection + OSRM pedestrian path snapping, GPX export, no dependencies.",
-  "featured_metric": "Zero dependencies · Fuzzy distance matching",
+  "one_line_summary": "Zero-build PWA that generates closed-loop running routes to a precise target distance or time — hexagonal geometric projection snapped to real pedestrian paths via OSRM, with per-km splits and GPX export.",
+  "featured_metric": "Zero dependencies · Offline-capable · Simulation fallback",
   "year": "2025",
-  "tech": ["JavaScript", "Leaflet", "OSRM API", "HTML", "CSS"],
+  "tech": ["JavaScript", "Leaflet", "OSRM API", "Tailwind CSS CDN", "Service Worker"],
   "github": "https://github.com/zakijariwala/run.to"
 }
 ```
 
-### Bullets (web app version)
+### What the app actually does (from `js/routeEngine.js` and `js/app.js`)
+Two input modes: **distance** (km) and **time** (converted to km at 5.5 min/km running pace). Route generator: hexagonal geometric loop (6 sides, random rotational offset per generation) → OSRM `/route/v1/foot/` API for pedestrian path snapping → fuzzy iteration adjusts radius until actual route distance converges on target. Haversine fallback ("Simulation Mode") activates when OSRM is unreachable. Output: Leaflet map with polyline overlay, per-km splits list, result distance + estimated time, GPX export, Google Maps deep-link for turn-by-turn.
+
+### Stack specifics (from `index.html`)
+PWA with `manifest.json` (display: standalone, theme: #0f172a) and `sw.js`. Leaflet 1.9.4, Tailwind CSS, and Lucide icons all loaded via CDN — no npm, no build step. Two JS files: `js/app.js` (UI, geolocation, map, export) and `js/routeEngine.js` (geometric loop + OSRM fetch + Haversine fallback). Default location: London (51.505, -0.09) if geolocation is denied.
+
+### Bullets
 
 **Recruiter**
-- Identified a real-world problem: existing route planners require manual path drawing; built a generator that produces closed-loop routes automatically to within a few percent of a target distance.
-- Shipped a zero-build, zero-dependency web app — works by opening a file in a browser, no installation required.
-- Designed a mobile expansion strategy using Capacitor to wrap the existing codebase as a native iOS/Android app without a rewrite.
+- Identified a real gap: existing route planners require manual path drawing; built a generator that automatically produces closed-loop routes converging on a target distance or time.
+- Shipped as an installable PWA — works offline after first load, opens from home screen with no app store required.
+- Two input modes (distance and time), per-km splits, GPX export for Garmin/Strava compatibility, and a Google Maps deep-link for walkers who want turn-by-turn navigation.
 
 **Developer**
-- Geometric projection algorithm: iterative radius scaling projects waypoints radially from start point, then snaps each to the nearest pedestrian-navigable path via the public OSRM API.
-- Fuzzy logic engine: each iteration adjusts radius by a scaling factor based on the ratio of actual distance to target — converges on target within ±5% across varied terrain, with automatic pruning of OSRM detour responses exceeding 3× the expected leg distance.
-- Zero-build architecture: pure HTML/CSS/JS, Leaflet for the map layer, OSRM for routing — no npm, no bundler, no server. Works as `file://` or served statically.
-- GPX export: serialises waypoints and route geometry to GPX 1.1 format via a Blob download — compatible with Garmin, Strava, and any GPX-capable device.
-- Mobile strategy decided: Capacitor wrap (no rewrite) — web assets move to `www/`, Capacitor shell provides native geolocation, status bar matching, and filesystem GPX save.
+- Hexagonal geometric projection engine (`routeEngine.js`): calculates a 6-sided polygon with a random rotational offset around the start point, then snaps all 6 waypoints to pedestrian routes via OSRM `/route/v1/foot/`. The random offset generates a different route orientation on every run.
+- Fuzzy convergence: `radiusFactor` is adjusted each iteration based on the ratio of OSRM-returned distance to target distance. Loop continues until within tolerance or max iterations reached.
+- Haversine fallback: when OSRM is unreachable, `routeEngine.js` computes geometric distance using the Haversine formula and renders the raw polygon as "Simulation Mode" — app stays usable without the API.
+- Zero-build stack: Leaflet 1.9.4 + Tailwind CSS + Lucide icons all loaded from CDN. No npm, no bundler. Service worker caches app shell for offline use.
+- Time mode: user input in minutes → converted to target distance at 5.5 min/km → same route engine runs. Splits rendered as per-km estimates.
 
 **Curious**
-- I wanted a route that came back to where I started and hit a specific distance. Every app I tried either needed me to draw the route myself, or generated something that didn't close properly. I built one that figures out the geometry on its own. It works by trying, measuring, and adjusting until it gets close — which, it turns out, is exactly how I run.
+- I wanted a route that came back to where I started and hit a target distance. Every app I tried needed me to draw the route myself. I built one that figures out the geometry — it picks a hexagon shape, tries it, measures how far off it is, and adjusts until it's close. That feedback loop is exactly how I run.
 
 ---
 
 ## 4. Zamaan Automation
 **Repo:** `zakijariwala/ZamaanAutomation`
-**Status in portfolio:** NEW — not in portfolio. Add as a new entry.
-
-**Context:** This is separate from the Zamaan Marine entry already in the portfolio. Zamaan Marine is the family marine parts business; Zamaan Automation is a standalone eBay SEO experiment for second-hand industrial automation parts (PLCs, drives, HMIs, sensors).
+**Status:** NEW — not in portfolio. Separate from the `zamaan_marine` entry already there. Add as a new entry.
 
 ### Meta
 ```json
@@ -154,35 +160,50 @@ If updating to the current repo (vanilla JS web app):
   "name": "Zamaan Automation",
   "tagline": "SEO Experiment · eBay Attribution",
   "featured": false,
-  "one_line_summary": "Data-driven SEO layer for a second-hand industrial automation parts eBay store — UTM-tracked to test whether a website meaningfully increases eBay revenue. 90-day decision gate built in.",
-  "featured_metric": "£0/month · 90-day decision gate",
+  "one_line_summary": "Data-driven SEO layer for a second-hand industrial automation parts eBay store — formal experiment with null hypothesis, UTM attribution, and a 90-day decision gate built into the architecture.",
+  "featured_metric": "£0/month · Formal hypothesis · 90-day gate",
   "year": "2026",
-  "tech": ["Astro", "Tailwind CSS", "eBay Browse API", "GitHub Actions", "Cloudflare Pages", "PostHog"],
+  "tech": ["Astro 4", "TypeScript", "Tailwind CSS", "eBay Browse API", "Pagefind", "GitHub Actions", "Cloudflare Pages", "PostHog"],
   "github": "https://github.com/zakijariwala/ZamaanAutomation"
 }
 ```
 
+### What is actually built (from repo inspection)
+Astro 4.16 + Tailwind CSS v3 + TypeScript site for second-hand industrial automation parts (PLCs, VFDs, HMI panels, servo drives, sensors). 6 product categories derived from eBay listing data. Pagefind full-text search built into the static site (`npm run build` runs `astro build && npx pagefind --source dist`). 5 blog posts already published (`draft: false`): PLC buying guide, OEM vs refurbished cost, VFD guide, HMI panel guide, Siemens S7-1200 guide.
+
+### eBay integration specifics (from `src/lib/ebay.ts`)
+OAuth client_credentials flow to get Bearer token. Paginated `browse/v1/item_summary/search` with `filter=sellers:{EBAY_SELLER_ID}`, 200 listings/page. Category derived from eBay taxonomy (`plc`, `vfd`, `hmi`, `servo`, `sensor`, `general`). Condition badge mapped from eBay condition string (`Tested`, `Inspected`, `Refurbished`, `As-Is`). Results cached in module-level variable per build.
+
+### UTM convention (from `src/lib/utm.ts` and `TRACKING.md`)
+`utm_source=zamaanautomation` · `utm_medium=organic` · `utm_campaign={pageType}` (e.g. `category`, `parts-listing`, `blog-post`) · `utm_content={category}` (e.g. `plc`, `vfd`).
+
+### Experiment parameters (from `TRACKING.md`)
+- **H₀ (null):** UTM-attributed eBay referral clicks ≤ 5% of total eBay sales volume after 90 days
+- **H₁ (alternative):** UTM clicks exceed 5% of total sales AND reach ≥ 50 clicks/month by Month 3
+- **Minimum success threshold:** 50 UTM-attributed eBay referral clicks/month by end of Month 3
+
 ### Bullets
 
 **Recruiter**
-- Framed a clear product experiment before building: "Does an SEO-driven website meaningfully increase eBay revenue?" — defined a 90-day decision gate (50 UTM-attributed eBay clicks/month = continue; 0 = stop content investment) before writing a line of code.
-- Built the entire discovery layer in one session: Astro site, automated eBay listing sync via Browse API, UTM-attributed CTAs, PostHog analytics — total monthly running cost: £0.
-- Built explicit success/failure criteria into the architecture so the experiment can be run, evaluated, and either scaled or killed without ambiguity.
+- Framed a formal experiment before writing a line of code: defined null and alternative hypotheses, a quantitative 90-day success threshold (≥50 UTM-attributed eBay clicks/month), and explicit shutdown criteria if the threshold isn't met.
+- Built the complete SEO discovery layer: Astro 4 static site, automated daily eBay listing sync via Browse API, UTM-attributed CTAs across 6 product categories, Pagefind full-text search, and PostHog analytics — total monthly cost: £0.
+- Shipped 5 SEO blog posts at launch (PLC buying guide, OEM vs refurbished cost analysis, VFD guide, HMI panel guide, Siemens S7-1200 guide) to seed organic traffic before the 90-day measurement window opens.
 
 **Developer**
-- GitHub Actions daily sync workflow: eBay Browse API call → product data normalised and written to Astro content collections → Cloudflare Pages build triggered. Product pages stay current without manual updates.
-- UTM parameter strategy: every "Buy on eBay" link includes `utm_source=zamaanautomation`, `utm_medium=website`, `utm_campaign=product` — Seller Hub traffic report is the attribution source, not a custom analytics backend.
-- PostHog event schema: `BUY_ON_EBAY_CLICKED`, `CONTACT_FORM_SUBMITTED` — tracking the funnel from organic discovery to eBay conversion without a server.
-- Public `_headers` file for Cloudflare Pages covers all 5 commonly-missing security headers (X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy, Content-Security-Policy).
+- TypeScript eBay Browse API integration (`src/lib/ebay.ts`): OAuth client_credentials token flow → paginated item search (200/page) with `filter=sellers:{id}` → category and condition derived programmatically from eBay taxonomy strings → results cached per build.
+- GitHub Actions daily sync (`sync.yml`, 02:00 UTC): `npm ci` → `astro build && npx pagefind --source dist` with eBay env vars injected → Cloudflare Pages deploy via `cloudflare/pages-action`. Build log grep confirms listing count synced.
+- UTM attribution fully typed in `src/lib/utm.ts` — `buildEbayUrl()` and `buildStoreUrl()` enforce `utm_source=zamaanautomation`, `utm_medium=organic`, `utm_campaign={pageType}`, `utm_content={category}` on every outbound link.
+- Pagefind: static full-text search index built at compile time (`npx pagefind --source dist`) — runs in the browser, zero server, zero API cost.
+- PostHog event schema: `BUY_ON_EBAY_CLICKED`, `CONTACT_FORM_SUBMITTED` — full funnel from discovery to eBay redirect tracked without a backend.
 
 **Curious**
-- The experiment question is simple: does having a website actually help sell more stuff on eBay? I built the whole infrastructure to test it properly — with a real success metric and a real deadline for the decision. It either earns its place or it gets shut down. I built the shutdown criteria before I built the site.
+- The experiment question is: does having a website actually help sell more on eBay? I built the infrastructure to test it properly — with a real null hypothesis and a real deadline for the decision. It either reaches 50 clicks a month by Month 3 or the content investment stops. I wrote the shutdown criteria before I wrote the first blog post.
 
 ---
 
 ## 5. Ian Xiaohei Illustrations
 **Repo:** `zakijariwala/ian-xiaohei-illustrations-english-claude-code`
-**Status in portfolio:** NEW — not in portfolio. Add as a new entry.
+**Status:** NEW — not in portfolio. Add as a new entry.
 
 ### Meta
 ```json
@@ -191,90 +212,96 @@ If updating to the current repo (vanilla JS web app):
   "name": "Ian Xiaohei Illustrations",
   "tagline": "Open Source · AI Tooling",
   "featured": false,
-  "one_line_summary": "Open-source Claude Code skill for generating hand-drawn article illustrations — 9 culturally-grounded character variants, 4 image generation providers, ported and expanded from a Chinese Codex skill.",
-  "featured_metric": "9 characters · 4 providers · 0 dependencies (3 of 4)",
+  "one_line_summary": "Open-source Claude Code skill for generating 16:9 hand-drawn article illustrations — 9 culturally-grounded character variants, 4 image generation providers with auto-detection, ported and expanded from a Chinese Codex skill.",
+  "featured_metric": "9 characters · 4 providers · stdlib-only (3 of 4)",
   "year": "2026",
-  "tech": ["Python", "Claude Code", "Gemini", "DALL-E", "Stability AI", "Bash"],
+  "tech": ["Python", "Claude Code SKILL.md", "Gemini 2.5 Flash", "gpt-image-1", "Imagen 3", "Stability AI SD3"],
   "github": "https://github.com/zakijariwala/ian-xiaohei-illustrations-english-claude-code"
 }
 ```
 
+### What is actually built (from repo inspection)
+`ian-xiaohei-illustrations/` is the installable skill directory. `SKILL.md` defines the Claude Code skill entrypoint. `scripts/generate_image.py` handles image generation across 4 providers. `install.sh` is idempotent (merges `settings.json`). `references/characters/` has 9 character definition files. `ian-xiaohei-illustrations/assets/examples/` contains **14** example illustrations. `examples/prompts/` has 9 ready-to-paste prompts (one per character). Multi-platform agent configs: `agents/openai.yaml`, `agents/gemini.md`, `agents/hermes.yaml`, `agents/antigravity.yaml`.
+
+### Provider specifics (from `scripts/generate_image.py`)
+Auto-detection order: `nanobanana` (Gemini 2.5 Flash Image, key: `GEMINI_API_KEY` or `GOOGLE_API_KEY`) → `dalle` (OpenAI `gpt-image-1` at 1536×1024, fallback to `dall-e-3` at 1792×1024, key: `OPENAI_API_KEY`) → `imagen` (Imagen 3 via Gemini API) → `stability` (Stability AI SD3, key: `STABILITY_API_KEY`). All output is 16:9. stdlib Python for nanobanana, dalle, imagen — only Stability requires `pip install requests`.
+
 ### Bullets
 
 **Recruiter**
-- Identified an open-source gap: the original Chinese-language Codex skill had no actual image generation and a single character. Ported to English, added real generation, and expanded to a 9-character cultural variant system.
-- Designed a character system grounded in real art traditions (ukiyo-e, Madhubani block-print, WPA poster, Arabic calligraphy, Adinkra/kente) to avoid cultural caricature — cultural philosophy documented and published.
-- Ran two rounds of multi-agent review ("Council of Claude": 4 parallel agents per round with distinct lenses — Newcomer, Engineer, Growth Strategist, Docs Editor) before publishing. All findings resolved.
-- Positioned for community discovery: README overhaul with gallery, badges, quick-start; GitHub topics; LinkedIn announcement post written and ready to publish.
+- Identified an open-source gap: the original Chinese-language Codex skill produced no actual images and had a single character. Ported to English, added real multi-provider image generation, and expanded to a 9-character cultural variant system.
+- Designed a character system grounded in distinct art traditions (ukiyo-e, Madhubani, WPA poster, Arabic calligraphy, Adinkra/kente) to avoid cultural caricature — philosophy documented and published alongside the code.
+- Ran two rounds of structured multi-agent review ("Council of Claude": 4 parallel agents per round with distinct review lenses — Newcomer, Engineer, Growth Strategist, Docs Editor) before publishing. All findings resolved.
+- Published 14 example illustrations in the repo demonstrating the style across varied cognitive structures.
 
 **Developer**
-- SKILL.md format for Claude Code: the skill reads the active project context via `scan_project.py`, identifies the cognitive structure in the article, selects the most appropriate character, and calls the image generation script.
-- Four-provider image generation in `scripts/generate_image.py`: auto-detects which API key is set and calls the corresponding provider (Nano Banana/Gemini, DALL·E, Imagen 3, Stability AI). stdlib Python for 3 of 4 providers — only Stability requires `pip install requests`.
-- `install.sh` is idempotent: copies skill files, merges `settings.json` rather than overwriting (preserves user's default character on upgrade).
-- Multi-platform agent configs: `agents/openai.yaml` (Codex), `agents/gemini.md` (Gemini CLI), `agents/hermes.yaml`, `agents/antigravity.yaml` — same skill runs on four different AI coding assistants.
-- "Council of Claude" review pattern: 2 rounds × 4 parallel agents, each assigned a different review perspective. More effective than single-pass review for catching blind spots.
+- SKILL.md entrypoint for Claude Code: reads `settings.json` for default character, scans project context if no article is provided, identifies the cognitive structure, selects character, and calls `scripts/generate_image.py`.
+- Provider auto-detection in `generate_image.py`: checks env vars in order (GEMINI_API_KEY → OPENAI_API_KEY → STABILITY_API_KEY), selects first available provider, generates a 16:9 PNG. Provider aliases handled (`gemini` → `nanobanana`, `openai` → `dalle`, `sd` → `stability`).
+- DALL-E routing: uses `gpt-image-1` (1536×1024) as primary; falls back to `dall-e-3` (1792×1024) automatically.
+- `install.sh` is idempotent: copies skill files to `~/.claude/skills/`, reads existing `settings.json` and merges rather than overwriting — user's default character survives upgrades.
+- Multi-platform agent configs: same skill operates across Claude Code (SKILL.md), Codex (openai.yaml), Gemini CLI (gemini.md), Hermes (hermes.yaml), Antigravity (antigravity.yaml).
+- Character override via CLI: `python3 scripts/generate_image.py --character the-smudge` — overrides `settings.json` for that invocation only.
 
 **Curious**
-- I found a Chinese skill for drawing article illustrations, ported it to English, and then kept going — adding real image generation, expanding one character into nine, and grounding each one in a different art tradition so they weren't just stereotypes with different names. The most interesting constraint was figuring out how to make a hand-drawn ink-blob character feel culturally authentic rather than culturally lazy.
+- I found a Chinese skill for drawing article illustrations, ported it to English, and kept going — adding real image generation and expanding one character into nine. Each of the nine is grounded in a different art tradition so they're not just ink-blob stereotypes with different names. The interesting constraint was figuring out how to make each character feel like it belongs to its cultural heritage rather than just borrowing the aesthetic.
 
 ---
 
 ## 6. GidsTek Website
-**Repo:** `zakijariwala/PythonAlgos` (rename pending: `zakijariwala/gidstek-site`)
-**Status in portfolio:** NEW — not in portfolio. Consider adding as a consulting/freelance
-project entry. Note: the repo name (`PythonAlgos`) does not reflect the content — rename
-to `gidstek-site` before making it public or linking from the portfolio.
-
-**Context:** Built as a barter deliverable — a full Astro site replacing an underperforming
-WordPress site, traded for a price reduction on a laptop purchase. Good story for Curious
-mode; solid technical evidence for Developer mode.
+**Repo:** `zakijariwala/PythonAlgos`
+**Package name (already set):** `gidstek-site`
+**Status:** NEW — not in portfolio. Repo rename from `PythonAlgos` to `gidstek-site` still needed at the GitHub level before linking publicly.
 
 ### Meta
 ```json
 {
   "id": "gidstek_site",
   "name": "GidsTek Website",
-  "tagline": "Web Dev · Performance Audit",
+  "tagline": "Web Dev · Performance Turnaround",
   "featured": false,
-  "one_line_summary": "Full Astro replacement for an IT hardware reseller's WordPress site — 14.54s cold load to sub-1s, CLS from 1.0 to 0, all 5 missing security headers added. Built as a barter deliverable.",
+  "one_line_summary": "Full Astro 6 replacement for an IT hardware reseller's WordPress site — 14.54s cold load to sub-1s, CLS 1.0 to 0, all 5 missing security headers added. Delivered as a barter against a hardware purchase.",
   "featured_metric": "14.54s → <1s · CLS 1.0 → 0",
   "year": "2026",
-  "tech": ["Astro 6", "Tailwind CSS v3", "Cloudflare Pages"],
+  "tech": ["Astro 6", "TypeScript", "Tailwind CSS v3", "@fontsource/inter", "Cloudflare Pages"],
   "github": "https://github.com/zakijariwala/PythonAlgos"
 }
 ```
 
+### What is actually built (from repo inspection)
+Astro 6.4.4 + Tailwind CSS v3 + TypeScript site. Node ≥22.12.0 required. 6 hardware categories: laptops, servers, networking, firewall, ups, cctv. Products confirmed in `src/data/hardware.ts`: ThinkPad E14 Gen 7, ThinkPad E16 Gen 3, HP EliteBook 840 G11, Dell PowerEdge T150, HP ProLiant ML110 Gen 11 + more. All products `priceOnRequest: true` — no cart, no checkout. Components: `BrandBadges`, `HardwareCatalog`, `HardwareCard`, `WhatsAppCTA`, `ServicesGrid`, `WhyChooseUs`. `public/_headers` (security) + `public/_redirects` (legacy WordPress URL mapping). `@astrojs/sitemap` included. No JavaScript for the hamburger nav.
+
 ### Bullets
 
 **Recruiter**
-- Ran a full technical audit of an IT hardware reseller's website before quoting — identified 14.54s cold load, CLS score of 1.0 (maximum possible), B-grade SSL, 5 missing security headers, and indexed demo content from the original WordPress theme.
-- Scoped and built a complete replacement site in Astro 6 with a hardware catalog, WhatsApp inquiry CTAs, and all technical issues resolved — delivered as a barter against a product purchase rather than a cash invoice.
-- Demonstrated agency-equivalent output (Rs 25,000–60,000 Mumbai market rate) at zero marginal cost, using the build as negotiating leverage.
+- Ran a full technical audit before quoting: 14.54s cold load, CLS of 1.0 (maximum possible), B-grade SSL, 5 missing security headers, and indexed WordPress demo pages (Vacation, Elements) still in Google's index.
+- Scoped and delivered a complete replacement site in Astro 6 — hardware catalog across 6 categories, WhatsApp inquiry CTAs, all performance and security issues resolved — as a barter against a product purchase rather than a cash invoice.
+- Agency equivalent in Mumbai: Rs 25,000–60,000. Delivered as leverage in a price negotiation, not as a paid engagement.
 
 **Developer**
-- Astro 6 static site: 6 pages (Home, Hardware, Services, About, Contact, 404), hardware catalog with 9 product entries, WhatsApp deep links with pre-filled context messages on every product.
-- CSS-only hamburger navigation — zero JavaScript for the mobile menu toggle.
-- `public/_headers` for Cloudflare Pages: adds all 5 commonly-missing headers (`X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `Content-Security-Policy`) — fixes Snyk "Grade capped at A" finding.
-- `_redirects` file covers all legacy WordPress URLs (`/about-us`, `/lets-connect`, etc.) — no broken inbounds after migration.
-- LocalBusiness JSON-LD schema with Mumbai address, phone, and service area — local SEO ground floor.
-- Build: `npm run build` → `dist/` → Cloudflare Pages deploy. Total monthly cost: £0.
+- Astro 6.4.4 static site with TypeScript throughout: `src/data/hardware.ts` and `src/data/services.ts` define typed catalog data; `src/data/site.ts` holds site config (GSTIN placeholder for post-deal update).
+- `public/_headers`: adds all 5 security headers missing from the original site (`X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy`, `Content-Security-Policy`) — fixes Snyk "Grade capped at A" finding.
+- `public/_redirects`: maps all legacy WordPress URLs (`/about-us`, `/lets-connect`, `/our-story`, etc.) to current equivalents — preserves any inbound links after migration.
+- CSS-only hamburger nav — no JavaScript toggle, no event listeners.
+- WhatsApp deep links with pre-filled context messages per product category via `WhatsAppCTA.astro`.
+- `@astrojs/sitemap` generates sitemap automatically on build.
+- Build: `npm run build` → `dist/` → Cloudflare Pages. `npm run dev` requires Node ≥22.12.0.
 
 **Curious**
-- I was about to buy a laptop from an IT shop and noticed their website was embarrassingly slow. I ran an audit, built a replacement, and offered to trade it for a discount. The entire negotiation ran on technical evidence rather than haggling.
+- I was about to buy a laptop from an IT shop and noticed their website was embarrassingly slow. I ran an audit, built a replacement, and offered to trade it for a discount. The whole negotiation ran on technical evidence — a Lighthouse report, a Snyk security scan, and a Cloudflare cold-load comparison.
 
 ---
 
 ## Notes for Portfolio Update
 
-### Priority order for adding new entries:
-1. **ZamaanAutomation** — strongest product-thinking story; 90-day experiment gate is a concrete PM demonstration
-2. **Ian Xiaohei** — differentiates as open-source contributor and multi-agent tooling builder
-3. **GidsTek** — only if repo is renamed before linking; good Curious-mode story
+### Priority order for new entries:
+1. **ZamaanAutomation** — strongest PM story: formal hypothesis, quantitative gate, experiment-driven build
+2. **Ian Xiaohei** — open-source AI tooling differentiator; multi-agent review pattern is notable
+3. **GidsTek** — after GitHub repo is renamed at the account level; strong Curious-mode story
 
-### Existing entries to update:
-- `content_automation` — update bullets to reflect 7-platform output and GitHub Actions mobile trigger (current version is significantly different from Tauri/React 19 description)
-- `path_of_supplication` — add GitHub and live URL fields (currently blank)
-- `run_to` — **clarify with Zaki**: portfolio says Flutter/Dart/Supabase; repo is Vanilla JS/OSRM. Are these different versions of the same product or a full rewrite? Update entry once confirmed.
+### Existing entries requiring correction:
+- `content_automation` — update entirely: remove Tauri/React 19 reference, remove Facebook, correct to 6 platforms, update stack to `google-generativeai` + `yt-dlp` + `atproto`
+- `path_of_supplication` — add `github` and `live_url` fields; expand content scope to mention all 5 categories (currently only says "duas and ziyarat")
+- `run_to` — **decision needed**: portfolio says Flutter/Dart/Supabase; repo is Vanilla JS PWA/OSRM. These are different products. Either confirm the Flutter version exists separately and keep that entry, or replace with the current Vanilla JS version using the bullets above.
 
-### Projects cap:
-The portfolio shows 1 featured card + up to 5 standard cards. Current entries: 6 (zamaan_marine, content_automation, path_of_supplication, run_to, esp_pocket, remote_dev_server). Adding all 3 new entries would require either removing existing entries or exceeding the cap. Recommendation: replace `esp_pocket` and `remote_dev_server` with `zamaan_automation` and `ian_xiaohei` — those two are more relevant to the AI PM positioning.
+### Projects cap note:
+Portfolio supports 1 featured card + up to 5 standard cards. Current: 6 entries (`zamaan_marine`, `content_automation`, `path_of_supplication`, `run_to`, `esp_pocket`, `remote_dev_server`). Recommendation to sharpen AI PM positioning: replace `esp_pocket` and `remote_dev_server` with `zamaan_automation` and `ian_xiaohei`. Both replacements are more directly relevant to the product/AI narrative than a hardware prototype and a cloud VM.
