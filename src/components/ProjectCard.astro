@@ -105,12 +105,17 @@ const hasLive = !!(project.live_url && project.live_url !== '');
   flex-direction: column;
   gap: var(--space-4);
   height: 100%;
+  /* Prevent grid blowout: a grid item defaults to min-width:auto
+     (min-content), so a nowrap .project-metric would force the card
+     wider than its column. Allow it to shrink to the column width. */
+  min-width: 0;
 }
 .proj-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: var(--space-3);
+  flex-wrap: wrap;
 }
 .proj-meta {
   display: flex;
@@ -123,6 +128,12 @@ const hasLive = !!(project.live_url && project.live_url !== '');
   font-size: var(--text-xs);
   color: var(--text-muted);
   letter-spacing: 0.04em;
+}
+/* Scoped override: allow the metric to wrap inside a grid card rather
+   than force a nowrap line that can overflow on narrow viewports.
+   Only affects ProjectCard — the featured card keeps its own style. */
+.project-metric {
+  white-space: normal;
 }
 .proj-year {
   font-family: var(--font-mono);
