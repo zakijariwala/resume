@@ -14,6 +14,7 @@ interface Props {
     why_i_built_it: string;
     tech: string[];
     github: string;
+    live_url?: string;
     year: string;
     bullets: Bullet[];
   };
@@ -22,6 +23,7 @@ interface Props {
 const { project } = Astro.props;
 const visibleTech = project.tech.slice(0, 6);
 const isPrivate = !project.github || project.github === 'private';
+const hasLive = !!(project.live_url && project.live_url !== '');
 ---
 
 <div class="proj-card card fade-in" id={`project-${project.id}`}>
@@ -56,23 +58,37 @@ const isPrivate = !project.github || project.github === 'private';
     </div>
   )}
 
-  {!isPrivate ? (
-    <a
-      href={project.github}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="proj-github-link dev-only"
-      aria-label={`View ${project.name} on GitHub`}
-    >
-      <i class="ti ti-brand-github"></i>
-      <span>View repo</span>
-    </a>
-  ) : (
-    <span class="proj-private dev-only">
-      <i class="ti ti-lock"></i>
-      <span>Private repo</span>
-    </span>
-  )}
+  <div class="proj-card-footer">
+    {hasLive && (
+      <a
+        href={project.live_url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="proj-live-link all-modes"
+        aria-label={`View ${project.name} live`}
+      >
+        <i class="ti ti-external-link"></i>
+        <span>View live</span>
+      </a>
+    )}
+    {!isPrivate ? (
+      <a
+        href={project.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="proj-github-link dev-only"
+        aria-label={`View ${project.name} on GitHub`}
+      >
+        <i class="ti ti-brand-github"></i>
+        <span>View repo</span>
+      </a>
+    ) : (
+      <span class="proj-private dev-only">
+        <i class="ti ti-lock"></i>
+        <span>Private repo</span>
+      </span>
+    )}
+  </div>
 </div>
 
 <style is:global>
@@ -148,7 +164,17 @@ const isPrivate = !project.github || project.github === 'private';
   font-style: italic;
   margin: 0;
 }
+.proj-card-footer {
+  margin-top: auto;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
 .proj-github-link,
+.proj-live-link,
 .proj-private {
   display: inline-flex;
   align-items: center;
@@ -157,11 +183,9 @@ const isPrivate = !project.github || project.github === 'private';
   font-size: var(--text-xs);
   color: var(--accent-text);
   text-decoration: none;
-  margin-top: auto;
-  padding-top: var(--space-3);
-  border-top: 1px solid var(--border);
   transition: color var(--motion-fast);
 }
-.proj-github-link:hover { text-decoration: underline; }
+.proj-github-link:hover,
+.proj-live-link:hover { text-decoration: underline; }
 .proj-private { color: var(--text-disabled); font-style: italic; }
 </style>

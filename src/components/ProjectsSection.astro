@@ -5,7 +5,8 @@ import FeaturedProjectCard from './FeaturedProjectCard.astro';
 import ProjectCard from './ProjectCard.astro';
 
 const featured = projects.find(p => p.featured);
-const grid = projects.filter(p => !p.featured);
+const primary = projects.filter(p => !p.featured && p.priority === 'primary');
+const secondary = projects.filter(p => !p.featured && p.priority === 'secondary');
 ---
 
 <section id="projects" class="section-spacing" style="border-bottom: 1px solid var(--border);">
@@ -18,11 +19,28 @@ const grid = projects.filter(p => !p.featured);
 
   {featured && <FeaturedProjectCard project={featured} />}
 
-  <div class="projects-grid">
-    {grid.map((project, i) => (
-      <ProjectCard project={project} />
-    ))}
-  </div>
+  {primary.length > 0 && (
+    <div class="projects-grid">
+      {primary.map((project) => (
+        <ProjectCard project={project} />
+      ))}
+    </div>
+  )}
+
+  {secondary.length > 0 && (
+    <>
+      <div class="projects-divider">
+        <span class="divider-label recruiter-only">Other Projects</span>
+        <span class="divider-label dev-only">// other_projects</span>
+        <span class="divider-label curious-only">Other things I've made</span>
+      </div>
+      <div class="projects-grid projects-grid-secondary">
+        {secondary.map((project) => (
+          <ProjectCard project={project} />
+        ))}
+      </div>
+    </>
+  )}
 </section>
 
 <style>
@@ -33,6 +51,35 @@ const grid = projects.filter(p => !p.featured);
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-4);
+}
+.projects-grid + .projects-divider {
+  margin-top: var(--space-10);
+}
+.projects-divider {
+  margin-top: var(--space-10);
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--border);
+}
+.divider-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-disabled);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+[data-mode="developer"] .divider-label {
+  text-transform: none;
+  letter-spacing: 0.02em;
+  color: var(--accent-text);
+  opacity: 0.6;
+}
+[data-mode="curious"] .divider-label {
+  text-transform: none;
+  letter-spacing: normal;
+  font-family: var(--font-body);
+  font-style: italic;
+  color: var(--text-muted);
 }
 @media (max-width: 768px) {
   .projects-grid { grid-template-columns: 1fr; }
