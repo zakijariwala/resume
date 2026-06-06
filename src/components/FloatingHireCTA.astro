@@ -1,7 +1,8 @@
 ---
-const phone = "919157564545";
+import meta from '../data/meta.json';
+
 const message = "i saw your portfolio website and was interested in getting something built like this";
-const href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+const href = `${meta.whatsapp_client}?text=${encodeURIComponent(message)}`;
 ---
 
 <a
