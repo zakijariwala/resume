@@ -20,19 +20,11 @@
         "audience": ["recruiter", "management"]
       },
       {
-        "text": "Collaborated across infrastructure, application, database, and security teams to align delivery priorities and maintain regulatory compliance under strict banking constraints.",
-        "audience": ["recruiter", "management"]
-      },
-      {
         "text": "Drove infrastructure modernisation, evaluated build-vs-buy tradeoffs, secured stakeholder alignment, and led adoption of on-premise container-based workflows within compliance boundaries — translating engineering constraints into a prioritised delivery roadmap for leadership.",
         "audience": ["recruiter", "management"]
       },
       {
         "text": "Architected and executed Disaster Recovery runbooks in cross-functional coordination with application and database teams, reducing Recovery Time Objective (RTO) by 50%.",
-        "audience": ["recruiter", "management"]
-      },
-      {
-        "text": "Translate complex incident data and technical risk into clear communications for business stakeholders and senior leadership.",
         "audience": ["recruiter", "management"]
       },
       {
@@ -89,6 +81,11 @@
         "audience": ["curious"]
       }
     ],
+    "testimonial": {
+      "quote": "",
+      "attribution": "",
+      "context": ""
+    },
     "show_recovery_chart": false
   }
 ]

@@ -11,6 +11,12 @@ interface Kpi {
   label: string;
 }
 
+interface Testimonial {
+  quote: string;
+  attribution: string;
+  context: string;
+}
+
 interface Props {
   entry: {
     id: string;
@@ -23,6 +29,7 @@ interface Props {
     curious_intro?: string;
     kpis: Kpi[];
     bullets: Bullet[];
+    testimonial?: Testimonial;
     show_recovery_chart?: boolean;
   };
 }
@@ -72,6 +79,18 @@ const statusLabel = {
     </ul>
 
     <KpiRow kpis={entry.kpis} />
+
+    {entry.testimonial?.quote && (
+      <blockquote class="exp-testimonial all-modes">
+        <p class="exp-testimonial-quote">"{entry.testimonial.quote}"</p>
+        <footer class="exp-testimonial-footer">
+          <span class="exp-testimonial-name">{entry.testimonial.attribution}</span>
+          {entry.testimonial.context && (
+            <span class="exp-testimonial-context"> · {entry.testimonial.context}</span>
+          )}
+        </footer>
+      </blockquote>
+    )}
 
     <!-- Recovery curve chart — TCS only, recruiter + developer modes -->
     {isTCS && entry.show_recovery_chart && (
@@ -189,6 +208,30 @@ const statusLabel = {
   font-size: var(--text-sm);
   color: var(--text-muted);
   line-height: 1.7;
+}
+
+.exp-testimonial {
+  margin: var(--space-5) 0 0;
+  padding: var(--space-4) var(--space-5);
+  border-left: 2px solid var(--accent-border);
+  background: var(--accent-subtle);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.exp-testimonial-quote {
+  font-size: var(--text-sm);
+  font-style: italic;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin: 0 0 var(--space-2);
+}
+.exp-testimonial-footer {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-disabled);
+}
+.exp-testimonial-name {
+  color: var(--text-muted);
+  font-weight: 600;
 }
 
 .recovery-chart {

@@ -2,7 +2,7 @@
 import meta from '../data/meta.json';
 import StatCard from './StatCard.astro';
 
-const { name, pdf_path, taglines, hero_subline, whatsapp, stats, currently, availability } = meta;
+const { name, pdf_path, taglines, hero_subline, whatsapp, stats, currently, availability, photo_url } = meta;
 
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
 const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_path.replace(/^\//, '')}`;
@@ -45,6 +45,20 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
 
   <!-- Right column: mode-adaptive -->
   <div class="hero-right">
+    <!-- Photo — recruiter mode, shown only when photo_url is set -->
+    {photo_url && (
+      <div class="hero-photo-wrap recruiter-only fade-in">
+        <img
+          src={photo_url}
+          alt={`${name} — headshot`}
+          class="hero-photo"
+          width="160"
+          height="160"
+          loading="eager"
+        />
+      </div>
+    )}
+
     <!-- Recruiter + Developer: stat card grid -->
     <div class="stat-grid recruiter-dev fade-in" style="transition-delay: 0.1s;">
       {stats.map((stat, i) => (
@@ -148,6 +162,27 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
   flex-wrap: wrap;
   gap: var(--space-3);
   align-items: center;
+}
+
+/* Photo */
+.hero-photo-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--space-5);
+}
+.hero-photo {
+  width: 140px;
+  height: 140px;
+  border-radius: 9999px;
+  object-fit: cover;
+  border: 2px solid var(--border-strong);
+  display: block;
+}
+@media (max-width: 768px) {
+  .hero-photo {
+    width: 100px;
+    height: 100px;
+  }
 }
 
 /* Stat grid */

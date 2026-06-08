@@ -1,5 +1,6 @@
 {
   "name": "Mohammad Zaki Jariwala",
+  "photo_url": "",
   "preferred_name": "J. Zaki",
   "location": "Navi Mumbai, India",
   "location_detail": "Seawoods, Navi Mumbai — open to global relocation",
@@ -19,7 +20,7 @@
   },
 
   "hero_subline": {
-    "recruiter": "4 products shipped 0-to-1 · 3 years enterprise engineering · AWS + GenAI certified",
+    "recruiter": "I keep banking infrastructure running for 30,000 people and ship AI products in the gaps — now looking to do the second part full-time.",
     "developer": "whatever I'm building this month",
     "curious":   "I find it hard to stop building things"
   },
