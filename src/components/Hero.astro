@@ -42,8 +42,8 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
   <!-- Right column: mode-adaptive -->
   <div class="hero-right">
     <!-- Photo — recruiter mode only, renders when photo_url is set -->
-    {photo_url && (
-      <div class="hero-photo-wrap recruiter-only fade-in">
+    <div class="hero-photo-wrap recruiter-only fade-in">
+      {photo_url ? (
         <img
           src={photo_url}
           alt={`${name} headshot`}
@@ -52,8 +52,12 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
           height="160"
           loading="eager"
         />
-      </div>
-    )}
+      ) : (
+        <div class="hero-photo-placeholder" aria-hidden="true">
+          <span class="hero-photo-initials">ZJ</span>
+        </div>
+      )}
+    </div>
 
     <!-- Recruiter + Developer: stat card grid -->
     <div class="stat-grid recruiter-dev fade-in" style="transition-delay: 0.1s;">
@@ -177,13 +181,18 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
   width: 140px;
   height: 140px;
   border-radius: 9999px;
-  border: 2px dashed var(--border-strong);
+  border: 1px solid var(--border-strong);
   display: flex;
   align-items: center;
   justify-content: center;
+  background: var(--surface-raised);
+}
+.hero-photo-initials {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   color: var(--text-disabled);
-  font-size: 48px;
-  background: var(--surface);
 }
 @media (max-width: 768px) {
   .hero-photo,
@@ -191,7 +200,7 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
     width: 100px;
     height: 100px;
   }
-  .hero-photo-placeholder { font-size: 36px; }
+  .hero-photo-initials { font-size: 16px; }
 }
 
 /* Stat grid */
