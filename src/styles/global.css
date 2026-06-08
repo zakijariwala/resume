@@ -129,7 +129,7 @@
   --card-radius:      var(--radius-md);
   --layout-max:       900px;
   --layout-gutter:    var(--space-5);
-  --section-padding:  var(--space-28);
+  --section-padding:  var(--space-16);
 }
 [data-theme="dark"] {
   --nav-bg: rgba(15, 15, 15, 0.85);
@@ -575,7 +575,7 @@ a {
 }
 @media (max-width: 768px) {
   :root {
-    --section-padding: var(--space-20);
+    --section-padding: var(--space-12);
     --layout-gutter:   var(--space-4);
   }
 }

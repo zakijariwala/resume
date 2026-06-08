@@ -45,9 +45,10 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
 
   <!-- Right column: mode-adaptive -->
   <div class="hero-right">
-    <!-- Photo — recruiter mode, shown only when photo_url is set -->
-    {photo_url && (
-      <div class="hero-photo-wrap recruiter-only fade-in">
+    <!-- Photo — recruiter mode. Shows real photo when photo_url is set,
+         placeholder outline when empty (visible only in development). -->
+    <div class="hero-photo-wrap recruiter-only fade-in">
+      {photo_url ? (
         <img
           src={photo_url}
           alt={`${name} — headshot`}
@@ -56,8 +57,12 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
           height="160"
           loading="eager"
         />
-      </div>
-    )}
+      ) : (
+        <div class="hero-photo-placeholder" aria-hidden="true">
+          <i class="ti ti-user"></i>
+        </div>
+      )}
+    </div>
 
     <!-- Recruiter + Developer: stat card grid -->
     <div class="stat-grid recruiter-dev fade-in" style="transition-delay: 0.1s;">
@@ -80,15 +85,15 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
   grid-template-columns: 1fr 1fr;
   gap: var(--space-12);
   align-items: center;
-  padding-top: calc(var(--nav-height) + var(--space-16));
-  padding-bottom: var(--space-20);
+  padding-top: calc(var(--nav-height) + var(--space-12));
+  padding-bottom: var(--space-16);
   border-bottom: 1px solid var(--border);
 }
 @media (max-width: 768px) {
   .hero-section {
     grid-template-columns: 1fr;
-    padding-top: calc(var(--nav-height) + var(--space-10));
-    padding-bottom: var(--space-12);
+    padding-top: calc(var(--nav-height) + var(--space-6));
+    padding-bottom: var(--space-10);
   }
   .hero-right { order: -1; }
 }
@@ -178,11 +183,25 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
   border: 2px solid var(--border-strong);
   display: block;
 }
+.hero-photo-placeholder {
+  width: 140px;
+  height: 140px;
+  border-radius: 9999px;
+  border: 2px dashed var(--border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-disabled);
+  font-size: 48px;
+  background: var(--surface);
+}
 @media (max-width: 768px) {
-  .hero-photo {
+  .hero-photo,
+  .hero-photo-placeholder {
     width: 100px;
     height: 100px;
   }
+  .hero-photo-placeholder { font-size: 36px; }
 }
 
 /* Stat grid */
