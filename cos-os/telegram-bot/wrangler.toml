@@ -1,0 +1,6 @@
+name = "cos-telegram-bot"
+main = "cos-os/telegram-bot/worker.js"
+compatibility_date = "2024-01-01"
+
+[vars]
+GITHUB_REPO = "zakijariwala/resume"
