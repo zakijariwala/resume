@@ -1,0 +1,28 @@
+name: CoS — Notion Sync
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'cos-os/dashboard.md'
+      - 'cos-os/exports/**'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r cos-os/notion-sync/requirements.txt
+
+      - name: Sync to Notion
+        env:
+          NOTION_TOKEN:   ${{ secrets.NOTION_TOKEN }}
+          NOTION_PAGE_ID: ${{ secrets.NOTION_PAGE_ID }}
+        run: python cos-os/notion-sync/sync.py
