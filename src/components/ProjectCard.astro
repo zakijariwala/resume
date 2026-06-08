@@ -14,6 +14,7 @@ interface Props {
     why_i_built_it: string;
     tech: string[];
     github: string;
+    live_url?: string;
     year: string;
     bullets: Bullet[];
   };
@@ -22,6 +23,7 @@ interface Props {
 const { project } = Astro.props;
 const visibleTech = project.tech.slice(0, 6);
 const isPrivate = !project.github || project.github === 'private';
+const hasLive = !!(project.live_url && project.live_url !== '');
 ---
 
 <div class="proj-card card fade-in" id={`project-${project.id}`}>
@@ -56,31 +58,45 @@ const isPrivate = !project.github || project.github === 'private';
     </div>
   )}
 
-  {!isPrivate ? (
-    <a
-      href={project.github}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="proj-github-link dev-only"
-      aria-label={`View ${project.name} on GitHub`}
-    >
-      <i class="ti ti-brand-github"></i>
-      <span>View repo</span>
-    </a>
-  ) : (
-    <span class="proj-private dev-only">
-      <i class="ti ti-lock"></i>
-      <span>Private repo</span>
-    </span>
-  )}
+  <div class="proj-card-footer">
+    {hasLive && (
+      <a
+        href={project.live_url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="proj-live-link all-modes"
+        aria-label={`View ${project.name} live`}
+      >
+        <i class="ti ti-external-link"></i>
+        <span>View live</span>
+      </a>
+    )}
+    {!isPrivate ? (
+      <a
+        href={project.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="proj-github-link dev-only"
+        aria-label={`View ${project.name} on GitHub`}
+      >
+        <i class="ti ti-brand-github"></i>
+        <span>View repo</span>
+      </a>
+    ) : (
+      <span class="proj-private dev-only">
+        <i class="ti ti-lock"></i>
+        <span>Private repo</span>
+      </span>
+    )}
+  </div>
 </div>
 
 <style is:global>
 [data-mode="recruiter"] .proj-bullets li[data-audience]:not([data-audience*="recruiter"]):not([data-audience*="management"]) {
   display: none;
 }
-[data-mode="developer"] .proj-bullets li[data-audience] { display: list-item; }
-[data-mode="curious"]   .proj-bullets li[data-audience] { display: list-item; }
+[data-mode="developer"] .proj-bullets li[data-audience]:not([data-audience*="developer"]) { display: none; }
+[data-mode="curious"]   .proj-bullets li[data-audience]:not([data-audience*="curious"])   { display: none; }
 </style>
 
 <style>
@@ -89,12 +105,17 @@ const isPrivate = !project.github || project.github === 'private';
   flex-direction: column;
   gap: var(--space-4);
   height: 100%;
+  /* Prevent grid blowout: a grid item defaults to min-width:auto
+     (min-content), so a nowrap .project-metric would force the card
+     wider than its column. Allow it to shrink to the column width. */
+  min-width: 0;
 }
 .proj-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: var(--space-3);
+  flex-wrap: wrap;
 }
 .proj-meta {
   display: flex;
@@ -107,6 +128,12 @@ const isPrivate = !project.github || project.github === 'private';
   font-size: var(--text-xs);
   color: var(--text-muted);
   letter-spacing: 0.04em;
+}
+/* Scoped override: allow the metric to wrap inside a grid card rather
+   than force a nowrap line that can overflow on narrow viewports.
+   Only affects ProjectCard — the featured card keeps its own style. */
+.project-metric {
+  white-space: normal;
 }
 .proj-year {
   font-family: var(--font-mono);
@@ -148,7 +175,17 @@ const isPrivate = !project.github || project.github === 'private';
   font-style: italic;
   margin: 0;
 }
+.proj-card-footer {
+  margin-top: auto;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
 .proj-github-link,
+.proj-live-link,
 .proj-private {
   display: inline-flex;
   align-items: center;
@@ -157,11 +194,9 @@ const isPrivate = !project.github || project.github === 'private';
   font-size: var(--text-xs);
   color: var(--accent-text);
   text-decoration: none;
-  margin-top: auto;
-  padding-top: var(--space-3);
-  border-top: 1px solid var(--border);
   transition: color var(--motion-fast);
 }
-.proj-github-link:hover { text-decoration: underline; }
+.proj-github-link:hover,
+.proj-live-link:hover { text-decoration: underline; }
 .proj-private { color: var(--text-disabled); font-style: italic; }
 </style>

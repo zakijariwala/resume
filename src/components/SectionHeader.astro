@@ -1,24 +1,27 @@
 ---
 interface Props {
-  label: string;
+  label?: string;
   labelDev?: string;
   labelCurious?: string;
   title: string;
+  hideLabel?: boolean;
 }
 
-const { label, labelDev, labelCurious, title } = Astro.props;
+const { label = '', labelDev, labelCurious, title, hideLabel = false } = Astro.props;
 const hasModeLabels = labelDev || labelCurious;
 ---
 
 <div class="section-header fade-in">
-  <div class="section-label">
-    {hasModeLabels ? (
-      <>
-        <span class="recruiter-only">{label}</span>
-        <span class="dev-only">{labelDev ?? label}</span>
-        <span class="curious-only">{labelCurious ?? label}</span>
-      </>
-    ) : label}
-  </div>
+  {!hideLabel && (
+    <div class="section-label">
+      {hasModeLabels ? (
+        <>
+          <span class="recruiter-only">{label}</span>
+          <span class="dev-only">{labelDev ?? label}</span>
+          <span class="curious-only">{labelCurious ?? label}</span>
+        </>
+      ) : label}
+    </div>
+  )}
   <h2 class="section-title">{title}</h2>
 </div>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css');
 
 @tailwind base;
@@ -64,9 +64,9 @@
   --border:          rgba(0, 0, 0, 0.08);
   --border-strong:   rgba(0, 0, 0, 0.16);
 
-  --text:            var(--prim-gray-900);
-  --text-muted:      var(--prim-gray-500);
-  --text-disabled:   var(--prim-gray-300);
+  --text:            #000000;
+  --text-muted:      #4A4A4A;
+  --text-disabled:   #6B6B6B;
 
   /* Mode-reactive accent (defaults to recruiter blue) */
   --accent:          var(--prim-blue);
@@ -89,7 +89,16 @@
   --status-dim:           var(--prim-gray-100);
   --status-dim-text:      var(--prim-gray-500);
 
-  --font-display: 'Fraunces', Georgia, serif;
+  --attention:            #E5484D;
+  --attention-glow:       rgba(229, 72, 77, 0.85);
+  --attention-glow-soft:  rgba(229, 72, 77, 0.0);
+
+  --whatsapp:             #25D366;
+  --whatsapp-strong:      #1EBE5A;
+  --whatsapp-glow:        rgba(37, 211, 102, 0.45);
+  --whatsapp-glow-soft:   rgba(37, 211, 102, 0.0);
+
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-body:    'Inter', system-ui, sans-serif;
   --font-mono:    'JetBrains Mono', 'Courier New', monospace;
 
@@ -120,7 +129,10 @@
   --card-radius:      var(--radius-md);
   --layout-max:       900px;
   --layout-gutter:    var(--space-5);
-  --section-padding:  var(--space-28);
+  --section-padding:  var(--space-16);
+}
+[data-theme="dark"] {
+  --nav-bg: rgba(15, 15, 15, 0.85);
 }
 [data-theme="dark"] {
   --nav-bg: rgba(15, 15, 15, 0.85);
@@ -135,9 +147,9 @@
   --surface-raised:  var(--prim-dark-raised);
   --border:          rgba(255, 255, 255, 0.09);
   --border-strong:   rgba(255, 255, 255, 0.16);
-  --text:            #EBEBEB;
-  --text-muted:      #888888;
-  --text-disabled:   #555555;
+  --text:            #FFFFFF;
+  --text-muted:      #C8C8C8;
+  --text-disabled:   #9A9A9A;
 
   --status-active:        #064E3B;
   --status-active-text:   #A7F3D0;
@@ -319,7 +331,6 @@ a {
   letter-spacing: -0.02em;
   color: var(--text);
   margin: 0 0 var(--space-8);
-  font-optical-sizing: auto;
 }
 [data-mode="curious"] .section-title {
   font-size: clamp(var(--text-3xl), 4vw, 38px);
@@ -358,7 +369,6 @@ a {
   line-height: 1.1;
   color: var(--accent);
   letter-spacing: -0.02em;
-  font-optical-sizing: auto;
 }
 .kpi-label {
   font-family: var(--font-mono);
@@ -566,7 +576,7 @@ a {
 }
 @media (max-width: 768px) {
   :root {
-    --section-padding: var(--space-20);
+    --section-padding: var(--space-12);
     --layout-gutter:   var(--space-4);
   }
 }
@@ -635,7 +645,6 @@ a {
   font-style: italic;
   font-family: var(--font-display);
   font-size: var(--text-base);
-  font-optical-sizing: auto;
   color: var(--text);
 }
 

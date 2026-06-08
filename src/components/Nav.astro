@@ -6,7 +6,7 @@ const { name } = meta;
 
 <!-- Desktop top nav -->
 <header
-  class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 transition-colors duration-150"
+  class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center lg:justify-between px-6 transition-colors duration-150"
   style="height: var(--nav-height); background: var(--nav-bg); border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);"
 >
   <!-- Logo / name -->
@@ -31,16 +31,23 @@ const { name } = meta;
 
   <!-- Right controls: mode switcher + theme toggle -->
   <div class="flex items-center gap-3">
-    <!-- Mode switcher pill -->
-    <div
-      class="audience-switch flex p-0.5 rounded-full"
-      style="background: var(--bg); border: 1px solid var(--border);"
-      role="radiogroup"
-      aria-label="Select audience perspective"
-    >
-      <button class="audience-btn" data-mode-btn="recruiter" role="radio" aria-checked="false">Recruiter</button>
-      <button class="audience-btn" data-mode-btn="developer" role="radio" aria-checked="false">Developer</button>
-      <button class="audience-btn" data-mode-btn="curious" role="radio" aria-checked="false">Curious</button>
+    <!-- Mode switcher with label + coachmark -->
+    <div class="mode-switch-wrapper">
+      <span class="mode-switch-label" id="mode-switch-label">Viewing as</span>
+      <div
+        class="audience-switch flex p-0.5 rounded-full"
+        style="background: var(--bg); border: 1px solid var(--border);"
+        role="radiogroup"
+        aria-label="Select audience perspective"
+      >
+        <button class="audience-btn" data-mode-btn="recruiter" role="radio" aria-checked="false">Recruiter</button>
+        <button class="audience-btn" data-mode-btn="developer" role="radio" aria-checked="false">Developer</button>
+        <button class="audience-btn" data-mode-btn="curious" role="radio" aria-checked="false">Curious</button>
+      </div>
+      <div id="mode-coachmark" class="mode-coachmark" aria-hidden="true">
+        <span>This site has 3 perspectives — try switching</span>
+        <button class="coachmark-close" id="coachmark-close" aria-label="Dismiss hint">×</button>
+      </div>
     </div>
 
     <!-- Theme toggle -->
@@ -118,6 +125,90 @@ const { name } = meta;
 }
 .mob-link:hover,
 .mob-link.active { color: var(--accent); }
+
+.mode-switch-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  position: relative;
+}
+.mode-switch-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-radius: 9999px;
+  padding: 3px 10px;
+  background: var(--attention);
+  animation: heartbeat-halo 1.3s ease-in-out infinite 3s;
+  animation-fill-mode: both;
+  will-change: box-shadow, transform;
+}
+@keyframes heartbeat-halo {
+  0%   { box-shadow: 0 0 0 0 var(--attention-glow);      transform: scale(1); }
+  12%  { box-shadow: 0 0 0 8px var(--attention-glow-soft); transform: scale(1.06); }
+  24%  { box-shadow: 0 0 0 0 var(--attention-glow);      transform: scale(1); }
+  44%  { box-shadow: 0 0 0 13px var(--attention-glow-soft); transform: scale(1.06); }
+  60%  { box-shadow: 0 0 0 0 var(--attention-glow-soft); transform: scale(1); }
+  100% { box-shadow: 0 0 0 0 var(--attention-glow-soft); transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mode-switch-label {
+    animation: none;
+    box-shadow: 0 0 0 3px var(--attention-glow);
+  }
+}
+.mode-coachmark {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-4);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  z-index: 100;
+  animation: coachmark-in 0.25s ease both;
+  animation-delay: 1.2s;
+  opacity: 0;
+}
+.mode-coachmark::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  right: 28px;
+  width: 8px;
+  height: 8px;
+  background: var(--surface-raised);
+  border-left: 1px solid var(--border-strong);
+  border-top: 1px solid var(--border-strong);
+  transform: rotate(45deg);
+}
+.mode-coachmark.hidden { display: none; }
+@keyframes coachmark-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.coachmark-close {
+  background: none;
+  border: none;
+  color: var(--text-disabled);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  padding: 0 0 0 var(--space-1);
+  transition: color var(--motion-fast);
+}
+.coachmark-close:hover { color: var(--text); }
 </style>
 
 <script>
@@ -125,6 +216,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const modeButtons = document.querySelectorAll<HTMLButtonElement>('[data-mode-btn]');
   const toast = document.getElementById('mode-toast');
   let toastTimer: ReturnType<typeof setTimeout> | undefined;
+
+  // Coachmark — appears every new session until the visitor interacts
+  // with the mode pill. Interacting with the pill dismisses it for good;
+  // the close button only hides it for the current view.
+  const coachmark = document.getElementById('mode-coachmark');
+  const coachmarkClose = document.getElementById('coachmark-close');
+
+  function hideCoachmark() {
+    if (coachmark) coachmark.classList.add('hidden');
+  }
+
+  // Permanent dismiss only after the visitor has used the switcher.
+  if (localStorage.getItem('portfolio_mode_interacted')) {
+    hideCoachmark();
+  }
+  if (coachmarkClose) {
+    coachmarkClose.addEventListener('click', hideCoachmark);
+  }
 
   function setMode(mode: string) {
     document.documentElement.setAttribute('data-mode', mode);
@@ -160,7 +269,11 @@ document.addEventListener('DOMContentLoaded', () => {
   modeButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       const mode = btn.dataset.modeBtn;
-      if (mode) setMode(mode);
+      if (mode) {
+        localStorage.setItem('portfolio_mode_interacted', '1');
+        hideCoachmark();
+        setMode(mode);
+      }
     });
   });
 

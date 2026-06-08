@@ -1,0 +1,78 @@
+---
+import meta from '../data/meta.json';
+
+const message = "i saw your portfolio website and was interested in getting something built like this";
+const href = `${meta.whatsapp_client}?text=${encodeURIComponent(message)}`;
+---
+
+<a
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="floating-hire-cta"
+  aria-label="Want a site like this? Message me on WhatsApp"
+>
+  <span class="fhc-icon" aria-hidden="true">
+    <i class="ti ti-brand-whatsapp"></i>
+  </span>
+  <span class="fhc-label">Want a site like this?</span>
+</a>
+
+<style>
+.floating-hire-cta {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 12px 20px;
+  border-radius: 9999px;
+  background: rgba(10, 10, 10, 0.9);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: background var(--motion-fast), transform var(--motion-fast);
+  animation: fhc-pulse 2.4s ease-in-out infinite;
+  will-change: box-shadow;
+}
+.floating-hire-cta:hover {
+  background: rgba(20, 20, 20, 0.95);
+  transform: translateY(-2px);
+}
+.fhc-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--whatsapp);
+}
+.fhc-label {
+  white-space: nowrap;
+}
+@keyframes fhc-pulse {
+  0%   { box-shadow: 0 0 0 0 var(--whatsapp-glow); }
+  70%  { box-shadow: 0 0 0 16px var(--whatsapp-glow-soft); }
+  100% { box-shadow: 0 0 0 0 var(--whatsapp-glow-soft); }
+}
+
+/* Below the lg breakpoint the fixed mobile bottom nav is visible —
+   lift the CTA clear of it and keep it against the right edge,
+   matching the placement indicated by the owner. */
+@media (max-width: 1023px) {
+  .floating-hire-cta {
+    bottom: calc(var(--nav-height) + var(--space-4));
+    right: var(--space-4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-hire-cta { animation: none; }
+}
+</style>

@@ -3,44 +3,49 @@
     "id": "tcs",
     "company": "Tata Consultancy Services",
     "subtitle": "Deployed at State Bank of India (SBI GITC)",
-    "title": "Systems Engineer — IDM & Infrastructure",
-    "dates": "2023 — Present",
+    "title": "Systems Engineer, IDM & Infrastructure",
+    "dates": "2023–Present",
     "status": "active",
     "context_tag": "banking_infrastructure",
+    "curious_intro": "For my day job I keep a major bank's systems running for tens of thousands of people. The kind of work where success means nobody ever notices it.",
     "kpis": [
       { "value": "99.999%", "label": "System Uptime" },
       { "value": "30,000+", "label": "Users Supported" },
-      { "value": "150+",    "label": "Servers Managed" },
+      { "value": "5",       "label": "Engineers Led" },
       { "value": "50%",     "label": "RTO Reduction" }
     ],
     "bullets": [
       {
-        "text": "Lead an operations team supporting enterprise banking infrastructure and mission-critical IDM and database platforms for 30,000+ internal SBI branch users.",
-        "audience": ["recruiter", "developer", "management"]
+        "text": "Led an operations team delivering 99.999% availability for Tier-1 banking applications across 30,000+ branch users: setting team priorities, mentoring 5 engineers, and managing escalations end-to-end.",
+        "audience": ["recruiter", "management"]
       },
       {
-        "text": "Directly mentor a team of 5 junior engineers, setting technical standards and conducting structured knowledge transfer sessions.",
-        "audience": ["recruiter", "developer", "management"]
+        "text": "Drove infrastructure modernisation, evaluated build-vs-buy tradeoffs, secured stakeholder alignment, and led adoption of on-premise container-based workflows within compliance boundaries. Translated engineering constraints into a prioritised delivery roadmap for leadership.",
+        "audience": ["recruiter", "management"]
       },
       {
-        "text": "Maintain 99.999% system availability for Tier-1 banking applications across production, UAT, and DR environments.",
-        "audience": ["recruiter", "developer", "management"]
+        "text": "Architected and executed Disaster Recovery runbooks in cross-functional coordination with application and database teams, reducing Recovery Time Objective (RTO) by 50%.",
+        "audience": ["recruiter", "management"]
       },
       {
-        "text": "Administer a fleet of 150+ Linux (RHEL) and Windows servers — automating patch management, access governance workflows, and incident response procedures.",
-        "audience": ["recruiter", "developer", "management"]
-      },
-      {
-        "text": "Drive infrastructure modernisation by shifting from cloud-migration dependency to on-premise containerisation and Docker-based deployment workflows within banking compliance constraints.",
+        "text": "Operated IBM Security Identity Manager (ISIM) on RHEL 8, managing user provisioning, access governance, and policy enforcement across 150+ application servers in an on-premise Tier-1 banking datacenter maintaining 99.999% platform SLA via active-passive HA clustering and automated health monitoring.",
         "audience": ["developer"]
       },
       {
-        "text": "Architected and executed Disaster Recovery drills and runbooks, reducing Recovery Time Objective (RTO) by 50% for Tier-1 applications.",
-        "audience": ["recruiter", "developer", "management"]
+        "text": "Led on-premise containerisation of legacy IDM workflows: evaluated Podman vs Docker within RBI/SEBI compliance boundaries, defined container topology and orchestration approach, secured sign-off from security and compliance stakeholders.",
+        "audience": ["developer"]
       },
       {
-        "text": "Collaborate across infrastructure, database, application, and security teams to maintain regulatory compliance and reduce service disruption risk.",
-        "audience": ["recruiter", "developer", "management"]
+        "text": "Authored cross-team DR runbooks covering IDM primary/replica switchover, application server restart sequences, and database consistency validation, reducing RTO from ~4 hours to under 2 hours (50% reduction) through structured tabletop drills and live execution.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "Automated recurring ops tasks (patch compliance checks, certificate rotation tracking, capacity utilisation reports) in Python and Bash, eliminating ~8 hours/week of manual overhead across the team.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "The day job means keeping banking infrastructure alive for tens of thousands of people. Success is invisible: if nobody notices, everything went right.",
+        "audience": ["curious"]
       }
     ],
     "show_recovery_chart": true
@@ -49,64 +54,38 @@
     "id": "coaching",
     "company": "Independent Coaching Practice",
     "subtitle": "Technical interview readiness for engineering and management candidates",
-    "title": "Technical Soft Skills Coach — Founder",
-    "dates": "2025 — 2026",
+    "title": "Founder & Technical Communication Coach",
+    "dates": "2025–2026 (Concluded)",
     "status": "dim",
-    "context_tag": "leadership_communication",
+    "context_tag": "communication",
+    "curious_intro": "For a while I ran a small coaching practice helping engineers talk about their work in a way that actually lands with people who aren't engineers.",
     "kpis": [
-      { "value": "50+",  "label": "Clients Coached" },
-      { "value": "1:1",  "label": "Session Format" }
+      { "value": "50+", "label": "Clients Coached" },
+      { "value": "1:1", "label": "Session Format" }
     ],
     "bullets": [
       {
-        "text": "Delivered technical interview readiness and executive communication coaching to 50+ engineering professionals and management candidates.",
+        "text": "Founded and scaled a coaching practice from zero, handling client acquisition, curriculum design, and end-to-end delivery for 50+ engineering and management professionals.",
         "audience": ["recruiter", "developer", "management"]
       },
       {
-        "text": "Conducted intensive 1:1 mentorship sessions focused on behavioural frameworks, technical storytelling, and senior-level interview strategy.",
+        "text": "Designed a structured curriculum covering STAR-method framing, stakeholder communication, and senior-level interview strategy, iterating based on client outcomes and session feedback.",
         "audience": ["recruiter", "developer", "management"]
       },
       {
-        "text": "Designed a structured coaching curriculum covering STAR-method framing, stakeholder communication, and high-impact presentation skills.",
+        "text": "Developed repeatable frameworks for technical storytelling, enabling clients to translate complex engineering work into language accessible to non-technical decision-makers.",
         "audience": ["recruiter", "developer", "management"]
       },
       {
-        "text": "Sourced and onboarded clients independently, managing end-to-end client relationships across the full engagement lifecycle.",
-        "audience": ["recruiter", "developer", "management"]
+        "text": "Turned out that teaching engineers to explain themselves clearly is a harder problem than it looks, and more satisfying to solve than I expected.",
+        "audience": ["curious"]
       }
     ],
-    "show_recovery_chart": false
-  },
-  {
-    "id": "zamaan_experience",
-    "company": "Zamaan Marine",
-    "subtitle": "Technology and marketing lead for a family marine equipment venture",
-    "title": "Co-Founder — Technology & Marketing Lead (Pro Bono)",
-    "dates": "2025 — Present",
-    "status": "ongoing",
-    "context_tag": "independent_business",
-    "kpis": [
-      { "value": "200+", "label": "B2B Prospects / Campaign" },
-      { "value": "90%+", "label": "Inbox Delivery Rate" }
-    ],
-    "bullets": [
-      {
-        "text": "Lead all technology and digital marketing operations for a family business selling second-hand industrial automation and marine equipment parts.",
-        "audience": ["recruiter", "developer", "curious", "management"]
-      },
-      {
-        "text": "Built and maintain the full digital ecosystem: JAMstack storefront (Astro + Cloudflare Pages), WordPress brand site, professional email infrastructure (SPF/DKIM/DMARC), and product analytics via PostHog.",
-        "audience": ["recruiter", "developer", "curious", "management"]
-      },
-      {
-        "text": "Engineered a Python cold email automation agent integrating Brevo, Google Sheets, Claude API, ZeroBounce, and Hunter.io — targeting 200+ B2B prospects per campaign cycle.",
-        "audience": ["recruiter", "developer", "curious", "management"]
-      },
-      {
-        "text": "Operate in a founder-equivalent capacity, applying enterprise-grade engineering practices to a zero-budget independent business stack.",
-        "audience": ["recruiter", "developer", "curious", "management"]
-      }
-    ],
+    "testimonial": {
+      "quote": "",
+      "attribution": "",
+      "context": ""
+    },
     "show_recovery_chart": false
   }
 ]

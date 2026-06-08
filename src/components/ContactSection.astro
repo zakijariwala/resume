@@ -10,10 +10,8 @@ const githubDisplay = github.replace('https://', '');
 
 <section id="contact" class="section-spacing contact-bottom">
   <SectionHeader
-    label="GET IN TOUCH"
-    labelDev="contact"
-    labelCurious="Say hello"
     title="Contact"
+    hideLabel={true}
   />
 
   <div class="contact-grid">
@@ -135,7 +133,6 @@ const githubDisplay = github.replace('https://', '');
   color: var(--text);
   letter-spacing: -0.02em;
   margin: 0 0 var(--space-4);
-  font-optical-sizing: auto;
 }
 [data-mode="curious"] .contact-headline { font-style: italic; }
 

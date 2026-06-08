@@ -18,3 +18,6 @@ Thumbs.db
 # Agent CLI cache and internal directories
 .antigravitycli/
 .gemini/
+
+# Python cache (resume generator scripts)
+misc/__pycache__/

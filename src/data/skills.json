@@ -1,41 +1,29 @@
 [
   {
-    "category": "Infrastructure & Operations",
-    "tab_label": "Infra",
-    "items": [
-      { "name": "Linux (RHEL / Ubuntu)", "proficiency": "confident" },
-      { "name": "Identity & Access Management (IDM)", "proficiency": "confident" },
-      { "name": "Disaster Recovery & Runbook Automation", "proficiency": "confident" },
-      { "name": "Production Incident Management", "proficiency": "confident" },
-      { "name": "High Availability Systems (99.999% SLA)", "proficiency": "confident" },
-      { "name": "Windows Server", "proficiency": "confident" },
-      { "name": "VMware / Hypervisors", "proficiency": "confident" },
-      { "name": "WSL2 developer tooling", "proficiency": "confident" }
-    ]
-  },
-  {
-    "category": "Cloud & Platform Engineering",
-    "tab_label": "Cloud",
-    "items": [
-      { "name": "Docker & Containerization", "proficiency": "confident" },
-      { "name": "GitHub Actions / CI/CD Pipelines", "proficiency": "confident" },
-      { "name": "AWS (Certified Solutions Architect)", "proficiency": "confident" },
-      { "name": "Google Cloud Platform (GCP)", "proficiency": "familiar" },
-      { "name": "Oracle Cloud Free Tier configuration", "proficiency": "confident" },
-      { "name": "Cloudflare hosting & edge deployment", "proficiency": "confident" },
-      { "name": "Site Reliability Engineering (SRE)", "proficiency": "confident" },
-      { "name": "Infrastructure as Code (IaC)", "proficiency": "familiar" }
-    ]
-  },
-  {
     "category": "AI Engineering & Automation",
     "tab_label": "AI",
     "items": [
+      { "name": "LLM Orchestration & GenAI Workflow Design", "proficiency": "confident" },
       { "name": "Anthropic Claude API & Prompt Engineering", "proficiency": "confident" },
-      { "name": "GenAI Workflow Design & LLM orchestration", "proficiency": "confident" },
-      { "name": "Agent Deployment & Orchestration", "proficiency": "confident" },
-      { "name": "Email marketing automation (Brevo, Google Sheets)", "proficiency": "confident" },
-      { "name": "Private AI Security Harnesses / Red Teaming", "proficiency": "familiar" }
+      { "name": "AI Agent Design & Deployment", "proficiency": "confident" },
+      { "name": "Python AI Pipelines & ETL", "proficiency": "confident" },
+      { "name": "Email Marketing Automation (Brevo, ZeroBounce, Hunter.io)", "proficiency": "confident" },
+      { "name": "AI Product Scoping & Feasibility Assessment", "proficiency": "confident" },
+      { "name": "Private AI Security Harnesses", "proficiency": "familiar" }
+    ]
+  },
+  {
+    "category": "Product & Leadership",
+    "tab_label": "Product",
+    "items": [
+      { "name": "0-to-1 Product Development", "proficiency": "confident" },
+      { "name": "Product Discovery & Requirements Definition", "proficiency": "confident" },
+      { "name": "Cross-functional Team Leadership", "proficiency": "confident" },
+      { "name": "Technical Storytelling & Stakeholder Communication", "proficiency": "confident" },
+      { "name": "Roadmapping & Prioritization", "proficiency": "familiar" },
+      { "name": "User Research & Beta Testing", "proficiency": "familiar" },
+      { "name": "STAR Behavioural Frameworks & Coaching", "proficiency": "confident" },
+      { "name": "French", "proficiency": "learning" }
     ]
   },
   {
@@ -45,11 +33,37 @@
       { "name": "Python (ETL / Pipelines / Scripting)", "proficiency": "confident" },
       { "name": "JavaScript / TypeScript", "proficiency": "confident" },
       { "name": "Dart / Flutter", "proficiency": "confident" },
-      { "name": "C++ (Embedded)", "proficiency": "familiar" },
       { "name": "Astro JAMstack", "proficiency": "confident" },
       { "name": "Supabase & PostGIS", "proficiency": "confident" },
       { "name": "SQLite (embedded and pipeline storage)", "proficiency": "confident" },
-      { "name": "PostHog & Product Analytics", "proficiency": "confident" }
+      { "name": "PostHog & Product Analytics", "proficiency": "confident" },
+      { "name": "C++ (Embedded)", "proficiency": "familiar" }
+    ]
+  },
+  {
+    "category": "Cloud & Platform Engineering",
+    "tab_label": "Cloud",
+    "items": [
+      { "name": "Docker & Containerization", "proficiency": "confident" },
+      { "name": "GitHub Actions / CI/CD Pipelines", "proficiency": "confident" },
+      { "name": "AWS (Certified Solutions Architect)", "proficiency": "confident" },
+      { "name": "Cloudflare Pages & Edge Deployment", "proficiency": "confident" },
+      { "name": "Oracle Cloud Free Tier", "proficiency": "confident" },
+      { "name": "Google Cloud Platform (GCP)", "proficiency": "familiar" },
+      { "name": "Infrastructure as Code (IaC)", "proficiency": "familiar" }
+    ]
+  },
+  {
+    "category": "Infrastructure & Operations",
+    "tab_label": "Infra",
+    "items": [
+      { "name": "Linux (RHEL / Ubuntu)", "proficiency": "confident" },
+      { "name": "Identity & Access Management (IDM)", "proficiency": "confident" },
+      { "name": "Disaster Recovery & Runbook Automation", "proficiency": "confident" },
+      { "name": "Production Incident Management", "proficiency": "confident" },
+      { "name": "High Availability Systems (99.999% SLA)", "proficiency": "confident" },
+      { "name": "Windows Server", "proficiency": "confident" },
+      { "name": "VMware / Hypervisors", "proficiency": "confident" }
     ]
   },
   {
@@ -59,18 +73,7 @@
       { "name": "ESP32-S3 Microcontrollers", "proficiency": "familiar" },
       { "name": "Embedded C++ / ESP-IDF / PlatformIO", "proficiency": "familiar" },
       { "name": "E-Paper Display Integration", "proficiency": "familiar" },
-      { "name": "Hardware-Software Integration & Low-Power Design", "proficiency": "learning" }
-    ]
-  },
-  {
-    "category": "Leadership & Soft Skills",
-    "tab_label": "Soft",
-    "items": [
-      { "name": "Technical Storytelling", "proficiency": "confident" },
-      { "name": "Behavioural Frameworks & Mentorship", "proficiency": "confident" },
-      { "name": "Executive Communication", "proficiency": "confident" },
-      { "name": "Product and Project Management (PRINCE2, CSM)", "proficiency": "familiar" },
-      { "name": "French", "proficiency": "learning" }
+      { "name": "Hardware-Software Integration", "proficiency": "learning" }
     ]
   }
 ]
