@@ -95,7 +95,7 @@ const statusLabel = {
     <!-- Recovery curve chart — TCS only, recruiter + developer modes -->
     {isTCS && entry.show_recovery_chart && (
       <div class="recovery-chart recruiter-dev">
-        <span class="chart-label">Recovery curve — 50% RTO reduction</span>
+        <span class="chart-label">Recovery curve: 50% RTO reduction</span>
         <svg width="100%" height="100" viewBox="0 0 400 100" aria-label="Recovery curve showing 50% RTO reduction">
           <line x1="10" y1="20" x2="390" y2="20" stroke="var(--border-strong)" stroke-width="0.75" stroke-dasharray="4 3" />
           <path
@@ -176,7 +176,6 @@ const statusLabel = {
   color: var(--text);
   letter-spacing: -0.01em;
   margin: 0 0 var(--space-1);
-  font-optical-sizing: auto;
 }
 .exp-subtitle {
   font-size: var(--text-xs);

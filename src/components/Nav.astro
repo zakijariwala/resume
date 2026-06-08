@@ -143,8 +143,8 @@ const { name } = meta;
   border-radius: 9999px;
   padding: 3px 10px;
   background: var(--attention);
-  /* Heartbeat halo — always pulsing to draw attention to the switcher */
-  animation: heartbeat-halo 1.3s ease-in-out infinite;
+  animation: heartbeat-halo 1.3s ease-in-out infinite 3s;
+  animation-fill-mode: both;
   will-change: box-shadow, transform;
 }
 @keyframes heartbeat-halo {

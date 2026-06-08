@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css');
 
 @tailwind base;
@@ -65,7 +65,7 @@
   --border-strong:   rgba(0, 0, 0, 0.16);
 
   --text:            #000000;
-  --text-muted:      #000000;
+  --text-muted:      #4A4A4A;
   --text-disabled:   #6B6B6B;
 
   /* Mode-reactive accent (defaults to recruiter blue) */
@@ -98,7 +98,7 @@
   --whatsapp-glow:        rgba(37, 211, 102, 0.45);
   --whatsapp-glow-soft:   rgba(37, 211, 102, 0.0);
 
-  --font-display: 'Fraunces', Georgia, serif;
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-body:    'Inter', system-ui, sans-serif;
   --font-mono:    'JetBrains Mono', 'Courier New', monospace;
 
@@ -145,7 +145,7 @@
   --border:          rgba(255, 255, 255, 0.09);
   --border-strong:   rgba(255, 255, 255, 0.16);
   --text:            #FFFFFF;
-  --text-muted:      #FFFFFF;
+  --text-muted:      #C8C8C8;
   --text-disabled:   #9A9A9A;
 
   --status-active:        #064E3B;
@@ -328,7 +328,6 @@ a {
   letter-spacing: -0.02em;
   color: var(--text);
   margin: 0 0 var(--space-8);
-  font-optical-sizing: auto;
 }
 [data-mode="curious"] .section-title {
   font-size: clamp(var(--text-3xl), 4vw, 38px);
@@ -367,7 +366,6 @@ a {
   line-height: 1.1;
   color: var(--accent);
   letter-spacing: -0.02em;
-  font-optical-sizing: auto;
 }
 .kpi-label {
   font-family: var(--font-mono);
@@ -644,7 +642,6 @@ a {
   font-style: italic;
   font-family: var(--font-display);
   font-size: var(--text-base);
-  font-optical-sizing: auto;
   color: var(--text);
 }
 

@@ -36,33 +36,24 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
         <i class="ti ti-download" aria-hidden="true"></i>
         <span>Download resume</span>
       </a>
-      <a href="#contact" class="btn-ghost">
-        <span>Get in touch</span>
-        <i class="ti ti-arrow-right" aria-hidden="true"></i>
-      </a>
     </div>
   </div>
 
   <!-- Right column: mode-adaptive -->
   <div class="hero-right">
-    <!-- Photo — recruiter mode. Shows real photo when photo_url is set,
-         placeholder outline when empty (visible only in development). -->
-    <div class="hero-photo-wrap recruiter-only fade-in">
-      {photo_url ? (
+    <!-- Photo — recruiter mode only, renders when photo_url is set -->
+    {photo_url && (
+      <div class="hero-photo-wrap recruiter-only fade-in">
         <img
           src={photo_url}
-          alt={`${name} — headshot`}
+          alt={`${name} headshot`}
           class="hero-photo"
           width="160"
           height="160"
           loading="eager"
         />
-      ) : (
-        <div class="hero-photo-placeholder" aria-hidden="true">
-          <i class="ti ti-user"></i>
-        </div>
-      )}
-    </div>
+      </div>
+    )}
 
     <!-- Recruiter + Developer: stat card grid -->
     <div class="stat-grid recruiter-dev fade-in" style="transition-delay: 0.1s;">
@@ -132,16 +123,15 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
 .hero-name {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(40px, 5vw, 58px);
+  font-size: clamp(36px, 5vw, 56px);
   line-height: 1.1;
   letter-spacing: -0.03em;
   color: var(--text);
   margin: 0 0 var(--space-4);
-  font-optical-sizing: auto;
 }
 [data-mode="curious"] .hero-name {
   font-style: italic;
-  font-size: clamp(44px, 6vw, 64px);
+  font-size: clamp(40px, 5.5vw, 58px);
 }
 
 .hero-tagline {

@@ -5,7 +5,7 @@
     "tagline": "JAMstack · B2B Automation",
     "featured": true,
     "priority": "primary",
-    "one_line_summary": "Full digital ecosystem for a family marine parts business — storefront, cold email automation, and analytics at zero hosting cost.",
+    "one_line_summary": "Full digital ecosystem for a family marine parts business: storefront, cold email automation, and analytics at zero hosting cost.",
     "featured_metric": "~60% faster listing time",
     "why_i_built_it": "My family started a business selling refurbished marine and industrial parts, mostly through eBay. The digital side was an afterthought. I stepped in to build it properly, which meant treating a small family operation with the same engineering rigour I'd apply at work. The constraint of zero budget made it more interesting, not less.",
     "tech": ["Astro", "Cloudflare Pages", "GitHub Actions", "Python", "Claude API", "Brevo", "PostHog", "eBay Browse API"],
@@ -14,7 +14,7 @@
     "year": "2025",
     "bullets": [
       {
-        "text": "Identified the digital gap through direct conversations with 200+ B2B prospects — validating channels, value proposition, and pricing signals before writing a line of code.",
+        "text": "Identified the digital gap through direct conversations with 200+ B2B prospects, validating channels, value proposition, and pricing signals before writing a line of code.",
         "audience": ["recruiter"]
       },
       {
@@ -22,7 +22,7 @@
         "audience": ["recruiter"]
       },
       {
-        "text": "Instrumented product analytics via PostHog, tracking the full funnel from storefront visit to eBay conversion — using data to reprioritise listing categories and outreach targeting.",
+        "text": "Instrumented product analytics via PostHog, tracking the full funnel from storefront visit to eBay conversion. Used data to reprioritise listing categories and outreach targeting.",
         "audience": ["recruiter"]
       },
       {
@@ -34,7 +34,7 @@
         "audience": ["developer"]
       },
       {
-        "text": "eBay Browse API integration: Python ingestion pipeline parses product data, maps to eBay taxonomy, and pushes listings in batch — ~60% reduction in per-SKU listing time vs. manual entry.",
+        "text": "eBay Browse API integration: Python ingestion pipeline parses product data, maps to eBay taxonomy, and pushes listings in batch. ~60% reduction in per-SKU listing time vs. manual entry.",
         "audience": ["developer"]
       },
       {
@@ -42,7 +42,7 @@
         "audience": ["developer"]
       },
       {
-        "text": "Zero-persistent-backend architecture: Astro SSG → Cloudflare Pages CDN, GitHub Actions CI, all serverless — total recurring cost: $0.",
+        "text": "Zero-persistent-backend architecture: Astro SSG → Cloudflare Pages CDN, GitHub Actions CI, all serverless. Total recurring cost: $0.",
         "audience": ["developer"]
       },
       {
@@ -57,7 +57,7 @@
     "tagline": "LLM Orchestration · Multi-platform",
     "featured": false,
     "priority": "primary",
-    "one_line_summary": "YouTube Short → 6-platform publication-ready content pack in under 3 minutes — Medium article (2000+ words) plus Twitter/X, LinkedIn, Bluesky, Reddit, and Threads variants.",
+    "one_line_summary": "YouTube Short to 6-platform publication-ready content pack in under 3 minutes: Medium article (2000+ words) plus Twitter/X, LinkedIn, Bluesky, Reddit, and Threads variants.",
     "featured_metric": "85% faster drafts · 6 platforms · ~$0/run",
     "why_i_built_it": "I was writing AWS certification articles for Medium and realised the research-to-draft process was almost entirely mechanical. I built a pipeline to handle the mechanical part so the human part — judgment, voice, editing — could actually matter. The Failure First framework came from noticing that AI-generated content fails the same way every time: it starts safe and stays safe. I built rules specifically to break that pattern.",
     "tech": ["Python", "Gemini 1.5 Flash", "google-generativeai", "yt-dlp", "GitHub Actions", "atproto"],
@@ -66,15 +66,15 @@
     "year": "2025–2026",
     "bullets": [
       {
-        "text": "Identified that content-to-publication time was dominated by mechanical, repeatable steps — designed and shipped a pipeline automating transcript ingestion, LLM transformation, and multi-platform output across 6 platforms.",
+        "text": "Identified that content-to-publication time was dominated by mechanical, repeatable steps. Designed and shipped a pipeline automating transcript ingestion, LLM transformation, and multi-platform output across 6 platforms.",
         "audience": ["recruiter"]
       },
       {
-        "text": "Reduced time-to-draft by 85%; pipeline runs on a GitHub Actions workflow_dispatch trigger — open GitHub app, enter URL and niche, green checkmark in under 3 minutes, output committed to repo.",
+        "text": "Reduced time-to-draft by 85%; pipeline runs on a GitHub Actions workflow_dispatch trigger. Open GitHub app, enter URL and niche, green checkmark in under 3 minutes, output committed to repo.",
         "audience": ["recruiter"]
       },
       {
-        "text": "Built a quality gate layer ('Failure First') that detects safe/generic LLM output and forces re-generation until prose passes specificity checks — addresses the core failure mode of LLM-generated content.",
+        "text": "Built a quality gate layer ('Failure First') that detects safe/generic LLM output and forces re-generation until prose passes specificity checks, addressing the core failure mode of LLM-generated content.",
         "audience": ["recruiter"]
       },
       {
@@ -82,7 +82,7 @@
         "audience": ["recruiter"]
       },
       {
-        "text": "Two-call Gemini 1.5 Flash architecture: Call 1 generates the full Medium article (2000+ word hard floor enforced in prompts/system.md); Call 2 derives all 5 social platform variants from the finished article body — not the raw transcript — ensuring coherence across outputs.",
+        "text": "Two-call Gemini 1.5 Flash architecture: Call 1 generates the full Medium article (2000+ word hard floor enforced in prompts/system.md); Call 2 derives all 5 social platform variants from the finished article body, not the raw transcript, ensuring coherence across outputs.",
         "audience": ["developer"]
       },
       {
@@ -94,11 +94,11 @@
         "audience": ["developer"]
       },
       {
-        "text": "Bluesky auto-posting via atproto library — thread constructed from generated posts, published live if credentials are set. Medium pushes as draft only via markdown2medium. yt-dlp subtitle extraction with manual transcript fallback for Shorts lacking caption tracks.",
+        "text": "Bluesky auto-posting via atproto library. Thread constructed from generated posts, published live if credentials are set. Medium pushes as draft only via markdown2medium. yt-dlp subtitle extraction with manual transcript fallback for Shorts lacking caption tracks.",
         "audience": ["developer"]
       },
       {
-        "text": "I was writing articles and the process was the same mechanical steps every time. I automated those steps. The only interesting problem was making the output not sound like a robot — which became a framework for detecting when AI writing is being safe and forcing it to be specific instead.",
+        "text": "I was writing articles and the process was the same mechanical steps every time. I automated those steps. The only interesting problem was making the output not sound like a robot, which became a framework for detecting when AI writing is being safe and forcing it to be specific instead.",
         "audience": ["curious"]
       }
     ]
@@ -109,20 +109,20 @@
     "tagline": "SEO Experiment · eBay Attribution",
     "featured": false,
     "priority": "primary",
-    "one_line_summary": "Data-driven SEO layer for a second-hand industrial automation parts eBay store — formal experiment with null hypothesis, UTM attribution, and a 90-day decision gate built into the architecture.",
+    "one_line_summary": "Data-driven SEO layer for a second-hand industrial automation parts eBay store. Formal experiment with null hypothesis, UTM attribution, and a 90-day decision gate built into the architecture.",
     "featured_metric": "£0/month · Formal hypothesis · 90-day gate",
-    "why_i_built_it": "The family marine business already had a digital presence and email automation. The open question was whether a dedicated SEO site would actually drive eBay sales. I ran it as a formal experiment — null hypothesis, 90-day measurement window, explicit shutdown criteria. The decision to stop would be as evidence-driven as the decision to build. I wrote the shutdown criteria before I wrote the first blog post.",
+    "why_i_built_it": "The family marine business already had a digital presence and email automation. The open question was whether a dedicated SEO site would actually drive eBay sales. I ran it as a formal experiment: null hypothesis, 90-day measurement window, explicit shutdown criteria. The decision to stop would be as evidence-driven as the decision to build. I wrote the shutdown criteria before I wrote the first blog post.",
     "tech": ["Astro 4", "TypeScript", "Tailwind CSS", "eBay Browse API", "Pagefind", "GitHub Actions", "Cloudflare Pages", "PostHog"],
     "github": "https://github.com/zakijariwala/ZamaanAutomation",
     "live_url": "",
     "year": "2026",
     "bullets": [
       {
-        "text": "Framed a formal experiment before writing a line of code: defined null and alternative hypotheses, a quantitative 90-day success threshold (≥50 UTM-attributed eBay clicks/month), and explicit shutdown criteria if the threshold isn't met.",
+        "text": "Framed a formal experiment before writing a line of code: defined null and alternative hypotheses, a quantitative 90-day success threshold (50+ UTM-attributed eBay clicks/month), and explicit shutdown criteria if the threshold isn't met.",
         "audience": ["recruiter"]
       },
       {
-        "text": "Built the complete SEO discovery layer: Astro 4 static site, automated daily eBay listing sync via Browse API, UTM-attributed CTAs across 6 product categories, Pagefind full-text search, and PostHog analytics — total monthly cost: £0.",
+        "text": "Built the complete SEO discovery layer: Astro 4 static site, automated daily eBay listing sync via Browse API, UTM-attributed CTAs across 6 product categories, Pagefind full-text search, and PostHog analytics. Total monthly cost: £0.",
         "audience": ["recruiter"]
       },
       {
@@ -138,15 +138,15 @@
         "audience": ["developer"]
       },
       {
-        "text": "UTM attribution fully typed in src/lib/utm.ts — buildEbayUrl() and buildStoreUrl() enforce utm_source=zamaanautomation, utm_medium=organic, utm_campaign={pageType}, utm_content={category} on every outbound link.",
+        "text": "UTM attribution fully typed in src/lib/utm.ts. buildEbayUrl() and buildStoreUrl() enforce utm_source=zamaanautomation, utm_medium=organic, utm_campaign={pageType}, utm_content={category} on every outbound link.",
         "audience": ["developer"]
       },
       {
-        "text": "Pagefind: static full-text search index built at compile time — runs in the browser, zero server, zero API cost. PostHog event schema tracks BUY_ON_EBAY_CLICKED and CONTACT_FORM_SUBMITTED — full funnel from discovery to eBay redirect, no backend.",
+        "text": "Pagefind: static full-text search index built at compile time, runs in the browser, zero server, zero API cost. PostHog event schema tracks BUY_ON_EBAY_CLICKED and CONTACT_FORM_SUBMITTED for the full funnel from discovery to eBay redirect.",
         "audience": ["developer"]
       },
       {
-        "text": "The experiment question is: does having a website actually help sell more on eBay? I built the infrastructure to test it properly — with a real null hypothesis and a real deadline for the decision. It either reaches 50 clicks a month by Month 3 or the content investment stops.",
+        "text": "The experiment question is: does having a website actually help sell more on eBay? I built the infrastructure to test it properly, with a real null hypothesis and a real deadline for the decision. It either reaches 50 clicks a month by Month 3 or the content investment stops.",
         "audience": ["curious"]
       }
     ]
@@ -157,20 +157,20 @@
     "tagline": "PWA · Route Generation",
     "featured": false,
     "priority": "primary",
-    "one_line_summary": "Zero-build PWA that generates closed-loop running routes to a precise target distance or time — hexagonal geometric projection snapped to real pedestrian paths via OSRM, with per-km splits and GPX export.",
+    "one_line_summary": "Zero-build PWA that generates closed-loop running routes to a precise target distance or time. Hexagonal geometric projection snapped to real pedestrian paths via OSRM, with per-km splits and GPX export.",
     "featured_metric": "Zero dependencies · Offline-capable · Simulation fallback",
-    "why_i_built_it": "I wanted a route that came back to where I started and hit a target distance. Every app I tried needed me to draw the route myself. I built one that figures out the geometry — it picks a hexagon shape, tries it, measures how far off it is, and adjusts until it's close. That feedback loop is exactly how I run.",
+    "why_i_built_it": "I wanted a route that came back to where I started and hit a target distance. Every app I tried needed me to draw the route myself. I built one that figures out the geometry: it picks a hexagon shape, tries it, measures how far off it is, and adjusts until it's close. That feedback loop is exactly how I run.",
     "tech": ["JavaScript", "Leaflet", "OSRM API", "Tailwind CSS", "Service Worker"],
     "github": "https://github.com/zakijariwala/run.to",
     "live_url": "",
     "year": "2025",
     "bullets": [
       {
-        "text": "Identified a real gap: existing route planners require manual path drawing; built a generator that automatically produces closed-loop routes converging on a target distance or time.",
+        "text": "Identified a real gap: existing route planners require manual path drawing. Built a generator that automatically produces closed-loop routes converging on a target distance or time.",
         "audience": ["recruiter"]
       },
       {
-        "text": "Shipped as an installable PWA — works offline after first load, opens from home screen with no app store required.",
+        "text": "Shipped as an installable PWA. Works offline after first load, opens from home screen with no app store required.",
         "audience": ["recruiter"]
       },
       {
@@ -182,11 +182,11 @@
         "audience": ["developer"]
       },
       {
-        "text": "Fuzzy convergence: radiusFactor is adjusted each iteration based on the ratio of OSRM-returned distance to target distance — loop continues until within tolerance or max iterations reached.",
+        "text": "Fuzzy convergence: radiusFactor is adjusted each iteration based on the ratio of OSRM-returned distance to target distance. Loop continues until within tolerance or max iterations reached.",
         "audience": ["developer"]
       },
       {
-        "text": "Haversine fallback: when OSRM is unreachable, routeEngine.js computes geometric distance using the Haversine formula and renders the raw polygon as 'Simulation Mode' — app stays usable without the API.",
+        "text": "Haversine fallback: when OSRM is unreachable, routeEngine.js computes geometric distance using the Haversine formula and renders the raw polygon as 'Simulation Mode'. App stays usable without the API.",
         "audience": ["developer"]
       },
       {
@@ -194,7 +194,7 @@
         "audience": ["developer"]
       },
       {
-        "text": "I wanted a route that came back to where I started and hit a target distance. Every app I tried needed me to draw it myself. I built one that figures out the geometry — picks a hexagon, measures how far off it is, adjusts until it's close.",
+        "text": "I wanted a route that came back to where I started and hit a target distance. Every app I tried needed me to draw it myself. I built one that figures out the geometry: picks a hexagon, measures how far off it is, adjusts until it's close.",
         "audience": ["curious"]
       }
     ]
@@ -205,7 +205,7 @@
     "tagline": "PWA · Offline-first",
     "featured": false,
     "priority": "primary",
-    "one_line_summary": "Offline-first PWA delivering 22,000+ lines of multilingual Islamic liturgical content across 5 categories — sub-10ms search, 80MB offline payload, zero hosting cost.",
+    "one_line_summary": "Offline-first PWA delivering 22,000+ lines of multilingual Islamic liturgical content across 5 categories: sub-10ms search, 80MB offline payload, zero hosting cost.",
     "featured_metric": "22,000+ lines · Sub-10ms search",
     "why_i_built_it": "The existing apps for Islamic supplications were clunky, ad-heavy, or required a constant internet connection. For something as personal as duas and ziyarat, that friction felt wrong. I wanted something that worked offline, in your language, on any device, with no ads and no backend. A big part of the work was understanding the data well enough to build proper search across five content types in three scripts.",
     "tech": ["JavaScript", "PWA", "Service Workers", "Python", "SQLite"],
@@ -214,7 +214,7 @@
     "year": "2025",
     "bullets": [
       {
-        "text": "Identified a gap in available supplication apps — existing options were ad-heavy, required constant connectivity, or lacked multilingual support — and validated the problem before building.",
+        "text": "Identified a gap in available supplication apps. Existing options were ad-heavy, required constant connectivity, or lacked multilingual support. Validated the problem before building.",
         "audience": ["recruiter"]
       },
       {
@@ -226,7 +226,7 @@
         "audience": ["recruiter"]
       },
       {
-        "text": "Ran a structured beta with 40+ testers across iOS Safari, Android Chrome, and desktop — triaging feedback and shipping iterative improvements across service worker versions up to v9.",
+        "text": "Ran a structured beta with 40+ testers across iOS Safari, Android Chrome, and desktop, triaging feedback and shipping iterative improvements across service worker versions up to v9.",
         "audience": ["recruiter"]
       },
       {
@@ -234,11 +234,11 @@
         "audience": ["developer"]
       },
       {
-        "text": "Content pipeline: ron.db (87MB SQLite, authoring tool only, never committed) → scripts/export.py → 2,704 JSON files in docs/data/lines/ + 4 index files (categories.json, nav.json, search.json, audio.json). Browser fetches pre-exported JSON — no SQLite runtime in browser.",
+        "text": "Content pipeline: ron.db (87MB SQLite, authoring tool only, never committed) → scripts/export.py → 2,704 JSON files in docs/data/lines/ + 4 index files (categories.json, nav.json, search.json, audio.json). Browser fetches pre-exported JSON, no SQLite runtime in browser.",
         "audience": ["developer"]
       },
       {
-        "text": "Deep Search: search.json is a pre-built multilingual full-text index (Arabic/Urdu/English/Roman Urdu) scanned in a single vanilla JS pass — no query engine, no dependency, sub-10ms on mobile.",
+        "text": "Deep Search: search.json is a pre-built multilingual full-text index (Arabic/Urdu/English/Roman Urdu) scanned in a single vanilla JS pass, no query engine, no dependency, sub-10ms on mobile.",
         "audience": ["developer"]
       },
       {
@@ -257,7 +257,7 @@
     "tagline": "Open Source · AI Tooling",
     "featured": false,
     "priority": "primary",
-    "one_line_summary": "Open-source Claude Code skill for generating 16:9 hand-drawn article illustrations — 9 culturally-grounded character variants, 4 image generation providers with auto-detection, ported and expanded from a Chinese Codex skill.",
+    "one_line_summary": "Open-source Claude Code skill for generating 16:9 hand-drawn article illustrations: 9 culturally-grounded character variants, 4 image generation providers with auto-detection, ported and expanded from a Chinese Codex skill.",
     "featured_metric": "9 characters · 4 providers · stdlib-only",
     "why_i_built_it": "I found a Chinese-language Codex skill for illustrating articles and wanted to use it, but it didn't generate actual images and only had one character. I ported it to English, added real multi-provider image generation, and expanded one character into nine. The interesting constraint was making each character feel genuinely grounded in its cultural heritage — ukiyo-e, Madhubani, WPA posters, Arabic calligraphy, Adinkra — rather than just borrowing the aesthetic.",
     "tech": ["Python", "Claude Code", "Gemini 2.5 Flash", "gpt-image-1", "Imagen 3", "Stability AI SD3"],
@@ -270,7 +270,7 @@
         "audience": ["recruiter"]
       },
       {
-        "text": "Designed a character system grounded in distinct art traditions (ukiyo-e, Madhubani, WPA poster, Arabic calligraphy, Adinkra/kente) to avoid cultural caricature — philosophy documented and published alongside the code.",
+        "text": "Designed a character system grounded in distinct art traditions (ukiyo-e, Madhubani, WPA poster, Arabic calligraphy, Adinkra/kente) to avoid cultural caricature. Philosophy documented and published alongside the code.",
         "audience": ["recruiter"]
       },
       {
@@ -290,15 +290,15 @@
         "audience": ["developer"]
       },
       {
-        "text": "DALL-E routing: uses gpt-image-1 (1536×1024) as primary; falls back to dall-e-3 (1792×1024) automatically. stdlib Python for Gemini, DALL-E, and Imagen paths — only Stability AI requires pip install requests.",
+        "text": "DALL-E routing: uses gpt-image-1 (1536x1024) as primary; falls back to dall-e-3 (1792x1024) automatically. stdlib Python for Gemini, DALL-E, and Imagen paths, only Stability AI requires pip install requests.",
         "audience": ["developer"]
       },
       {
-        "text": "install.sh is idempotent: copies skill files to ~/.claude/skills/, reads existing settings.json and merges rather than overwriting — user's default character survives upgrades. Multi-platform: Claude Code (SKILL.md), Codex, Gemini CLI, Hermes, Antigravity agent configs all included.",
+        "text": "install.sh is idempotent: copies skill files to ~/.claude/skills/, reads existing settings.json and merges rather than overwriting. User's default character survives upgrades. Multi-platform: Claude Code (SKILL.md), Codex, Gemini CLI, Hermes, Antigravity agent configs all included.",
         "audience": ["developer"]
       },
       {
-        "text": "I found a Chinese skill for drawing article illustrations, ported it to English, and kept going — adding real image generation and expanding one character into nine. The interesting constraint was figuring out how to make each character feel like it belongs to its cultural heritage rather than just borrowing the aesthetic.",
+        "text": "I found a Chinese skill for drawing article illustrations, ported it to English, and kept going, adding real image generation and expanding one character into nine. The interesting constraint was figuring out how to make each character feel like it belongs to its cultural heritage rather than just borrowing the aesthetic.",
         "audience": ["curious"]
       }
     ]
@@ -309,9 +309,9 @@
     "tagline": "Web Dev · Performance Turnaround",
     "featured": false,
     "priority": "secondary",
-    "one_line_summary": "Full Astro 6 replacement for an IT hardware reseller's WordPress site — 14.54s cold load to sub-1s, CLS 1.0 to 0, all 5 missing security headers added. Delivered as a barter against a hardware purchase.",
+    "one_line_summary": "Full Astro 6 replacement for an IT hardware reseller's WordPress site: 14.54s cold load to sub-1s, CLS 1.0 to 0, all 5 missing security headers added. Delivered as a barter against a hardware purchase.",
     "featured_metric": "14.54s → <1s · CLS 1.0 → 0",
-    "why_i_built_it": "I was buying a laptop from an IT hardware shop and noticed their website was embarrassingly slow. I ran a full technical audit — 14.54-second cold load, maximum CLS, missing security headers — and built a complete replacement in Astro 6. Then used the audit as a negotiating tool: trade the site rebuild for a discount on the hardware. The whole negotiation ran on technical evidence.",
+    "why_i_built_it": "I was buying a laptop from an IT hardware shop and noticed their website was embarrassingly slow. I ran a full technical audit and built a complete replacement in Astro 6. Then used the audit as a negotiating tool: trade the site rebuild for a discount on the hardware. The whole negotiation ran on technical evidence.",
     "tech": ["Astro 6", "TypeScript", "Tailwind CSS", "Cloudflare Pages", "@fontsource/inter"],
     "github": "",
     "live_url": "",
@@ -322,11 +322,11 @@
         "audience": ["recruiter"]
       },
       {
-        "text": "Scoped and delivered a complete replacement site in Astro 6 — hardware catalog across 6 categories, WhatsApp inquiry CTAs, all performance and security issues resolved — as a barter against a product purchase.",
+        "text": "Scoped and delivered a complete replacement site in Astro 6: hardware catalog across 6 categories, WhatsApp inquiry CTAs, all performance and security issues resolved, as a barter against a product purchase.",
         "audience": ["recruiter"]
       },
       {
-        "text": "Agency equivalent in Mumbai: ₹25,000–60,000. Delivered as leverage in a price negotiation, not as a paid engagement.",
+        "text": "Agency equivalent in Mumbai: Rs 25,000–60,000. Delivered as leverage in a price negotiation, not as a paid engagement.",
         "audience": ["recruiter"]
       },
       {
@@ -334,15 +334,15 @@
         "audience": ["developer"]
       },
       {
-        "text": "public/_headers: adds all 5 security headers missing from the original site (X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy, Content-Security-Policy) — fixes Snyk 'Grade capped at A' finding.",
+        "text": "public/_headers: adds all 5 security headers missing from the original site (X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy, Content-Security-Policy), fixing the Snyk 'Grade capped at A' finding.",
         "audience": ["developer"]
       },
       {
-        "text": "public/_redirects: maps all legacy WordPress URLs to current equivalents — preserves any inbound links after migration. CSS-only hamburger nav — no JavaScript toggle, no event listeners.",
+        "text": "public/_redirects: maps all legacy WordPress URLs to current equivalents, preserving any inbound links after migration. CSS-only hamburger nav, no JavaScript toggle, no event listeners.",
         "audience": ["developer"]
       },
       {
-        "text": "I was about to buy a laptop and noticed the shop's website was unusably slow. I ran an audit, built a replacement, and offered to trade it for a discount. The whole negotiation ran on technical evidence — a Lighthouse report, a Snyk scan, and a cold-load comparison.",
+        "text": "I was about to buy a laptop and noticed the shop's website was unusably slow. I ran an audit, built a replacement, and offered to trade it for a discount. The whole negotiation ran on technical evidence: a Lighthouse report, a Snyk scan, and a cold-load comparison.",
         "audience": ["curious"]
       }
     ]
@@ -353,16 +353,16 @@
     "tagline": "Embedded · Hardware",
     "featured": false,
     "priority": "secondary",
-    "one_line_summary": "A pocket e-ink reading device built on ESP32-S3 — custom firmware, SQLite content storage, and a Python EPUB ingestion pipeline.",
+    "one_line_summary": "A pocket e-ink reading device built on ESP32-S3: custom firmware, SQLite content storage, and a Python EPUB ingestion pipeline.",
     "featured_metric": "Functional prototype",
-    "why_i_built_it": "Reading on a phone destroys your eyes and your battery life. E-readers exist but they're expensive, locked down, and designed around ecosystems I don't want to be in. I wanted a device that did exactly one thing — display text clearly — and cost almost nothing to run. Building the firmware myself meant understanding every layer of the stack, from EPUB parsing down to the display driver.",
+    "why_i_built_it": "Reading on a phone destroys your eyes and your battery life. E-readers exist but they're expensive, locked down, and designed around ecosystems I don't want to be in. I wanted a device that did exactly one thing: display text clearly, at almost nothing to run. Building the firmware myself meant understanding every layer of the stack, from EPUB parsing down to the display driver.",
     "tech": ["Embedded C++", "ESP32-S3", "ESP-IDF", "PlatformIO", "Python", "SQLite"],
     "github": "",
     "live_url": "",
     "year": "2025",
     "bullets": [
       {
-        "text": "Designed and built a working hardware product end-to-end — from EPUB ingestion pipeline to custom embedded firmware with stable e-ink display rendering.",
+        "text": "Designed and built a working hardware product end-to-end: from EPUB ingestion pipeline to custom embedded firmware with stable e-ink display rendering.",
         "audience": ["recruiter"]
       },
       {
@@ -370,7 +370,7 @@
         "audience": ["developer"]
       },
       {
-        "text": "Developed embedded C++ firmware (ESP-IDF/PlatformIO) integrating SD card storage and SQLite for robust content management — storing and paginating 50+ EPUB-converted documents in testing.",
+        "text": "Developed embedded C++ firmware (ESP-IDF/PlatformIO) integrating SD card storage and SQLite for robust content management, storing and paginating 50+ EPUB-converted documents in testing.",
         "audience": ["developer"]
       },
       {
@@ -378,7 +378,7 @@
         "audience": ["developer"]
       },
       {
-        "text": "Reading on a phone is miserable. I built my own pocket e-ink reader from scratch — designing every layer yourself, from the EPUB parser to the display driver, turns out to be more satisfying than buying one.",
+        "text": "Reading on a phone is miserable. I built my own pocket e-ink reader from scratch. Designing every layer yourself, from the EPUB parser to the display driver, turns out to be more satisfying than buying one.",
         "audience": ["curious"]
       }
     ]
@@ -389,7 +389,7 @@
     "tagline": "Infrastructure · DevOps",
     "featured": false,
     "priority": "secondary",
-    "one_line_summary": "A persistent cloud Linux dev environment on Oracle Free Tier — full-stack workflows from any device, zero cost, 99%+ uptime over 18 months.",
+    "one_line_summary": "A persistent cloud Linux dev environment on Oracle Free Tier: full-stack workflows from any device, zero cost, 99%+ uptime over 18 months.",
     "featured_metric": "99%+ uptime · 18 months",
     "why_i_built_it": "My personal projects involve a lot of long-running processes — builds, pipelines, SSH tunnels — that don't play well with a laptop that goes to sleep. I also wanted to be able to develop from my phone when away from a desk. Oracle Cloud's free tier is genuinely powerful if you configure it right, and Zellij with persistent sessions solves the context-loss problem that makes remote development frustrating.",
     "tech": ["Oracle Cloud Free Tier", "Zellij", "Termius", "Linux", "Ubuntu"],
@@ -398,11 +398,11 @@
     "year": "2024",
     "bullets": [
       {
-        "text": "Set up and maintained a persistent cloud development environment with 99%+ uptime over 18 months — enabling full-stack development workflows from any device at zero recurring cost.",
+        "text": "Set up and maintained a persistent cloud development environment with 99%+ uptime over 18 months, enabling full-stack development workflows from any device at zero recurring cost.",
         "audience": ["recruiter"]
       },
       {
-        "text": "Designed and configured a fully persistent remote Linux development environment on Oracle Cloud Free Tier — production-equivalent compute at zero recurring cost.",
+        "text": "Designed and configured a fully persistent remote Linux development environment on Oracle Cloud Free Tier: production-equivalent compute at zero recurring cost.",
         "audience": ["developer"]
       },
       {
@@ -414,7 +414,7 @@
         "audience": ["developer"]
       },
       {
-        "text": "I got tired of long-running builds dying when my laptop went to sleep. I set up a server in the cloud that's always on — which means I can write code from my phone when I'm away from a desk.",
+        "text": "I got tired of long-running builds dying when my laptop went to sleep. I set up a server in the cloud that's always on, which means I can write code from my phone when I'm away from a desk.",
         "audience": ["curious"]
       }
     ]

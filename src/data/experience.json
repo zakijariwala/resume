@@ -4,10 +4,10 @@
     "company": "Tata Consultancy Services",
     "subtitle": "Deployed at State Bank of India (SBI GITC)",
     "title": "Systems Engineer, IDM & Infrastructure",
-    "dates": "2023 — Present",
+    "dates": "2023–Present",
     "status": "active",
     "context_tag": "banking_infrastructure",
-    "curious_intro": "For my day job I keep a major bank's systems running for tens of thousands of people — the kind of work where success means nobody ever notices it.",
+    "curious_intro": "For my day job I keep a major bank's systems running for tens of thousands of people. The kind of work where success means nobody ever notices it.",
     "kpis": [
       { "value": "99.999%", "label": "System Uptime" },
       { "value": "30,000+", "label": "Users Supported" },
@@ -16,11 +16,11 @@
     ],
     "bullets": [
       {
-        "text": "Led an operations team delivering 99.999% availability for Tier-1 banking applications across 30,000+ branch users — setting team priorities, mentoring 5 engineers, and managing escalations end-to-end.",
+        "text": "Led an operations team delivering 99.999% availability for Tier-1 banking applications across 30,000+ branch users: setting team priorities, mentoring 5 engineers, and managing escalations end-to-end.",
         "audience": ["recruiter", "management"]
       },
       {
-        "text": "Drove infrastructure modernisation, evaluated build-vs-buy tradeoffs, secured stakeholder alignment, and led adoption of on-premise container-based workflows within compliance boundaries — translating engineering constraints into a prioritised delivery roadmap for leadership.",
+        "text": "Drove infrastructure modernisation, evaluated build-vs-buy tradeoffs, secured stakeholder alignment, and led adoption of on-premise container-based workflows within compliance boundaries. Translated engineering constraints into a prioritised delivery roadmap for leadership.",
         "audience": ["recruiter", "management"]
       },
       {
@@ -28,7 +28,7 @@
         "audience": ["recruiter", "management"]
       },
       {
-        "text": "Operated IBM Security Identity Manager (ISIM) on RHEL 8 — managing user provisioning, access governance, and policy enforcement across 150+ application servers in an on-premise Tier-1 banking datacenter maintaining 99.999% platform SLA via active-passive HA clustering and automated health monitoring.",
+        "text": "Operated IBM Security Identity Manager (ISIM) on RHEL 8, managing user provisioning, access governance, and policy enforcement across 150+ application servers in an on-premise Tier-1 banking datacenter maintaining 99.999% platform SLA via active-passive HA clustering and automated health monitoring.",
         "audience": ["developer"]
       },
       {
@@ -36,15 +36,15 @@
         "audience": ["developer"]
       },
       {
-        "text": "Authored cross-team DR runbooks covering IDM primary/replica switchover, application server restart sequences, and database consistency validation — reducing RTO from ~4 hours to under 2 hours (50% reduction) through structured tabletop drills and live execution.",
+        "text": "Authored cross-team DR runbooks covering IDM primary/replica switchover, application server restart sequences, and database consistency validation, reducing RTO from ~4 hours to under 2 hours (50% reduction) through structured tabletop drills and live execution.",
         "audience": ["developer"]
       },
       {
-        "text": "Automated recurring ops tasks (patch compliance checks, certificate rotation tracking, capacity utilisation reports) in Python and Bash — eliminating ~8 hours/week of manual overhead across the team.",
+        "text": "Automated recurring ops tasks (patch compliance checks, certificate rotation tracking, capacity utilisation reports) in Python and Bash, eliminating ~8 hours/week of manual overhead across the team.",
         "audience": ["developer"]
       },
       {
-        "text": "The day job means keeping banking infrastructure alive for tens of thousands of people. Success is invisible — if nobody notices, everything went right.",
+        "text": "The day job means keeping banking infrastructure alive for tens of thousands of people. Success is invisible: if nobody notices, everything went right.",
         "audience": ["curious"]
       }
     ],
@@ -55,7 +55,7 @@
     "company": "Independent Coaching Practice",
     "subtitle": "Technical interview readiness for engineering and management candidates",
     "title": "Founder & Technical Communication Coach",
-    "dates": "2025 — 2026 (Concluded)",
+    "dates": "2025–2026 (Concluded)",
     "status": "dim",
     "context_tag": "communication",
     "curious_intro": "For a while I ran a small coaching practice helping engineers talk about their work in a way that actually lands with people who aren't engineers.",
@@ -65,11 +65,11 @@
     ],
     "bullets": [
       {
-        "text": "Founded and scaled a coaching practice from zero — handling client acquisition, curriculum design, and end-to-end delivery for 50+ engineering and management professionals.",
+        "text": "Founded and scaled a coaching practice from zero, handling client acquisition, curriculum design, and end-to-end delivery for 50+ engineering and management professionals.",
         "audience": ["recruiter", "developer", "management"]
       },
       {
-        "text": "Designed a structured curriculum covering STAR-method framing, stakeholder communication, and senior-level interview strategy — iterating based on client outcomes and session feedback.",
+        "text": "Designed a structured curriculum covering STAR-method framing, stakeholder communication, and senior-level interview strategy, iterating based on client outcomes and session feedback.",
         "audience": ["recruiter", "developer", "management"]
       },
       {
@@ -77,7 +77,7 @@
         "audience": ["recruiter", "developer", "management"]
       },
       {
-        "text": "Turned out that teaching engineers to explain themselves clearly is a harder problem than it looks — and more satisfying to solve than I expected.",
+        "text": "Turned out that teaching engineers to explain themselves clearly is a harder problem than it looks, and more satisfying to solve than I expected.",
         "audience": ["curious"]
       }
     ],
