@@ -59,7 +59,7 @@ Five content categories: **Qur'an**, **Namaz** (prayers), **Dua** (supplications
 
 ## 2. Content Automation Pipeline
 **Repo:** `zakijariwala/medium-workflow`
-**Status:** IN PORTFOLIO (`id: "content_automation"`) — current entry describes the old Tauri/React 19 desktop GUI version. The repo is now a Python + Gemini 1.5 Flash pipeline with 6-platform output and a GitHub Actions mobile trigger. Update the entry entirely.
+**Status:** IN PORTFOLIO (`id: "content_automation"`) — current entry describes the old Tauri/React 19 desktop GUI version. The repo is now a Python + Gemini 1.5 Flash pipeline with 7-platform output and a GitHub Actions mobile trigger. Update the entry entirely.
 
 ### Meta
 ```json
@@ -68,8 +68,8 @@ Five content categories: **Qur'an**, **Namaz** (prayers), **Dua** (supplications
   "name": "Content Automation Pipeline",
   "tagline": "LLM Orchestration · Multi-platform",
   "featured": false,
-  "one_line_summary": "YouTube Short → 6-platform publication-ready content pack in under 3 minutes — Medium article (2000+ words) plus Twitter/X, LinkedIn, Bluesky, Reddit, and Threads variants.",
-  "featured_metric": "85% faster drafts · 6 platforms · ~$0/run",
+  "one_line_summary": "YouTube Short → 7-platform publication-ready content pack in under 3 minutes — Medium article (2000+ words) plus Twitter/X, LinkedIn, Facebook, Bluesky, Reddit, and Threads variants.",
+  "featured_metric": "85% faster drafts · 7 platforms · ~$0/run",
   "year": "2025–2026",
   "tech": ["Python", "Gemini 1.5 Flash", "google-generativeai", "yt-dlp", "GitHub Actions", "atproto"],
   "github": "https://github.com/zakijariwala/medium-workflow"
@@ -77,7 +77,7 @@ Five content categories: **Qur'an**, **Namaz** (prayers), **Dua** (supplications
 ```
 
 ### Actual platform output (from `pipeline.py`)
-**6 platforms:** Medium, Twitter/X, LinkedIn, Bluesky, Reddit, Threads. Facebook is **not** in the pipeline. The previous portfolio description mentioning Facebook was incorrect.
+**7 platforms:** Medium, Twitter/X, LinkedIn, Facebook, Bluesky, Reddit, Threads. Facebook is in the pipeline with a dedicated `_fmt_facebook()` function and confirmed example output (`examples/ai-productivity/facebook.md`).
 
 Output files per run committed to `output/[niche]/[niche]_[YYYY-MM-DD_HH-MM].md`. Four actual output sets already in the repo: ai-productivity, consumer-tech, personal-finance, self-improvement.
 
@@ -90,10 +90,10 @@ Output files per run committed to `output/[niche]/[niche]_[YYYY-MM-DD_HH-MM].md`
 - Identified that content-to-publication time was dominated by mechanical, repeatable steps — designed and shipped a pipeline automating transcript ingestion, LLM transformation, and multi-platform output across 6 platforms.
 - Reduced time-to-draft by 85%; pipeline runs on a GitHub Actions `workflow_dispatch` trigger — open GitHub app, enter URL and niche, green checkmark in under 3 minutes, output committed to repo.
 - Built a quality gate layer ("Failure First") that detects safe/generic LLM output and forces re-generation until prose passes specificity checks — addresses the core failure mode of LLM-generated content.
-- 12 niche-specific prompt frameworks adapt tone, structure, and framing per domain without modifying the core pipeline.
+- 12 niche-specific prompt frameworks adapt tone, structure, and framing per domain across 7 platforms (Medium article + Twitter/X, LinkedIn, Facebook, Bluesky, Reddit, Threads) without modifying the core pipeline.
 
 **Developer**
-- Two-call Gemini 1.5 Flash architecture: Call 1 generates the full Medium article (2000+ word hard floor enforced in `prompts/system.md`); Call 2 derives all 5 social platform variants from the finished article body — not the raw transcript — ensuring coherence across outputs.
+- Two-call Gemini 1.5 Flash architecture: Call 1 generates the full Medium article (2000+ word hard floor enforced in `prompts/system.md`); Call 2 derives all 6 social platform variants (Twitter/X, LinkedIn, Facebook, Bluesky, Reddit, Threads) from the finished article body — not the raw transcript — ensuring coherence across outputs.
 - Failure First framework: heuristic validators scan for hedging language, filler phrases, and passive-voice saturation; triggered gates resubmit with escalating specificity constraints until output clears all checks.
 - CI mode: `_IS_CI = bool(os.getenv("CI"))` — GitHub Actions sets this automatically, eliminating all `input()` calls that would hang the workflow runner.
 - Bluesky auto-posting via `atproto` library — thread constructed from generated posts, published live if `BLUESKY_HANDLE` + `BLUESKY_APP_PASSWORD` are set. Medium pushes as draft only via `markdown2medium`.
@@ -116,8 +116,8 @@ Output files per run committed to `output/[niche]/[niche]_[YYYY-MM-DD_HH-MM].md`
   "name": "run.to",
   "tagline": "PWA · Route Generation",
   "featured": false,
-  "one_line_summary": "Zero-build PWA that generates closed-loop running routes to a precise target distance or time — hexagonal geometric projection snapped to real pedestrian paths via OSRM, with per-km splits and GPX export.",
-  "featured_metric": "Zero dependencies · Offline-capable · Simulation fallback",
+  "one_line_summary": "Zero-build PWA that generates closed-loop running routes to a precise target distance or time — hexagonal geometric projection snapped to real pedestrian paths via OSRM, with per-km splits, GPX export, and a 5-channel social share panel.",
+  "featured_metric": "Zero dependencies · Offline-capable · Web Share API",
   "year": "2025",
   "tech": ["JavaScript", "Leaflet", "OSRM API", "Tailwind CSS CDN", "Service Worker"],
   "github": "https://github.com/zakijariwala/run.to"
@@ -125,24 +125,29 @@ Output files per run committed to `output/[niche]/[niche]_[YYYY-MM-DD_HH-MM].md`
 ```
 
 ### What the app actually does (from `js/routeEngine.js` and `js/app.js`)
-Two input modes: **distance** (km) and **time** (converted to km at 5.5 min/km running pace). Route generator: hexagonal geometric loop (6 sides, random rotational offset per generation) → OSRM `/route/v1/foot/` API for pedestrian path snapping → fuzzy iteration adjusts radius until actual route distance converges on target. Haversine fallback ("Simulation Mode") activates when OSRM is unreachable. Output: Leaflet map with polyline overlay, per-km splits list, result distance + estimated time, GPX export, Google Maps deep-link for turn-by-turn.
+Two input modes: **distance** (km) and **time** (converted to km at 5.5 min/km running pace). Route generator: hexagonal geometric loop (6 sides, random rotational offset per generation) → OSRM `/route/v1/foot/` API for pedestrian path snapping → fuzzy iteration adjusts radius until actual route distance converges on target. Haversine fallback ("Simulation Mode") activates when OSRM is unreachable. Output: Leaflet map with polyline overlay, per-km splits via `RouteEngine.calculateSplits()`, result distance + estimated time, GPX export, Google Maps deep-link for turn-by-turn.
+
+**Social share panel (5 channels):** Instagram Story (Web Share API — generates PNG file attachment), WhatsApp Status (Web Share API — image + route text), Twitter (intent URL), Facebook (`facebook.com/sharer/sharer.php`), Copy Link. Skeleton loading states (`skeleton`, `skeleton-splits` CSS classes) shown during OSRM fetch. Routing start location bug fixed (OSRM now receives actual device coordinates, not the default fallback). Full UX redesign shipped across 9 phases (8 prioritised improvements: skeleton states, pace splits, share panel, routing fix, etc.).
 
 ### Stack specifics (from `index.html`)
-PWA with `manifest.json` (display: standalone, theme: #0f172a) and `sw.js`. Leaflet 1.9.4, Tailwind CSS, and Lucide icons all loaded via CDN — no npm, no build step. Two JS files: `js/app.js` (UI, geolocation, map, export) and `js/routeEngine.js` (geometric loop + OSRM fetch + Haversine fallback). Default location: London (51.505, -0.09) if geolocation is denied.
+PWA with `manifest.json` (display: standalone, theme: #0f172a) and `sw.js`. Leaflet 1.9.4, Tailwind CSS, and Lucide icons all loaded via CDN — no npm, no build step. Two JS files: `js/app.js` (UI, geolocation, map, export, share panel) and `js/routeEngine.js` (geometric loop + OSRM fetch + `calculateSplits()` + Haversine fallback). Default location: London (51.505, -0.09) if geolocation is denied. `_headers` file added for Cloudflare Pages security headers. Alternative aesthetic explored on `caveman-rebrand` branch.
 
 ### Bullets
 
 **Recruiter**
 - Identified a real gap: existing route planners require manual path drawing; built a generator that automatically produces closed-loop routes converging on a target distance or time.
 - Shipped as an installable PWA — works offline after first load, opens from home screen with no app store required.
-- Two input modes (distance and time), per-km splits, GPX export for Garmin/Strava compatibility, and a Google Maps deep-link for walkers who want turn-by-turn navigation.
+- Two input modes (distance and time), per-km splits, GPX export for Garmin/Strava compatibility, a Google Maps deep-link for turn-by-turn navigation, and a 5-channel social share panel (Instagram Story, WhatsApp Status, Twitter, Facebook, Copy Link) using Web Share API for native file sharing on mobile.
 
 **Developer**
 - Hexagonal geometric projection engine (`routeEngine.js`): calculates a 6-sided polygon with a random rotational offset around the start point, then snaps all 6 waypoints to pedestrian routes via OSRM `/route/v1/foot/`. The random offset generates a different route orientation on every run.
 - Fuzzy convergence: `radiusFactor` is adjusted each iteration based on the ratio of OSRM-returned distance to target distance. Loop continues until within tolerance or max iterations reached.
 - Haversine fallback: when OSRM is unreachable, `routeEngine.js` computes geometric distance using the Haversine formula and renders the raw polygon as "Simulation Mode" — app stays usable without the API.
 - Zero-build stack: Leaflet 1.9.4 + Tailwind CSS + Lucide icons all loaded from CDN. No npm, no bundler. Service worker caches app shell for offline use.
-- Time mode: user input in minutes → converted to target distance at 5.5 min/km → same route engine runs. Splits rendered as per-km estimates.
+- Time mode: user input in minutes → converted to target distance at 5.5 min/km → same route engine runs. Per-km splits calculated via `RouteEngine.calculateSplits()` and rendered as an estimated pace list.
+- Social share: Instagram Story and WhatsApp Status both use Web Share API with a generated PNG canvas snapshot as a file attachment — native share sheet on iOS and Android. Twitter and Facebook fall back to intent/sharer URLs. Copy Link uses `navigator.clipboard`.
+- Skeleton loaders (`.skeleton`, `.skeleton-splits` CSS classes) mask the OSRM latency — UI never shows blank boxes during fetch.
+- Routing start location bug fixed: OSRM now receives the device's actual GPS coordinates as the route origin, not the default London fallback.
 
 **Curious**
 - I wanted a route that came back to where I started and hit a target distance. Every app I tried needed me to draw the route myself. I built one that figures out the geometry — it picks a hexagon shape, tries it, measures how far off it is, and adjusts until it's close. That feedback loop is exactly how I run.
@@ -291,15 +296,59 @@ Astro 6.4.4 + Tailwind CSS v3 + TypeScript site. Node ≥22.12.0 required. 6 har
 
 ---
 
+## 7. The Sentinel Visualizer
+**Repo:** `zakijariwala/PythonAlgos` — **`main` branch** (separate project from GidsTek on `master`)
+**Status:** NEW — not in portfolio. Distinct from the GidsTek entry (which lives on `master`). Add as a separate entry; note the repo rename is needed at GitHub level.
+
+### Meta
+```json
+{
+  "id": "sentinel_visualizer",
+  "name": "The Sentinel Visualizer",
+  "tagline": "WASM · ML Education",
+  "featured": false,
+  "one_line_summary": "Browser-native Transformer/Attention mechanism explainer — SvelteKit static site running TensorFlow.js WASM and Three.js for in-browser training, vector space rendering, and formula display without any server.",
+  "featured_metric": "In-browser training · WASM backend · Zero server",
+  "year": "2026",
+  "tech": ["SvelteKit", "Svelte 5", "TypeScript", "Vite", "TensorFlow.js WASM", "Three.js", "KaTeX"],
+  "github": "https://github.com/zakijariwala/PythonAlgos/tree/main"
+}
+```
+
+### What is actually built (from `main` branch inspection)
+SvelteKit with static adapter, Svelte 5, TypeScript, Vite. Package name: `algos-vis`. Three main visualisation components: `CanvasHeatmap.svelte` (attention matrix heatmap), `Formula.svelte` (KaTeX-rendered equations), `VectorSpacePlot.svelte` (Three.js 3D vector space). Web Worker: `worker-transformer.ts` runs transformer training off the main thread using TensorFlow.js WASM backend — UI stays responsive during training. `@types/katex` and `@types/three` confirm static typing throughout. Deployed as a static site — no server, no backend.
+
+### Bullets
+
+**Recruiter**
+- Identified that Transformer/Attention explanations online describe the maths but never let you watch it happen — built a browser tool that trains a minimal Transformer in the browser and renders attention patterns live as a heatmap.
+- Zero server architecture: training runs in a Web Worker (off-thread) with TensorFlow.js WASM backend — the entire ML computation runs in the browser, no GPU instance, no backend API.
+- Published as a static SvelteKit site — instant deploy to any CDN, no infrastructure management.
+
+**Developer**
+- TensorFlow.js WASM backend selected over WebGL for deterministic cross-device behavior — WASM runs on any browser without GPU dependency.
+- Web Worker isolation (`worker-transformer.ts`): training loop runs entirely off the main thread via `postMessage` — heatmap updates arrive as structured data; the UI thread only renders.
+- Three.js (`VectorSpacePlot.svelte`): token/embedding vectors rendered as navigable 3D point cloud — illustrates high-dimensional space collapsing to 3D for intuition-building.
+- KaTeX (`Formula.svelte`): inline mathematical formula rendering without MathJax overhead — all equations rendered client-side from LaTeX strings.
+- `CanvasHeatmap.svelte`: Canvas 2D API rendering of the attention weight matrix — updates on each training step to show attention patterns forming in real time.
+
+**Curious**
+- Attention mechanisms are described in every ML course, but the description is always static diagrams. I wanted to watch the weights change while the model trains — so I built something that does exactly that, in a browser tab, with no server. The interesting constraint was keeping the UI responsive while training: that's why it runs in a Worker.
+
+---
+
 ## Notes for Portfolio Update
 
 ### Priority order for new entries:
 1. **ZamaanAutomation** — strongest PM story: formal hypothesis, quantitative gate, experiment-driven build
 2. **Ian Xiaohei** — open-source AI tooling differentiator; multi-agent review pattern is notable
 3. **GidsTek** — after GitHub repo is renamed at the account level; strong Curious-mode story
+4. **The Sentinel Visualizer** — `PythonAlgos/main`; SvelteKit + TensorFlow.js WASM ML explainer; add only after deciding whether to feature GidsTek (`master`) separately or roll both under a single repo mention
+
+**Note on PythonAlgos:** The repo has two unrelated projects on different branches — GidsTek (`master`, Astro 6 hardware site) and The Sentinel Visualizer (`main`, SvelteKit ML explainer). Portfolio should treat them as distinct entries. The repo rename to `gidstek-site` at GitHub level would break the `main` branch link; decide whether to fork/split before renaming.
 
 ### Existing entries requiring correction:
-- `content_automation` — update entirely: remove Tauri/React 19 reference, remove Facebook, correct to 6 platforms, update stack to `google-generativeai` + `yt-dlp` + `atproto`
+- `content_automation` — update entirely: remove Tauri/React 19 reference, correct to 7 platforms (Medium + Twitter/X + LinkedIn + Facebook + Bluesky + Reddit + Threads), update stack to `google-generativeai` + `yt-dlp` + `atproto`
 - `path_of_supplication` — add `github` and `live_url` fields; expand content scope to mention all 5 categories (currently only says "duas and ziyarat")
 - `run_to` — **decision needed**: portfolio says Flutter/Dart/Supabase; repo is Vanilla JS PWA/OSRM. These are different products. Either confirm the Flutter version exists separately and keep that entry, or replace with the current Vanilla JS version using the bullets above.
 
