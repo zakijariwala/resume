@@ -1,0 +1,339 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import meta from '../data/meta.json';
+import labData from '../data/lab.json';
+
+type ProjectStatus = 'active' | 'pending' | 'paused' | 'done';
+
+interface LabProject {
+  id: string;
+  name: string;
+  status: ProjectStatus;
+  status_label: string;
+  phase: string;
+  current_focus: string;
+  next_action: string;
+  links: {
+    github?: string;
+    live?: string;
+    portfolio?: string;
+  };
+}
+
+const projects = labData.projects as LabProject[];
+
+const pageTitle = `Lab — ${meta.name}`;
+const pageDescription = 'Active projects and current build status. A public view of what is being built right now.';
+
+// Format the date for display
+const updatedDate = new Date(labData.updated).toLocaleDateString('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<Base title={pageTitle} description={pageDescription}>
+  <Nav />
+
+  <main
+    class="flex-1 w-full mx-auto px-4 lg:px-6"
+    style="max-width: var(--layout-max);"
+  >
+    <section class="lab-header fade-in">
+      <div class="lab-eyebrow">
+        <span class="recruiter-only">Build Status</span>
+        <span class="dev-only">// lab</span>
+        <span class="curious-only">In progress</span>
+      </div>
+      <h1 class="lab-title">Lab</h1>
+      <p class="lab-description">
+        <span class="recruiter-only">{labData.description.recruiter}</span>
+        <span class="dev-only">{labData.description.developer}</span>
+        <span class="curious-only">{labData.description.curious}</span>
+      </p>
+      <div class="lab-meta">
+        <span class="lab-updated">Updated {updatedDate}</span>
+        <a href="/" class="lab-back-link">
+          <i class="ti ti-arrow-left" aria-hidden="true"></i>
+          Portfolio
+        </a>
+      </div>
+    </section>
+
+    <section class="lab-projects" aria-label="Project status list">
+      {projects.map((project, i) => (
+        <div class={`lab-row fade-in`} style={`transition-delay: ${i * 0.05}s`}>
+          <div class="lab-row-head">
+            <div class="lab-status">
+              <span class={`lab-status-dot status-${project.status}`} aria-hidden="true"></span>
+              <span class={`lab-status-label status-${project.status}`}>{project.status_label}</span>
+            </div>
+            <div class="lab-project-name">
+              <span>{project.name}</span>
+              {project.links.live && (
+                <a
+                  href={project.links.live}
+                  class="lab-link"
+                  target={project.links.live.startsWith('http') ? '_blank' : '_self'}
+                  rel={project.links.live.startsWith('http') ? 'noopener noreferrer' : ''}
+                  aria-label={`Open ${project.name} live site`}
+                >
+                  <i class="ti ti-external-link" aria-hidden="true"></i>
+                </a>
+              )}
+              {project.links.github && (
+                <a
+                  href={project.links.github}
+                  class="lab-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${project.name} on GitHub`}
+                >
+                  <i class="ti ti-brand-github" aria-hidden="true"></i>
+                </a>
+              )}
+              {project.links.portfolio && (
+                <a
+                  href={project.links.portfolio}
+                  class="lab-link"
+                  aria-label={`${project.name} in portfolio`}
+                >
+                  <i class="ti ti-layout-grid" aria-hidden="true"></i>
+                </a>
+              )}
+            </div>
+            <div class="lab-phase">{project.phase}</div>
+          </div>
+
+          <div class="lab-row-body">
+            <div class="lab-field">
+              <span class="lab-field-label">Now</span>
+              <span class="lab-field-value">{project.current_focus}</span>
+            </div>
+            <div class="lab-field">
+              <span class="lab-field-label">Next</span>
+              <span class="lab-field-value">{project.next_action}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </section>
+
+    <div class="lab-footer-note fade-in" style="transition-delay: 0.3s;">
+      <p class="lab-footer-text">
+        This is a live view updated as projects move. Status reflects real current state, not post-hoc polishing.
+      </p>
+      <a href="/" class="btn-primary lab-back-btn">
+        <i class="ti ti-arrow-left" aria-hidden="true"></i>
+        <span>Back to portfolio</span>
+      </a>
+    </div>
+
+    <Footer />
+  </main>
+</Base>
+
+<style>
+.lab-header {
+  padding-top: calc(var(--nav-height) + var(--space-12));
+  padding-bottom: var(--space-10);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0;
+}
+@media (max-width: 768px) {
+  .lab-header { padding-top: calc(var(--nav-height) + var(--space-6)); }
+}
+
+.lab-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  margin-bottom: var(--space-3);
+}
+
+.lab-title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--text);
+  margin: 0 0 var(--space-4);
+}
+
+.lab-description {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--text-muted);
+  line-height: 1.65;
+  max-width: 56ch;
+  margin: 0 0 var(--space-5);
+}
+
+.lab-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.lab-updated {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-disabled);
+  letter-spacing: 0.04em;
+}
+
+.lab-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--accent-text);
+  text-decoration: none;
+  transition: color var(--motion-fast);
+}
+.lab-back-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.lab-back-link i { font-size: 14px; }
+
+/* Project rows */
+.lab-projects {
+  margin-bottom: var(--space-10);
+}
+
+.lab-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: var(--space-8);
+  padding: var(--space-6) 0;
+  border-bottom: 1px solid var(--border);
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .lab-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}
+
+.lab-row-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.lab-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.lab-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+.lab-status-dot.status-active { background: var(--status-active-text); }
+.lab-status-dot.status-pending { background: var(--status-pending-text); }
+.lab-status-dot.status-paused,
+.lab-status-dot.status-done { background: var(--text-disabled); }
+
+.lab-status-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-disabled);
+}
+.lab-status-label.status-active { color: var(--status-active-text); }
+.lab-status-label.status-pending { color: var(--status-pending-text); }
+
+.lab-project-name {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--text);
+}
+
+.lab-link {
+  color: var(--text-disabled);
+  font-size: 14px;
+  line-height: 1;
+  transition: color var(--motion-fast);
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+.lab-link:hover { color: var(--accent-text); }
+
+.lab-phase {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+.lab-row-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding-top: var(--space-1);
+}
+
+.lab-field {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: var(--space-3);
+  align-items: baseline;
+}
+
+.lab-field-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-disabled);
+  padding-top: 2px;
+}
+
+.lab-field-value {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* Footer note */
+.lab-footer-note {
+  padding: var(--space-10) 0 var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.lab-footer-text {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-disabled);
+  max-width: 52ch;
+  margin: 0;
+  line-height: 1.65;
+}
+
+.lab-back-btn {
+  align-self: flex-start;
+}
+</style>

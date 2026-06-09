@@ -1,0 +1,110 @@
+{
+  "updated": "2026-06-09",
+  "description": {
+    "recruiter": "Active projects and current build status. Updated as things ship.",
+    "developer": "Live build log — statuses come from per-project markdown in cos-os/.",
+    "curious": "What I'm actually working on right now, and what comes next."
+  },
+  "projects": [
+    {
+      "id": "path_of_supplication",
+      "name": "Path of Supplication",
+      "status": "active",
+      "status_label": "Active",
+      "phase": "Post-launch iteration",
+      "current_focus": "Service worker v9 stability monitoring and community launch announcement.",
+      "next_action": "Publish r/shia community post; triage post-soft-launch feedback.",
+      "links": {
+        "github": "https://github.com/zakijariwala/DUASRON",
+        "live": "https://duas.zakijariwala.space",
+        "portfolio": "/#projects"
+      }
+    },
+    {
+      "id": "content_automation",
+      "name": "Content Automation Pipeline",
+      "status": "active",
+      "status_label": "Active",
+      "phase": "Shipped — maintenance",
+      "current_focus": "7-platform output pipeline running. Failure First quality gates stable.",
+      "next_action": "Extend niche prompt library; evaluate Gemini 2.0 model upgrade.",
+      "links": {
+        "github": "https://github.com/zakijariwala/medium-workflow",
+        "portfolio": "/#projects"
+      }
+    },
+    {
+      "id": "run_to",
+      "name": "run.to",
+      "status": "active",
+      "status_label": "Active",
+      "phase": "Shipped — UX iteration",
+      "current_focus": "Evaluating caveman-rebrand branch aesthetic against current design.",
+      "next_action": "Decide on rebrand direction; ship or discard the branch.",
+      "links": {
+        "github": "https://github.com/zakijariwala/run.to",
+        "portfolio": "/#projects"
+      }
+    },
+    {
+      "id": "zamaan_automation",
+      "name": "Zamaan Automation",
+      "status": "active",
+      "status_label": "Active — 90-day gate open",
+      "phase": "Experiment Month 1",
+      "current_focus": "Monitoring UTM-attributed eBay referral clicks. Daily listing sync running.",
+      "next_action": "Validate minimum threshold: 50+ UTM clicks/month by Month 3, or shut down content investment.",
+      "links": {
+        "github": "https://github.com/zakijariwala/ZamaanAutomation",
+        "portfolio": "/#projects"
+      }
+    },
+    {
+      "id": "ian_xiaohei",
+      "name": "Ian Xiaohei Illustrations",
+      "status": "active",
+      "status_label": "Published",
+      "phase": "Open source — maintenance",
+      "current_focus": "Community adoption monitoring. 14 example illustrations published.",
+      "next_action": "Respond to issues/PRs; consider additional character variants.",
+      "links": {
+        "github": "https://github.com/zakijariwala/ian-xiaohei-illustrations-english-claude-code",
+        "portfolio": "/#projects"
+      }
+    },
+    {
+      "id": "gidstek_site",
+      "name": "GidsTek Website",
+      "status": "pending",
+      "status_label": "Pending handoff",
+      "phase": "Built — awaiting deployment",
+      "current_focus": "Awaiting hardware barter confirmation before going live.",
+      "next_action": "Confirm deal terms; deploy to Cloudflare Pages under client domain.",
+      "links": {
+        "portfolio": "/#projects"
+      }
+    },
+    {
+      "id": "sentinel_visualizer",
+      "name": "The Sentinel Visualizer",
+      "status": "active",
+      "status_label": "In development",
+      "phase": "Building v1",
+      "current_focus": "TF.js WASM Web Worker training loop and Three.js vector space rendering.",
+      "next_action": "Complete attention heatmap animation; first public deploy to Cloudflare Pages.",
+      "links": {
+        "github": "https://github.com/zakijariwala/PythonAlgos/tree/main"
+      }
+    },
+    {
+      "id": "cos_os",
+      "name": "cos/os",
+      "status": "active",
+      "status_label": "Active",
+      "phase": "Operational",
+      "current_focus": "This page. Telegram bot for idle project alerts.",
+      "next_action": "Wire Telegram stale-alert bot; add Notion sync via GitHub Actions.",
+      "links": {}
+    }
+  ]
+}

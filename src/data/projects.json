@@ -384,6 +384,46 @@
     ]
   },
   {
+    "id": "cos_os",
+    "name": "cos/os",
+    "tagline": "Personal OS · Project Tracking",
+    "featured": false,
+    "priority": "secondary",
+    "one_line_summary": "A markdown-based project operating system: per-project status files, Telegram idle alerts, Notion sync via GitHub Actions, and a public lab page.",
+    "featured_metric": "8 active projects tracked",
+    "why_i_built_it": "I had too many things in motion at once and kept losing track of what was blocked, what was moving, and what hadn't been touched in weeks. I built a simple system: each project gets a markdown file with its current status, what I'm doing now, and what's next. A bot pings me when something's gone stale. The public lab page is the same data, sanitised. It felt more honest than pretending all projects are always finished.",
+    "tech": ["Markdown", "GitHub Actions", "Cloudflare Workers", "Telegram Bot API", "Notion API"],
+    "github": "",
+    "live_url": "/lab",
+    "year": "2025",
+    "bullets": [
+      {
+        "text": "Built a lightweight project OS to maintain visibility across 8 active builds: each project has a markdown status file tracking current phase, focus, and next action.",
+        "audience": ["recruiter"]
+      },
+      {
+        "text": "Telegram bot (Cloudflare Worker) sends stale-project alerts when a project file hasn't been updated in over 7 days. No context loss across parallel builds.",
+        "audience": ["recruiter"]
+      },
+      {
+        "text": "Markdown-first architecture: per-project .md files in cos-os/ committed alongside the portfolio repo. GitHub Actions sync to Notion on push. Zero external dependencies for the core tracking system.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "Cloudflare Worker handles Telegram webhook: parses incoming messages, reads project file state, sends structured status summaries. Stale-check cron triggers daily at 08:00 UTC.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "Public lab page (/lab) renders sanitised project status at build time from lab.json: same data the private markdown files track, minus internal notes and risks.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "I had too many projects going at once and kept forgetting what was stuck. I built a simple system where each project has a file that says what's happening now and what's next. A bot tells me when I've been ignoring something. The lab page is just the public version of that.",
+        "audience": ["curious"]
+      }
+    ]
+  },
+  {
     "id": "remote_dev_server",
     "name": "Personal Remote Dev Server",
     "tagline": "Infrastructure · DevOps",
