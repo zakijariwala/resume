@@ -166,12 +166,12 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
 /* Photo — lives in hero-right, above cards */
 .hero-photo-wrap {
   display: flex;
-  justify-content: flex-start;
-  margin-bottom: var(--space-5);
+  justify-content: center;
+  margin-bottom: var(--space-6);
 }
 .hero-photo {
-  width: 100px;
-  height: 100px;
+  width: 168px;
+  height: 168px;
   border-radius: 9999px;
   object-fit: cover;
   object-position: center top;
@@ -179,8 +179,8 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
   display: block;
 }
 .hero-photo-placeholder {
-  width: 100px;
-  height: 100px;
+  width: 168px;
+  height: 168px;
   border-radius: 9999px;
   border: 1px solid var(--border-strong);
   display: flex;
@@ -190,14 +190,14 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
 }
 .hero-photo-initials {
   font-family: var(--font-mono);
-  font-size: 18px;
+  font-size: 28px;
   font-weight: 600;
   letter-spacing: 0.08em;
   color: var(--text-disabled);
 }
 @media (max-width: 768px) {
-  .hero-photo { width: 72px; height: 72px; }
-  .hero-photo-placeholder { width: 72px; height: 72px; }
+  .hero-photo { width: 96px; height: 96px; }
+  .hero-photo-placeholder { width: 96px; height: 96px; }
 }
 
 /* Stat grid */
