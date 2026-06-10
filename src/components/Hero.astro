@@ -19,8 +19,8 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
 
     <h1 class="hero-name">{name}</h1>
 
-    <!-- Photo — recruiter mode only, right after name -->
-    <div class="hero-photo-wrap recruiter-only fade-in">
+    <!-- Photo — all modes, right after name -->
+    <div class="hero-photo-wrap all-modes fade-in">
       {photo_url ? (
         <img
           src={photo_url}
