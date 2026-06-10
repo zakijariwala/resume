@@ -1,0 +1,458 @@
+---
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, resolve } from 'node:path';
+
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import meta from '../data/meta.json';
+import projectsData from '../data/projects.json';
+
+// ── Read source files at build time ──────────────────────────────────────────
+
+const __filename = fileURLToPath(import.meta.url);
+const __dir = dirname(__filename);
+const root = resolve(__dir, '../..');
+
+const portfolioMd = readFileSync(resolve(root, 'cos-os/projects/portfolio.md'), 'utf-8');
+const dashboardMd = readFileSync(resolve(root, 'cos-os/dashboard.md'), 'utf-8');
+
+// ── Dashboard section extractor ───────────────────────────────────────────────
+
+const DASHBOARD_HDRS = [
+  'LAST_SYNC','TOP_PRIORITIES','CRITICAL_RISKS','ACTIVE_PROJECTS',
+  'WAITING','DECISIONS_PENDING','INBOX_COUNT','INBOX_OVERFLOW_FILES',
+];
+
+function dashboardSection(section: string): string {
+  const terminators = DASHBOARD_HDRS.map(h => `^${h}:`).join('|');
+  const re = new RegExp(`^${section}:([\\s\\S]*?)(?=${terminators}|$)`, 'm');
+  const m = dashboardMd.match(re);
+  if (!m) return '';
+  return m[1].trim();
+}
+
+const topPriorities = dashboardSection('TOP_PRIORITIES');
+const hasPriorities = topPriorities && topPriorities !== '-' && topPriorities.trim().length > 1;
+
+// ── Portfolio project parser ──────────────────────────────────────────────────
+
+type ProjectStatus = 'active' | 'done' | 'paused' | 'at-risk' | 'blocked' | 'idle';
+
+interface ParsedProject {
+  name: string;
+  status: ProjectStatus;
+  statusLabel: string;
+  phase: string;
+  currentFocus: string;
+  nextAction: string;
+  lastUpdated: string;
+  id: string;
+  github: string;
+  liveUrl: string;
+}
+
+function extractSection(chunk: string, header: string): string {
+  const lines = chunk.split('\n');
+  let inside = false;
+  const collected: string[] = [];
+  for (const line of lines) {
+    if (line.startsWith(`## ${header}`)) { inside = true; continue; }
+    if (inside && /^## [A-Z]/.test(line)) break;
+    if (inside) collected.push(line);
+  }
+  return collected.join('\n').trim();
+}
+
+function parseStatus(raw: string): { status: ProjectStatus; statusLabel: string } {
+  const line = raw.split('\n').find(l => l.trim().length > 0) ?? '';
+  let status: ProjectStatus = 'idle';
+  if (line.includes('🔄')) status = 'active';
+  else if (line.includes('✅')) status = 'done';
+  else if (line.includes('⏸')) status = 'paused';
+  else if (line.includes('⚠️')) status = 'at-risk';
+  else if (line.includes('🔴')) status = 'blocked';
+  else if (line.includes('⬜')) status = 'idle';
+  // Strip leading non-word chars (emoji + spaces) to get clean label
+  const statusLabel = line.trim().replace(/^[^\w]+\s*/, '').trim()
+    || (status.charAt(0).toUpperCase() + status.slice(1));
+  return { status, statusLabel };
+}
+
+// Build a lookup map from projects.json for links
+const projectLinks = Object.fromEntries(
+  projectsData.map(p => [p.id, { github: p.github ?? '', liveUrl: p.live_url ?? '' }])
+);
+
+const chunks = portfolioMd.split(/^## PROJECT: /m).slice(1);
+
+const projects: ParsedProject[] = chunks.map(chunk => {
+  const name = chunk.split('\n')[0].trim();
+  const rawStatus = extractSection(chunk, 'STATUS');
+  const { status, statusLabel } = parseStatus(rawStatus);
+  const phase        = extractSection(chunk, 'PHASE');
+  const currentFocus = extractSection(chunk, 'CURRENT_FOCUS');
+  const nextActionsRaw = extractSection(chunk, 'NEXT_ACTIONS');
+  const nextAction = nextActionsRaw.split('\n').find(l => l.trim().startsWith('-'))
+    ?.replace(/^-\s*/, '').trim() ?? '';
+  const lastUpdated  = extractSection(chunk, 'LAST_UPDATED');
+  const id           = extractSection(chunk, 'ID');
+  const { github, liveUrl } = projectLinks[id] ?? { github: '', liveUrl: '' };
+  return { name, status, statusLabel, phase, currentFocus, nextAction, lastUpdated, id, github, liveUrl };
+});
+
+// Latest update date across all projects
+const latestDate = projects
+  .map(p => p.lastUpdated)
+  .filter(Boolean)
+  .sort()
+  .at(-1) ?? '';
+
+const formattedDate = latestDate
+  ? new Date(latestDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+  : 'unknown';
+
+const activeCount = projects.filter(p => p.status === 'active').length;
+
+const pageTitle = `Now — ${meta.name}`;
+const pageDescription = `What ${meta.name} is actively building right now. Live project status updated on push.`;
+---
+
+<Base title={pageTitle} description={pageDescription}>
+  <Nav />
+
+  <main
+    class="flex-1 w-full mx-auto px-4 lg:px-6"
+    style="max-width: var(--layout-max);"
+  >
+    <!-- Header -->
+    <section class="now-header fade-in">
+      <div class="now-eyebrow">
+        <span class="recruiter-only">Current Focus</span>
+        <span class="dev-only">// now</span>
+        <span class="curious-only">Right now</span>
+      </div>
+      <h1 class="now-title">Now</h1>
+      <p class="now-description">
+        <span class="recruiter-only">{activeCount} active builds. Status updated on every push.</span>
+        <span class="dev-only">Parsed from <code class="now-code">cos-os/projects/portfolio.md</code> at build time. No server, no API.</span>
+        <span class="curious-only">What I'm actually working on, and what comes next. Updated whenever something moves.</span>
+      </p>
+      <div class="now-meta">
+        <span class="now-updated">Updated {formattedDate}</span>
+        <a href="/" class="now-back-link">
+          <i class="ti ti-arrow-left" aria-hidden="true"></i>
+          Portfolio
+        </a>
+      </div>
+    </section>
+
+    <!-- Dashboard priorities (only if populated) -->
+    {hasPriorities && (
+      <section class="now-priorities fade-in" style="transition-delay: 0.05s;">
+        <div class="now-priorities-label">
+          <span class="recruiter-only">Top priorities</span>
+          <span class="dev-only">// TOP_PRIORITIES</span>
+          <span class="curious-only">What matters most right now</span>
+        </div>
+        <pre class="now-priorities-text">{topPriorities}</pre>
+      </section>
+    )}
+
+    <!-- Project list -->
+    <section class="now-projects" aria-label="Project status list">
+      {projects.map((project, i) => (
+        <div class="now-row fade-in" style={`transition-delay: ${(i + 1) * 0.04}s`}>
+          <div class="now-row-head">
+            <div class="now-status">
+              <span class={`now-dot status-${project.status}`} aria-hidden="true"></span>
+              <span class={`now-status-label status-${project.status}`}>{project.statusLabel}</span>
+            </div>
+
+            <div class="now-project-name">
+              <span>{project.name}</span>
+              {project.liveUrl && project.liveUrl !== '/now' && (
+                <a
+                  href={project.liveUrl}
+                  class="now-link"
+                  target={project.liveUrl.startsWith('http') ? '_blank' : '_self'}
+                  rel={project.liveUrl.startsWith('http') ? 'noopener noreferrer' : ''}
+                  aria-label={`Open ${project.name} live`}
+                >
+                  <i class="ti ti-external-link" aria-hidden="true"></i>
+                </a>
+              )}
+              {project.github && (
+                <a
+                  href={project.github}
+                  class="now-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${project.name} on GitHub`}
+                >
+                  <i class="ti ti-brand-github" aria-hidden="true"></i>
+                </a>
+              )}
+            </div>
+
+            <div class="now-phase">{project.phase}</div>
+          </div>
+
+          <div class="now-row-body">
+            <div class="now-field">
+              <span class="now-field-label">Now</span>
+              <span class="now-field-value">{project.currentFocus}</span>
+            </div>
+            <div class="now-field">
+              <span class="now-field-label">Next</span>
+              <span class="now-field-value">{project.nextAction}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </section>
+
+    <div class="now-footer-note fade-in" style={`transition-delay: ${(projects.length + 1) * 0.04}s`}>
+      <p class="now-footer-text">
+        This page is generated at build time from <code class="now-code">cos-os/projects/portfolio.md</code>. It reflects real current state — updated whenever a project moves, not after the fact.
+      </p>
+      <a href="/" class="btn-primary now-back-btn">
+        <i class="ti ti-arrow-left" aria-hidden="true"></i>
+        <span>Back to portfolio</span>
+      </a>
+    </div>
+
+    <Footer />
+  </main>
+</Base>
+
+<style>
+/* Header */
+.now-header {
+  padding-top: calc(var(--nav-height) + var(--space-12));
+  padding-bottom: var(--space-10);
+  border-bottom: 1px solid var(--border);
+}
+@media (max-width: 768px) {
+  .now-header { padding-top: calc(var(--nav-height) + var(--space-6)); }
+}
+
+.now-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  margin-bottom: var(--space-3);
+}
+
+.now-title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--text);
+  margin: 0 0 var(--space-4);
+}
+
+.now-description {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--text-muted);
+  line-height: 1.65;
+  max-width: 58ch;
+  margin: 0 0 var(--space-5);
+}
+
+.now-code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  color: var(--accent-text);
+  background: var(--accent-subtle);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.now-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.now-updated {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-disabled);
+  letter-spacing: 0.04em;
+}
+
+.now-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--accent-text);
+  text-decoration: none;
+  transition: color var(--motion-fast);
+}
+.now-back-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.now-back-link i { font-size: 14px; }
+
+/* Dashboard priorities */
+.now-priorities {
+  padding: var(--space-6) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.now-priorities-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-disabled);
+  margin-bottom: var(--space-3);
+}
+
+.now-priorities-text {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  line-height: 1.7;
+  white-space: pre-wrap;
+  margin: 0;
+}
+
+/* Project rows */
+.now-projects { margin-bottom: var(--space-6); }
+
+.now-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: var(--space-8);
+  padding: var(--space-6) 0;
+  border-bottom: 1px solid var(--border);
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .now-row { grid-template-columns: 1fr; gap: var(--space-4); }
+}
+
+.now-row-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.now-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.now-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+.now-dot.status-active  { background: var(--status-active-text); }
+.now-dot.status-at-risk { background: var(--status-pending-text); }
+.now-dot.status-blocked { background: #ef4444; }
+.now-dot.status-paused,
+.now-dot.status-done,
+.now-dot.status-idle    { background: var(--text-disabled); }
+
+.now-status-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-disabled);
+}
+.now-status-label.status-active  { color: var(--status-active-text); }
+.now-status-label.status-at-risk { color: var(--status-pending-text); }
+.now-status-label.status-blocked { color: #ef4444; }
+
+.now-project-name {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--text);
+}
+
+.now-link {
+  color: var(--text-disabled);
+  font-size: 14px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: color var(--motion-fast);
+}
+.now-link:hover { color: var(--accent-text); }
+
+.now-phase {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.now-row-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding-top: var(--space-1);
+}
+
+.now-field {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: var(--space-3);
+  align-items: baseline;
+}
+
+.now-field-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-disabled);
+  padding-top: 2px;
+}
+
+.now-field-value {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* Footer */
+.now-footer-note {
+  padding: var(--space-10) 0 var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.now-footer-text {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-disabled);
+  max-width: 54ch;
+  margin: 0;
+  line-height: 1.65;
+}
+
+.now-back-btn { align-self: flex-start; }
+</style>

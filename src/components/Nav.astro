@@ -2,7 +2,7 @@
 import meta from '../data/meta.json';
 
 const { name } = meta;
-const isLab = Astro.url.pathname.replace(/\/$/, '').endsWith('/lab');
+const isNow = Astro.url.pathname.replace(/\/$/, '').endsWith('/now');
 ---
 
 <!-- Desktop top nav -->
@@ -28,9 +28,9 @@ const isLab = Astro.url.pathname.replace(/\/$/, '').endsWith('/lab');
     <a href="#skills" class="desktop-nav-link nav-link">Skills</a>
     <a href="#certifications" class="desktop-nav-link nav-link">Certs</a>
     <a href="#contact" class="desktop-nav-link nav-link">Contact</a>
-    <a href="/lab" class:list={['nav-link lab-nav-link', { active: isLab }]}>
+    <a href="/now" class:list={['nav-link lab-nav-link', { active: isNow }]}>
       <i class="ti ti-flask" aria-hidden="true"></i>
-      Lab
+      Now
     </a>
   </nav>
 
@@ -77,7 +77,7 @@ const isLab = Astro.url.pathname.replace(/\/$/, '').endsWith('/lab');
   <a href="#projects" class="mobile-nav-link mob-link"><i class="ti ti-code text-lg"></i><span>Projects</span></a>
   <a href="#skills" class="mobile-nav-link mob-link"><i class="ti ti-cpu text-lg"></i><span>Skills</span></a>
   <a href="#contact" class="mobile-nav-link mob-link"><i class="ti ti-mail text-lg"></i><span>Contact</span></a>
-  <a href="/lab" class:list={['mob-link', { active: isLab }]}><i class="ti ti-flask text-lg"></i><span>Lab</span></a>
+  <a href="/now" class:list={['mob-link', { active: isNow }]}><i class="ti ti-flask text-lg"></i><span>Now</span></a>
 </nav>
 
 <style>

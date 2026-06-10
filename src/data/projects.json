@@ -389,12 +389,12 @@
     "tagline": "Personal OS · Project Tracking",
     "featured": false,
     "priority": "secondary",
-    "one_line_summary": "A markdown-based project operating system: per-project status files, Telegram idle alerts, Notion sync via GitHub Actions, and a public lab page.",
+    "one_line_summary": "A markdown-based project operating system: per-project status files, Telegram idle alerts, Notion sync via GitHub Actions, and a public /now page.",
     "featured_metric": "8 active projects tracked",
     "why_i_built_it": "I had too many things in motion at once and kept losing track of what was blocked, what was moving, and what hadn't been touched in weeks. I built a simple system: each project gets a markdown file with its current status, what I'm doing now, and what's next. A bot pings me when something's gone stale. The public lab page is the same data, sanitised. It felt more honest than pretending all projects are always finished.",
     "tech": ["Markdown", "GitHub Actions", "Cloudflare Workers", "Telegram Bot API", "Notion API"],
     "github": "",
-    "live_url": "/lab",
+    "live_url": "/now",
     "year": "2025",
     "bullets": [
       {
@@ -414,7 +414,7 @@
         "audience": ["developer"]
       },
       {
-        "text": "Public lab page (/lab) renders sanitised project status at build time from lab.json: same data the private markdown files track, minus internal notes and risks.",
+        "text": "Public /now page parses cos-os/projects/portfolio.md at Astro build time via node:fs — no intermediate JSON, no sync script, no extra workflow. Page updates on every push to main.",
         "audience": ["developer"]
       },
       {
