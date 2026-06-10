@@ -1,9 +1,8 @@
 # Shorthand redirects for sharing mode-specific resume views easily
-/r           /?mode=recruiter   302
-/d           /?mode=developer   302
-/c           /?mode=curious     302
-/x           /?mode=chaos       302
+/r           /resume?mode=recruiter   302
+/d           /resume?mode=developer   302
+/c           /resume?mode=curious     302
+/x           /resume?mode=chaos       302
 
 # Custom paths for accessibility
 /cv          /resume.pdf   301
-/resume      /             302
