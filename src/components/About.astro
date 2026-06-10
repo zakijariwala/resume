@@ -25,6 +25,8 @@ const { about } = meta;
           <p>{about.callout}</p>
         </div>
       )}
+
+      <img src="/illust-path-of-supplication.png" class="about-illust fade-in" alt="" aria-hidden="true" loading="lazy" width="400" height="160" style="transition-delay: 0.15s;" />
     </aside>
 
     <!-- Right: prose -->
@@ -77,6 +79,15 @@ const { about } = meta;
 @media (max-width: 768px) {
   .about-sidebar { position: static; }
 }
+.about-illust {
+  display: block;
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: var(--radius-sm);
+}
+
 .about-framing {
   font-size: var(--text-sm);
   color: var(--text-muted);

@@ -68,6 +68,7 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
 
     <!-- Curious: personal currently block -->
     <div class="currently-block curious-only fade-in" style="transition-delay: 0.1s;">
+      <img src="/illust-curious-hero.png" class="currently-illust" alt="" aria-hidden="true" loading="lazy" width="400" height="160" />
       <div class="currently-label">Currently</div>
       <p class="currently-text">{currently}</p>
     </div>
@@ -213,6 +214,16 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
   border: 1px solid var(--border);
   border-radius: var(--card-radius);
   padding: var(--space-6);
+  overflow: hidden;
+}
+.currently-illust {
+  display: block;
+  width: calc(100% + var(--space-12));
+  margin: calc(-1 * var(--space-6)) calc(-1 * var(--space-6)) var(--space-5);
+  height: 160px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: calc(var(--card-radius) - 1px) calc(var(--card-radius) - 1px) 0 0;
 }
 .currently-label {
   font-family: var(--font-mono);
