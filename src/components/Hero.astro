@@ -19,24 +19,6 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
 
     <h1 class="hero-name">{name}</h1>
 
-    <!-- Photo — all modes, right after name -->
-    <div class="hero-photo-wrap all-modes fade-in">
-      {photo_url ? (
-        <img
-          src={photo_url}
-          alt={`${name} headshot`}
-          class="hero-photo"
-          width="160"
-          height="160"
-          loading="eager"
-        />
-      ) : (
-        <div class="hero-photo-placeholder" aria-hidden="true">
-          <span class="hero-photo-initials">ZJ</span>
-        </div>
-      )}
-    </div>
-
     <p class="hero-tagline">
       <span class="recruiter-only">{taglines.recruiter}</span>
       <span class="dev-only">{taglines.developer}</span>
@@ -59,6 +41,24 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
 
   <!-- Right column: mode-adaptive -->
   <div class="hero-right">
+    <!-- Photo — all modes, above cards -->
+    <div class="hero-photo-wrap all-modes fade-in">
+      {photo_url ? (
+        <img
+          src={photo_url}
+          alt={`${name} headshot`}
+          class="hero-photo"
+          width="200"
+          height="200"
+          loading="eager"
+        />
+      ) : (
+        <div class="hero-photo-placeholder" aria-hidden="true">
+          <span class="hero-photo-initials">ZJ</span>
+        </div>
+      )}
+    </div>
+
     <!-- Recruiter + Developer: stat card grid -->
     <div class="stat-grid recruiter-dev fade-in" style="transition-delay: 0.1s;">
       {stats.map((stat, i) => (
@@ -163,23 +163,24 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
   align-items: center;
 }
 
-/* Photo — lives in hero-left, below the name */
+/* Photo — lives in hero-right, above cards */
 .hero-photo-wrap {
   display: flex;
   justify-content: flex-start;
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-5);
 }
 .hero-photo {
-  width: 64px;
-  height: 64px;
+  width: 100px;
+  height: 100px;
   border-radius: 9999px;
   object-fit: cover;
+  object-position: center top;
   border: 2px solid var(--border-strong);
   display: block;
 }
 .hero-photo-placeholder {
-  width: 64px;
-  height: 64px;
+  width: 100px;
+  height: 100px;
   border-radius: 9999px;
   border: 1px solid var(--border-strong);
   display: flex;
@@ -189,13 +190,14 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
 }
 .hero-photo-initials {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 600;
   letter-spacing: 0.08em;
   color: var(--text-disabled);
 }
 @media (max-width: 768px) {
-  .hero-photo-wrap { margin-bottom: var(--space-3); }
+  .hero-photo { width: 72px; height: 72px; }
+  .hero-photo-placeholder { width: 72px; height: 72px; }
 }
 
 /* Stat grid */
