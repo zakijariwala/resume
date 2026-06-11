@@ -21,3 +21,6 @@ Thumbs.db
 
 # Python cache (resume generator scripts)
 misc/__pycache__/
+
+# Graphify knowledge graph output (tool-generated)
+graphify-out/
