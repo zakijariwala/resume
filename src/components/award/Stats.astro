@@ -1,0 +1,60 @@
+---
+import meta from '../../data/meta.json';
+const { stats } = meta;
+---
+
+<section class="astats wrap">
+  <div class="astats-grid">
+    {stats.map((stat) => (
+      <div class="astat rv">
+        <span class="astat-val" data-count>{stat.value}</span>
+        <span class="astat-label">{stat.label}</span>
+        <span class="astat-sub">{stat.sublabel}</span>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+.astats { padding-block: var(--section-gap); }
+.astats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+.astat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 32px;
+  border-left: 1px solid var(--line);
+}
+.astat:first-child { border-left: none; padding-left: 0; }
+.astat-val {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: clamp(34px, 4vw, 56px);
+  line-height: 1;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+.astat-label {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text);
+  margin-top: 8px;
+}
+.astat-sub {
+  font-size: 13px;
+  color: var(--faint);
+}
+
+@media (max-width: 900px) {
+  .astats-grid { grid-template-columns: 1fr 1fr; row-gap: 40px; }
+  .astat:nth-child(3) { border-left: none; padding-left: 0; }
+}
+@media (max-width: 480px) {
+  .astats-grid { grid-template-columns: 1fr; }
+  .astat { border-left: none; padding-inline: 0; }
+}
+</style>

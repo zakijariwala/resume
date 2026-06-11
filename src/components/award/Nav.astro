@@ -1,0 +1,65 @@
+---
+---
+
+<header class="anav" id="anav">
+  <div class="wrap anav-row">
+    <a href="#top" class="anav-mark" aria-label="Back to top">MZJ</a>
+    <nav class="anav-links" aria-label="Main navigation">
+      <a href="#work" class="anav-link">Work</a>
+      <a href="#about" class="anav-link">About</a>
+      <a href="#experience" class="anav-link">Experience</a>
+      <a href="/now" class="anav-link">Now</a>
+    </nav>
+    <a href="#contact" class="btn btn-ghost anav-cta">Contact</a>
+  </div>
+</header>
+
+<style>
+.anav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 90;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  background: rgba(10, 10, 14, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.anav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.anav-mark {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  color: var(--text);
+}
+.anav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.anav-link {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.anav-link:hover { color: var(--text); }
+.anav-cta { padding: 9px 20px; font-size: 13px; }
+
+@media (max-width: 640px) {
+  .anav-links { gap: 20px; }
+  .anav-link:nth-child(3) { display: none; }
+}
+</style>

@@ -1,0 +1,289 @@
+---
+import projects from '../../data/projects.json';
+
+const byId = Object.fromEntries(projects.map(p => [p.id, p]));
+
+// Card order + visual treatment. Illustrations where they exist,
+// typographic accent panels where they don't (no fake screenshots).
+const cards = [
+  {
+    p: byId['zamaan_marine'],
+    blurb: 'Storefront, AI cold-email funnel, and analytics for a family marine parts business. Zero hosting cost, 90%+ inbox delivery.',
+    visual: 'panel',
+    panelText: '$0 / month to run',
+    panelTone: 'coral',
+  },
+  {
+    p: byId['content_automation'],
+    blurb: 'A YouTube Short goes in. A 2,000-word article and five platform variants come out, in under three minutes.',
+    visual: 'image',
+    img: '/illust-curious-hero.png',
+    alt: 'Illustration of a character working late at a laptop under lamplight',
+  },
+  {
+    p: byId['path_of_supplication'],
+    blurb: '22,000 lines of multilingual liturgical content, searchable in under 10ms, fully offline. Built for a community the app stores forgot.',
+    visual: 'image',
+    img: '/illust-path-of-supplication.png',
+    alt: 'Illustration of a phone showing Arabic script against a geometric lattice',
+  },
+  {
+    p: byId['run_to'],
+    blurb: 'Tell it a distance. It invents a closed-loop route that brings you home, snapped to real pedestrian paths.',
+    visual: 'panel',
+    panelText: 'Loops that come home',
+    panelTone: 'slate',
+  },
+  {
+    p: byId['esp_pocket'],
+    blurb: 'A pocket e-ink reader built from the firmware up: EPUB parser, SQLite storage, display driver. Every layer mine.',
+    visual: 'image',
+    img: '/illust-esp-pocket.png',
+    alt: 'Illustration of a small character beside a handmade e-reader device',
+  },
+];
+
+const more = [
+  { p: byId['gidstek_site'], note: 'WordPress 14.5s cold load rebuilt to sub-1s Astro. Traded for hardware.' },
+  { p: byId['zamaan_automation'], note: 'SEO as a formal experiment: null hypothesis, 90-day kill gate.' },
+  { p: byId['cos_os'], note: 'Markdown project OS with Telegram stale alerts. Powers the /now page.' },
+  { p: byId['remote_dev_server'], note: '18 months of always-on cloud dev environment at zero cost.' },
+];
+---
+
+<section class="awork" id="work">
+  <div class="wrap">
+    <h2 class="h-giant awork-title rv">Selected work</h2>
+  </div>
+
+  <div class="awork-stack" data-stack>
+    {cards.map(({ p, blurb, visual, img, alt, panelText, panelTone }) => (
+      <article class="awork-card" data-stack-card>
+        <div class="awork-card-inner">
+          <div class="awork-info">
+            <p class="mono-label awork-tag">{p.tagline}</p>
+            <h3 class="awork-name">{p.name}</h3>
+            <p class="awork-blurb">{blurb}</p>
+            <div class="awork-chips">
+              {p.tech.slice(0, 4).map(t => <span class="awork-chip">{t}</span>)}
+            </div>
+            <div class="awork-links">
+              <span class="awork-metric">{p.featured_metric}</span>
+              {p.live_url && p.live_url.startsWith('http') && (
+                <a href={p.live_url} target="_blank" rel="noopener noreferrer" class="awork-link">
+                  Live <i class="ti ti-arrow-up-right" aria-hidden="true"></i>
+                </a>
+              )}
+              {p.github && (
+                <a href={p.github} target="_blank" rel="noopener noreferrer" class="awork-link">
+                  Code <i class="ti ti-arrow-up-right" aria-hidden="true"></i>
+                </a>
+              )}
+            </div>
+          </div>
+
+          <div class="awork-visual">
+            {visual === 'image' ? (
+              <img src={img} alt={alt} loading="lazy" class="awork-img" />
+            ) : (
+              <div class={`awork-panel awork-panel-${panelTone}`}>
+                <span class="awork-panel-text">{panelText}</span>
+              </div>
+            )}
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <div class="wrap awork-more">
+    <h3 class="awork-more-title rv">Also built</h3>
+    <div class="awork-more-grid">
+      {more.map(({ p, note }) => (
+        <div class="awork-more-item rv">
+          <span class="awork-more-name">
+            {p.live_url === '/now'
+              ? <a href="/now" class="awork-more-a">{p.name}</a>
+              : p.github
+                ? <a href={p.github} target="_blank" rel="noopener noreferrer" class="awork-more-a">{p.name}</a>
+                : p.name}
+          </span>
+          <span class="awork-more-note">{note}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+.awork { padding-top: var(--section-gap); }
+.awork-title { margin-bottom: clamp(40px, 6vh, 80px); }
+
+/* Sticky stack: each card pins, the next slides over it */
+.awork-stack { position: relative; }
+.awork-card {
+  position: sticky;
+  top: 68px;
+  min-height: calc(100dvh - 68px);
+  display: flex;
+  align-items: center;
+  background: var(--bg);
+  border-top: 1px solid var(--line);
+}
+.awork-card-inner {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: clamp(32px, 5vh, 72px) var(--gutter);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 5vw, 96px);
+  align-items: center;
+}
+
+.awork-tag { margin: 0 0 16px; color: var(--accent); }
+.awork-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(30px, 3.6vw, 52px);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  margin: 0 0 20px;
+}
+.awork-blurb {
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.65;
+  color: var(--muted);
+  margin: 0 0 28px;
+  max-width: 46ch;
+}
+.awork-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+.awork-chip {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-pill);
+  padding: 5px 14px;
+  white-space: nowrap;
+}
+.awork-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+.awork-metric {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--accent);
+}
+.awork-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line-strong);
+  padding-bottom: 2px;
+  transition: border-color 0.2s ease;
+}
+.awork-link:hover { border-color: var(--accent); }
+
+.awork-visual { min-width: 0; }
+.awork-img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: var(--r-image);
+  border: 1px solid var(--line);
+}
+.awork-panel {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--r-image);
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(24px, 3vw, 48px);
+  border: 1px solid var(--line);
+}
+.awork-panel-coral {
+  background:
+    radial-gradient(120% 140% at 85% 10%, rgba(255, 94, 58, 0.55), transparent 55%),
+    linear-gradient(160deg, #1d0f0b, var(--surface-2));
+}
+.awork-panel-slate {
+  background:
+    radial-gradient(120% 140% at 15% 90%, rgba(255, 94, 58, 0.25), transparent 50%),
+    linear-gradient(200deg, #131722, var(--surface));
+}
+.awork-panel-text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(26px, 3vw, 44px);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  max-width: 12ch;
+}
+
+/* Also built */
+.awork-more { padding-block: var(--section-gap); }
+.awork-more-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(22px, 2.4vw, 32px);
+  margin: 0 0 40px;
+}
+.awork-more-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--r-surface);
+  overflow: hidden;
+}
+.awork-more-item {
+  background: var(--bg-2);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: background 0.25s ease;
+}
+.awork-more-item:hover { background: var(--surface); }
+.awork-more-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 19px;
+}
+.awork-more-a {
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line-strong);
+  transition: border-color 0.2s ease;
+}
+.awork-more-a:hover { border-color: var(--accent); }
+.awork-more-note {
+  font-size: 14px;
+  color: var(--faint);
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .awork-card { position: relative; top: 0; min-height: 0; }
+  .awork-card-inner {
+    grid-template-columns: 1fr;
+    padding-block: 48px;
+  }
+  .awork-visual { order: -1; }
+  .awork-more-grid { grid-template-columns: 1fr; }
+}
+</style>

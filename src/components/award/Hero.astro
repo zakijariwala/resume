@@ -1,0 +1,167 @@
+---
+import meta from '../../data/meta.json';
+
+const { photo_url, pdf_path } = meta;
+---
+
+<section class="ahero" id="top">
+  <p class="ahero-eyebrow mono-label" data-hero-fade>
+    Open to AI product roles · Mumbai, relocation-ready
+  </p>
+
+  <div class="ahero-stage">
+    <h1 class="ahero-name" aria-label="Mohammad Zaki Jariwala">
+      <span class="ahero-line ahero-line-1" aria-hidden="true">
+        {'ZAKI'.split('').map(c => <span class="ch">{c}</span>)}
+      </span>
+      <div class="ahero-photo" data-hero-photo>
+        <img
+          src={photo_url}
+          alt="Mohammad Zaki Jariwala"
+          width="369"
+          height="404"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+      <span class="ahero-line ahero-line-2" aria-hidden="true">
+        {'JARIWALA'.split('').map(c => <span class="ch">{c}</span>)}
+      </span>
+    </h1>
+  </div>
+
+  <div class="ahero-foot">
+    <p class="ahero-sub" data-hero-fade>
+      Systems engineer turned AI product builder. Four products shipped solo,
+      three years keeping a Tier-1 bank online.
+    </p>
+    <div class="ahero-ctas" data-hero-fade>
+      <a href="#work" class="btn btn-fill">See the work</a>
+      <a href={pdf_path} download class="btn btn-ghost">
+        <i class="ti ti-download" aria-hidden="true"></i>
+        Resume
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+.ahero {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 96px var(--gutter) 48px;
+  max-width: 1440px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.ahero-eyebrow { margin: 0 0 12px; }
+
+/* The centerpiece: name wraps the photo, photo overlaps both lines */
+.ahero-stage { position: relative; }
+
+.ahero-name {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.ahero-line {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  display: flex;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+.ahero-line-1 {
+  z-index: 1;
+  font-size: clamp(72px, 17vw, 244px);
+}
+.ahero-line-2 {
+  z-index: 3;
+  justify-content: flex-end;
+  font-size: clamp(40px, 10.6vw, 152px);
+  margin-top: -0.04em;
+}
+
+.ahero-line .ch {
+  display: inline-block;
+  transform: translateY(115%);
+}
+.ahero-line .ch.in {
+  transform: translateY(0);
+  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Photo — arch crop, sits between the two name lines in z-space */
+.ahero-photo {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(150px, 22vw, 330px);
+  border-radius: 999px 999px var(--r-image) var(--r-image);
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  outline: 6px solid var(--bg);
+  clip-path: inset(100% 0 0 0);
+}
+.ahero-photo.in {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.45s;
+}
+.ahero-photo img {
+  width: 100%;
+  aspect-ratio: 369 / 404;
+  object-fit: cover;
+  filter: saturate(0.92) contrast(1.05);
+}
+
+.ahero-foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-top: clamp(32px, 5vh, 64px);
+}
+.ahero-sub {
+  max-width: 38ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.55;
+}
+.ahero-ctas {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+[data-hero-fade] {
+  opacity: 0;
+  transform: translateY(16px);
+}
+[data-hero-fade].in {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.9s ease 0.8s, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.8s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ahero-line .ch { transform: none; transition: none; }
+  .ahero-photo { clip-path: none; transition: none; }
+  [data-hero-fade] { opacity: 1; transform: none; transition: none; }
+}
+
+@media (max-width: 768px) {
+  .ahero { padding-top: 88px; }
+  .ahero-photo { width: clamp(130px, 36vw, 190px); outline-width: 4px; }
+  .ahero-foot { flex-direction: column; align-items: flex-start; }
+}
+</style>

@@ -1,0 +1,34 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="afoot">
+  <div class="wrap afoot-row">
+    <span>© {year} Mohammad Zaki Jariwala</span>
+    <span>Navi Mumbai, India</span>
+    <a href="/now" class="afoot-link">What I'm building now</a>
+  </div>
+</footer>
+
+<style>
+.afoot {
+  border-top: 1px solid var(--line);
+  padding: 28px 0;
+}
+.afoot-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--faint);
+}
+.afoot-link {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line-strong);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.afoot-link:hover { color: var(--text); border-color: var(--text); }
+</style>
