@@ -1,0 +1,65 @@
+---
+const items = [
+  'AI Product Management',
+  'LLM Orchestration',
+  'Zero-to-One Builds',
+  'Infrastructure at Scale',
+  'Offline-First PWAs',
+  'Embedded Hardware',
+];
+// Track duplicated once for the seamless loop
+---
+
+<div class="amarq" aria-hidden="true">
+  <div class="amarq-track" data-marquee>
+    {[0, 1].map(() => (
+      <div class="amarq-set">
+        {items.map(item => (
+          <span class="amarq-item">{item}</span>
+          <span class="amarq-sep">✺</span>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+.amarq {
+  overflow: hidden;
+  border-block: 1px solid var(--line);
+  padding: 22px 0;
+  background: var(--bg-2);
+}
+.amarq-track {
+  display: flex;
+  width: max-content;
+  animation: amarq-roll 36s linear infinite;
+}
+.amarq-set {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.amarq-item {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(18px, 2.2vw, 28px);
+  letter-spacing: 0.01em;
+  color: var(--text);
+  white-space: nowrap;
+  padding: 0 28px;
+}
+.amarq-sep {
+  color: var(--accent);
+  font-size: 14px;
+}
+
+@keyframes amarq-roll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .amarq-track { animation: none; }
+}
+</style>

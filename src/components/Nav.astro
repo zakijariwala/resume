@@ -47,7 +47,7 @@ const isNow = Astro.url.pathname.replace(/\/$/, '').endsWith('/now');
       >
         <button class="audience-btn" data-mode-btn="recruiter" role="radio" aria-checked="false">Recruiter</button>
         <button class="audience-btn" data-mode-btn="developer" role="radio" aria-checked="false">Developer</button>
-        <button class="audience-btn" data-mode-btn="curious" role="radio" aria-checked="false">Curious</button>
+        <a href="/curious" class="audience-btn audience-btn--link">Curious</a>
       </div>
       <div id="mode-coachmark" class="mode-coachmark" aria-hidden="true">
         <span>This site has 3 perspectives — try switching</span>
@@ -113,10 +113,10 @@ const isNow = Astro.url.pathname.replace(/\/$/, '').endsWith('/now');
   transition: color var(--motion-fast), background var(--motion-fast);
 }
 .audience-btn:hover { color: var(--text); }
+.audience-btn--link { text-decoration: none; }
 .audience-btn.active,
 [data-mode="recruiter"] [data-mode-btn="recruiter"],
-[data-mode="developer"] [data-mode-btn="developer"],
-[data-mode="curious"]   [data-mode-btn="curious"] {
+[data-mode="developer"] [data-mode-btn="developer"] {
   background: var(--accent);
   color: #fff;
 }

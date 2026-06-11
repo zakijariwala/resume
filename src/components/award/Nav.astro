@@ -1,0 +1,113 @@
+---
+interface Props {
+  currentMode?: 'curious' | 'developer';
+}
+const { currentMode = 'curious' } = Astro.props;
+---
+
+<header class="anav" id="anav">
+  <div class="wrap anav-row">
+    <a href="#top" class="anav-mark" aria-label="Back to top">MZJ</a>
+    <nav class="anav-links" aria-label="Main navigation">
+      <a href="#work" class="anav-link">Work</a>
+      <a href="#about" class="anav-link">About</a>
+      <a href="#experience" class="anav-link">Experience</a>
+      <a href="/now" class="anav-link">Now</a>
+    </nav>
+    <div class="anav-right">
+      <div class="anav-modes" aria-label="Switch audience mode">
+        <a href="/?mode=recruiter" class="anav-mode">Recruiter</a>
+        <a href="/?mode=developer" class="anav-mode">Developer</a>
+        <span class="anav-mode anav-mode--active">Curious</span>
+      </div>
+      <a href="#contact" class="btn btn-ghost anav-cta">Contact</a>
+    </div>
+  </div>
+</header>
+
+<style>
+.anav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 90;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  background: rgba(247, 244, 239, 0.80);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.anav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.anav-mark {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  color: var(--text);
+}
+.anav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.anav-link {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.anav-link:hover { color: var(--text); }
+
+.anav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.anav-modes {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-pill);
+  padding: 4px;
+}
+.anav-mode {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: var(--r-pill);
+  transition: color 0.2s ease, background 0.2s ease;
+}
+.anav-mode:hover { color: var(--text); }
+.anav-mode--active {
+  background: var(--accent);
+  color: #fff;
+  cursor: default;
+}
+
+.anav-cta { padding: 9px 20px; font-size: 13px; }
+
+@media (max-width: 768px) {
+  .anav-links { display: none; }
+  .anav-modes { display: none; }
+}
+@media (max-width: 480px) {
+  .anav-cta { display: none; }
+}
+</style>

@@ -1,0 +1,168 @@
+---
+import Award from '../layouts/Award.astro';
+import Nav from '../components/award/Nav.astro';
+import Hero from '../components/award/Hero.astro';
+import Marquee from '../components/award/Marquee.astro';
+import Stats from '../components/award/Stats.astro';
+import About from '../components/award/About.astro';
+import Work from '../components/award/Work.astro';
+import Experience from '../components/award/Experience.astro';
+import Skills from '../components/award/Skills.astro';
+import Contact from '../components/award/Contact.astro';
+import Footer from '../components/award/Footer.astro';
+import meta from '../data/meta.json';
+
+const title = `${meta.name} — The curious version`;
+const description = 'The personal side of Mohammad Zaki Jariwala. Engineer, builder, and the reasoning behind the projects.';
+---
+
+<Award title={title} description={description}>
+  <Nav currentMode="curious" />
+  <main>
+    <Hero />
+    <Marquee />
+    <Stats />
+    <Work />
+    <About />
+    <Experience />
+    <Skills />
+    <Contact />
+  </main>
+  <Footer />
+
+  <!-- Floating back button -->
+  <a href="/" class="back-btn" aria-label="Back to main portfolio">
+    <i class="ti ti-arrow-left" aria-hidden="true"></i>
+    <span>Main portfolio</span>
+  </a>
+</Award>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function heroIn() {
+    document.querySelectorAll('.ahero-line .ch').forEach((ch, i) => {
+      (ch as HTMLElement).style.transitionDelay = `${0.08 + i * 0.035}s`;
+      ch.classList.add('in');
+    });
+    document.querySelector('[data-hero-photo]')?.classList.add('in');
+    document.querySelectorAll('[data-hero-fade]').forEach(el => el.classList.add('in'));
+  }
+
+  function reveals() {
+    const els = document.querySelectorAll('.rv');
+    if (reduce) { els.forEach(el => el.classList.add('on')); return; }
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('on'); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.15 });
+    els.forEach(el => io.observe(el));
+  }
+
+  function counters() {
+    if (reduce) return;
+    document.querySelectorAll<HTMLElement>('[data-count]').forEach(el => {
+      const raw = el.textContent ?? '';
+      const m = raw.match(/^([\d,]+(?:\.\d+)?)(.*)$/);
+      if (!m) return;
+      const target = parseFloat(m[1].replace(/,/g, ''));
+      const suffix = m[2];
+      const decimals = (m[1].split('.')[1] ?? '').length;
+      const useCommas = m[1].includes(',');
+      const state = { v: 0 };
+      gsap.to(state, {
+        v: target, duration: 1.6, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+        onUpdate: () => {
+          let out = state.v.toFixed(decimals);
+          if (useCommas) out = Number(out).toLocaleString('en-US', { minimumFractionDigits: decimals });
+          el.textContent = out + suffix;
+        },
+      });
+    });
+  }
+
+  function heroScroll() {
+    if (reduce) return;
+    gsap.to('[data-hero-photo]', {
+      yPercent: 18, ease: 'none',
+      scrollTrigger: { trigger: '.ahero', start: 'top top', end: 'bottom top', scrub: true },
+    });
+    gsap.to('.ahero-line-1', {
+      xPercent: -6, ease: 'none',
+      scrollTrigger: { trigger: '.ahero', start: 'top top', end: 'bottom top', scrub: true },
+    });
+    gsap.to('.ahero-line-2', {
+      xPercent: 6, ease: 'none',
+      scrollTrigger: { trigger: '.ahero', start: 'top top', end: 'bottom top', scrub: true },
+    });
+  }
+
+  function workStack() {
+    if (reduce || window.matchMedia('(max-width: 900px)').matches) return;
+    const cards = gsap.utils.toArray<HTMLElement>('[data-stack-card]');
+    cards.forEach((card, i) => {
+      if (i === cards.length - 1) return;
+      gsap.to(card.querySelector('.awork-card-inner'), {
+        scale: 0.94, opacity: 0.35, ease: 'none',
+        scrollTrigger: { trigger: cards[i + 1], start: 'top bottom', end: 'top top', scrub: true },
+      });
+    });
+  }
+
+  function init() {
+    heroIn();
+    reveals();
+    counters();
+    heroScroll();
+    workStack();
+  }
+
+  init();
+  document.addEventListener('astro:page-load', init);
+</script>
+
+<style>
+.back-btn {
+  position: fixed;
+  bottom: 28px;
+  left: 28px;
+  z-index: 95;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 20px;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-pill);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: color 0.2s ease, border-color 0.2s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.back-btn:hover {
+  color: var(--text);
+  border-color: var(--text);
+  transform: translateX(-3px);
+}
+.back-btn i { font-size: 15px; }
+
+@media (max-width: 480px) {
+  .back-btn {
+    bottom: 20px;
+    left: 16px;
+    padding: 10px 16px;
+  }
+  .back-btn span { display: none; }
+}
+</style>

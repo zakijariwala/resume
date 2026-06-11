@@ -1,0 +1,151 @@
+/* ──────────────────────────────────────────────────────────────
+   AWARD REDESIGN — Curious mode page (/curious)
+   Theme: warm light, locked. One accent.
+   Radius rule: surfaces 20px, images 24px, interactive pill.
+   ────────────────────────────────────────────────────────────── */
+
+:root {
+  --bg:          #f7f4ef;
+  --bg-2:        #ede9e2;
+  --surface:     #e8e3da;
+  --surface-2:   #e0dace;
+  --line:        rgba(30, 24, 16, 0.09);
+  --line-strong: rgba(30, 24, 16, 0.20);
+
+  --text:        #1c1710;
+  --muted:       #5a5044;
+  --faint:       #8c7e6e;
+
+  --accent:        #d94a20;
+  --accent-deep:   #b03818;
+  --accent-soft:   rgba(217, 74, 32, 0.10);
+  --accent-line:   rgba(217, 74, 32, 0.30);
+
+  --font-display: 'Syne', sans-serif;
+  --font-body:    'Instrument Sans', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  --r-surface: 20px;
+  --r-image:   24px;
+  --r-pill:    999px;
+
+  --gutter: clamp(20px, 4vw, 64px);
+  --section-gap: clamp(96px, 14vh, 180px);
+}
+
+* { box-sizing: border-box; }
+
+html {
+  background: var(--bg);
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+
+/* Film grain — fixed, non-painting layer */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
+
+.wrap {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+}
+
+/* Buttons — pill, accent-locked */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: var(--r-pill);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+.btn:active { transform: scale(0.97); }
+.btn-fill {
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid var(--accent);
+}
+.btn-fill:hover { background: var(--accent-deep); border-color: var(--accent-deep); }
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--line-strong);
+}
+.btn-ghost:hover { border-color: var(--text); }
+
+/* Reveal primitives — driven by JS, gated by reduced-motion */
+.rv {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.rv.on { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rv { opacity: 1; transform: none; transition: none; }
+}
+
+/* Section heading scale */
+.h-giant {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(40px, 6.5vw, 88px);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.h-big {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(30px, 4vw, 54px);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.mono-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
