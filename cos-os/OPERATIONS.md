@@ -129,20 +129,15 @@ the JSONL is already in the exact shape Infinity consumes; nothing needs rework.
 
 ---
 
-## Privacy Note
+## Privacy
 
-`zakijariwala/resume` deploys to GitHub Pages, which means the repository is
-public — and so is everything in `cos-os/`: priorities, risks, personal project
-state, business pipeline. The original v3.4 design called for a **private**
-`cos-state` repo for exactly this reason.
+The portfolio deploys via **Cloudflare Pages** (not GitHub Pages), and the
+repository is being made **private** — CoS state in `cos-os/` is therefore not
+publicly readable. Decided by owner 2026-06-11.
 
-Options, in order of preference:
-1. Keep portfolio public, move `cos-os/` back to a private `cos-state` repo
-   (the standalone scaffold still exists; the Worker's `GITHUB_REPO` var and
-   `BASE` constant are the only things to change)
-2. Accept public state and keep entries deliberately terse/abstract
-3. Make the repo private and move Pages hosting fully to Cloudflare Pages
-   (which supports private repos on the free plan)
-
-Decision pending — owner call. Until decided, avoid logging anything sensitive
-(names, amounts, employer specifics) via `/log`.
+Consequences of the private repo to verify after the flip:
+- Cloudflare Pages: supports private repos on the free plan — no action
+- Telegram Worker: unaffected — uses a PAT, works against private repos
+- Decap CMS (`/admin/`): GitHub OAuth must be scoped to access the private repo
+- Grafana Infinity (if adopted): needs an `Authorization: token <PAT>` header
+  on the datasource instead of a raw public URL
