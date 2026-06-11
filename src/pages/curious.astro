@@ -90,8 +90,9 @@ const description = 'The personal side of Mohammad Zaki Jariwala. Engineer, buil
 
   function heroScroll() {
     if (reduce) return;
+    // Photo parallax: moves up as user scrolls down — slower than scroll = depth illusion
     gsap.to('[data-hero-photo]', {
-      yPercent: 18, ease: 'none',
+      yPercent: -12, ease: 'none',
       scrollTrigger: { trigger: '.ahero', start: 'top top', end: 'bottom top', scrub: true },
     });
     gsap.to('.ahero-line-1', {
