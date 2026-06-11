@@ -1,0 +1,145 @@
+---
+import meta from '../../data/meta.json';
+
+const { photo_developer, pdf_path, github } = meta;
+---
+
+<section class="dhero" id="top">
+  <div class="wrap dhero-grid">
+
+    <div class="dhero-spec rv">
+      <p class="d-label">identity</p>
+      <dl class="dhero-dl">
+        <div class="dhero-row">
+          <dt>name:</dt>
+          <dd>Mohammad Zaki Jariwala</dd>
+        </div>
+        <div class="dhero-row">
+          <dt>role:</dt>
+          <dd>systems engineer &rarr; ai product builder</dd>
+        </div>
+        <div class="dhero-row">
+          <dt>uptime:</dt>
+          <dd><span class="d-num">99.999%</span> &middot; 30,000+ users &middot; tier-1 bank</dd>
+        </div>
+        <div class="dhero-row">
+          <dt>shipped:</dt>
+          <dd><span class="d-num">4</span> products, 0&rarr;1, solo</dd>
+        </div>
+        <div class="dhero-row">
+          <dt>location:</dt>
+          <dd>mumbai &middot; relocation-ready</dd>
+        </div>
+        <div class="dhero-row">
+          <dt>status:</dt>
+          <dd><span class="d-dot" aria-hidden="true"></span> open to work</dd>
+        </div>
+      </dl>
+
+      <div class="dhero-actions">
+        <a href="#work" class="dhero-btn dhero-btn--fill">view work</a>
+        <a href={github} target="_blank" rel="noopener noreferrer" class="dhero-btn">
+          github <i class="ti ti-arrow-up-right" aria-hidden="true"></i>
+        </a>
+        <a href={pdf_path} download class="dhero-btn">
+          resume.pdf <i class="ti ti-download" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="dhero-avatar rv">
+      <img
+        src={photo_developer}
+        alt="Mohammad Zaki Jariwala"
+        width="369"
+        height="404"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <span class="dhero-avatar-cap d-label">jariwala, m.z.</span>
+    </div>
+
+  </div>
+</section>
+
+<style>
+.dhero {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  padding-top: 56px;
+}
+.dhero-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: clamp(32px, 6vw, 96px);
+  align-items: center;
+}
+
+.dhero-dl { margin: 0; }
+.dhero-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: clamp(13px, 1.6vw, 16px);
+}
+.dhero-row dt { color: var(--faint); margin: 0; }
+.dhero-row dd { color: var(--text); margin: 0; }
+
+.dhero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+.dhero-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text);
+  text-decoration: none;
+  border: 1px solid var(--line-strong);
+  padding: 9px 18px;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+.dhero-btn:hover { border-color: var(--text); }
+.dhero-btn--fill {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+  font-weight: 500;
+}
+.dhero-btn--fill:hover { background: var(--text); border-color: var(--text); }
+
+.dhero-avatar {
+  width: clamp(120px, 16vw, 200px);
+  flex-shrink: 0;
+}
+.dhero-avatar img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: center 15%;
+  border: 1px solid var(--line-strong);
+  filter: saturate(0.7) contrast(1.05);
+}
+.dhero-avatar-cap {
+  display: block;
+  margin-top: 8px;
+}
+.dhero-avatar-cap::before { content: ''; }
+
+@media (max-width: 640px) {
+  .dhero-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .dhero-avatar { order: -1; width: 104px; }
+  .dhero-row { grid-template-columns: 92px 1fr; gap: 10px; }
+}
+</style>

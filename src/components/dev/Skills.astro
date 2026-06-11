@@ -1,0 +1,100 @@
+---
+import skills from '../../data/skills.json';
+
+const ranks: Record<string, string> = {
+  confident: '●●●',
+  familiar:  '●●○',
+  learning:  '●○○',
+};
+---
+
+<section class="dskills wrap" id="skills">
+  <p class="d-label rv">skills</p>
+  <h2 class="d-h rv">capability matrix</h2>
+
+  <div class="dskills-grid">
+    {skills.map(group => (
+      <div class="dskills-group rv">
+        <h3 class="dskills-cat">{group.category.toLowerCase()}</h3>
+        <ul class="dskills-items">
+          {group.items.map(item => (
+            <li>
+              <span class="dskills-name">{item.name}</span>
+              <span class={`dskills-rank dskills-rank--${item.proficiency}`} title={item.proficiency}>
+                {ranks[item.proficiency]}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+
+  <p class="dskills-key rv">
+    <span class="d-num">●●●</span> confident &nbsp;
+    <span class="d-num">●●○</span> familiar &nbsp;
+    <span class="d-num">●○○</span> learning
+  </p>
+</section>
+
+<style>
+.dskills { padding-block: var(--section-gap); }
+
+.dskills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: clamp(32px, 5vh, 56px);
+}
+.dskills-group {
+  background: var(--bg-2);
+  padding: 24px;
+}
+.dskills-cat {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 14px;
+  margin: 0 0 14px;
+  color: var(--text);
+}
+.dskills-items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.dskills-items li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 0;
+  border-top: 1px solid var(--line);
+}
+.dskills-name {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.dskills-rank {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  flex-shrink: 0;
+}
+.dskills-rank--confident { color: var(--accent); }
+.dskills-rank--familiar  { color: var(--muted); }
+.dskills-rank--learning  { color: var(--faint); }
+
+.dskills-key {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--faint);
+  margin: 16px 0 0;
+}
+
+@media (max-width: 768px) {
+  .dskills-grid { grid-template-columns: 1fr; }
+}
+</style>
