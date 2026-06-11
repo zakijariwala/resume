@@ -19,7 +19,13 @@ Owned by root AGENTS.md. Authoritative state lives on the `main` branch of `zaki
 - Update project state: edit the relevant `projects/[domain].md` file; run schema integrity check before committing
 - Process inbox: read `inbox.md`, action items, truncate file, reset `INBOX_COUNT` in `dashboard.md`
 - Schema integrity check: `grep "^## " cos-os/projects/*.md | grep -v "^## [A-Z_]*$"` — any output = non-conformant headers
+- Rituals and layer model: `OPERATIONS.md` — daily/weekly/monthly cadence, metrics meaning, dashboarding options
+- Daily metrics snapshot: `scripts/snapshot_metrics.py` → `metrics/` (automated via `cos-metrics-snapshot.yml`, 08:30 UTC)
+
+## Verification
+- `python3 cos-os/scripts/snapshot_metrics.py` runs clean from repo root and reports project/stale/inbox counts
 
 ## Child DOX Index
 - `projects/AGENTS.md` — 5 domain project files, 7-section schema, integrity check command
 - `telegram-bot/AGENTS.md` — Cloudflare Worker: GitHub API paths, secrets, inbox routing logic
+- `metrics/AGENTS.md` — derived metrics time-series: history.jsonl, latest.json, write rules

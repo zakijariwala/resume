@@ -1,0 +1,30 @@
+name: CoS — Metrics Snapshot
+
+on:
+  schedule:
+    - cron: "30 8 * * *"
+  workflow_dispatch:
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run snapshot
+        run: python cos-os/scripts/snapshot_metrics.py
+
+      - name: Commit snapshot
+        run: |
+          git config user.name "cos-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add cos-os/metrics/
+          git diff --cached --quiet || git commit -m "chore(cos): daily metrics snapshot"
+          git push

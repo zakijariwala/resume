@@ -20,6 +20,10 @@ cos-os/
     learning.md
     personal.md
   exports/                  — daily/weekly/snapshot exports (.gitkeep placeholder)
+  metrics/
+    history.jsonl           — daily metrics time-series (machine-generated)
+    latest.json             — current snapshot (machine-generated)
+  OPERATIONS.md             — layer model, rituals, metrics meaning, dashboarding options
   telegram-bot/
     worker.js               — Cloudflare Worker (reads/writes cos-os/* via GitHub API)
     wrangler.toml           — points to zakijariwala/resume, main = cos-os/telegram-bot/worker.js
@@ -28,6 +32,7 @@ cos-os/
     requirements.txt
   scripts/
     stale_check.py          — opens GitHub issue for projects not updated in 7+ days
+    snapshot_metrics.py     — parses state files → metrics/ (daily, stdlib only)
   session-init/
     load-state.md           — session start checklist, conflict protocol, export format
 ```
@@ -35,9 +40,10 @@ cos-os/
 GitHub Actions workflows live at repo root (required by GitHub):
 ```
 .github/workflows/
-  deploy.yml              — Astro build → GitHub Pages (portfolio, untouched)
+  deploy.yml              — Astro build → GitHub Pages (skips cos-os/-only pushes)
   cos-notion-sync.yml     — triggers on push to cos-os/dashboard.md or exports/
   cos-stale-alert.yml     — daily 08:00 UTC cron
+  cos-metrics-snapshot.yml — daily 08:30 UTC cron → commits cos-os/metrics/
 ```
 
 ## Deployment Checklist
