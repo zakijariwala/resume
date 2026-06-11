@@ -1,83 +1,45 @@
-# DOX framework
+# AGENTS.md — resume (zakijariwala.space Portfolio + CoS OS)
 
-- DOX is highly performant AGENTS.md hierarchy installed here
-- Agent must follow DOX instructions across any edits
+## Purpose
+Dual-purpose repository:
+1. **Portfolio site** — zakijariwala.space, Astro 4 + Tailwind CSS + TypeScript, three-mode identity system (Recruiter / Developer / Curious). Primary asset for Zaki's AI PM job search.
+2. **CoS Operating System** — Chief of Staff state layer in `cos-os/`. Dashboard, project files, Telegram bot, Notion sync, stale alerts.
 
-## Core Contract
+## Ownership
+- Owner: Zaki Jariwala (jariwalazaki@gmail.com)
+- Portfolio deploy branch: `ai-pm` → Cloudflare Pages (~2 min build)
+- CoS OS state branch: `main`
+- Active dev branch: `claude/read-handover-docs-7dvoD`
+- Live URL: zakijariwala.space
 
-- AGENTS.md files are binding work contracts for their subtrees
-- Work products, source materials, instructions, records, assets, and durable docs must stay understandable from the nearest applicable AGENTS.md plus every parent AGENTS.md above it
+## Local Contracts
+**Portfolio:**
+- Three-mode identity system is inviolable — Recruiter / Developer / Curious must feel like three different websites; never collapse modes to a content filter
+- All site content lives in `src/data/*.json` — single source of truth; Decap CMS config at `public/admin/config.yml` must stay in sync with the data file structure
+- Design tokens are CSS custom properties in `src/styles/global.css` — never hardcode hex/rgb values in components
+- Every section must open with `<SectionHeader>` — mandatory pattern
+- Mode-adaptive visibility classes: `.recruiter-only`, `.dev-only`, `.curious-only`, `.all-modes` — use only these
+- No React, Vue, or client-side JS framework — Astro components and vanilla JS only
+- Hero stat grid: exactly 4 cards in Recruiter and Developer modes; Curious mode replaces the grid with the "currently" block
 
-## Read Before Editing
+**CoS OS:**
+- `cos-os/` is fully isolated from the Astro build — the build only processes `src/` and `public/`
+- GitHub is always authoritative over memory — if they conflict, GitHub wins
+- `cos-os/schema.md` is the binding header contract for all CoS state files
+- Telegram bot reads/writes all files via the `cos-os/` path prefix on `zakijariwala/resume`
 
-1. Read the root AGENTS.md
-2. Identify every file or folder you expect to touch
-3. Walk from the repository root to each target path
-4. Read every AGENTS.md found along each route
-5. If a parent AGENTS.md lists a child AGENTS.md whose scope contains the path, read that child and continue from there
-6. Use the nearest AGENTS.md as the local contract and parent docs for repo-wide rules
-7. If docs conflict, the closer doc controls local work details, but no child doc may weaken DOX
+## Work Guidance
+- Portfolio content: edit `src/data/*.json`
+- Portfolio components: `src/components/`
+- CoS state: edit files in `cos-os/`; commit and push to `main` to make changes authoritative
+- `cos-notion-sync.yml` triggers only on `cos-os/` path changes; `deploy.yml` triggers only on Astro source changes
 
-Do not rely on memory. Re-read the applicable DOX chain in the current session before editing.
-
-## Update After Editing
-
-Every meaningful change requires a DOX pass before the task is done.
-
-Update the closest owning AGENTS.md when a change affects:
-
-- purpose, scope, ownership, or responsibilities
-- durable structure, contracts, workflows, or operating rules
-- required inputs, outputs, permissions, constraints, side effects, or artifacts
-- user preferences about behavior, communication, process, organization, or quality
-- AGENTS.md creation, deletion, move, rename, or index contents
-
-Update parent docs when parent-level structure, ownership, workflow, or child index changes. Update child docs when parent changes alter local rules. Remove stale or contradictory text immediately. Small edits that do not change behavior or contracts may leave docs unchanged, but the DOX pass still must happen.
-
-## Hierarchy
-
-- Root AGENTS.md is the DOX rail: project-wide instructions, global preferences, durable workflow rules, and the top-level Child DOX Index
-- Child AGENTS.md files own domain-specific instructions and their own Child DOX Index
-- Each parent explains what its direct children cover and what stays owned by the parent
-- The closer a doc is to the work, the more specific and practical it must be
-
-## Child Doc Shape
-
-- Create a child AGENTS.md when a folder becomes a durable boundary with its own purpose, rules, responsibilities, workflow, materials, or quality standards
-- Work Guidance must reflect the current standards of the project or user instructions; if there are no specific standards or instructions yet, leave it empty
-- Verification must reflect an existing check; if no verification framework exists yet, leave it empty and update it when one exists
-
-Default section order:
-- Purpose
-- Ownership
-- Local Contracts
-- Work Guidance
-- Verification
-- Child DOX Index
-
-## Style
-
-- Keep docs concise, current, and operational
-- Document stable contracts, not diary entries
-- Put broad rules in parent docs and concrete details in child docs
-- Prefer direct bullets with explicit names
-- Do not duplicate rules across many files unless each scope needs a local version
-- Delete stale notes instead of explaining history
-- Trim obvious statements, repeated rules, misplaced detail, and warnings for risks that no longer exist
-
-## Closeout
-
-1. Re-check changed paths against the DOX chain
-2. Update nearest owning docs and any affected parents or children
-3. Refresh every affected Child DOX Index
-4. Remove stale or contradictory text
-5. Run existing verification when relevant
-6. Report any docs intentionally left unchanged and why
-
-## User Preferences
-
-When the user requests a durable behavior change, record it here or in the relevant child AGENTS.md
+## Verification
+- Portfolio: `npm run build` must complete without errors; confirm all three modes render correctly
+- CoS schema: `grep "^## " cos-os/projects/*.md | grep -v "^## [A-Z_]*$"` — any output means non-conformant project file headers
 
 ## Child DOX Index
-
-This project is not yet indexed. Before continuing you must scan the project, build the DOX tree and replace this message with the actual index. Go deep and scan files recursively to properly evaluate complexity and create nested DOX files where needed.
+- `src/AGENTS.md` — Astro portfolio: components, mode-adaptive patterns, page structure rules
+- `src/data/AGENTS.md` — content JSON: schema per file, single source of truth rule, CMS sync
+- `cos-os/AGENTS.md` — CoS OS: state schema, The One Rule, Telegram bot path contract
+- `misc/AGENTS.md` — scratch area: LinkedIn drafts, PDF tools, resume exports; never deployed
