@@ -30,6 +30,15 @@ const description = 'The personal side of Mohammad Zaki Jariwala. Engineer, buil
   </main>
   <Footer />
 
+  <!-- Mode indicator bar -->
+  <div class="mode-bar" role="navigation" aria-label="Switch audience mode">
+    <span class="mode-bar-label">Viewing as <strong>Curious</strong></span>
+    <span class="mode-bar-div" aria-hidden="true">·</span>
+    <a href="/?mode=recruiter" class="mode-bar-link">Recruiter</a>
+    <span class="mode-bar-div" aria-hidden="true">·</span>
+    <a href="/dev" class="mode-bar-link">Developer</a>
+  </div>
+
   <!-- Floating back button -->
   <a href="/" class="back-btn" aria-label="Back to main portfolio">
     <i class="ti ti-arrow-left" aria-hidden="true"></i>
@@ -130,6 +139,41 @@ const description = 'The personal side of Mohammad Zaki Jariwala. Engineer, buil
 </script>
 
 <style>
+/* ── Mode bar ── */
+.mode-bar {
+  position: fixed;
+  top: 68px;
+  left: 0;
+  right: 0;
+  z-index: 89;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: rgba(217, 74, 32, 0.07);
+  border-bottom: 1.5px solid rgba(217, 74, 32, 0.28);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  animation: curious-bar-pulse 2.8s ease-in-out infinite;
+}
+@keyframes curious-bar-pulse {
+  0%, 100% { background: rgba(217, 74, 32, 0.05); border-bottom-color: rgba(217, 74, 32, 0.2); }
+  50%       { background: rgba(217, 74, 32, 0.13); border-bottom-color: rgba(217, 74, 32, 0.6); }
+}
+.mode-bar strong { color: var(--accent); font-weight: 700; }
+.mode-bar-div { color: var(--faint); }
+.mode-bar-link {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+.mode-bar-link:hover { color: var(--accent); }
+
+/* ── Back button ── */
 .back-btn {
   position: fixed;
   bottom: 28px;
@@ -137,33 +181,36 @@ const description = 'The personal side of Mohammad Zaki Jariwala. Engineer, buil
   z-index: 95;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 11px 20px;
-  background: var(--surface);
-  border: 1px solid var(--line-strong);
+  gap: 10px;
+  padding: 14px 26px;
+  background: var(--accent);
+  border: 2px solid var(--accent);
   border-radius: var(--r-pill);
   font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
   text-decoration: none;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  transition: color 0.2s ease, border-color 0.2s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.2s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .back-btn:hover {
-  color: var(--text);
-  border-color: var(--text);
-  transform: translateX(-3px);
+  opacity: 0.85;
+  transform: translateX(-4px);
 }
-.back-btn i { font-size: 15px; }
+.back-btn i { font-size: 16px; }
 
+@media (max-width: 600px) {
+  .mode-bar { gap: 12px; font-size: 12px; }
+}
 @media (max-width: 480px) {
   .back-btn {
     bottom: 20px;
     left: 16px;
-    padding: 10px 16px;
+    padding: 12px 18px;
   }
   .back-btn span { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mode-bar { animation: none; }
 }
 </style>
