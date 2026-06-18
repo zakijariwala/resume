@@ -128,7 +128,7 @@ const { photo_developer, pdf_path, github } = meta;
 
 .dhero-aside {
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 16px;
 }
 .dhero-avatar {
@@ -136,29 +136,38 @@ const { photo_developer, pdf_path, github } = meta;
   flex-shrink: 0;
 }
 
-/* Mode switcher beside the photo */
+/* Mode switcher beside the photo — fills the space alongside it */
 .dhero-modes {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   font-family: var(--font-mono);
 }
 .dhero-modes-label {
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.04em;
   color: var(--muted);
 }
 .dhero-modes-label strong { color: var(--accent); font-weight: 500; }
-.dhero-modes-row { display: flex; gap: 8px; }
+.dhero-modes-row {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+}
 .dhero-modes-btn {
-  font-size: 12px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  font-size: 14px;
   color: var(--muted);
   text-decoration: none;
   border: 1px solid var(--line-strong);
-  padding: 6px 12px;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
 }
-.dhero-modes-btn:hover { color: var(--text); border-color: var(--accent); }
+.dhero-modes-btn:hover { color: var(--text); border-color: var(--accent); background: rgba(61, 220, 132, 0.06); }
 .dhero-avatar img {
   width: 100%;
   aspect-ratio: 1;
