@@ -151,9 +151,7 @@ const description = 'The personal side of Mohammad Zaki Jariwala. Engineer, buil
   align-items: center;
   justify-content: center;
   gap: 16px;
-  background: rgba(247, 244, 239, 0.82);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: var(--bg);
   border-bottom: 1.5px solid rgba(217, 74, 32, 0.28);
   font-family: var(--font-body);
   font-size: 13px;
@@ -162,8 +160,8 @@ const description = 'The personal side of Mohammad Zaki Jariwala. Engineer, buil
   animation: curious-bar-pulse 2.8s ease-in-out infinite;
 }
 @keyframes curious-bar-pulse {
-  0%, 100% { background: rgba(247, 244, 239, 0.82); border-bottom-color: rgba(217, 74, 32, 0.2); }
-  50%       { background: rgba(247, 244, 239, 0.9); border-bottom-color: rgba(217, 74, 32, 0.6); }
+  0%, 100% { border-bottom-color: rgba(217, 74, 32, 0.2); }
+  50%       { border-bottom-color: rgba(217, 74, 32, 0.6); }
 }
 .mode-bar strong { color: var(--accent-deep); font-weight: 700; }
 .mode-bar-div { color: var(--faint); }
