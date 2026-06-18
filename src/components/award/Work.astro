@@ -141,7 +141,7 @@ const more = [
   align-items: center;
 }
 
-.awork-tag { margin: 0 0 16px; color: var(--accent); }
+.awork-tag { margin: 0 0 16px; color: var(--accent-deep); }
 .awork-name {
   font-family: var(--font-display);
   font-weight: 700;
@@ -181,7 +181,7 @@ const more = [
 .awork-metric {
   font-family: var(--font-mono);
   font-size: 13px;
-  color: var(--accent);
+  color: var(--accent-deep);
 }
 .awork-link {
   display: inline-flex;
@@ -216,13 +216,13 @@ const more = [
 }
 .awork-panel-coral {
   background:
-    radial-gradient(120% 140% at 85% 10%, rgba(255, 94, 58, 0.55), transparent 55%),
-    linear-gradient(160deg, #1d0f0b, var(--surface-2));
+    radial-gradient(120% 140% at 85% 10%, rgba(217, 74, 32, 0.35), transparent 55%),
+    linear-gradient(160deg, var(--bg-2), var(--surface-2));
 }
 .awork-panel-slate {
   background:
-    radial-gradient(120% 140% at 15% 90%, rgba(255, 94, 58, 0.25), transparent 50%),
-    linear-gradient(200deg, #131722, var(--surface));
+    radial-gradient(120% 140% at 15% 90%, rgba(217, 74, 32, 0.18), transparent 50%),
+    linear-gradient(200deg, var(--surface-2), var(--surface));
 }
 .awork-panel-text {
   font-family: var(--font-display);
@@ -231,6 +231,7 @@ const more = [
   line-height: 1.05;
   letter-spacing: -0.015em;
   max-width: 12ch;
+  color: var(--text);
 }
 
 /* Also built */

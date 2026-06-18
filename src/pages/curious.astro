@@ -151,7 +151,9 @@ const description = 'The personal side of Mohammad Zaki Jariwala. Engineer, buil
   align-items: center;
   justify-content: center;
   gap: 16px;
-  background: rgba(217, 74, 32, 0.07);
+  background: rgba(247, 244, 239, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-bottom: 1.5px solid rgba(217, 74, 32, 0.28);
   font-family: var(--font-body);
   font-size: 13px;
@@ -160,10 +162,10 @@ const description = 'The personal side of Mohammad Zaki Jariwala. Engineer, buil
   animation: curious-bar-pulse 2.8s ease-in-out infinite;
 }
 @keyframes curious-bar-pulse {
-  0%, 100% { background: rgba(217, 74, 32, 0.05); border-bottom-color: rgba(217, 74, 32, 0.2); }
-  50%       { background: rgba(217, 74, 32, 0.13); border-bottom-color: rgba(217, 74, 32, 0.6); }
+  0%, 100% { background: rgba(247, 244, 239, 0.82); border-bottom-color: rgba(217, 74, 32, 0.2); }
+  50%       { background: rgba(247, 244, 239, 0.9); border-bottom-color: rgba(217, 74, 32, 0.6); }
 }
-.mode-bar strong { color: var(--accent); font-weight: 700; }
+.mode-bar strong { color: var(--accent-deep); font-weight: 700; }
 .mode-bar-div { color: var(--faint); }
 .mode-bar-link {
   color: var(--muted);
@@ -177,7 +179,7 @@ const description = 'The personal side of Mohammad Zaki Jariwala. Engineer, buil
 .back-btn {
   position: fixed;
   bottom: 28px;
-  left: 28px;
+  right: 28px;
   z-index: 95;
   display: inline-flex;
   align-items: center;
@@ -195,7 +197,7 @@ const description = 'The personal side of Mohammad Zaki Jariwala. Engineer, buil
 }
 .back-btn:hover {
   opacity: 0.85;
-  transform: translateX(-4px);
+  transform: translateX(4px);
 }
 .back-btn i { font-size: 16px; }
 
@@ -205,7 +207,7 @@ const description = 'The personal side of Mohammad Zaki Jariwala. Engineer, buil
 @media (max-width: 480px) {
   .back-btn {
     bottom: 20px;
-    left: 16px;
+    right: 16px;
     padding: 12px 18px;
   }
   .back-btn span { display: none; }
