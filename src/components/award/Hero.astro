@@ -101,7 +101,8 @@ const { photo_curious: photo_url, pdf_path } = meta;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 96px var(--gutter) clamp(48px, 8vh, 72px);
+  /* top clears fixed nav (68px) + mode bar (40px) */
+  padding: 136px var(--gutter) clamp(48px, 8vh, 72px);
   max-width: 1440px;
   margin: 0 auto;
 }
@@ -184,7 +185,7 @@ const { photo_curious: photo_url, pdf_path } = meta;
 }
 
 @media (max-width: 768px) {
-  .ahero-inner { padding-top: 88px; }
+  .ahero-inner { padding-top: 128px; } /* nav 68px + mode bar 40px */
   .ahero-foot  { flex-direction: column; align-items: flex-start; gap: 20px; }
   .ahero-bg-img { object-position: 65% 10%; } /* show face on portrait crop */
 }
