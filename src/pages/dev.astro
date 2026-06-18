@@ -24,15 +24,6 @@ const description = 'Systems engineer and AI product builder. Architecture decis
   </main>
   <Footer />
 
-  <!-- Mode indicator bar -->
-  <div class="dmode-bar" role="navigation" aria-label="Switch audience mode">
-    <span class="dmode-bar-label">// mode: <strong>developer</strong></span>
-    <span class="dmode-bar-div" aria-hidden="true">|</span>
-    <a href="/?mode=recruiter" class="dmode-bar-link">→ recruiter</a>
-    <span class="dmode-bar-div" aria-hidden="true">|</span>
-    <a href="/curious" class="dmode-bar-link">→ curious</a>
-  </div>
-
   <!-- Floating back button -->
   <a href="/" class="back-btn" aria-label="Back to main portfolio">
     <i class="ti ti-arrow-left" aria-hidden="true"></i>
@@ -58,39 +49,6 @@ const description = 'Systems engineer and AI product builder. Architecture decis
 </script>
 
 <style>
-/* ── Mode bar ── */
-.dmode-bar {
-  position: fixed;
-  top: 56px;
-  left: 0;
-  right: 0;
-  z-index: 89;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  background: rgba(61, 220, 132, 0.04);
-  border-bottom: 1px solid rgba(61, 220, 132, 0.2);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.04em;
-  color: var(--muted);
-  animation: dev-bar-pulse 2.5s ease-in-out infinite;
-}
-@keyframes dev-bar-pulse {
-  0%, 100% { background: rgba(61, 220, 132, 0.03); border-bottom-color: rgba(61, 220, 132, 0.15); }
-  50%       { background: rgba(61, 220, 132, 0.09); border-bottom-color: rgba(61, 220, 132, 0.5); }
-}
-.dmode-bar strong { color: var(--accent); font-weight: 500; }
-.dmode-bar-div { color: var(--line-strong); }
-.dmode-bar-link {
-  color: var(--muted);
-  text-decoration: none;
-  transition: color 0.15s ease;
-}
-.dmode-bar-link:hover { color: var(--accent); }
-
 /* ── Back button ── */
 .back-btn {
   position: fixed;
@@ -116,9 +74,6 @@ const description = 'Systems engineer and AI product builder. Architecture decis
 }
 .back-btn i { font-size: 15px; }
 
-@media (max-width: 600px) {
-  .dmode-bar { gap: 14px; }
-}
 @media (max-width: 480px) {
   .back-btn {
     bottom: 16px;
@@ -126,8 +81,5 @@ const description = 'Systems engineer and AI product builder. Architecture decis
     padding: 9px 14px;
   }
   .back-btn span { display: none; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .dmode-bar { animation: none; }
 }
 </style>

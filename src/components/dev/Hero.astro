@@ -47,16 +47,26 @@ const { photo_developer, pdf_path, github } = meta;
       </div>
     </div>
 
-    <div class="dhero-avatar rv">
-      <img
-        src={photo_developer}
-        alt="Mohammad Zaki Jariwala"
-        width="480"
-        height="594"
-        loading="eager"
-        fetchpriority="high"
-      />
-      <span class="dhero-avatar-cap d-label">jariwala, m.z.</span>
+    <div class="dhero-aside rv">
+      <div class="dhero-avatar">
+        <img
+          src={photo_developer}
+          alt="Mohammad Zaki Jariwala"
+          width="480"
+          height="594"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <span class="dhero-avatar-cap d-label">jariwala, m.z.</span>
+      </div>
+
+      <div class="dhero-modes" aria-label="Switch audience mode">
+        <span class="dhero-modes-label">viewing as: <strong>dev</strong></span>
+        <div class="dhero-modes-row">
+          <a href="/?mode=recruiter" class="dhero-modes-btn">recruiter</a>
+          <a href="/curious" class="dhero-modes-btn">curious</a>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -67,8 +77,7 @@ const { photo_developer, pdf_path, github } = meta;
   min-height: 100dvh;
   display: flex;
   align-items: center;
-  /* clears fixed nav (56px) + mode bar (36px) */
-  padding-top: 92px;
+  padding-top: 56px; /* clears fixed nav */
 }
 .dhero-grid {
   display: grid;
@@ -117,10 +126,39 @@ const { photo_developer, pdf_path, github } = meta;
 }
 .dhero-btn--fill:hover { background: var(--text); border-color: var(--text); }
 
+.dhero-aside {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
 .dhero-avatar {
   width: clamp(120px, 16vw, 200px);
   flex-shrink: 0;
 }
+
+/* Mode switcher beside the photo */
+.dhero-modes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: var(--font-mono);
+}
+.dhero-modes-label {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.dhero-modes-label strong { color: var(--accent); font-weight: 500; }
+.dhero-modes-row { display: flex; gap: 8px; }
+.dhero-modes-btn {
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  border: 1px solid var(--line-strong);
+  padding: 6px 12px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.dhero-modes-btn:hover { color: var(--text); border-color: var(--accent); }
 .dhero-avatar img {
   width: 100%;
   aspect-ratio: 1;
@@ -140,7 +178,8 @@ const { photo_developer, pdf_path, github } = meta;
     grid-template-columns: 1fr;
     gap: 32px;
   }
-  .dhero-avatar { order: -1; width: 104px; }
+  .dhero-aside { order: -1; }
+  .dhero-avatar { width: 104px; }
   .dhero-row { grid-template-columns: 92px 1fr; gap: 10px; }
 }
 </style>
