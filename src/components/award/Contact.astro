@@ -1,0 +1,94 @@
+---
+import meta from '../../data/meta.json';
+const { email, linkedin, github, whatsapp, phone, pdf_path } = meta;
+---
+
+<section class="acontact" id="contact">
+  <div class="wrap acontact-inner">
+    <img
+      src="/illust-contact.png"
+      alt="Illustration of a small character handing over an envelope"
+      class="acontact-illust rv"
+      loading="lazy"
+      width="346"
+      height="195"
+    />
+    <h2 class="acontact-title rv">Let's build<br />something.</h2>
+    <a href={`mailto:${email}`} class="acontact-email rv" data-magnetic>
+      {email.toLowerCase()}
+    </a>
+    <div class="acontact-links rv">
+      <a href={linkedin} target="_blank" rel="noopener noreferrer" class="acontact-link">
+        LinkedIn <i class="ti ti-arrow-up-right" aria-hidden="true"></i>
+      </a>
+      <a href={github} target="_blank" rel="noopener noreferrer" class="acontact-link">
+        GitHub <i class="ti ti-arrow-up-right" aria-hidden="true"></i>
+      </a>
+      <a href={whatsapp} target="_blank" rel="noopener noreferrer" class="acontact-link">
+        WhatsApp <i class="ti ti-arrow-up-right" aria-hidden="true"></i>
+      </a>
+      <a href={pdf_path} download class="acontact-link">
+        Resume PDF <i class="ti ti-download" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+.acontact {
+  border-top: 1px solid var(--line);
+  background:
+    radial-gradient(90% 70% at 50% 110%, rgba(255, 94, 58, 0.14), transparent 60%),
+    var(--bg);
+}
+.acontact-inner {
+  padding-block: var(--section-gap);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.acontact-illust {
+  width: clamp(180px, 22vw, 280px);
+  border-radius: var(--r-image);
+  margin-bottom: 40px;
+  background: var(--surface);
+}
+.acontact-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(52px, 9vw, 140px);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  margin: 0 0 clamp(32px, 5vh, 56px);
+}
+.acontact-email {
+  font-family: var(--font-mono);
+  font-size: clamp(17px, 2.2vw, 26px);
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 6px;
+  transition: color 0.25s ease;
+  display: inline-block;
+}
+.acontact-email:hover { color: var(--accent-deep); }
+.acontact-links {
+  display: flex;
+  gap: clamp(20px, 3vw, 40px);
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: clamp(40px, 6vh, 64px);
+}
+.acontact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.acontact-link:hover { color: var(--text); }
+</style>

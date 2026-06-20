@@ -1,0 +1,219 @@
+---
+import Award from '../layouts/Award.astro';
+import Nav from '../components/award/Nav.astro';
+import Hero from '../components/award/Hero.astro';
+import Marquee from '../components/award/Marquee.astro';
+import Stats from '../components/award/Stats.astro';
+import About from '../components/award/About.astro';
+import Work from '../components/award/Work.astro';
+import Experience from '../components/award/Experience.astro';
+import Skills from '../components/award/Skills.astro';
+import Contact from '../components/award/Contact.astro';
+import Footer from '../components/award/Footer.astro';
+import meta from '../data/meta.json';
+
+const title = `${meta.name} — The curious version`;
+const description = 'The personal side of Mohammad Zaki Jariwala. Engineer, builder, and the reasoning behind the projects.';
+---
+
+<Award title={title} description={description}>
+  <Nav currentMode="curious" />
+  <main>
+    <Hero />
+    <Marquee />
+    <Stats />
+    <Work />
+    <About />
+    <Experience />
+    <Skills />
+    <Contact />
+  </main>
+  <Footer />
+
+  <!-- Mode indicator bar -->
+  <div class="mode-bar" role="navigation" aria-label="Switch audience mode">
+    <span class="mode-bar-label">Viewing as <strong>Curious</strong></span>
+    <span class="mode-bar-div" aria-hidden="true">·</span>
+    <a href="/?mode=recruiter" class="mode-bar-link">Recruiter</a>
+    <span class="mode-bar-div" aria-hidden="true">·</span>
+    <a href="/dev" class="mode-bar-link">Developer</a>
+  </div>
+
+  <!-- Floating back button -->
+  <a href="/" class="back-btn" aria-label="Back to main portfolio">
+    <i class="ti ti-arrow-left" aria-hidden="true"></i>
+    <span>Main portfolio</span>
+  </a>
+</Award>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function heroIn() {
+    document.querySelectorAll('.ahero-line .ch').forEach((ch, i) => {
+      (ch as HTMLElement).style.transitionDelay = `${0.08 + i * 0.035}s`;
+      ch.classList.add('in');
+    });
+    document.querySelector('[data-hero-photo]')?.classList.add('in');
+    document.querySelectorAll('[data-hero-fade]').forEach(el => el.classList.add('in'));
+  }
+
+  function reveals() {
+    const els = document.querySelectorAll('.rv');
+    if (reduce) { els.forEach(el => el.classList.add('on')); return; }
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('on'); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.15 });
+    els.forEach(el => io.observe(el));
+  }
+
+  function counters() {
+    if (reduce) return;
+    document.querySelectorAll<HTMLElement>('[data-count]').forEach(el => {
+      const raw = el.textContent ?? '';
+      const m = raw.match(/^([\d,]+(?:\.\d+)?)(.*)$/);
+      if (!m) return;
+      const target = parseFloat(m[1].replace(/,/g, ''));
+      const suffix = m[2];
+      const decimals = (m[1].split('.')[1] ?? '').length;
+      const useCommas = m[1].includes(',');
+      const state = { v: 0 };
+      gsap.to(state, {
+        v: target, duration: 1.6, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+        onUpdate: () => {
+          let out = state.v.toFixed(decimals);
+          if (useCommas) out = Number(out).toLocaleString('en-US', { minimumFractionDigits: decimals });
+          el.textContent = out + suffix;
+        },
+      });
+    });
+  }
+
+  function heroScroll() {
+    if (reduce) return;
+    // Photo parallax: moves up as user scrolls down — slower than scroll = depth illusion
+    gsap.to('[data-hero-photo]', {
+      yPercent: -12, ease: 'none',
+      scrollTrigger: { trigger: '.ahero', start: 'top top', end: 'bottom top', scrub: true },
+    });
+    gsap.to('.ahero-line-1', {
+      xPercent: -6, ease: 'none',
+      scrollTrigger: { trigger: '.ahero', start: 'top top', end: 'bottom top', scrub: true },
+    });
+    gsap.to('.ahero-line-2', {
+      xPercent: 6, ease: 'none',
+      scrollTrigger: { trigger: '.ahero', start: 'top top', end: 'bottom top', scrub: true },
+    });
+  }
+
+  function workStack() {
+    if (reduce || window.matchMedia('(max-width: 900px)').matches) return;
+    const cards = gsap.utils.toArray<HTMLElement>('[data-stack-card]');
+    cards.forEach((card, i) => {
+      if (i === cards.length - 1) return;
+      gsap.to(card.querySelector('.awork-card-inner'), {
+        scale: 0.94, opacity: 0.35, ease: 'none',
+        scrollTrigger: { trigger: cards[i + 1], start: 'top bottom', end: 'top top', scrub: true },
+      });
+    });
+  }
+
+  function init() {
+    heroIn();
+    reveals();
+    counters();
+    heroScroll();
+    workStack();
+  }
+
+  init();
+  document.addEventListener('astro:page-load', init);
+</script>
+
+<style>
+/* ── Mode bar ── */
+.mode-bar {
+  position: fixed;
+  top: 68px;
+  left: 0;
+  right: 0;
+  z-index: 89;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: var(--bg);
+  border-bottom: 1.5px solid rgba(217, 74, 32, 0.28);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  animation: curious-bar-pulse 2.8s ease-in-out infinite;
+}
+@keyframes curious-bar-pulse {
+  0%, 100% { border-bottom-color: rgba(217, 74, 32, 0.2); }
+  50%       { border-bottom-color: rgba(217, 74, 32, 0.6); }
+}
+.mode-bar strong { color: var(--accent-deep); font-weight: 700; }
+.mode-bar-div { color: var(--faint); }
+.mode-bar-link {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+.mode-bar-link:hover { color: var(--accent); }
+
+/* ── Back button ── */
+.back-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 95;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 26px;
+  background: var(--accent);
+  border: 2px solid var(--accent);
+  border-radius: var(--r-pill);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  transition: opacity 0.2s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.back-btn:hover {
+  opacity: 0.85;
+  transform: translateX(4px);
+}
+.back-btn i { font-size: 16px; }
+
+@media (max-width: 600px) {
+  .mode-bar { gap: 12px; font-size: 12px; }
+}
+@media (max-width: 768px) {
+  /* clear the fixed bottom mobile nav (60px) */
+  .back-btn { bottom: calc(76px + env(safe-area-inset-bottom, 0)); }
+}
+@media (max-width: 480px) {
+  .back-btn {
+    right: 16px;
+    padding: 12px 18px;
+  }
+  .back-btn span { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mode-bar { animation: none; }
+}
+</style>

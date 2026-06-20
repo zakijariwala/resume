@@ -19,24 +19,6 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
 
     <h1 class="hero-name">{name}</h1>
 
-    <!-- Photo — recruiter mode only, right after name -->
-    <div class="hero-photo-wrap recruiter-only fade-in">
-      {photo_url ? (
-        <img
-          src={photo_url}
-          alt={`${name} headshot`}
-          class="hero-photo"
-          width="160"
-          height="160"
-          loading="eager"
-        />
-      ) : (
-        <div class="hero-photo-placeholder" aria-hidden="true">
-          <span class="hero-photo-initials">ZJ</span>
-        </div>
-      )}
-    </div>
-
     <p class="hero-tagline">
       <span class="recruiter-only">{taglines.recruiter}</span>
       <span class="dev-only">{taglines.developer}</span>
@@ -59,6 +41,24 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
 
   <!-- Right column: mode-adaptive -->
   <div class="hero-right">
+    <!-- Photo — all modes, above cards -->
+    <div class="hero-photo-wrap all-modes fade-in">
+      {photo_url ? (
+        <img
+          src={photo_url}
+          alt={`${name} headshot`}
+          class="hero-photo"
+          width="200"
+          height="200"
+          loading="eager"
+        />
+      ) : (
+        <div class="hero-photo-placeholder" aria-hidden="true">
+          <span class="hero-photo-initials">ZJ</span>
+        </div>
+      )}
+    </div>
+
     <!-- Recruiter + Developer: stat card grid -->
     <div class="stat-grid recruiter-dev fade-in" style="transition-delay: 0.1s;">
       {stats.map((stat, i) => (
@@ -68,6 +68,7 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
 
     <!-- Curious: personal currently block -->
     <div class="currently-block curious-only fade-in" style="transition-delay: 0.1s;">
+      <img src="/illust-curious-hero.png" class="currently-illust" alt="" aria-hidden="true" loading="lazy" width="400" height="160" />
       <div class="currently-label">Currently</div>
       <p class="currently-text">{currently}</p>
     </div>
@@ -163,23 +164,24 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
   align-items: center;
 }
 
-/* Photo — lives in hero-left, below the name */
+/* Photo — lives in hero-right, above cards */
 .hero-photo-wrap {
   display: flex;
-  justify-content: flex-start;
-  margin-bottom: var(--space-4);
+  justify-content: center;
+  margin-bottom: var(--space-6);
 }
 .hero-photo {
-  width: 64px;
-  height: 64px;
+  width: 168px;
+  height: 168px;
   border-radius: 9999px;
   object-fit: cover;
+  object-position: center top;
   border: 2px solid var(--border-strong);
   display: block;
 }
 .hero-photo-placeholder {
-  width: 64px;
-  height: 64px;
+  width: 168px;
+  height: 168px;
   border-radius: 9999px;
   border: 1px solid var(--border-strong);
   display: flex;
@@ -189,13 +191,14 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
 }
 .hero-photo-initials {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 28px;
   font-weight: 600;
   letter-spacing: 0.08em;
   color: var(--text-disabled);
 }
 @media (max-width: 768px) {
-  .hero-photo-wrap { margin-bottom: var(--space-3); }
+  .hero-photo { width: 96px; height: 96px; }
+  .hero-photo-placeholder { width: 96px; height: 96px; }
 }
 
 /* Stat grid */
@@ -211,6 +214,16 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
   border: 1px solid var(--border);
   border-radius: var(--card-radius);
   padding: var(--space-6);
+  overflow: hidden;
+}
+.currently-illust {
+  display: block;
+  width: calc(100% + var(--space-12));
+  margin: calc(-1 * var(--space-6)) calc(-1 * var(--space-6)) var(--space-5);
+  height: 160px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: calc(var(--card-radius) - 1px) calc(var(--card-radius) - 1px) 0 0;
 }
 .currently-label {
   font-family: var(--font-mono);

@@ -1,0 +1,134 @@
+/* ──────────────────────────────────────────────────────────────
+   ENGINEERING DOCUMENT — Developer mode page (/dev)
+   Theme: cold dark, locked. One accent — data only, never decoration.
+   Motion: near-none. 150ms fades. The restraint is the statement.
+   ────────────────────────────────────────────────────────────── */
+
+:root {
+  --bg:          #0b0d10;
+  --bg-2:        #0e1114;
+  --surface:     #111418;
+  --surface-2:   #15191e;
+  --line:        rgba(220, 228, 235, 0.08);
+  --line-strong: rgba(220, 228, 235, 0.16);
+
+  --text:        #e8ecef;
+  --muted:       #9aa3ab;
+  --faint:       #5d656d;
+
+  --accent:      #3ddc84;
+  --accent-soft: rgba(61, 220, 132, 0.10);
+  --accent-line: rgba(61, 220, 132, 0.30);
+
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-body: 'Instrument Sans', sans-serif;
+
+  --gutter: clamp(16px, 4vw, 56px);
+  --section-gap: clamp(72px, 10vh, 128px);
+}
+
+* { box-sizing: border-box; }
+
+html {
+  background: var(--bg);
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+
+.wrap {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+}
+
+/* Mono headline — lowercase, tight, the protagonist */
+.d-h {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: clamp(22px, 3vw, 34px);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* Section label — comment syntax, real */
+.d-label {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--faint);
+  margin: 0 0 8px;
+}
+.d-label::before { content: '// '; }
+
+/* Data values get tabular figures */
+.d-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Hairline section rule — the page is drafted, not decorated */
+.d-rule {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 0;
+}
+
+/* Reveal — 150ms fade, no transform theatrics */
+.rv {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.rv.on { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rv { opacity: 1; transition: none; }
+}
+
+/* Status dot — the one permitted live element, because it's true */
+.d-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: d-pulse 2.4s ease-in-out infinite;
+}
+@keyframes d-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.35; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .d-dot { animation: none; }
+}
+
+/* Links — accent, data only */
+.d-link {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent-line);
+  transition: border-color 0.15s ease;
+}
+.d-link:hover { border-color: var(--accent); }

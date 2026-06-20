@@ -353,6 +353,7 @@
     "tagline": "Embedded · Hardware",
     "featured": false,
     "priority": "secondary",
+    "image_url": "/illust-esp-pocket.png",
     "one_line_summary": "A pocket e-ink reading device built on ESP32-S3: custom firmware, SQLite content storage, and a Python EPUB ingestion pipeline.",
     "featured_metric": "Functional prototype",
     "why_i_built_it": "Reading on a phone destroys your eyes and your battery life. E-readers exist but they're expensive, locked down, and designed around ecosystems I don't want to be in. I wanted a device that did exactly one thing: display text clearly, at almost nothing to run. Building the firmware myself meant understanding every layer of the stack, from EPUB parsing down to the display driver.",
@@ -384,11 +385,52 @@
     ]
   },
   {
+    "id": "cos_os",
+    "name": "cos/os",
+    "tagline": "Personal OS · Project Tracking",
+    "featured": false,
+    "priority": "secondary",
+    "one_line_summary": "A markdown-based project operating system: per-project status files, Telegram idle alerts, Notion sync via GitHub Actions, and a public /now page.",
+    "featured_metric": "8 active projects tracked",
+    "why_i_built_it": "I had too many things in motion at once and kept losing track of what was blocked, what was moving, and what hadn't been touched in weeks. I built a simple system: each project gets a markdown file with its current status, what I'm doing now, and what's next. A bot pings me when something's gone stale. The public lab page is the same data, sanitised. It felt more honest than pretending all projects are always finished.",
+    "tech": ["Markdown", "GitHub Actions", "Cloudflare Workers", "Telegram Bot API", "Notion API"],
+    "github": "",
+    "live_url": "/now",
+    "year": "2025",
+    "bullets": [
+      {
+        "text": "Built a lightweight project OS to maintain visibility across 8 active builds: each project has a markdown status file tracking current phase, focus, and next action.",
+        "audience": ["recruiter"]
+      },
+      {
+        "text": "Telegram bot (Cloudflare Worker) sends stale-project alerts when a project file hasn't been updated in over 7 days. No context loss across parallel builds.",
+        "audience": ["recruiter"]
+      },
+      {
+        "text": "Markdown-first architecture: per-project .md files in cos-os/ committed alongside the portfolio repo. GitHub Actions sync to Notion on push. Zero external dependencies for the core tracking system.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "Cloudflare Worker handles Telegram webhook: parses incoming messages, reads project file state, sends structured status summaries. Stale-check cron triggers daily at 08:00 UTC.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "Public /now page parses cos-os/projects/portfolio.md at Astro build time via node:fs — no intermediate JSON, no sync script, no extra workflow. Page updates on every push to main.",
+        "audience": ["developer"]
+      },
+      {
+        "text": "I had too many projects going at once and kept forgetting what was stuck. I built a simple system where each project has a file that says what's happening now and what's next. A bot tells me when I've been ignoring something. The lab page is just the public version of that.",
+        "audience": ["curious"]
+      }
+    ]
+  },
+  {
     "id": "remote_dev_server",
     "name": "Personal Remote Dev Server",
     "tagline": "Infrastructure · DevOps",
     "featured": false,
     "priority": "secondary",
+    "image_url": "/illust-remote-dev-server.png",
     "one_line_summary": "A persistent cloud Linux dev environment on Oracle Free Tier: full-stack workflows from any device, zero cost, 99%+ uptime over 18 months.",
     "featured_metric": "99%+ uptime · 18 months",
     "why_i_built_it": "My personal projects involve a lot of long-running processes — builds, pipelines, SSH tunnels — that don't play well with a laptop that goes to sleep. I also wanted to be able to develop from my phone when away from a desk. Oracle Cloud's free tier is genuinely powerful if you configure it right, and Zellij with persistent sessions solves the context-loss problem that makes remote development frustrating.",

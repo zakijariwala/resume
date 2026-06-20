@@ -1,0 +1,71 @@
+---
+import skills from '../../data/skills.json';
+
+// Two cells get tinted backgrounds for grid rhythm
+const tinted = new Set(['AI', 'Infra']);
+---
+
+<section class="askills wrap">
+  <h2 class="h-big rv">What I work with</h2>
+  <div class="askills-grid">
+    {skills.map((cat) => (
+      <div class={`askills-cell rv ${tinted.has(cat.tab_label) ? 'is-tinted' : ''}`}>
+        <h3 class="askills-cat">{cat.category}</h3>
+        <ul class="askills-list">
+          {cat.items
+            .filter(item => item.proficiency !== 'learning')
+            .map(item => (
+              <li class={`askills-item ${item.proficiency}`}>{item.name}</li>
+            ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+.askills { padding-block: var(--section-gap); }
+.askills-grid {
+  margin-top: clamp(40px, 6vh, 72px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.askills-cell {
+  border: 1px solid var(--line);
+  border-radius: var(--r-surface);
+  padding: 32px;
+  background: var(--bg-2);
+}
+.askills-cell.is-tinted {
+  background: linear-gradient(170deg, var(--accent-soft), var(--bg-2) 70%);
+  border-color: var(--accent-line);
+}
+.askills-cat {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 18px;
+  margin: 0 0 20px;
+}
+.askills-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.askills-item {
+  font-size: 14px;
+  line-height: 1.5;
+}
+.askills-item.confident { color: var(--text); }
+.askills-item.familiar  { color: var(--faint); }
+
+@media (max-width: 1000px) {
+  .askills-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .askills-grid { grid-template-columns: 1fr; }
+}
+</style>

@@ -17,6 +17,7 @@ const githubDisplay = github.replace('https://', '');
   <div class="contact-grid">
     <!-- Left: links + tagline -->
     <div class="contact-left fade-in">
+      <img src="/illust-contact.png" class="contact-illust" alt="" aria-hidden="true" loading="lazy" width="400" height="150" />
       <h3 class="contact-headline">
         <span class="recruiter-only">{contact_headline.recruiter}</span>
         <span class="dev-only">{contact_headline.developer}</span>
@@ -124,6 +125,17 @@ const githubDisplay = github.replace('https://', '');
 }
 @media (max-width: 768px) {
   .contact-grid { grid-template-columns: 1fr; gap: var(--space-8); }
+}
+
+.contact-illust {
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  height: 150px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-6);
 }
 
 .contact-headline {

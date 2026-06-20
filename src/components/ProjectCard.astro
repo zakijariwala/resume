@@ -15,6 +15,7 @@ interface Props {
     tech: string[];
     github: string;
     live_url?: string;
+    image_url?: string;
     year: string;
     bullets: Bullet[];
   };
@@ -27,6 +28,11 @@ const hasLive = !!(project.live_url && project.live_url !== '');
 ---
 
 <div class="proj-card card fade-in" id={`project-${project.id}`}>
+  {project.image_url && (
+    <div class="proj-img-wrap">
+      <img src={project.image_url} alt="" aria-hidden="true" class="proj-img" loading="lazy" width="400" height="120" />
+    </div>
+  )}
   <div class="proj-header">
     <div class="proj-meta">
       <span class="project-tagline">{project.tagline}</span>
@@ -100,6 +106,18 @@ const hasLive = !!(project.live_url && project.live_url !== '');
 </style>
 
 <style>
+.proj-img-wrap {
+  margin: calc(-1 * var(--card-padding)) calc(-1 * var(--card-padding)) 0;
+}
+.proj-img {
+  display: block;
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: calc(var(--card-radius) - 1px) calc(var(--card-radius) - 1px) 0 0;
+}
+
 .proj-card {
   display: flex;
   flex-direction: column;

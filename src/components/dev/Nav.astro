@@ -1,0 +1,164 @@
+---
+---
+
+<header class="dnav">
+  <div class="wrap dnav-row">
+    <a href="#top" class="dnav-mark">mzj<span class="dnav-cursor">_</span></a>
+    <nav class="dnav-links" aria-label="Main navigation">
+      <a href="#work" class="dnav-link">work</a>
+      <a href="#experience" class="dnav-link">experience</a>
+      <a href="#skills" class="dnav-link">skills</a>
+      <a href="/now" class="dnav-link">now</a>
+    </nav>
+    <div class="dnav-right">
+      <div class="dnav-modes" aria-label="Switch audience mode">
+        <a href="/?mode=recruiter" class="dnav-mode">recruiter</a>
+        <span class="dnav-mode dnav-mode--active">developer</span>
+        <a href="/curious" class="dnav-mode">curious</a>
+      </div>
+      <a href="#contact" class="dnav-cta">contact</a>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile bottom nav -->
+<nav class="dnav-mobile" aria-label="Mobile navigation">
+  <a href="#work" class="dnav-mob-link"><i class="ti ti-code" aria-hidden="true"></i><span>work</span></a>
+  <a href="#experience" class="dnav-mob-link"><i class="ti ti-timeline" aria-hidden="true"></i><span>path</span></a>
+  <a href="#skills" class="dnav-mob-link"><i class="ti ti-cpu" aria-hidden="true"></i><span>skills</span></a>
+  <a href="#contact" class="dnav-mob-link"><i class="ti ti-mail" aria-hidden="true"></i><span>contact</span></a>
+  <a href="/now" class="dnav-mob-link"><i class="ti ti-flask" aria-hidden="true"></i><span>now</span></a>
+</nav>
+
+<style>
+.dnav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 90;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  background: rgba(11, 13, 16, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+}
+.dnav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.dnav-mark {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+}
+.dnav-cursor {
+  color: var(--accent);
+  animation: blink 1.2s step-end infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .dnav-cursor { animation: none; }
+}
+
+.dnav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.dnav-link {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.dnav-link:hover { color: var(--text); }
+
+.dnav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.dnav-modes {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  border: 1px solid var(--line-strong);
+  padding: 3px;
+}
+.dnav-mode {
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 4px 10px;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.dnav-mode:hover { color: var(--text); }
+.dnav-mode--active {
+  background: var(--accent);
+  color: var(--bg);
+  cursor: default;
+}
+
+.dnav-cta {
+  font-size: 13px;
+  color: var(--accent);
+  text-decoration: none;
+  border: 1px solid var(--accent-line);
+  padding: 6px 14px;
+  transition: border-color 0.15s ease;
+}
+.dnav-cta:hover { border-color: var(--accent); }
+
+/* Mobile bottom nav — hidden on desktop */
+.dnav-mobile { display: none; }
+
+@media (max-width: 768px) {
+  .dnav-links { display: none; }
+  .dnav-modes { display: none; }
+
+  .dnav-mobile {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 90;
+    height: 58px;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
+    background: rgba(11, 13, 16, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line-strong);
+    font-family: var(--font-mono);
+  }
+  .dnav-mob-link {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    font-size: 10px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .dnav-mob-link i { font-size: 17px; }
+  .dnav-mob-link:active { color: var(--accent); }
+}
+</style>
+
+<style is:global>
+@media (max-width: 768px) {
+  body { padding-bottom: calc(58px + env(safe-area-inset-bottom, 0)); }
+}
+</style>

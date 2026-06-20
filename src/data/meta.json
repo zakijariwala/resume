@@ -1,6 +1,9 @@
 {
   "name": "Mohammad Zaki Jariwala",
-  "photo_url": "",
+  "photo_url": "/Zaki_Photo.jpeg",
+  "photo_recruiter": "/Zaki_Photo.jpeg",
+  "photo_developer": "/photo-developer.png",
+  "photo_curious": "/photo-curious.jpg",
   "preferred_name": "J. Zaki",
   "location": "Navi Mumbai, India",
   "location_detail": "Seawoods, Navi Mumbai. Open to global relocation.",
@@ -11,7 +14,7 @@
   "linkedin": "https://linkedin.com/in/zakijariwala",
   "github": "https://github.com/zakijariwala",
   "pdf_path": "/Mohammad_Zaki_Jariwala_Resume.pdf",
-  "availability": "Targeting AI PM roles where product and engineering overlap. Mumbai-based, open to relocation.",
+  "availability": "Targeting AI PM roles where product and engineering overlap — Mumbai-based, open to relocation.",
 
   "taglines": {
     "recruiter": "AI Product Manager · Technical Lead",
