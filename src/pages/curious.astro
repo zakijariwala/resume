@@ -202,9 +202,12 @@ const description = 'The personal side of Mohammad Zaki Jariwala. Engineer, buil
 @media (max-width: 600px) {
   .mode-bar { gap: 12px; font-size: 12px; }
 }
+@media (max-width: 768px) {
+  /* clear the fixed bottom mobile nav (60px) */
+  .back-btn { bottom: calc(76px + env(safe-area-inset-bottom, 0)); }
+}
 @media (max-width: 480px) {
   .back-btn {
-    bottom: 20px;
     right: 16px;
     padding: 12px 18px;
   }
