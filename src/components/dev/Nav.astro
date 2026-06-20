@@ -21,6 +21,15 @@
   </div>
 </header>
 
+<!-- Mobile bottom nav -->
+<nav class="dnav-mobile" aria-label="Mobile navigation">
+  <a href="#work" class="dnav-mob-link"><i class="ti ti-code" aria-hidden="true"></i><span>work</span></a>
+  <a href="#experience" class="dnav-mob-link"><i class="ti ti-timeline" aria-hidden="true"></i><span>path</span></a>
+  <a href="#skills" class="dnav-mob-link"><i class="ti ti-cpu" aria-hidden="true"></i><span>skills</span></a>
+  <a href="#contact" class="dnav-mob-link"><i class="ti ti-mail" aria-hidden="true"></i><span>contact</span></a>
+  <a href="/now" class="dnav-mob-link"><i class="ti ti-flask" aria-hidden="true"></i><span>now</span></a>
+</nav>
+
 <style>
 .dnav {
   position: fixed;
@@ -107,8 +116,49 @@
 }
 .dnav-cta:hover { border-color: var(--accent); }
 
+/* Mobile bottom nav — hidden on desktop */
+.dnav-mobile { display: none; }
+
 @media (max-width: 768px) {
   .dnav-links { display: none; }
   .dnav-modes { display: none; }
+
+  .dnav-mobile {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 90;
+    height: 58px;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
+    background: rgba(11, 13, 16, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line-strong);
+    font-family: var(--font-mono);
+  }
+  .dnav-mob-link {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    font-size: 10px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .dnav-mob-link i { font-size: 17px; }
+  .dnav-mob-link:active { color: var(--accent); }
+}
+</style>
+
+<style is:global>
+@media (max-width: 768px) {
+  body { padding-bottom: calc(58px + env(safe-area-inset-bottom, 0)); }
 }
 </style>

@@ -25,6 +25,15 @@ const { currentMode = 'curious' } = Astro.props;
   </div>
 </header>
 
+<!-- Mobile bottom nav -->
+<nav class="anav-mobile" aria-label="Mobile navigation">
+  <a href="#work" class="anav-mob-link"><i class="ti ti-briefcase" aria-hidden="true"></i><span>Work</span></a>
+  <a href="#about" class="anav-mob-link"><i class="ti ti-user" aria-hidden="true"></i><span>About</span></a>
+  <a href="#experience" class="anav-mob-link"><i class="ti ti-timeline" aria-hidden="true"></i><span>Path</span></a>
+  <a href="#contact" class="anav-mob-link"><i class="ti ti-mail" aria-hidden="true"></i><span>Contact</span></a>
+  <a href="/now" class="anav-mob-link"><i class="ti ti-flask" aria-hidden="true"></i><span>Now</span></a>
+</nav>
+
 <style>
 .anav {
   position: fixed;
@@ -103,8 +112,50 @@ const { currentMode = 'curious' } = Astro.props;
 
 .anav-cta { padding: 9px 20px; font-size: 13px; }
 
+/* Mobile bottom nav — hidden on desktop */
+.anav-mobile { display: none; }
+
 @media (max-width: 768px) {
   .anav-links { display: none; }
   .anav-modes { display: none; }
+
+  .anav-mobile {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 90;
+    height: 60px;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
+    background: rgba(247, 244, 239, 0.92);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid var(--line-strong);
+  }
+  .anav-mob-link {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .anav-mob-link i { font-size: 18px; }
+  .anav-mob-link:active { color: var(--accent); }
+}
+</style>
+
+<style is:global>
+@media (max-width: 768px) {
+  body { padding-bottom: calc(60px + env(safe-area-inset-bottom, 0)); }
 }
 </style>
