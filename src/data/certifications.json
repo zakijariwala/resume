@@ -16,8 +16,8 @@
   {
     "name": "Professional Cloud Architect",
     "issuer": "Google Cloud",
-    "status": "in_progress",
+    "status": "completed",
     "year": "2026",
-    "note": "Actively studying — expected completion mid-2026."
+    "note": "Validates production-grade cloud architecture on Google Cloud — solution design, migration planning, high availability and disaster recovery, and security and compliance posture."
   }
 ]
