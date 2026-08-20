@@ -34,30 +34,77 @@ const { about } = meta;
     <div class="about-prose">
       <!-- Recruiter mode -->
       <div class="recruiter-only">
-        <p class="about-para fade-in">{about.paragraphs.recruiter}</p>
+        {about.paragraphs.recruiter.map((t, i) => (
+          <p class="about-para fade-in" style={`transition-delay: ${i * 0.05}s`}>{t}</p>
+        ))}
+      </div>
+
+      <!-- Infrastructure mode -->
+      <div class="infra-only">
+        {about.paragraphs.infrastructure.map((t, i) => (
+          <p class="about-para fade-in" style={`transition-delay: ${i * 0.05}s`}>{t}</p>
+        ))}
       </div>
 
       <!-- Developer mode -->
-      <div class="infra-only">
-        <p class="about-para fade-in">{about.paragraphs.infrastructure}</p>
-      </div>
-
       <div class="dev-only">
-        <p class="about-para fade-in">{about.paragraphs.developer}</p>
+        {about.paragraphs.developer.map((t, i) => (
+          <p class="about-para fade-in" style={`transition-delay: ${i * 0.05}s`}>{t}</p>
+        ))}
       </div>
 
-      <!-- Curious mode -->
+      <!-- Curious mode. The first two paragraphs carry the narrative; the rest
+           is there for anyone who wants it, without making the homepage long. -->
       <div class="curious-only">
         <p class="about-para fade-in">{about.paragraphs.curious_p1}</p>
         <p class="about-para fade-in" style="transition-delay: 0.05s;">{about.paragraphs.curious_p2}</p>
-        <p class="about-para fade-in" style="transition-delay: 0.10s;">{about.paragraphs.curious_p3}</p>
-        <p class="about-para fade-in" style="transition-delay: 0.15s;">{about.paragraphs.curious_p4}</p>
+        <details class="about-more">
+          <summary class="about-more-summary">
+            <span>More on how I got here</span>
+            <i class="ti ti-chevron-down" aria-hidden="true"></i>
+          </summary>
+          <p class="about-para">{about.paragraphs.curious_p3}</p>
+          <p class="about-para">{about.paragraphs.curious_p4}</p>
+        </details>
       </div>
     </div>
   </div>
 </section>
 
 <style>
+.about-more {
+  margin-top: var(--space-4);
+  border-top: 1px solid var(--border);
+  padding-top: var(--space-3);
+}
+.about-more-summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color var(--motion-fast);
+}
+.about-more-summary::-webkit-details-marker { display: none; }
+.about-more-summary:hover,
+.about-more[open] .about-more-summary { color: var(--accent-text); }
+.about-more-summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+.about-more-summary i { transition: transform var(--motion-fast); }
+.about-more[open] .about-more-summary i { transform: rotate(180deg); }
+.about-more .about-para:first-of-type { margin-top: var(--space-4); }
+@media (prefers-reduced-motion: reduce) {
+  .about-more-summary i { transition: none; }
+}
+
 .about-section {
   padding: var(--section-padding) 0;
   border-bottom: 1px solid var(--border);

@@ -1,0 +1,66 @@
+---
+import thinking from '../../data/thinking.json';
+---
+
+<section class="dthink wrap" id="thinking">
+  <p class="d-label rv">process</p>
+  <h2 class="d-h rv">decision loop</h2>
+
+  <ol class="dthink-list">
+    {thinking.map((s, i) => (
+      <li class={`dthink-step rv cat-${s.cat}`}>
+        <span class="dthink-idx d-num">{String(i + 1).padStart(2, '0')}</span>
+        <div class="dthink-body">
+          <h3 class="dthink-name">{s.step.toLowerCase()}</h3>
+          <p class="dthink-rule">{s.body}</p>
+          <p class="dthink-evidence">
+            <span class="dthink-key">evidence:</span> {s.evidence}
+          </p>
+          <a class="d-link" href={`/#project-${s.project_id}`}>{s.project_name.toLowerCase()} →</a>
+        </div>
+      </li>
+    ))}
+  </ol>
+</section>
+
+<style>
+.dthink { padding-block: var(--section-gap); }
+.dthink-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.dthink-step {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: var(--gutter);
+  padding: 1.5rem 0 1.5rem 1.25rem;
+  border-top: 1px solid var(--line);
+  border-left: 2px solid var(--cat-border, var(--line));
+}
+.dthink-step:last-child { border-bottom: 1px solid var(--line); }
+.dthink-idx { color: var(--cat-color, var(--accent)); align-self: start; }
+.dthink-body { display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; }
+.dthink-name {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+}
+.dthink-rule { color: var(--muted); margin: 0; max-width: 62ch; }
+.dthink-evidence {
+  color: var(--faint);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  max-width: 72ch;
+}
+.dthink-key { color: var(--cat-color, var(--accent)); }
+@media (max-width: 640px) {
+  .dthink-step { grid-template-columns: 1fr; gap: 0.5rem; }
+}
+</style>

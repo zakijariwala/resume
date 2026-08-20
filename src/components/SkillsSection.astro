@@ -29,7 +29,7 @@ import SectionHeader from './SectionHeader.astro';
   <div class="skill-tabs fade-in" role="tablist" aria-label="Skill categories">
     {skills.map((cat, i) => (
       <button
-        class={`skill-tab-btn${i === 0 ? ' active' : ''}`}
+        class={`skill-tab-btn cat-${cat.cat ?? 'primary'}${i === 0 ? ' active' : ''}`}
         role="tab"
         data-skill-tab={cat.tab_label}
         aria-selected={i === 0 ? 'true' : 'false'}
@@ -44,7 +44,7 @@ import SectionHeader from './SectionHeader.astro';
   <!-- Tab panels -->
   {skills.map((cat, i) => (
     <div
-      class={`skill-panel${i === 0 ? ' active' : ''}`}
+      class={`skill-panel cat-${cat.cat ?? 'primary'}${i === 0 ? ' active' : ''}`}
       role="tabpanel"
       id={`skill-panel-${cat.tab_label}`}
       aria-labelledby={`skill-tab-${cat.tab_label}`}
@@ -93,6 +93,17 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <style>
+/* Each skill group carries its category colour, so the grouping is visible
+   before you read the labels. The tab text still names the group. */
+.skill-tab-btn.active { color: var(--cat-color, var(--accent-text)); border-bottom-color: var(--cat-color, var(--accent)); }
+.skill-panel .skill-pill.confident { background: var(--cat-color, var(--accent)); }
+.skill-panel .skill-pill.familiar {
+  background: var(--cat-subtle, var(--accent-subtle));
+  color: var(--cat-color, var(--accent-text));
+  border-color: var(--cat-border, var(--accent-border));
+}
+.skill-panel .skill-pill.learning { color: var(--cat-color, var(--accent-text)); }
+
 .section-spacing {
   padding: var(--section-padding) 0;
 }

@@ -1,6 +1,7 @@
 [
   {
     "category": "AI Engineering & Automation",
+    "cat": "ai",
     "tab_label": "AI",
     "items": [
       { "name": "LLM Orchestration & GenAI Workflow Design", "proficiency": "confident" },
@@ -14,6 +15,7 @@
   },
   {
     "category": "Product & Leadership",
+    "cat": "product",
     "tab_label": "Product",
     "items": [
       { "name": "0-to-1 Product Development", "proficiency": "confident" },
@@ -28,6 +30,7 @@
   },
   {
     "category": "Development & Workflows",
+    "cat": "primary",
     "tab_label": "Dev",
     "items": [
       { "name": "Python (ETL / Pipelines / Scripting)", "proficiency": "confident" },
@@ -42,6 +45,7 @@
   },
   {
     "category": "Cloud & Platform Engineering",
+    "cat": "infra",
     "tab_label": "Cloud",
     "items": [
       { "name": "Docker & Containerization", "proficiency": "confident" },
@@ -55,6 +59,7 @@
   },
   {
     "category": "Infrastructure & Operations",
+    "cat": "infra",
     "tab_label": "Infra",
     "items": [
       { "name": "Linux (RHEL / Ubuntu)", "proficiency": "confident" },
@@ -68,6 +73,7 @@
   },
   {
     "category": "Hardware & Systems",
+    "cat": "primary",
     "tab_label": "Hardware",
     "items": [
       { "name": "ESP32-S3 Microcontrollers", "proficiency": "familiar" },

@@ -323,6 +323,33 @@ a {
 [data-mode="infrastructure"] span.infra-only    { display: inline; }
 [data-mode="infrastructure"] li.infra-only      { display: list-item; }
 
+
+/* ──────────────────────────────────────────────────────
+   VISIBILITY ENFORCEMENT
+   A component's own scoped rule (.foo[data-astro-cid-x], specificity 0,2,0)
+   outranks the plain .dev-only hide above (0,1,0), so chrome leaked into
+   modes it does not belong to. These re-assert the hide at (0,3,0). Showing
+   is left to the rules above and to each component, so elements keep their
+   real display value (inline-flex, list-item, grid) in their own mode.
+   ────────────────────────────────────────────────────── */
+[data-mode="recruiter"] .dev-only.dev-only:not(.recruiter-only):not(.recruiter-dev):not(.recruiter-mgmt) { display: none; }
+[data-mode="recruiter"] .curious-only.curious-only:not(.recruiter-only):not(.recruiter-dev):not(.recruiter-mgmt) { display: none; }
+[data-mode="recruiter"] .infra-only.infra-only:not(.recruiter-only):not(.recruiter-dev):not(.recruiter-mgmt) { display: none; }
+[data-mode="developer"] .recruiter-only.recruiter-only:not(.dev-only):not(.recruiter-dev) { display: none; }
+[data-mode="developer"] .curious-only.curious-only:not(.dev-only):not(.recruiter-dev) { display: none; }
+[data-mode="developer"] .infra-only.infra-only:not(.dev-only):not(.recruiter-dev) { display: none; }
+[data-mode="developer"] .recruiter-mgmt.recruiter-mgmt:not(.dev-only):not(.recruiter-dev) { display: none; }
+[data-mode="curious"] .recruiter-only.recruiter-only:not(.curious-only) { display: none; }
+[data-mode="curious"] .dev-only.dev-only:not(.curious-only) { display: none; }
+[data-mode="curious"] .infra-only.infra-only:not(.curious-only) { display: none; }
+[data-mode="curious"] .recruiter-dev.recruiter-dev:not(.curious-only) { display: none; }
+[data-mode="curious"] .recruiter-mgmt.recruiter-mgmt:not(.curious-only) { display: none; }
+[data-mode="infrastructure"] .recruiter-only.recruiter-only:not(.infra-only) { display: none; }
+[data-mode="infrastructure"] .dev-only.dev-only:not(.infra-only) { display: none; }
+[data-mode="infrastructure"] .curious-only.curious-only:not(.infra-only) { display: none; }
+[data-mode="infrastructure"] .recruiter-dev.recruiter-dev:not(.infra-only) { display: none; }
+[data-mode="infrastructure"] .recruiter-mgmt.recruiter-mgmt:not(.infra-only) { display: none; }
+
 /* ──────────────────────────────────────────────────────
    SCROLL REVEAL
    ────────────────────────────────────────────────────── */
