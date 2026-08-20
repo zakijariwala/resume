@@ -1,0 +1,88 @@
+---
+import Dev from '../layouts/Dev.astro';
+import Nav from '../components/dev/Nav.astro';
+import Hero from '../components/dev/Hero.astro';
+import Work from '../components/dev/Work.astro';
+import Experience from '../components/dev/Experience.astro';
+import Skills from '../components/dev/Skills.astro';
+import Contact from '../components/dev/Contact.astro';
+import Footer from '../components/dev/Footer.astro';
+import meta from '../data/meta.json';
+
+const title = `${meta.name} — engineering`;
+const description = 'Systems engineer and AI product builder. Architecture decisions, stack detail, and real metrics across infrastructure and shipped products.';
+---
+
+<Dev title={title} description={description}>
+  <Nav />
+  <main>
+    <Hero />
+    <Work />
+    <Experience />
+    <Skills />
+    <Contact />
+  </main>
+  <Footer />
+
+  <!-- Floating back button -->
+  <a href="/" class="back-btn" aria-label="Back to main portfolio">
+    <i class="ti ti-arrow-left" aria-hidden="true"></i>
+    <span>main portfolio</span>
+  </a>
+</Dev>
+
+<script>
+  function reveals() {
+    const els = document.querySelectorAll('.rv');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) { els.forEach(el => el.classList.add('on')); return; }
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('on'); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.1 });
+    els.forEach(el => io.observe(el));
+  }
+
+  reveals();
+  document.addEventListener('astro:page-load', reveals);
+</script>
+
+<style>
+/* ── Back button ── */
+.back-btn {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 95;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 20px;
+  background: transparent;
+  border: 1.5px solid var(--accent);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.back-btn:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+.back-btn i { font-size: 15px; }
+
+@media (max-width: 768px) {
+  /* clear the fixed bottom mobile nav (58px) */
+  .back-btn { bottom: calc(74px + env(safe-area-inset-bottom, 0)); }
+}
+@media (max-width: 480px) {
+  .back-btn {
+    left: 16px;
+    padding: 9px 14px;
+  }
+  .back-btn span { display: none; }
+}
+</style>

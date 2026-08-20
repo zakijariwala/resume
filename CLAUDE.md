@@ -5,12 +5,75 @@ Read this before touching any code or content.
 
 ---
 
+## Behavioral Guidelines
+
+**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+
+### 1. Think Before Coding
+
+**Don't assume. Don't hide confusion. Surface tradeoffs.**
+
+Before implementing:
+- State your assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them - don't pick silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop. Name what's confusing. Ask.
+
+### 2. Simplicity First
+
+**Minimum code that solves the problem. Nothing speculative.**
+
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No "flexibility" or "configurability" that wasn't requested.
+- No error handling for impossible scenarios.
+- If you write 200 lines and it could be 50, rewrite it.
+
+Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+
+### 3. Surgical Changes
+
+**Touch only what you must. Clean up only your own mess.**
+
+When editing existing code:
+- Don't "improve" adjacent code, comments, or formatting.
+- Don't refactor things that aren't broken.
+- Match existing style, even if you'd do it differently.
+- If you notice unrelated dead code, mention it - don't delete it.
+
+When your changes create orphans:
+- Remove imports/variables/functions that YOUR changes made unused.
+- Don't remove pre-existing dead code unless asked.
+
+The test: Every changed line should trace directly to the user's request.
+
+### 4. Goal-Driven Execution
+
+**Define success criteria. Loop until verified.**
+
+For multi-step tasks, state a brief plan:
+```
+1. [Step] → verify: [check]
+2. [Step] → verify: [check]
+```
+
+Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+
+**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+
+---
+
 ## Project Identity
 
 **Owner:** J. Zaki — Systems Engineer, Mumbai. TCS deployed at SBI GITC.
 **Site:** zakijariwala.space
 **Purpose:** Professional portfolio targeting infrastructure, SRE, and platform engineering roles.
-**Hosting:** GitHub Pages (migrating to Cloudflare Pages). Astro static build, deployed via GitHub Actions.
+**Hosting:** Cloudflare Pages, project `resume`, building from branch **`ai-pm`**
+with automatic deployments. Custom domain zakijariwala.space, plus
+resume-e4n.pages.dev. Other branches deploy as Cloudflare *Preview* builds.
+
+`main` is NOT production and trails `ai-pm`. The GitHub Pages workflow that
+deployed `main` has been removed — there is one deployment path now.
 **CMS:** Decap CMS at `/admin/` — edits data files via GitHub API, triggers rebuild on save.
 
 ---
@@ -19,7 +82,7 @@ Read this before touching any code or content.
 
 ```
 Astro 4 + Tailwind CSS 3 + TypeScript
-GitHub Actions: push to main → npm run build → deploy to GitHub Pages
+Cloudflare Pages: push to ai-pm → npm run build → deploy to zakijariwala.space
 src/data/*.json — single source of truth for all portfolio content
 Decap CMS — /public/admin/index.html + /public/admin/config.yml
 ```
@@ -40,6 +103,22 @@ The portfolio has four audience modes: **Recruiter**, **Developer**, **Curious**
 This is not a content filter. Each mode is a distinct visual identity. A user switching between modes must feel they have encountered three different websites — different layout density, different typographic emphasis, different surface language, different section labeling, different tone. Content differences reinforce these identities but do not create them alone.
 
 Depth and authenticity over cleverness. Technical richness in Developer mode comes from information density and genuine stack/metric detail — not from simulated interfaces. Curiosity in Curious mode comes from editorial layout and personal voice — not from decorative flourishes.
+
+### Architecture
+
+Recruiter and Developer modes live at `/` — instant CSS toggle via `data-mode` on `<html>`. No page navigation.
+
+Curious mode lives at `/curious` — a fully separate Astro page (`src/pages/curious.astro`) using the Award layout. The Curious button in the mode switcher is a `<a href="/curious">` link, not a toggle.
+
+Developer mode will eventually live at `/dev` — same pattern as Curious. The mode switcher accepts a `currentMode` prop so it can route (Curious/Dev) vs. toggle (Recruiter/Developer on `/`).
+
+The `/curious` page has:
+- The Award redesign in warm light mode (`~#f7f4ef` background, coral `#ff5e3a` accent)
+- A mode switcher in the nav (links back to `/?mode=recruiter`, `/?mode=developer`, `/dev` when built)
+- A floating "← Back to main portfolio" button
+- Astro View Transitions (`<ClientRouter />`) for smooth cross-page navigation
+
+All three pages share `src/data/*.json` as single source of truth. `meta.json` has `photo_recruiter`, `photo_developer`, `photo_curious` fields. Each page's Hero uses only its own.
 
 ### Recruiter Mode
 
@@ -257,7 +336,10 @@ src/
   layouts/
     Base.astro
   pages/
-    index.astro
+    index.astro                     (Recruiter mode — mode system + proof strip)
+    dev.astro                       (Developer mode — Dev layout, separate page)
+    curious.astro                   (Curious mode — Award layout, separate page)
+    now.astro                       (Now / currently — markdown-driven)
     infra.astro                     (Infrastructure mode, mode-pinned route)
   styles/
     global.css

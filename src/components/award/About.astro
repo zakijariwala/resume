@@ -1,0 +1,96 @@
+---
+import meta from '../../data/meta.json';
+const { currently } = meta;
+---
+
+<section class="aabout wrap" id="about">
+  <div class="aabout-grid">
+    <div class="aabout-left">
+      <h2 class="h-big rv">I find it hard to stop building things.</h2>
+      <img
+        src="/illust-curious-hero.png"
+        alt="Illustration of a small character building at a desk under lamplight"
+        class="aabout-illust rv"
+        loading="lazy"
+        width="597"
+        height="335"
+      />
+    </div>
+
+    <div class="aabout-right">
+      <p class="aabout-para rv">
+        By day I keep a Tier-1 bank's identity infrastructure alive for
+        30,000+ people, leading a team of five at TCS inside State Bank of
+        India. Success there is invisible: when nobody notices, everything
+        went right.
+      </p>
+      <p class="aabout-para rv">
+        The rest of the time I ship products nobody assigned me. An offline
+        supplication app serving a worldwide community. A running app that
+        invents routes. A pocket e-ink reader built from the firmware up. An
+        AI pipeline that writes first drafts so humans can do the judging.
+        Every one of them exists because the alternatives were bad and I
+        thought I could do better.
+      </p>
+      <p class="aabout-para rv">
+        The part I enjoy most is always the same: deciding what to build and
+        why. That is the job I want to do full-time.
+      </p>
+      <div class="aabout-now rv">
+        <span class="mono-label">Currently</span>
+        <p class="aabout-now-text">{currently}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.aabout { padding-block: var(--section-gap); }
+.aabout-grid {
+  display: grid;
+  grid-template-columns: 5fr 6fr;
+  gap: clamp(40px, 6vw, 110px);
+  align-items: start;
+}
+.aabout-left {
+  position: sticky;
+  top: 110px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.aabout-illust {
+  border-radius: var(--r-image);
+  border: 1px solid var(--line);
+  width: 100%;
+  max-width: 460px;
+  background: var(--surface);
+}
+.aabout-para {
+  margin: 0 0 28px;
+  max-width: 62ch;
+  font-size: clamp(17px, 1.5vw, 20px);
+  line-height: 1.7;
+  color: var(--muted);
+}
+.aabout-para:first-child { color: var(--text); }
+.aabout-now {
+  margin-top: 48px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-surface);
+  background: var(--surface);
+}
+.aabout-now-text {
+  margin: 12px 0 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+@media (max-width: 900px) {
+  .aabout-grid { grid-template-columns: 1fr; }
+  .aabout-left { position: static; }
+  .aabout-illust { max-width: 380px; }
+}
+</style>

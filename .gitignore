@@ -21,3 +21,4 @@ Thumbs.db
 
 # Python cache (resume generator scripts)
 misc/__pycache__/
+graphify-out/

@@ -1,0 +1,177 @@
+---
+import experience from '../../data/experience.json';
+import certifications from '../../data/certifications.json';
+import meta from '../../data/meta.json';
+
+const { education } = meta;
+
+const devBullets = (e: typeof experience[0]) =>
+  e.bullets.filter(b => b.audience.includes('developer')).map(b => b.text);
+---
+
+<section class="dexp wrap" id="experience">
+  <p class="d-label rv">experience</p>
+  <h2 class="d-h rv">employment log</h2>
+
+  <div class="dexp-list">
+    {experience.map(entry => (
+      <article class="dexp-entry rv">
+        <header class="dexp-head">
+          <div>
+            <h3 class="dexp-co">{entry.company}</h3>
+            <span class="dexp-role">{entry.title.toLowerCase()}</span>
+            {entry.subtitle && <span class="dexp-sub">{entry.subtitle.toLowerCase()}</span>}
+          </div>
+          <span class="dexp-dates d-num">{entry.dates.replace(/–/g, '–')}</span>
+        </header>
+
+        <div class="dexp-kpis">
+          {entry.kpis.map(kpi => (
+            <div class="dexp-kpi">
+              <span class="dexp-kpi-val d-num">{kpi.value}</span>
+              <span class="dexp-kpi-label">{kpi.label.toLowerCase()}</span>
+            </div>
+          ))}
+        </div>
+
+        <ul class="dexp-bullets">
+          {devBullets(entry).map(text => <li>{text}</li>)}
+        </ul>
+      </article>
+    ))}
+  </div>
+
+  <div class="dexp-certs rv">
+    <p class="d-label">credentials</p>
+    <table class="dexp-table">
+      <tbody>
+        {certifications.map(cert => (
+          <tr>
+            <td class="dexp-td-name">{cert.name}</td>
+            <td class="dexp-td-issuer">{cert.issuer}</td>
+            <td class="dexp-td-year d-num">
+              {cert.status === 'in_progress' ? `in progress · ${cert.year}` : cert.year}
+            </td>
+          </tr>
+        ))}
+        {education && (
+          <tr>
+            <td class="dexp-td-name">{education.degree}</td>
+            <td class="dexp-td-issuer">{education.institution}</td>
+            <td class="dexp-td-year d-num">{education.year}</td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<style>
+.dexp { padding-block: var(--section-gap); }
+
+.dexp-list { margin-top: clamp(32px, 5vh, 56px); }
+
+.dexp-entry {
+  border-top: 1px solid var(--line);
+  padding: clamp(28px, 4vh, 48px) 0;
+}
+.dexp-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.dexp-co {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: clamp(17px, 2vw, 22px);
+  margin: 0;
+}
+.dexp-role {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--accent);
+  margin-top: 4px;
+}
+.dexp-sub {
+  display: block;
+  font-size: 13px;
+  color: var(--faint);
+  margin-top: 2px;
+}
+.dexp-dates {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--faint);
+}
+
+.dexp-kpis {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(20px, 4vw, 48px);
+  margin-top: 24px;
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.dexp-kpi { display: flex; flex-direction: column; gap: 2px; }
+.dexp-kpi-val {
+  font-family: var(--font-mono);
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 500;
+}
+.dexp-kpi-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--faint);
+}
+
+.dexp-bullets {
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.dexp-bullets li {
+  position: relative;
+  padding: 8px 0 8px 22px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+.dexp-bullets li::before {
+  content: '–';
+  position: absolute;
+  left: 4px;
+  color: var(--faint);
+  font-family: var(--font-mono);
+}
+
+.dexp-certs { margin-top: clamp(40px, 6vh, 64px); }
+.dexp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+.dexp-table td {
+  padding: 12px 16px 12px 0;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+  vertical-align: top;
+}
+.dexp-td-name { color: var(--text); }
+.dexp-td-issuer { color: var(--muted); white-space: nowrap; }
+.dexp-td-year {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--faint);
+  white-space: nowrap;
+  text-align: right;
+  padding-right: 0;
+}
+
+@media (max-width: 640px) {
+  .dexp-td-issuer { display: none; }
+}
+</style>

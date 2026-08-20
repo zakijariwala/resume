@@ -1,0 +1,62 @@
+---
+import meta from '../../data/meta.json';
+const { email, linkedin, github, whatsapp, pdf_path } = meta;
+---
+
+<section class="dcontact" id="contact">
+  <div class="wrap dcontact-inner">
+    <p class="d-label rv">contact</p>
+    <h2 class="d-h rv">let's build something.</h2>
+
+    <dl class="dcontact-dl rv">
+      <div class="dcontact-row">
+        <dt>email:</dt>
+        <dd><a href={`mailto:${email}`} class="d-link">{email.toLowerCase()}</a></dd>
+      </div>
+      <div class="dcontact-row">
+        <dt>github:</dt>
+        <dd><a href={github} target="_blank" rel="noopener noreferrer" class="d-link">{github.replace('https://', '')}</a></dd>
+      </div>
+      <div class="dcontact-row">
+        <dt>linkedin:</dt>
+        <dd><a href={linkedin} target="_blank" rel="noopener noreferrer" class="d-link">{linkedin.replace('https://', '')}</a></dd>
+      </div>
+      <div class="dcontact-row">
+        <dt>whatsapp:</dt>
+        <dd><a href={whatsapp} target="_blank" rel="noopener noreferrer" class="d-link">direct message</a></dd>
+      </div>
+      <div class="dcontact-row">
+        <dt>resume:</dt>
+        <dd><a href={pdf_path} download class="d-link">download pdf</a></dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<style>
+.dcontact {
+  border-top: 1px solid var(--line);
+}
+.dcontact-inner {
+  padding-block: var(--section-gap);
+}
+.dcontact-dl {
+  margin: clamp(28px, 4vh, 44px) 0 0;
+  max-width: 560px;
+}
+.dcontact-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+.dcontact-row dt { color: var(--faint); margin: 0; }
+.dcontact-row dd { margin: 0; overflow-wrap: anywhere; }
+
+@media (max-width: 640px) {
+  .dcontact-row { grid-template-columns: 92px 1fr; gap: 10px; }
+}
+</style>

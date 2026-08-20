@@ -1,0 +1,225 @@
+---
+import projects from '../../data/projects.json';
+
+const devBullets = (p: typeof projects[0]) =>
+  p.bullets.filter(b => b.audience.includes('developer')).map(b => b.text);
+
+const primary = projects.filter(p => p.priority === 'primary');
+const secondary = projects.filter(p => p.priority === 'secondary');
+---
+
+<section class="dwork wrap" id="work">
+  <p class="d-label rv">work</p>
+  <h2 class="d-h rv">case files</h2>
+
+  <div class="dwork-list">
+    {primary.map((p, i) => (
+      <article class="dwork-case rv">
+        <header class="dwork-head">
+          <span class="dwork-idx d-num">{String(i + 1).padStart(2, '0')}</span>
+          <div class="dwork-title-block">
+            <h3 class="dwork-name">{p.name}</h3>
+            <span class="dwork-tag">{p.tagline.toLowerCase()}</span>
+          </div>
+          <span class="dwork-metric d-num">{p.featured_metric}</span>
+        </header>
+
+        <p class="dwork-summary">{p.one_line_summary}</p>
+
+        <ul class="dwork-bullets">
+          {devBullets(p).map(text => <li>{text}</li>)}
+        </ul>
+
+        <footer class="dwork-foot">
+          <div class="dwork-stack">
+            <span class="dwork-stack-key">stack:</span>
+            {p.tech.map(t => <span class="dwork-chip">{t}</span>)}
+          </div>
+          <div class="dwork-links">
+            {p.github
+              ? <a href={p.github} target="_blank" rel="noopener noreferrer" class="d-link">view repo</a>
+              : <span class="dwork-private">private repo</span>
+            }
+            {p.live_url && (
+              <a href={p.live_url} target="_blank" rel="noopener noreferrer" class="d-link">live</a>
+            )}
+          </div>
+        </footer>
+      </article>
+    ))}
+  </div>
+
+  <p class="d-label rv dwork-secondary-label">also built</p>
+  <div class="dwork-secondary">
+    {secondary.map(p => (
+      <article class="dwork-mini rv">
+        <h3 class="dwork-mini-name">{p.name}</h3>
+        <span class="dwork-mini-metric d-num">{p.featured_metric}</span>
+        <p class="dwork-mini-summary">{p.one_line_summary}</p>
+        <div class="dwork-mini-foot">
+          <span class="dwork-mini-stack">{p.tech.slice(0, 3).join(' · ')}</span>
+          {p.github && <a href={p.github} target="_blank" rel="noopener noreferrer" class="d-link">repo</a>}
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+.dwork { padding-block: var(--section-gap); }
+
+.dwork-list { margin-top: clamp(32px, 5vh, 56px); }
+
+.dwork-case {
+  border-top: 1px solid var(--line);
+  padding: clamp(28px, 4vh, 48px) 0;
+}
+
+.dwork-head {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.dwork-idx {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--faint);
+}
+.dwork-title-block {
+  flex: 1;
+  min-width: 200px;
+}
+.dwork-name {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: clamp(17px, 2vw, 22px);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.dwork-tag {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--faint);
+}
+.dwork-metric {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--accent);
+}
+
+.dwork-summary {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: 72ch;
+  margin: 16px 0 0;
+}
+
+.dwork-bullets {
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.dwork-bullets li {
+  position: relative;
+  padding: 8px 0 8px 22px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+}
+.dwork-bullets li:last-child { border-bottom: 0; }
+.dwork-bullets li::before {
+  content: '–';
+  position: absolute;
+  left: 4px;
+  color: var(--faint);
+  font-family: var(--font-mono);
+}
+
+.dwork-foot {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.dwork-stack {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.dwork-stack-key {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--faint);
+  margin-right: 4px;
+}
+.dwork-chip {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  padding: 3px 8px;
+}
+.dwork-links {
+  display: flex;
+  gap: 16px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.dwork-private {
+  color: var(--faint);
+}
+
+.dwork-secondary-label { margin-top: clamp(40px, 6vh, 64px); }
+.dwork-secondary {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 16px;
+}
+.dwork-mini {
+  background: var(--bg-2);
+  padding: 24px;
+}
+.dwork-mini-name {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 15px;
+  margin: 0;
+}
+.dwork-mini-metric {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent);
+  margin-top: 4px;
+}
+.dwork-mini-summary {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 12px 0 0;
+}
+.dwork-mini-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.dwork-mini-stack { color: var(--faint); }
+
+@media (max-width: 640px) {
+  .dwork-secondary { grid-template-columns: 1fr; }
+}
+</style>

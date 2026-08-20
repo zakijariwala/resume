@@ -2,6 +2,13 @@
 import meta from '../data/meta.json';
 
 const { name } = meta;
+
+// The switcher is a set of page links now, not a radio group: Developer,
+// Curious and Infrastructure are separate routes. Mark the current one.
+const norm = (u: string) => u.replace(/\/+$/, '') || '/';
+const path = norm(Astro.url.pathname);
+const isCurrent = (href: string) => path === norm(href);
+const isNow = Astro.url.pathname.replace(/\/$/, '').endsWith('/now');
 ---
 
 <!-- Desktop top nav -->
@@ -28,6 +35,10 @@ const { name } = meta;
     <a href="#skills" class="desktop-nav-link nav-link">Skills</a>
     <a href="#certifications" class="desktop-nav-link nav-link">Certs</a>
     <a href="#contact" class="desktop-nav-link nav-link">Contact</a>
+    <a href="/now" class:list={['nav-link lab-nav-link', { active: isNow }]}>
+      <i class="ti ti-flask" aria-hidden="true"></i>
+      Now
+    </a>
   </nav>
 
   <!-- Right controls: mode switcher + theme toggle -->
@@ -38,13 +49,28 @@ const { name } = meta;
       <div
         class="audience-switch flex p-0.5 rounded-full"
         style="background: var(--bg); border: 1px solid var(--border);"
-        role="radiogroup"
         aria-label="Select audience perspective"
       >
-        <button class="audience-btn" data-mode-btn="recruiter" role="radio" aria-checked="false">Recruiter</button>
-        <button class="audience-btn" data-mode-btn="developer" role="radio" aria-checked="false">Developer</button>
-        <button class="audience-btn" data-mode-btn="infrastructure" role="radio" aria-checked="false" aria-label="Infrastructure">Infra</button>
-        <button class="audience-btn" data-mode-btn="curious" role="radio" aria-checked="false">Curious</button>
+        <a
+          href="/"
+          class={`audience-btn audience-btn--link ${isCurrent('/') ? 'active' : ''}`}
+          aria-current={isCurrent('/') ? 'page' : undefined}
+        >Recruiter</a>
+        <a
+          href="/dev"
+          class={`audience-btn audience-btn--link ${isCurrent('/dev') ? 'active' : ''}`}
+          aria-current={isCurrent('/dev') ? 'page' : undefined}
+        >Developer</a>
+        <a
+          href="/infra"
+          class={`audience-btn audience-btn--link ${isCurrent('/infra') ? 'active' : ''}`}
+          aria-current={isCurrent('/infra') ? 'page' : undefined}
+        >Infra</a>
+        <a
+          href="/curious"
+          class={`audience-btn audience-btn--link ${isCurrent('/curious') ? 'active' : ''}`}
+          aria-current={isCurrent('/curious') ? 'page' : undefined}
+        >Curious</a>
       </div>
       <div id="mode-coachmark" class="mode-coachmark" aria-hidden="true">
         <span>This site has 4 perspectives — try switching</span>
@@ -74,6 +100,7 @@ const { name } = meta;
   <a href="#projects" class="mobile-nav-link mob-link"><i class="ti ti-code text-lg"></i><span>Projects</span></a>
   <a href="#skills" class="mobile-nav-link mob-link"><i class="ti ti-cpu text-lg"></i><span>Skills</span></a>
   <a href="#contact" class="mobile-nav-link mob-link"><i class="ti ti-mail text-lg"></i><span>Contact</span></a>
+  <a href="/now" class:list={['mob-link', { active: isNow }]}><i class="ti ti-flask text-lg"></i><span>Now</span></a>
 </nav>
 
 <style>
@@ -87,6 +114,13 @@ const { name } = meta;
 }
 .nav-link:hover,
 .nav-link.active { color: var(--accent); }
+
+.lab-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.lab-nav-link i { font-size: 13px; }
 
 .audience-btn {
   padding: 2px 12px;
@@ -103,13 +137,14 @@ const { name } = meta;
   transition: color var(--motion-fast), background var(--motion-fast);
 }
 .audience-btn:hover { color: var(--text); }
-.audience-btn.active,
-[data-mode="recruiter"] [data-mode-btn="recruiter"],
-[data-mode="developer"] [data-mode-btn="developer"],
-[data-mode="infrastructure"] [data-mode-btn="infrastructure"],
-[data-mode="curious"]   [data-mode-btn="curious"] {
+.audience-btn--link { text-decoration: none; }
+.audience-btn.active {
   background: var(--accent);
   color: #fff;
+}
+.audience-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 @media (max-width: 480px) {

@@ -1,0 +1,193 @@
+---
+import meta from '../../data/meta.json';
+
+const { photo_curious: photo_url, pdf_path } = meta;
+---
+
+<section class="ahero" id="top">
+
+  <!-- Full-bleed photo background -->
+  <div class="ahero-bg">
+    <img
+      src={photo_url}
+      alt="Mohammad Zaki Jariwala"
+      class="ahero-bg-img"
+      data-hero-photo
+      width="1600"
+      height="2133"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="ahero-overlay"></div>
+  </div>
+
+  <!-- Content layer -->
+  <div class="ahero-inner">
+
+    <p class="ahero-eyebrow mono-label" data-hero-fade>
+      Open to AI product roles · Mumbai, relocation-ready
+    </p>
+
+    <div class="ahero-stage">
+      <h1 class="ahero-name" aria-label="Mohammad Zaki Jariwala">
+        <span class="ahero-line ahero-line-1" aria-hidden="true">
+          {'ZAKI'.split('').map(c => <span class="ch">{c}</span>)}
+        </span>
+        <span class="ahero-line ahero-line-2" aria-hidden="true">
+          {'JARIWALA'.split('').map(c => <span class="ch">{c}</span>)}
+        </span>
+      </h1>
+    </div>
+
+    <div class="ahero-foot">
+      <p class="ahero-sub" data-hero-fade>
+        Systems engineer turned AI product builder. Four products shipped solo,
+        three years keeping a Tier-1 bank online.
+      </p>
+      <div class="ahero-ctas" data-hero-fade>
+        <a href="#work" class="btn btn-fill">See the work</a>
+        <a href={pdf_path} download class="btn btn-ghost">
+          <i class="ti ti-download" aria-hidden="true"></i>
+          Resume
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+.ahero {
+  position: relative;
+  min-height: 100dvh;
+  overflow: hidden;
+}
+
+/* Full-bleed photo */
+.ahero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.ahero-bg-img {
+  width: 100%;
+  height: 110%;          /* extra height for parallax headroom */
+  object-fit: cover;
+  object-position: center 30%;
+  filter: saturate(0.88) contrast(1.04);
+  display: block;
+  max-width: none;
+}
+
+/* Gradient: photo visible top-half, fades to warm cream at bottom */
+.ahero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom,
+      rgba(247, 244, 239, 0.32) 0%,
+      rgba(247, 244, 239, 0.38) 25%,
+      rgba(247, 244, 239, 0.62) 62%,
+      rgba(247, 244, 239, 0.92) 80%,
+      var(--bg)              100%
+    );
+}
+
+/* Content sits above photo */
+.ahero-inner {
+  position: relative;
+  z-index: 2;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* top clears fixed nav (68px) + mode bar (40px) */
+  padding: 136px var(--gutter) clamp(48px, 8vh, 72px);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.ahero-eyebrow { margin: 0; }
+
+/* Name */
+.ahero-stage { flex: 1; display: flex; align-items: flex-start; padding-top: clamp(8px, 2vh, 24px); }
+
+.ahero-name {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.ahero-line {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  display: flex;
+  overflow-x: visible;
+  overflow-y: hidden;
+  padding-bottom: 0.06em;
+}
+.ahero-line-1 {
+  font-size: clamp(80px, 19vw, 272px);
+}
+.ahero-line-2 {
+  font-size: clamp(30px, 9vw, 144px);
+  justify-content: flex-end;
+  margin-top: -0.05em;
+}
+
+.ahero-line .ch {
+  display: inline-block;
+  transform: translateY(115%);
+}
+.ahero-line .ch.in {
+  transform: translateY(0);
+  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Footer */
+.ahero-foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-top: clamp(24px, 4vh, 48px);
+}
+.ahero-sub {
+  max-width: 38ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(15px, 1.3vw, 18px);
+  line-height: 1.55;
+}
+.ahero-ctas {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+[data-hero-fade] {
+  opacity: 0;
+  transform: translateY(16px);
+}
+[data-hero-fade].in {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.9s ease 0.8s, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.8s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ahero-line .ch  { transform: none; transition: none; }
+  .ahero-bg-img    { transition: none; }
+  [data-hero-fade] { opacity: 1; transform: none; transition: none; }
+}
+
+@media (max-width: 768px) {
+  .ahero-inner { padding-top: 128px; } /* nav 68px + mode bar 40px */
+  .ahero-foot  { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .ahero-bg-img { object-position: center 32%; } /* subject is centre-frame on this photo */
+}
+</style>
