@@ -220,7 +220,10 @@ change one, re-measure — do not eyeball a replacement.
 
 ## Page Structure (in order)
 
-1. `<nav>` — fixed, blur backdrop, logo left + nav links center + mode switcher + theme toggle right
+1. `<nav>` — fixed, blur backdrop. Logo left; links centre (About · Work ·
+   Projects · Thinking · Contact · Now) plus a Résumé pill; mode switcher and
+   theme toggle right. Skills and Certifications are reachable by scrolling —
+   they were dropped from the bar to keep it legible beside four mode pills.
 2. `#hero` — single column (eyebrow triad, name, role line, positioning statement,
    supporting line, two CTAs). Curious mode is two-column, with its "currently" block on the right.
 3. `#proof` — full-width proof strip: six metrics from `meta.json` `proof_metrics`,

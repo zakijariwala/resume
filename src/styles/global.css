@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
-@import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css');
+/* Fonts and the icon webfont are linked from the document head — see
+   src/layouts/Base.astro. @import here would block first paint. */
 
 @tailwind base;
 @tailwind components;
@@ -361,6 +361,17 @@ a {
 .fade-in.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* The reveal starts at opacity 0, so a visitor who has asked for reduced
+   motion must get the content outright — not a motionless invisible element. */
+@media (prefers-reduced-motion: reduce) {
+  .fade-in,
+  .fade-in.visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* ──────────────────────────────────────────────────────
