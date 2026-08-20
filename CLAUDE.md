@@ -46,7 +46,7 @@ Depth and authenticity over cleverness. Technical richness in Developer mode com
 - **Voice:** Formal, credential-first, metric-heavy, scannable in 60 seconds
 - **Layout:** Spacious, structured hierarchy, clear visual separation between roles
 - **Typography:** Fraunces display at prominent sizes; neutral body weight throughout
-- **Color:** Blue accent (`--accent-recruiter`), clean neutral surfaces
+- **Color:** Indigo accent (`--color-primary`), clean neutral surfaces
 - **Section labels:** Uppercase mono with gold horizontal-rule prefix — e.g., `WORK HISTORY`
 - **Hero right column:** 2×2 stat card grid (exactly 4 KPIs: uptime, users, servers, RTO)
 - **Emphasis:** Titles, organisation names, numbers, availability status, certifications
@@ -56,7 +56,7 @@ Depth and authenticity over cleverness. Technical richness in Developer mode com
 - **Voice:** Peer-to-peer, technical, shows-the-work, no hand-holding
 - **Layout:** Denser information per viewport, stack chips and metrics prominent
 - **Typography:** JetBrains Mono features more prominently in UI chrome and labels; body text tighter
-- **Color:** Green accent (`--accent-developer`), slightly cooler/darker surfaces
+- **Color:** Green accent (`--color-infra`), slightly cooler/darker surfaces
 - **Section labels:** Code-comment style prefix — e.g., `// work_history`
 - **Hero right column:** Same 4 stat cards, framed with a technical-context strip below
 - **Emphasis:** Stack, architecture decisions, GitHub links, build context, metrics with precision
@@ -79,7 +79,7 @@ Depth and authenticity over cleverness. Technical richness in Developer mode com
 - **Voice:** Personal, narrative, first-person allowed, editorial, quiet dry wit acceptable
 - **Layout:** Editorial — more whitespace, wider prose columns, pull-quote treatments, "why I built it" always visible
 - **Typography:** Fraunces used more expressively; larger display at hero; more italic use; slightly looser line height
-- **Color:** Amber accent (`--accent-curious`), warmer surface tone in light mode
+- **Color:** Purple accent (`--color-ai`), warmer surface tone in light mode
 - **Section labels:** Sentence-case plain text, no prefix — e.g., `What I've built`
 - **Hero right column:** Replaced entirely with a personal "currently" block — what's being built, explored, or thought about. No stat cards.
 - **Emphasis:** The reasoning behind decisions, the human context, the projects that matter personally
@@ -90,11 +90,28 @@ Depth and authenticity over cleverness. Technical richness in Developer mode com
 
 All design decisions reference semantic CSS custom properties. Never hardcode colors, sizes, or font names inside component styles. The token layer in `:root` is the single source of truth.
 
+**Two colour axes. Do not conflate them.**
+
+- **Mode accent** — which perspective is active. One at a time, site-wide.
+  Drives nav, links, buttons, active states, section-label prefixes.
+  Recruiter indigo · Developer green · Curious purple · Infrastructure steel.
+- **Category colour** — what a *thing* is. Several visible at once. Drives
+  project badges, metric accents, skill groups.
+  `--color-primary` · `--color-ai` · `--color-product` · `--color-infra`,
+  each with `-subtle` and `-border` variants, defined for light and dark.
+
+The two overlap on purpose (Curious purple is AI purple) because they never
+occupy the same UI role.
+
+Every category value is verified ≥ 4.5:1 against `--bg` in both themes. If you
+change one, re-measure — do not eyeball a replacement.
+
 **Color tokens:**
 - `--bg`, `--surface`, `--surface-raised`, `--border`, `--border-strong`
 - `--text`, `--text-muted`, `--text-disabled`
 - `--accent`, `--accent-subtle`, `--accent-border`, `--accent-text` (mode-reactive)
 - `--accent2`, `--accent2-subtle`, `--accent2-border` (fixed gold — structural use only)
+- `--color-{primary,ai,product,infra}` + `-subtle` / `-border` (category, theme-reactive)
 - `--status-active`, `--status-done`, `--status-pending`, `--status-dim`
 
 **Font roles:**
@@ -103,8 +120,10 @@ All design decisions reference semantic CSS custom properties. Never hardcode co
 - `--font-body` (Inter) → all other text
 
 **Do not:**
-- Add a fifth accent color — one per mode is the ceiling, extend the existing scale instead
-- Use `box-shadow` for depth — use border contrast and background contrast
+- Add a colour outside the category scale — extend `--color-*` instead
+- Reference a `--prim-*` primitive directly from a component
+- Use `box-shadow` as the *primary* depth cue — border and background contrast
+  come first; a shadow may reinforce a hover or elevation state, not replace them
 - Hardcode any hex/rgb value outside `:root`
 - Use `font-weight > 600` on the display font
 - Add more than 4 stat cards to the hero stat grid

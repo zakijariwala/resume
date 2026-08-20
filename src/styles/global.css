@@ -10,11 +10,22 @@
    Raw values only. Never referenced directly in components.
    ────────────────────────────────────────────────────── */
 :root {
-  --prim-blue:           #1A6BFF;
-  --prim-green:          #1A8A5A;
-  --prim-amber:          #B87A00;
-  --prim-gold:           #96700A;
+  /* Category hues. Light values are AA on --bg; dark values are AA on
+     --prim-dark-bg. Verified, do not eyeball replacements. */
+  --prim-indigo:         #4F46E5;
+  --prim-violet:         #6D28D9;
+  --prim-amber:          #A16207;
+  --prim-green:          #15803D;
   --prim-steel:          #2A6478;
+
+  --prim-indigo-dk:      #A5B4FC;
+  --prim-violet-dk:      #C4B5FD;
+  --prim-amber-dk:       #FBBF24;
+  --prim-green-dk:       #34D399;
+  --prim-steel-dk:       #5FA8C4;
+
+  --prim-blue:           #1A6BFF;
+  --prim-gold:           #96700A;
 
   --prim-white:          #FFFFFF;
   --prim-off-white:      #F8F7F4;
@@ -74,6 +85,22 @@
   --accent-subtle:   rgba(26, 107, 255, 0.08);
   --accent-border:   rgba(26, 107, 255, 0.25);
   --accent-text:     var(--prim-blue);
+
+  /* Category colours — what a thing IS (an AI project, a product outcome,
+     infrastructure work). Independent of which mode is active: several can be
+     on screen at once. Mode accent is a different axis, see --accent. */
+  --color-primary:        var(--prim-indigo);
+  --color-primary-subtle: rgba(79, 70, 229, 0.10);
+  --color-primary-border: rgba(79, 70, 229, 0.28);
+  --color-ai:        var(--prim-violet);
+  --color-ai-subtle: rgba(109, 40, 217, 0.10);
+  --color-ai-border: rgba(109, 40, 217, 0.28);
+  --color-product:        var(--prim-amber);
+  --color-product-subtle: rgba(161, 98, 7, 0.10);
+  --color-product-border: rgba(161, 98, 7, 0.28);
+  --color-infra:        var(--prim-green);
+  --color-infra-subtle: rgba(21, 128, 61, 0.10);
+  --color-infra-border: rgba(21, 128, 61, 0.28);
 
   /* Fixed gold — structural use only */
   --accent2:         var(--prim-gold);
@@ -160,34 +187,47 @@
   --status-pending-text:  #FDE68A;
   --status-dim:           rgba(255, 255, 255, 0.06);
   --status-dim-text:      #888888;
+
+  --color-primary:        var(--prim-indigo-dk);
+  --color-primary-subtle: rgba(165, 180, 252, 0.16);
+  --color-primary-border: rgba(165, 180, 252, 0.34);
+  --color-ai:        var(--prim-violet-dk);
+  --color-ai-subtle: rgba(196, 181, 253, 0.16);
+  --color-ai-border: rgba(196, 181, 253, 0.34);
+  --color-product:        var(--prim-amber-dk);
+  --color-product-subtle: rgba(251, 191, 36, 0.16);
+  --color-product-border: rgba(251, 191, 36, 0.34);
+  --color-infra:        var(--prim-green-dk);
+  --color-infra-subtle: rgba(52, 211, 153, 0.16);
+  --color-infra-border: rgba(52, 211, 153, 0.34);
 }
 
 /* ──────────────────────────────────────────────────────
    MODE ACCENT OVERRIDES
    ────────────────────────────────────────────────────── */
 [data-mode="recruiter"] {
-  --accent:        var(--prim-blue);
-  --accent-subtle: rgba(26, 107, 255, 0.08);
-  --accent-border: rgba(26, 107, 255, 0.25);
-  --accent-text:   var(--prim-blue);
+  --accent:        var(--color-primary);
+  --accent-subtle: var(--color-primary-subtle);
+  --accent-border: var(--color-primary-border);
+  --accent-text:   var(--color-primary);
 }
 [data-mode="developer"] {
-  --accent:        var(--prim-green);
-  --accent-subtle: rgba(26, 138, 90, 0.08);
-  --accent-border: rgba(26, 138, 90, 0.25);
-  --accent-text:   var(--prim-green);
+  --accent:        var(--color-infra);
+  --accent-subtle: var(--color-infra-subtle);
+  --accent-border: var(--color-infra-border);
+  --accent-text:   var(--color-infra);
 }
 [data-mode="infrastructure"] {
   --accent:        var(--prim-steel);
-  --accent-subtle: rgba(42, 100, 120, 0.08);
-  --accent-border: rgba(42, 100, 120, 0.25);
+  --accent-subtle: rgba(42, 100, 120, 0.10);
+  --accent-border: rgba(42, 100, 120, 0.28);
   --accent-text:   var(--prim-steel);
 }
 [data-mode="curious"] {
-  --accent:        var(--prim-amber);
-  --accent-subtle: rgba(184, 122, 0, 0.08);
-  --accent-border: rgba(184, 122, 0, 0.25);
-  --accent-text:   var(--prim-amber);
+  --accent:        var(--color-ai);
+  --accent-subtle: var(--color-ai-subtle);
+  --accent-border: var(--color-ai-border);
+  --accent-text:   var(--color-ai);
   --bg:            var(--prim-warm-bg);
   --surface:       var(--prim-warm-surface);
 }
@@ -197,14 +237,13 @@
   --bg:      var(--prim-dark-bg);
   --surface: var(--prim-dark-surface);
 }
-[data-theme="dark"][data-mode="recruiter"] { --accent-subtle: rgba(26, 107, 255, 0.12); }
-[data-theme="dark"][data-mode="developer"] { --accent-subtle: rgba(26, 138, 90, 0.12); }
-[data-theme="dark"][data-mode="curious"]   { --accent-subtle: rgba(184, 122, 0, 0.12); }
+/* Recruiter, developer and curious inherit their dark accents through the
+   category tokens above. Infrastructure has no category token of its own. */
 [data-theme="dark"][data-mode="infrastructure"] {
-  --accent:        #5FA8C4;
-  --accent-text:   #5FA8C4;
-  --accent-subtle: rgba(95, 168, 196, 0.12);
-  --accent-border: rgba(95, 168, 196, 0.30);
+  --accent:        var(--prim-steel-dk);
+  --accent-text:   var(--prim-steel-dk);
+  --accent-subtle: rgba(95, 168, 196, 0.16);
+  --accent-border: rgba(95, 168, 196, 0.34);
 }
 
 /* ──────────────────────────────────────────────────────
@@ -410,6 +449,41 @@ a {
 /* ──────────────────────────────────────────────────────
    CHIPS
    ────────────────────────────────────────────────────── */
+/* ──────────────────────────────────────────────────────
+   CATEGORY BADGE
+   Colour is never the only signal: the badge always carries a text label,
+   and the dot has a border so it stays visible in forced-colors mode.
+   ────────────────────────────────────────────────────── */
+.category-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 10px 2px 8px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--cat-border, var(--border));
+  background: var(--cat-subtle, transparent);
+  color: var(--cat-color, var(--text-muted));
+  white-space: nowrap;
+}
+.category-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cat-color, currentColor);
+  border: 1px solid transparent;
+  flex-shrink: 0;
+}
+.cat-ai      { --cat-color: var(--color-ai);      --cat-subtle: var(--color-ai-subtle);      --cat-border: var(--color-ai-border); }
+.cat-product { --cat-color: var(--color-product); --cat-subtle: var(--color-product-subtle); --cat-border: var(--color-product-border); }
+.cat-infra   { --cat-color: var(--color-infra);   --cat-subtle: var(--color-infra-subtle);   --cat-border: var(--color-infra-border); }
+.cat-primary { --cat-color: var(--color-primary); --cat-subtle: var(--color-primary-subtle); --cat-border: var(--color-primary-border); }
+
 .project-metric {
   font-family: var(--font-mono);
   font-size: var(--text-xs);

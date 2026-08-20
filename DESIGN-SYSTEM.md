@@ -1,5 +1,11 @@
 # Design System — zakijariwala.space Portfolio
 
+> **Colour system update.** The palette now has two axes — mode accent and
+> category colour — and the category hues are contrast-verified for light and
+> dark. See the "Two colour axes" section of `CLAUDE.md`, and `REDESIGN-PLAN.md`
+> R1 for why. Sections below that name the old blue/green/amber accents describe
+> the pre-redesign state.
+
 ## Philosophy
 
 This portfolio represents a senior engineer who builds real things. The design language communicates:
