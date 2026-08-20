@@ -22,3 +22,10 @@ Thumbs.db
 # Python cache (resume generator scripts)
 misc/__pycache__/
 graphify-out/
+
+# Cloudflare / wrangler
+.dev.vars
+.dev.vars.*
+!worker/.dev.vars.example
+.wrangler/
+worker/.wrangler/

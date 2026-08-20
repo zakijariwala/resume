@@ -7,7 +7,13 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "dev:worker": "wrangler dev --config worker/wrangler.toml --local --port 8788",
+    "dev:all": "npm run dev & npm run dev:worker & wait",
+    "worker:deploy": "wrangler deploy --config worker/wrangler.toml",
+    "worker:check": "wrangler deploy --config worker/wrangler.toml --dry-run",
+    "db:migrate:local": "wrangler d1 migrations apply zakijariwala --config worker/wrangler.toml --local",
+    "db:migrate:remote": "wrangler d1 migrations apply zakijariwala --config worker/wrangler.toml --remote"
   },
   "dependencies": {
     "@astrojs/tailwind": "^5.1.0",
@@ -17,5 +23,9 @@
     "astro": "^4.16.1",
     "gsap": "^3.15.0",
     "tailwindcss": "^3.4.15"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260820.1",
+    "wrangler": "^4.124.0"
   }
 }

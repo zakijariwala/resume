@@ -1,0 +1,4 @@
+# Copy to worker/.dev.vars for local development. NEVER commit the real file.
+# Nothing is required for Phase 3 — the health check uses bindings only.
+# Secrets arrive in later phases and are set in production with:
+#   wrangler secret put <NAME> --config worker/wrangler.toml

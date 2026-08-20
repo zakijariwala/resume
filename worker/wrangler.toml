@@ -1,0 +1,40 @@
+# Site API Worker for zakijariwala.space
+#
+# Deliberately NOT at the repository root. Cloudflare Pages inspects a root
+# wrangler.toml during its build and fails when it finds a Worker config
+# (no `pages_build_output_dir`). Keeping it here means the Pages build that
+# serves the static site is completely unaffected.
+#
+# Every command below therefore needs `--config worker/wrangler.toml`, or run
+# them from inside worker/. The npm scripts in package.json do this for you.
+
+name = "zakijariwala-api"
+main = "src/index.ts"
+compatibility_date = "2025-08-20"
+# Keep the worker off workers.dev; it is reached through the zone routes below.
+workers_dev = false
+
+# Routes carve two prefixes out of the zone. Cloudflare matches Worker routes
+# before Pages, so everything else on the domain keeps coming from the Pages
+# project exactly as it does today.
+routes = [
+  { pattern = "zakijariwala.space/api/*", zone_name = "zakijariwala.space" },
+  { pattern = "zakijariwala.space/r/*",   zone_name = "zakijariwala.space" },
+]
+
+[observability]
+enabled = true
+
+# ── D1 ────────────────────────────────────────────────────────────────────
+# database_id is filled in after `wrangler d1 create` — see docs/cloudflare.md.
+# It is an identifier, not a secret, and is safe to commit.
+[[d1_databases]]
+binding       = "DB"
+database_name = "zakijariwala"
+database_id   = "PLACEHOLDER_RUN_WRANGLER_D1_CREATE"
+migrations_dir = "migrations"
+
+# ── R2 ────────────────────────────────────────────────────────────────────
+[[r2_buckets]]
+binding     = "ASSETS"
+bucket_name = "zakijariwala-assets"
