@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import ExperienceSection from '../components/ExperienceSection.astro';
+import ProjectsSection from '../components/ProjectsSection.astro';
+import SkillsSection from '../components/SkillsSection.astro';
+import CertificationsSection from '../components/CertificationsSection.astro';
+import ContactSection from '../components/ContactSection.astro';
+import Footer from '../components/Footer.astro';
+import FloatingHireCTA from '../components/FloatingHireCTA.astro';
+import meta from '../data/meta.json';
+
+// Same page, pinned to Infrastructure mode. The dedicated route exists so a
+// shared link previews as infrastructure work: mode is resolved client-side
+// on the root page, and social scrapers do not run that script.
+const pageTitle = `${meta.name} | Infrastructure & Systems Engineering`;
+const pageDescription = `Systems Engineer at TCS, deployed at State Bank of India. RHEL and Linux fleet operations, IBM Security Identity Manager, 99.999% uptime for 30,000+ users, disaster recovery runbooks with 50% RTO reduction. Google Cloud Professional Cloud Architect, AWS Certified Solutions Architect.`;
+---
+
+<Base title={pageTitle} description={pageDescription} forceMode="infrastructure">
+  <Nav />
+
+  <main
+    class="flex-1 w-full mx-auto px-4 lg:px-6"
+    style="max-width: var(--layout-max);"
+  >
+    <Hero />
+    <About />
+    <ExperienceSection />
+    <ProjectsSection />
+    <SkillsSection />
+    <CertificationsSection />
+    <ContactSection />
+    <Footer />
+  </main>
+
+  <FloatingHireCTA />
+</Base>

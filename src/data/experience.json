@@ -29,19 +29,19 @@
       },
       {
         "text": "Operated IBM Security Identity Manager (ISIM) on RHEL 8, managing user provisioning, access governance, and policy enforcement across 150+ application servers in an on-premise Tier-1 banking datacenter maintaining 99.999% platform SLA via active-passive HA clustering and automated health monitoring.",
-        "audience": ["developer"]
+        "audience": ["developer", "infrastructure"]
       },
       {
         "text": "Led on-premise containerisation of legacy IDM workflows: evaluated Podman vs Docker within RBI/SEBI compliance boundaries, defined container topology and orchestration approach, secured sign-off from security and compliance stakeholders.",
-        "audience": ["developer"]
+        "audience": ["developer", "infrastructure"]
       },
       {
         "text": "Authored cross-team DR runbooks covering IDM primary/replica switchover, application server restart sequences, and database consistency validation, reducing RTO from ~4 hours to under 2 hours (50% reduction) through structured tabletop drills and live execution.",
-        "audience": ["developer"]
+        "audience": ["developer", "infrastructure"]
       },
       {
         "text": "Automated recurring ops tasks (patch compliance checks, certificate rotation tracking, capacity utilisation reports) in Python and Bash, eliminating ~8 hours/week of manual overhead across the team.",
-        "audience": ["developer"]
+        "audience": ["developer", "infrastructure"]
       },
       {
         "text": "The day job means keeping banking infrastructure alive for tens of thousands of people. Success is invisible: if nobody notices, everything went right.",
@@ -52,6 +52,7 @@
   },
   {
     "id": "coaching",
+    "hide_in_modes": ["infrastructure"],
     "company": "Independent Coaching Practice",
     "subtitle": "Technical interview readiness for engineering and management candidates",
     "title": "Founder & Technical Communication Coach",

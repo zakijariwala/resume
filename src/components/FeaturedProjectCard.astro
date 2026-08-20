@@ -5,6 +5,8 @@ interface Bullet {
 }
 
 interface Props {
+  /** 'infrastructure' renders this as the featured card for that mode only. */
+  variant?: 'default' | 'infrastructure';
   project: {
     id: string;
     name: string;
@@ -19,16 +21,19 @@ interface Props {
   };
 }
 
-const { project } = Astro.props;
+const { project, variant = 'default' } = Astro.props;
+const variantClass = variant === 'infrastructure'
+  ? 'show-in-infrastructure'
+  : 'hide-in-infrastructure';
 const isPrivate = !project.github || project.github === 'private';
 ---
 
-<div class="featured-card fade-in">
+<div class={`featured-card fade-in ${variantClass}`}>
   <div class="featured-card-header">
     <div class="featured-card-meta">
       <span class="featured-badge">Featured</span>
       <span class="project-tagline">{project.tagline}</span>
-      <span class="project-year recruiter-dev">{project.year}</span>
+      <span class="project-year recruiter-dev infra-only">{project.year}</span>
     </div>
     {project.featured_metric && (
       <span class="project-metric">{project.featured_metric}</span>
@@ -61,14 +66,14 @@ const isPrivate = !project.github || project.github === 'private';
         href={project.github}
         target="_blank"
         rel="noopener noreferrer"
-        class="github-link dev-only"
+        class="github-link dev-only infra-only"
         aria-label={`View ${project.name} on GitHub`}
       >
         <i class="ti ti-brand-github"></i>
         <span>View repo</span>
       </a>
     ) : (
-      <span class="private-repo dev-only">
+      <span class="private-repo dev-only infra-only">
         <i class="ti ti-lock"></i>
         <span>Private repo</span>
       </span>
@@ -82,6 +87,11 @@ const isPrivate = !project.github || project.github === 'private';
   }
   [data-mode="developer"] .featured-bullets li[data-audience]:not([data-audience*="developer"]) { display: none; }
   [data-mode="curious"]   .featured-bullets li[data-audience]:not([data-audience*="curious"])   { display: none; }
+  [data-mode="infrastructure"] .featured-bullets li[data-audience]:not([data-audience*="infrastructure"]) { display: none; }
+
+  .featured-card.show-in-infrastructure { display: none; }
+  [data-mode="infrastructure"] .featured-card.show-in-infrastructure { display: block; }
+  [data-mode="infrastructure"] .featured-card.hide-in-infrastructure { display: none; }
 </style>
 
 <style>

@@ -16,21 +16,30 @@ interface Props {
     github: string;
     live_url?: string;
     year: string;
+    infra_order?: number;
+    featured_infrastructure?: boolean;
     bullets: Bullet[];
   };
 }
 
 const { project } = Astro.props;
+// The Infrastructure featured slot renders this project as a full-width card,
+// so its grid card is withheld from that mode to avoid a duplicate.
+const gridHidden = project.featured_infrastructure ? 'hide-in-infrastructure' : '';
 const visibleTech = project.tech.slice(0, 6);
 const isPrivate = !project.github || project.github === 'private';
 const hasLive = !!(project.live_url && project.live_url !== '');
 ---
 
-<div class="proj-card card fade-in" id={`project-${project.id}`}>
+<div
+  class={`proj-card card fade-in ${gridHidden}`}
+  id={`project-${project.id}`}
+  style={`--infra-order: ${project.infra_order ?? 0}`}
+>
   <div class="proj-header">
     <div class="proj-meta">
       <span class="project-tagline">{project.tagline}</span>
-      <span class="proj-year recruiter-dev">{project.year}</span>
+      <span class="proj-year recruiter-dev infra-only">{project.year}</span>
     </div>
     {project.featured_metric && (
       <span class="project-metric">{project.featured_metric}</span>
@@ -76,14 +85,14 @@ const hasLive = !!(project.live_url && project.live_url !== '');
         href={project.github}
         target="_blank"
         rel="noopener noreferrer"
-        class="proj-github-link dev-only"
+        class="proj-github-link dev-only infra-only"
         aria-label={`View ${project.name} on GitHub`}
       >
         <i class="ti ti-brand-github"></i>
         <span>View repo</span>
       </a>
     ) : (
-      <span class="proj-private dev-only">
+      <span class="proj-private dev-only infra-only">
         <i class="ti ti-lock"></i>
         <span>Private repo</span>
       </span>
@@ -97,6 +106,8 @@ const hasLive = !!(project.live_url && project.live_url !== '');
 }
 [data-mode="developer"] .proj-bullets li[data-audience]:not([data-audience*="developer"]) { display: none; }
 [data-mode="curious"]   .proj-bullets li[data-audience]:not([data-audience*="curious"])   { display: none; }
+[data-mode="infrastructure"] .proj-bullets li[data-audience]:not([data-audience*="infrastructure"]) { display: none; }
+[data-mode="infrastructure"] .proj-card.hide-in-infrastructure { display: none; }
 </style>
 
 <style>

@@ -31,6 +31,7 @@ collections:
           - { name: linkedin,        label: LinkedIn URL,     widget: string }
           - { name: github,          label: GitHub URL,       widget: string }
           - { name: availability,    label: Availability,     widget: string }
+          - { name: availability_infrastructure, label: Availability (Infrastructure mode), widget: string }
           - { name: currently,       label: Currently (Curious hero block), widget: text }
           - name: taglines
             label: Mode Taglines
@@ -39,6 +40,7 @@ collections:
               - { name: recruiter, label: Recruiter, widget: string }
               - { name: developer, label: Developer, widget: string }
               - { name: curious,   label: Curious,   widget: string }
+              - { name: infrastructure, label: Infrastructure, widget: string }
           - name: hero_subline
             label: Hero Sub-lines
             widget: object
@@ -46,6 +48,7 @@ collections:
               - { name: recruiter, label: Recruiter, widget: string }
               - { name: developer, label: Developer, widget: string }
               - { name: curious,   label: Curious,   widget: string }
+              - { name: infrastructure, label: Infrastructure, widget: string }
           - name: stats
             label: Hero Stat Cards (max 4)
             widget: list
@@ -61,6 +64,7 @@ collections:
               - { name: recruiter, label: Recruiter, widget: string }
               - { name: developer, label: Developer, widget: string }
               - { name: curious,   label: Curious,   widget: string }
+              - { name: infrastructure, label: Infrastructure, widget: string }
           - name: contact_taglines
             label: Contact Taglines
             widget: object
@@ -68,6 +72,7 @@ collections:
               - { name: recruiter, label: Recruiter, widget: string }
               - { name: developer, label: Developer, widget: string }
               - { name: curious,   label: Curious,   widget: string }
+              - { name: infrastructure, label: Infrastructure, widget: string }
 
   # ── Experience ──────────────────────────────────────────────────────────────
   - name: experience
@@ -103,7 +108,7 @@ collections:
                 label: Audience
                 widget: select
                 multiple: true
-                options: [recruiter, developer, curious, management]
+                options: [recruiter, developer, curious, infrastructure, management]
           - { name: show_recovery_chart, label: Show Recovery Chart, widget: boolean, default: false }
 
   # ── Projects ────────────────────────────────────────────────────────────────
@@ -134,7 +139,7 @@ collections:
                 label: Audience
                 widget: select
                 multiple: true
-                options: [recruiter, developer, curious, management]
+                options: [recruiter, developer, curious, infrastructure, management]
 
   # ── Skills ──────────────────────────────────────────────────────────────────
   - name: skills

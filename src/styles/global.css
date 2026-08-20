@@ -14,6 +14,7 @@
   --prim-green:          #1A8A5A;
   --prim-amber:          #B87A00;
   --prim-gold:           #96700A;
+  --prim-steel:          #2A6478;
 
   --prim-white:          #FFFFFF;
   --prim-off-white:      #F8F7F4;
@@ -176,6 +177,12 @@
   --accent-border: rgba(26, 138, 90, 0.25);
   --accent-text:   var(--prim-green);
 }
+[data-mode="infrastructure"] {
+  --accent:        var(--prim-steel);
+  --accent-subtle: rgba(42, 100, 120, 0.08);
+  --accent-border: rgba(42, 100, 120, 0.25);
+  --accent-text:   var(--prim-steel);
+}
 [data-mode="curious"] {
   --accent:        var(--prim-amber);
   --accent-subtle: rgba(184, 122, 0, 0.08);
@@ -193,6 +200,12 @@
 [data-theme="dark"][data-mode="recruiter"] { --accent-subtle: rgba(26, 107, 255, 0.12); }
 [data-theme="dark"][data-mode="developer"] { --accent-subtle: rgba(26, 138, 90, 0.12); }
 [data-theme="dark"][data-mode="curious"]   { --accent-subtle: rgba(184, 122, 0, 0.12); }
+[data-theme="dark"][data-mode="infrastructure"] {
+  --accent:        #5FA8C4;
+  --accent-text:   #5FA8C4;
+  --accent-subtle: rgba(95, 168, 196, 0.12);
+  --accent-border: rgba(95, 168, 196, 0.30);
+}
 
 /* ──────────────────────────────────────────────────────
    BASE RESETS
@@ -242,6 +255,7 @@ a {
 .recruiter-only,
 .dev-only,
 .curious-only,
+.infra-only,
 .recruiter-dev,
 .recruiter-mgmt {
   display: none;
@@ -265,6 +279,10 @@ a {
 [data-mode="curious"] .curious-only         { display: block; }
 [data-mode="curious"] span.curious-only     { display: inline; }
 [data-mode="curious"] li.curious-only       { display: list-item; }
+
+[data-mode="infrastructure"] .infra-only        { display: block; }
+[data-mode="infrastructure"] span.infra-only    { display: inline; }
+[data-mode="infrastructure"] li.infra-only      { display: list-item; }
 
 /* ──────────────────────────────────────────────────────
    SCROLL REVEAL
@@ -311,6 +329,17 @@ a {
   color: var(--accent);
   letter-spacing: 0;
   font-size: var(--text-xs);
+}
+
+/* Infrastructure: uppercase mono with a steel vertical rule */
+[data-mode="infrastructure"] .section-label::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 0.85em;
+  background: var(--accent);
+  flex-shrink: 0;
+  margin-right: var(--space-3);
 }
 
 /* Curious: plain sentence-case, no prefix */

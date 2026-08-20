@@ -1,6 +1,7 @@
 [
   {
     "id": "zamaan_marine",
+    "infra_order": 60,
     "name": "Zamaan Marine Digital Ecosystem",
     "tagline": "JAMstack · B2B Automation",
     "featured": true,
@@ -43,7 +44,7 @@
       },
       {
         "text": "Zero-persistent-backend architecture: Astro SSG → Cloudflare Pages CDN, GitHub Actions CI, all serverless. Total recurring cost: $0.",
-        "audience": ["developer"]
+        "audience": ["developer", "infrastructure"]
       },
       {
         "text": "My family's business had no real digital presence. I built the whole thing — website, automated email campaigns, product listings — in spare time, at zero cost.",
@@ -53,6 +54,7 @@
   },
   {
     "id": "content_automation",
+    "infra_order": 40,
     "name": "Content Automation Pipeline",
     "tagline": "LLM Orchestration · Multi-platform",
     "featured": false,
@@ -91,7 +93,7 @@
       },
       {
         "text": "CI mode: _IS_CI = bool(os.getenv('CI')) — GitHub Actions sets this automatically, eliminating all input() calls that would hang the workflow runner.",
-        "audience": ["developer"]
+        "audience": ["developer", "infrastructure"]
       },
       {
         "text": "Bluesky auto-posting via atproto library. Thread constructed from generated posts, published live if credentials are set. Medium pushes as draft only via markdown2medium. yt-dlp subtitle extraction with manual transcript fallback for Shorts lacking caption tracks.",
@@ -105,6 +107,7 @@
   },
   {
     "id": "zamaan_automation",
+    "infra_order": 50,
     "name": "Zamaan Automation",
     "tagline": "SEO Experiment · eBay Attribution",
     "featured": false,
@@ -135,7 +138,7 @@
       },
       {
         "text": "GitHub Actions daily sync (02:00 UTC): npm ci → astro build && npx pagefind --source dist with eBay env vars injected → Cloudflare Pages deploy via cloudflare/pages-action.",
-        "audience": ["developer"]
+        "audience": ["developer", "infrastructure"]
       },
       {
         "text": "UTM attribution fully typed in src/lib/utm.ts. buildEbayUrl() and buildStoreUrl() enforce utm_source=zamaanautomation, utm_medium=organic, utm_campaign={pageType}, utm_content={category} on every outbound link.",
@@ -153,6 +156,7 @@
   },
   {
     "id": "run_to",
+    "infra_order": 70,
     "name": "run.to",
     "tagline": "PWA · Route Generation",
     "featured": false,
@@ -191,7 +195,7 @@
       },
       {
         "text": "Zero-build stack: Leaflet 1.9.4 + Tailwind CSS + Lucide icons all loaded from CDN. No npm, no bundler. Service worker caches app shell for offline use. Time mode: user input in minutes → converted at 5.5 min/km → same route engine runs.",
-        "audience": ["developer"]
+        "audience": ["developer", "infrastructure"]
       },
       {
         "text": "I wanted a route that came back to where I started and hit a target distance. Every app I tried needed me to draw it myself. I built one that figures out the geometry: picks a hexagon, measures how far off it is, adjusts until it's close.",
@@ -201,6 +205,7 @@
   },
   {
     "id": "path_of_supplication",
+    "infra_order": 20,
     "name": "Path of Supplication",
     "tagline": "PWA · Offline-first",
     "featured": false,
@@ -231,19 +236,19 @@
       },
       {
         "text": "Zero-build architecture: pure HTML/CSS/JS, no framework, no npm. Service worker (sw.js, v9) pre-caches the app shell; 80MB content payload is lazy-loaded and persisted in Cache API indefinitely.",
-        "audience": ["developer"]
+        "audience": ["developer", "infrastructure"]
       },
       {
         "text": "Content pipeline: ron.db (87MB SQLite, authoring tool only, never committed) → scripts/export.py → 2,704 JSON files in docs/data/lines/ + 4 index files (categories.json, nav.json, search.json, audio.json). Browser fetches pre-exported JSON, no SQLite runtime in browser.",
-        "audience": ["developer"]
+        "audience": ["developer", "infrastructure"]
       },
       {
         "text": "Deep Search: search.json is a pre-built multilingual full-text index (Arabic/Urdu/English/Roman Urdu) scanned in a single vanilla JS pass, no query engine, no dependency, sub-10ms on mobile.",
-        "audience": ["developer"]
+        "audience": ["developer", "infrastructure"]
       },
       {
         "text": "Cache invalidation: bump VERSION constant in sw.js to force all clients to flush stale caches. Active design work: Mockups/ directory contains 10+ screen specs used for iterative UI refinement.",
-        "audience": ["developer"]
+        "audience": ["developer", "infrastructure"]
       },
       {
         "text": "The apps that existed for Islamic duas and ziyarat were slow, plastered with ads, or useless offline. I built one that works on any device, in your language, with no internet after the first load.",
@@ -253,6 +258,7 @@
   },
   {
     "id": "ian_xiaohei",
+    "infra_order": 80,
     "name": "Ian Xiaohei Illustrations",
     "tagline": "Open Source · AI Tooling",
     "featured": false,
@@ -295,7 +301,7 @@
       },
       {
         "text": "install.sh is idempotent: copies skill files to ~/.claude/skills/, reads existing settings.json and merges rather than overwriting. User's default character survives upgrades. Multi-platform: Claude Code (SKILL.md), Codex, Gemini CLI, Hermes, Antigravity agent configs all included.",
-        "audience": ["developer"]
+        "audience": ["developer", "infrastructure"]
       },
       {
         "text": "I found a Chinese skill for drawing article illustrations, ported it to English, and kept going, adding real image generation and expanding one character into nine. The interesting constraint was figuring out how to make each character feel like it belongs to its cultural heritage rather than just borrowing the aesthetic.",
@@ -305,6 +311,7 @@
   },
   {
     "id": "gidstek_site",
+    "infra_order": 30,
     "name": "GidsTek Website",
     "tagline": "Web Dev · Performance Turnaround",
     "featured": false,
@@ -335,11 +342,11 @@
       },
       {
         "text": "public/_headers: adds all 5 security headers missing from the original site (X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy, Content-Security-Policy), fixing the Snyk 'Grade capped at A' finding.",
-        "audience": ["developer"]
+        "audience": ["developer", "infrastructure"]
       },
       {
         "text": "public/_redirects: maps all legacy WordPress URLs to current equivalents, preserving any inbound links after migration. CSS-only hamburger nav, no JavaScript toggle, no event listeners.",
-        "audience": ["developer"]
+        "audience": ["developer", "infrastructure"]
       },
       {
         "text": "I was about to buy a laptop and noticed the shop's website was unusably slow. I ran an audit, built a replacement, and offered to trade it for a discount. The whole negotiation ran on technical evidence: a Lighthouse report, a Snyk scan, and a cold-load comparison.",
@@ -349,6 +356,7 @@
   },
   {
     "id": "esp_pocket",
+    "infra_order": 10,
     "name": "ESP-Pocket Reader",
     "tagline": "Embedded · Hardware",
     "featured": false,
@@ -367,15 +375,15 @@
       },
       {
         "text": "Architected a custom pocket-sized e-ink reading device using an ESP32-S3 microcontroller and a 3.7-inch E-Paper display, achieving a functional firmware prototype with stable display rendering.",
-        "audience": ["developer"]
+        "audience": ["developer", "infrastructure"]
       },
       {
         "text": "Developed embedded C++ firmware (ESP-IDF/PlatformIO) integrating SD card storage and SQLite for robust content management, storing and paginating 50+ EPUB-converted documents in testing.",
-        "audience": ["developer"]
+        "audience": ["developer", "infrastructure"]
       },
       {
         "text": "Engineered a Python EPUB-to-SQLite conversion pipeline, reducing per-book ingestion time to under 30 seconds for titles up to 500 pages.",
-        "audience": ["developer"]
+        "audience": ["developer", "infrastructure"]
       },
       {
         "text": "Reading on a phone is miserable. I built my own pocket e-ink reader from scratch. Designing every layer yourself, from the EPUB parser to the display driver, turns out to be more satisfying than buying one.",
@@ -385,6 +393,8 @@
   },
   {
     "id": "remote_dev_server",
+    "infra_order": 0,
+    "featured_infrastructure": true,
     "name": "Personal Remote Dev Server",
     "tagline": "Infrastructure · DevOps",
     "featured": false,
@@ -403,15 +413,15 @@
       },
       {
         "text": "Designed and configured a fully persistent remote Linux development environment on Oracle Cloud Free Tier: production-equivalent compute at zero recurring cost.",
-        "audience": ["developer"]
+        "audience": ["developer", "infrastructure"]
       },
       {
         "text": "Optimised for smartphone and laptop access via Zellij terminal multiplexing and Termius SSH, enabling full-stack development workflows from any device.",
-        "audience": ["developer"]
+        "audience": ["developer", "infrastructure"]
       },
       {
         "text": "Maintained 99%+ uptime over 18+ months of continuous use, with automated session persistence eliminating context loss between work sessions.",
-        "audience": ["developer"]
+        "audience": ["developer", "infrastructure"]
       },
       {
         "text": "I got tired of long-running builds dying when my laptop went to sleep. I set up a server in the cloud that's always on, which means I can write code from my phone when I'm away from a desk.",

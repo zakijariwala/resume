@@ -27,6 +27,7 @@ interface Props {
     status: string;
     context_tag: string;
     curious_intro?: string;
+    hide_in_modes?: string[];
     kpis: Kpi[];
     bullets: Bullet[];
     testimonial?: Testimonial;
@@ -36,6 +37,10 @@ interface Props {
 
 const { entry } = Astro.props;
 const isTCS = entry.id === 'tcs';
+
+// Entries listed in hide_in_modes are withheld from those modes entirely,
+// rather than rendering with an empty bullet list.
+const hiddenIn = (entry.hide_in_modes ?? []).map(m => `hide-in-${m}`).join(' ');
 
 const statusClass = {
   active: 'badge-active',
@@ -52,13 +57,13 @@ const statusLabel = {
 }[entry.status] ?? entry.status;
 ---
 
-<div class="exp-card fade-in all-modes">
+<div class={`exp-card fade-in all-modes ${hiddenIn}`}>
   <!-- Left sidebar: period, badge, context -->
   <div class="exp-sidebar">
     <span class="exp-dates">{entry.dates}</span>
     <span class={`badge ${statusClass}`}>{statusLabel}</span>
     {entry.context_tag && (
-      <span class="exp-context dev-only">{entry.context_tag.replace(/_/g, ' ')}</span>
+      <span class="exp-context dev-only infra-only">{entry.context_tag.replace(/_/g, ' ')}</span>
     )}
   </div>
 
@@ -94,7 +99,7 @@ const statusLabel = {
 
     <!-- Recovery curve chart — TCS only, recruiter + developer modes -->
     {isTCS && entry.show_recovery_chart && (
-      <div class="recovery-chart recruiter-dev">
+      <div class="recovery-chart recruiter-dev infra-only">
         <span class="chart-label">Recovery curve: 50% RTO reduction</span>
         <svg width="100%" height="100" viewBox="0 0 400 100" aria-label="Recovery curve showing 50% RTO reduction">
           <line x1="10" y1="20" x2="390" y2="20" stroke="var(--border-strong)" stroke-width="0.75" stroke-dasharray="4 3" />
@@ -126,6 +131,9 @@ const statusLabel = {
 }
 [data-mode="developer"] .exp-bullets li[data-audience]:not([data-audience*="developer"]) { display: none; }
 [data-mode="curious"]   .exp-bullets li[data-audience]:not([data-audience*="curious"])   { display: none; }
+[data-mode="infrastructure"] .exp-bullets li[data-audience]:not([data-audience*="infrastructure"]) { display: none; }
+
+[data-mode="infrastructure"] .exp-card.hide-in-infrastructure { display: none; }
 </style>
 
 <style>

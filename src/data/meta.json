@@ -12,29 +12,34 @@
   "github": "https://github.com/zakijariwala",
   "pdf_path": "/Mohammad_Zaki_Jariwala_Resume.pdf",
   "availability": "Targeting AI PM roles where product and engineering overlap. Mumbai-based, open to relocation.",
+  "availability_infrastructure": "Open to infrastructure, SRE, and platform engineering roles. Mumbai-based, open to relocation.",
 
   "taglines": {
     "recruiter": "AI Product Manager · Technical Lead",
     "developer": "Infrastructure + AI: shipping products in the gaps",
-    "curious":   "Engineer who builds products and wants to do it full-time"
+    "curious":   "Engineer who builds products and wants to do it full-time",
+    "infrastructure": "Systems Engineer · Linux Infrastructure & Identity Management"
   },
 
   "hero_subline": {
     "recruiter": "Three years keeping critical infrastructure running. Now building AI products full-time.",
     "developer": "whatever I'm building this month",
-    "curious":   "I find it hard to stop building things"
+    "curious":   "I find it hard to stop building things",
+    "infrastructure": "Three years keeping Tier-1 banking infrastructure running at 99.999% uptime for 30,000+ users."
   },
 
   "contact_taglines": {
     "recruiter": "Open to AI PM, product, and innovation roles. Technical background with real 0-to-1 product experience. Based in Mumbai, open to relocation.",
     "developer": "Always interested in interesting problems. Best reached over email.",
-    "curious":   "Say hello. I reply."
+    "curious":   "Say hello. I reply.",
+    "infrastructure": "Open to infrastructure, SRE, and platform engineering roles. Three years running Tier-1 banking infrastructure. Based in Mumbai, open to relocation."
   },
 
   "contact_headline": {
     "recruiter": "Let's talk product",
     "developer": "Let's build something",
-    "curious":   "Say hello"
+    "curious":   "Say hello",
+    "infrastructure": "Let's talk infrastructure"
   },
 
   "stats": [
@@ -66,7 +71,8 @@
     "left_framing": {
       "recruiter": "Systems Engineer at TCS, deployed at SBI. Three years of enterprise infrastructure. Now bringing that technical depth and four shipped products into product management.",
       "developer": "I run enterprise infra by day and ship products at night. Stack spans Linux/RHEL server fleets, Python AI pipelines, Flutter mobile, and Astro JAMstack.",
-      "curious":   "Based in Navi Mumbai. Engineer by profession, builder by habit. Slowly realising the builder part is the job I actually want."
+      "curious":   "Based in Navi Mumbai. Engineer by profession, builder by habit. Slowly realising the builder part is the job I actually want.",
+      "infrastructure": "Systems Engineer at TCS, deployed at SBI. Three years of enterprise infrastructure: RHEL fleets, identity management, and high-availability operations for a Tier-1 bank."
     },
     "callout": "Built Path of Supplication, an offline Islamic supplication app used by a small community worldwide. Structured a publicly available 22,000-record liturgical database into an indexed schema with sub-10ms search, shipped as a PWA at zero hosting cost.",
     "paragraphs": {
@@ -75,6 +81,7 @@
       "curious_p1": "I'm an engineer based in Navi Mumbai who finds it hard to stop building things. My day job is keeping banking systems alive for tens of thousands of people. That part I'm good at. But it's not the part that keeps me up.",
       "curious_p2": "Outside that, I've built an offline Islamic supplication app used by a small community of Muslims worldwide, a running app with ghost routes and crowd radar, a pocket e-ink reader from scratch, and a marketing automation system for my family's marine parts business. None of these were assigned to me. I built them because the alternatives were bad and I thought I could do better.",
       "curious_p3": "I also spent a few months coaching engineers on how to talk about their work, which turned out to be more technical than it sounds. Understanding what makes a story land is not that different from understanding what makes a product land.",
+      "infrastructure": "Systems Engineer at TCS, deployed at State Bank of India, keeping mission-critical banking infrastructure running at 99.999% uptime for 30,000+ branch users. I operate IBM Security Identity Manager on RHEL 8 across 150+ application servers in an on-premise Tier-1 banking datacenter, holding the platform SLA through active-passive HA clustering and automated health monitoring. I authored the cross-team disaster recovery runbooks that cut RTO from roughly four hours to under two, led the on-premise containerisation of legacy IDM workflows including the Podman-versus-Docker evaluation inside RBI/SEBI compliance boundaries, and automated recurring ops work in Python and Bash to remove around eight hours a week of manual overhead across the team. Three years leading a team of five. Google Cloud Professional Cloud Architect and AWS Certified Solutions Architect.",
       "curious_p4": "Right now I'm building a content automation pipeline and thinking seriously about moving into product management. Not because it sounds good on a resume, but because the part of every project I've enjoyed most is always the same: deciding what to build and why."
     }
   },

@@ -1,8 +1,13 @@
 ---
 import meta from '../data/meta.json';
+import experience from '../data/experience.json';
 import StatCard from './StatCard.astro';
 
 const { name, pdf_path, taglines, hero_subline, whatsapp, stats, currently, availability, photo_url } = meta;
+
+// Infrastructure mode reuses the TCS operating figures already recorded in
+// experience.json rather than the product-forward hero stats.
+const infraStats = experience.find(e => e.id === 'tcs')?.kpis ?? [];
 
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
 const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_path.replace(/^\//, '')}`;
@@ -15,6 +20,10 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
     <div class="availability-line recruiter-only">
       <span class="avail-dot"></span>
       <span class="avail-text">{availability}</span>
+    </div>
+    <div class="availability-line infra-only">
+      <span class="avail-dot"></span>
+      <span class="avail-text">{meta.availability_infrastructure}</span>
     </div>
 
     <h1 class="hero-name">{name}</h1>
@@ -41,12 +50,14 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
       <span class="recruiter-only">{taglines.recruiter}</span>
       <span class="dev-only">{taglines.developer}</span>
       <span class="curious-only">{taglines.curious}</span>
+      <span class="infra-only">{taglines.infrastructure}</span>
     </p>
 
     <p class="hero-subline">
       <span class="recruiter-only">{hero_subline.recruiter}</span>
       <span class="dev-only">{hero_subline.developer}</span>
       <span class="curious-only">{hero_subline.curious}</span>
+      <span class="infra-only">{hero_subline.infrastructure}</span>
     </p>
 
     <div class="hero-ctas">
@@ -66,6 +77,13 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
       ))}
     </div>
 
+    <!-- Infrastructure: operating figures from the TCS engagement -->
+    <div class="stat-grid infra-only fade-in" style="transition-delay: 0.1s;">
+      {infraStats.map((kpi) => (
+        <StatCard value={kpi.value} label={kpi.label} />
+      ))}
+    </div>
+
     <!-- Curious: personal currently block -->
     <div class="currently-block curious-only fade-in" style="transition-delay: 0.1s;">
       <div class="currently-label">Currently</div>
@@ -73,6 +91,23 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
     </div>
   </div>
 </section>
+
+<style is:global>
+/* .availability-line and .stat-grid set their own display value, which
+   outranks the .recruiter-only / .recruiter-dev / .infra-only visibility
+   classes. Gate them explicitly per mode. These must be global: Astro scopes
+   every part of a selector, and [data-mode] sits on <html>, outside this
+   component. */
+[data-mode="recruiter"] .availability-line.recruiter-only,
+[data-mode="infrastructure"] .availability-line.infra-only {
+  display: flex;
+}
+[data-mode="recruiter"] .stat-grid.recruiter-dev,
+[data-mode="developer"] .stat-grid.recruiter-dev,
+[data-mode="infrastructure"] .stat-grid.infra-only {
+  display: grid;
+}
+</style>
 
 <style>
 .hero-section {
@@ -100,11 +135,12 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
 }
 
 .availability-line {
-  display: flex;
+  display: none;
   align-items: center;
   gap: var(--space-2);
   margin-bottom: var(--space-4);
 }
+
 .avail-dot {
   width: 8px;
   height: 8px;
@@ -200,10 +236,11 @@ const resolvedPdf = pdf_path.startsWith('http') ? pdf_path : `${basePath}/${pdf_
 
 /* Stat grid */
 .stat-grid {
-  display: grid;
+  display: none;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-3);
 }
+
 
 /* Currently block */
 .currently-block {

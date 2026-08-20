@@ -4,9 +4,16 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description: string;
+  /** Pins the page to one audience mode, bypassing the stored preference.
+   *  Used by the dedicated /infra route so a shared link previews and lands
+   *  in Infrastructure mode. Omit on the root page. */
+  forceMode?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, forceMode } = Astro.props;
+const canonical = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site).href
+  : Astro.url.pathname;
 ---
 
 <!DOCTYPE html>
@@ -18,9 +25,15 @@ const { title, description } = Astro.props;
     <title>{title}</title>
     <meta name="description" content={description} />
 
+    <link rel="canonical" href={canonical} />
+
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
 
     <meta name="theme-color" content="#1A6BFF" />
 
@@ -29,16 +42,21 @@ const { title, description } = Astro.props;
     <!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"YOUR_CF_ANALYTICS_TOKEN"}'></script> -->
 
     <!-- FOUC prevention: sets data-mode and data-theme before first paint -->
-    <script is:inline>
+    <script is:inline data-force-mode={forceMode}>
       (function () {
         const params = new URLSearchParams(window.location.search);
+        const forced = document.currentScript.dataset.forceMode || '';
         let mode = params.get('mode');
         let theme = params.get('theme');
 
-        const validModes = ['recruiter', 'developer', 'curious'];
+        const validModes = ['recruiter', 'developer', 'curious', 'infrastructure'];
         const validThemes = ['light', 'dark'];
 
-        if (mode && validModes.includes(mode)) {
+        if (forced && validModes.includes(forced)) {
+          // A mode-pinned route wins over both the query string and storage.
+          mode = forced;
+          localStorage.setItem('portfolio_mode', mode);
+        } else if (mode && validModes.includes(mode)) {
           localStorage.setItem('portfolio_mode', mode);
         } else {
           mode = localStorage.getItem('portfolio_mode');
@@ -57,9 +75,12 @@ const { title, description } = Astro.props;
         localStorage.setItem('portfolio_mode', mode);
         localStorage.setItem('portfolio_theme', theme);
 
-        const newSearch = '?mode=' + mode;
-        if (window.location.search !== newSearch) {
-          window.history.replaceState(null, '', newSearch);
+        // Mode-pinned routes carry their mode in the path, so leave the URL alone.
+        if (!forced) {
+          const newSearch = '?mode=' + mode;
+          if (window.location.search !== newSearch) {
+            window.history.replaceState(null, '', newSearch);
+          }
         }
       })();
     </script>

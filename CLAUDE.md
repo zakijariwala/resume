@@ -33,9 +33,9 @@ Decap CMS — /public/admin/index.html + /public/admin/config.yml
 
 ---
 
-## Three-Mode Identity System — Core Principle
+## Four-Mode Identity System — Core Principle
 
-The portfolio has three audience modes: **Recruiter**, **Developer**, **Curious**.
+The portfolio has four audience modes: **Recruiter**, **Developer**, **Curious**, **Infrastructure**.
 
 This is not a content filter. Each mode is a distinct visual identity. A user switching between modes must feel they have encountered three different websites — different layout density, different typographic emphasis, different surface language, different section labeling, different tone. Content differences reinforce these identities but do not create them alone.
 
@@ -61,6 +61,18 @@ Depth and authenticity over cleverness. Technical richness in Developer mode com
 - **Hero right column:** Same 4 stat cards, framed with a technical-context strip below
 - **Emphasis:** Stack, architecture decisions, GitHub links, build context, metrics with precision
 - **Rule:** No simulated or fake interactive elements. Technical credibility comes from real data, not theatre.
+
+### Infrastructure Mode
+
+- **Voice:** Operations-first, credential-led, plain about scale and reliability
+- **Layout:** Recruiter-like spacing with developer-level technical detail retained
+- **Typography:** Mono used for labels and chrome, as in Developer mode
+- **Color:** Steel accent (`--prim-steel`), cooler than both blue and green
+- **Section labels:** Uppercase mono with a steel vertical rule prefix — e.g., `OPERATIONS HISTORY`
+- **Hero right column:** The TCS operating figures from `experience.json` (uptime, users, engineers led, RTO), not the product stat cards
+- **Emphasis:** RHEL and Linux fleet operations, IBM Security Identity Manager, high availability and the 99.999% SLA, DR runbooks and the 50% RTO reduction, on-premise containerisation, Python and Bash automation, GCP PCA and AWS SAA
+- **Demoted:** Product-management framing. The coaching entry is withheld entirely via `hide_in_modes` in `experience.json`.
+- **Rule:** Reframes and reorders existing content only. No claim appears in this mode that is not already in the repo.
 
 ### Curious Mode
 
@@ -91,7 +103,7 @@ All design decisions reference semantic CSS custom properties. Never hardcode co
 - `--font-body` (Inter) → all other text
 
 **Do not:**
-- Add a third accent color — extend the existing scale instead
+- Add a fifth accent color — one per mode is the ceiling, extend the existing scale instead
 - Use `box-shadow` for depth — use border contrast and background contrast
 - Hardcode any hex/rgb value outside `:root`
 - Use `font-weight > 600` on the display font
@@ -99,6 +111,14 @@ All design decisions reference semantic CSS custom properties. Never hardcode co
 - Use `!important`
 
 ---
+
+## Routes
+
+- `/` — the portfolio. Mode comes from `?mode=` or `localStorage`, resolved client-side.
+- `/infra` — the same page pinned to Infrastructure mode via the `forceMode` prop on `Base.astro`.
+  It exists because mode is resolved in the browser, so a shared `/?mode=infrastructure`
+  link cannot preview as infrastructure work — social scrapers do not run the mode script.
+  This route carries its own `<title>`, description, canonical, and OG tags.
 
 ## Page Structure (in order)
 
@@ -119,7 +139,12 @@ This pattern is mandatory — do not open a section without it.
 
 ## JS (all inline, no external dependencies)
 
-- **Mode switching:** data-mode on html/body, CSS visibility classes (.recruiter-only, .dev-only, .curious-only, .all-modes)
+- **Mode switching:** data-mode on html/body, CSS visibility classes (.recruiter-only, .dev-only, .curious-only, .infra-only, .all-modes)
+- **Mode-gating caveat:** Astro appends the component scope id to *every* part of a selector,
+  including `[data-mode="..."]`, which lives on `<html>`. Any rule keyed on `[data-mode]` must
+  therefore go in a `<style is:global>` block or it silently never matches. Also, a class that
+  sets its own `display` (`.stat-grid`, `.availability-line`) outranks the visibility classes
+  and needs an explicit per-mode rule.
 - **FOUC prevention:** synchronous inline script in <head> reads localStorage before first paint
 - **Mode toast:** brief notification on mode change
 - **Scroll fade-in:** IntersectionObserver on `.fade-in` → adds `.visible`
@@ -203,6 +228,7 @@ src/
     Base.astro
   pages/
     index.astro
+    infra.astro                     (Infrastructure mode, mode-pinned route)
   styles/
     global.css
   data/

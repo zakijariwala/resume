@@ -19,7 +19,7 @@ import SectionHeader from './SectionHeader.astro';
       <span class="legend-dot familiar"></span>
       <span>Familiar</span>
     </div>
-    <div class="legend-item dev-only">
+    <div class="legend-item dev-only infra-only">
       <span class="legend-dot learning"></span>
       <span>Learning</span>
     </div>
@@ -62,7 +62,7 @@ import SectionHeader from './SectionHeader.astro';
             );
           } else {
             return (
-              <span class="skill-pill learning dev-only">{skill.name}</span>
+              <span class="skill-pill learning dev-only infra-only">{skill.name}</span>
             );
           }
         })}

@@ -18,6 +18,7 @@ const { about } = meta;
         <span class="recruiter-only">{about.left_framing.recruiter}</span>
         <span class="dev-only">{about.left_framing.developer}</span>
         <span class="curious-only">{about.left_framing.curious}</span>
+        <span class="infra-only">{about.left_framing.infrastructure}</span>
       </p>
 
       {about.callout && (
@@ -35,6 +36,10 @@ const { about } = meta;
       </div>
 
       <!-- Developer mode -->
+      <div class="infra-only">
+        <p class="about-para fade-in">{about.paragraphs.infrastructure}</p>
+      </div>
+
       <div class="dev-only">
         <p class="about-para fade-in">{about.paragraphs.developer}</p>
       </div>

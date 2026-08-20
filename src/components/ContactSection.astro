@@ -21,12 +21,14 @@ const githubDisplay = github.replace('https://', '');
         <span class="recruiter-only">{contact_headline.recruiter}</span>
         <span class="dev-only">{contact_headline.developer}</span>
         <span class="curious-only">{contact_headline.curious}</span>
+        <span class="infra-only">{contact_headline.infrastructure}</span>
       </h3>
 
       <p class="contact-tagline">
         <span class="recruiter-only">{contact_taglines.recruiter}</span>
         <span class="dev-only">{contact_taglines.developer}</span>
         <span class="curious-only">{contact_taglines.curious}</span>
+        <span class="infra-only">{contact_taglines.infrastructure}</span>
       </p>
 
       <a href={`mailto:${email}`} class="contact-email" aria-label={`Email ${email}`}>

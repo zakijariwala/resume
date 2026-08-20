@@ -42,10 +42,11 @@ const { name } = meta;
       >
         <button class="audience-btn" data-mode-btn="recruiter" role="radio" aria-checked="false">Recruiter</button>
         <button class="audience-btn" data-mode-btn="developer" role="radio" aria-checked="false">Developer</button>
+        <button class="audience-btn" data-mode-btn="infrastructure" role="radio" aria-checked="false" aria-label="Infrastructure">Infra</button>
         <button class="audience-btn" data-mode-btn="curious" role="radio" aria-checked="false">Curious</button>
       </div>
       <div id="mode-coachmark" class="mode-coachmark" aria-hidden="true">
-        <span>This site has 3 perspectives — try switching</span>
+        <span>This site has 4 perspectives — try switching</span>
         <button class="coachmark-close" id="coachmark-close" aria-label="Dismiss hint">×</button>
       </div>
     </div>
@@ -88,6 +89,7 @@ const { name } = meta;
 
 .audience-btn {
   padding: 2px 12px;
+  white-space: nowrap;
   font-family: var(--font-body);
   font-size: 11px;
   font-weight: 600;
@@ -103,9 +105,14 @@ const { name } = meta;
 .audience-btn.active,
 [data-mode="recruiter"] [data-mode-btn="recruiter"],
 [data-mode="developer"] [data-mode-btn="developer"],
+[data-mode="infrastructure"] [data-mode-btn="infrastructure"],
 [data-mode="curious"]   [data-mode-btn="curious"] {
   background: var(--accent);
   color: #fff;
+}
+
+@media (max-width: 480px) {
+  .audience-btn { padding: 2px 8px; font-size: 10px; }
 }
 
 .mob-link {
@@ -252,6 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const labels: Record<string, string> = {
         recruiter: 'Recruiter view',
         developer: 'Developer view',
+        infrastructure: 'Infrastructure view',
         curious: 'Curious view',
       };
       toast.textContent = labels[mode] ?? '';

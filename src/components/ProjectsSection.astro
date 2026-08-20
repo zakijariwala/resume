@@ -5,8 +5,15 @@ import FeaturedProjectCard from './FeaturedProjectCard.astro';
 import ProjectCard from './ProjectCard.astro';
 
 const featured = projects.find(p => p.featured);
-const primary = projects.filter(p => !p.featured && p.priority === 'primary');
-const secondary = projects.filter(p => !p.featured && p.priority === 'secondary');
+const featuredInfra = projects.find(p => p.featured_infrastructure);
+
+// Every non-featured card lives in a single grid. DOM order is the order
+// recruiter, developer, and curious modes see; Infrastructure mode reorders
+// with the CSS `order` property, driven by the --infra-order custom property
+// each card carries. The divider is a full-width grid item so it moves too.
+const rest = projects.filter(p => !p.featured);
+const primary = rest.filter(p => p.priority === 'primary');
+const secondary = rest.filter(p => p.priority === 'secondary');
 ---
 
 <section id="projects" class="section-spacing" style="border-bottom: 1px solid var(--border);">
@@ -14,34 +21,34 @@ const secondary = projects.filter(p => !p.featured && p.priority === 'secondary'
     label="PROJECTS"
     labelDev="projects"
     labelCurious="Things I've built"
+    labelInfra="SYSTEMS BUILT"
     title="Projects"
   />
 
   {featured && <FeaturedProjectCard project={featured} />}
+  {featuredInfra && <FeaturedProjectCard project={featuredInfra} variant="infrastructure" />}
 
-  {primary.length > 0 && (
-    <div class="projects-grid">
-      {primary.map((project) => (
-        <ProjectCard project={project} />
-      ))}
+  <div class="projects-grid">
+    {primary.map((project) => (
+      <ProjectCard project={project} />
+    ))}
+
+    <div class="projects-divider" style="--infra-order: 35">
+      <span class="divider-label recruiter-only">Other Projects</span>
+      <span class="divider-label dev-only">// other_projects</span>
+      <span class="divider-label curious-only">Other things I've made</span>
+      <span class="divider-label infra-only">OTHER PROJECTS</span>
     </div>
-  )}
 
-  {secondary.length > 0 && (
-    <>
-      <div class="projects-divider">
-        <span class="divider-label recruiter-only">Other Projects</span>
-        <span class="divider-label dev-only">// other_projects</span>
-        <span class="divider-label curious-only">Other things I've made</span>
-      </div>
-      <div class="projects-grid projects-grid-secondary">
-        {secondary.map((project) => (
-          <ProjectCard project={project} />
-        ))}
-      </div>
-    </>
-  )}
+    {secondary.map((project) => (
+      <ProjectCard project={project} />
+    ))}
+  </div>
 </section>
+
+<style is:global>
+[data-mode="infrastructure"] .projects-grid > * { order: var(--infra-order, 0); }
+</style>
 
 <style>
 .section-spacing {
@@ -52,12 +59,12 @@ const secondary = projects.filter(p => !p.featured && p.priority === 'secondary'
   grid-template-columns: 1fr 1fr;
   gap: var(--space-4);
 }
-.projects-grid + .projects-divider {
-  margin-top: var(--space-10);
-}
 .projects-divider {
-  margin-top: var(--space-10);
-  margin-bottom: var(--space-6);
+  grid-column: 1 / -1;
+  /* The grid gap (16px) now contributes to the divider's separation, so the
+     margins are reduced to preserve the original 40px above / 24px below. */
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-2);
   padding-bottom: var(--space-4);
   border-bottom: 1px solid var(--border);
 }
