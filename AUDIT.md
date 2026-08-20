@@ -1,5 +1,50 @@
 # AUDIT.md — Repository Baseline
 
+> ## CORRECTION (2026-08-20): this audit read the wrong branch
+>
+> Everything below describes **`main`**. `main` is not what serves
+> zakijariwala.space.
+>
+> **Production is Cloudflare Pages project `resume`, building from branch
+> `ai-pm`**, with automatic deployments and custom domain zakijariwala.space
+> (plus resume-e4n.pages.dev). `ai-pm` is **31 commits ahead of `main`**;
+> `main` contains nothing that `ai-pm` does not. `HANDOVER.md` was right and
+> §1 below was wrong to treat the deploy target as ambiguous — the `ai-pm`
+> branch does exist on the remote, I simply did not fetch it.
+>
+> **What this invalidates:**
+>
+> - **§2 "Routes: exactly one" is wrong for production.** `ai-pm` has
+>   `src/pages/index.astro`, `dev.astro`, `curious.astro`, and `now.astro`.
+>   The `/dev`, `/curious`, and `/now` pages the original brief referred to
+>   are real; they exist only on `ai-pm`.
+> - **The mode switcher works differently in production.** On `ai-pm` the
+>   switcher links to `/dev`, `/curious` and `/now` as separate pages, each
+>   with its own layout (`src/layouts/Dev.astro`, `Award.astro`), its own
+>   component tree (`src/components/dev/*`, `src/components/award/*`) and its
+>   own stylesheet (`src/styles/dev.css`, `award.css`). It is not purely the
+>   CSS-visibility mode system described below. That is roughly +3,400 lines
+>   this audit never saw.
+> - **§9's baseline numbers describe `main`'s build, not production's.**
+>
+> **What this does NOT invalidate:** the Astro/Tailwind stack, the token
+> architecture, the `src/data/*.json` content model, the Decap CMS wiring, the
+> Astro selector-scoping trap, and the third-party script inventory all still
+> hold — `ai-pm` builds on the same foundation.
+>
+> **Consequence for work already done:** Phases 1 and 2 and redesign phases
+> R1, R2, R3 and R6 were all built on `main`. They are live on **no** site.
+> The Cloudflare dashboard shows them as *Preview* deployments only. In
+> particular the Phase 1 truth fix has not reached users: `ai-pm` still
+> carries `"status": "in_progress"` with the note *"Actively studying —
+> expected completion mid-2026"*, and still says *"Studying for GCP
+> Professional Cloud Architect"* in the hero Currently block.
+>
+> `.github/workflows/deploy.yml` (GitHub Pages, triggered on `main`) exists on
+> `ai-pm` too and is a second, unrelated deployment path. It does not serve the
+> custom domain.
+
+
 **Date:** 2026-08-19
 **Repo:** `zakijariwala/resume`
 **Branch audited:** `claude/portfolio-phased-agent-packet-rf1l9o` (from `main` @ `2c6334b`)
