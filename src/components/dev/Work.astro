@@ -14,12 +14,16 @@ const secondary = projects.filter(p => p.priority === 'secondary');
 
   <div class="dwork-list">
     {primary.map((p, i) => (
-      <article class="dwork-case rv">
+      <article class={`dwork-case rv cat-${p.category ?? 'primary'}`}>
         <header class="dwork-head">
           <span class="dwork-idx d-num">{String(i + 1).padStart(2, '0')}</span>
           <div class="dwork-title-block">
             <h3 class="dwork-name">{p.name}</h3>
-            <span class="dwork-tag">{p.tagline.toLowerCase()}</span>
+            <span class="dwork-tag">
+              <span class="dwork-cat">{(p.category ?? 'primary').replace('infra', 'infrastructure')}</span>
+              <span class="dwork-tag-sep" aria-hidden="true">·</span>
+              {p.tagline.toLowerCase()}
+            </span>
           </div>
           <span class="dwork-metric d-num">{p.featured_metric}</span>
         </header>

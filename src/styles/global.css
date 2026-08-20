@@ -14,7 +14,7 @@
      --prim-dark-bg. Verified, do not eyeball replacements. */
   --prim-indigo:         #4F46E5;
   --prim-violet:         #6D28D9;
-  --prim-amber:          #A16207;
+  --prim-amber:          #96590A;
   --prim-green:          #15803D;
   --prim-steel:          #2A6478;
 
@@ -96,8 +96,8 @@
   --color-ai-subtle: rgba(109, 40, 217, 0.10);
   --color-ai-border: rgba(109, 40, 217, 0.28);
   --color-product:        var(--prim-amber);
-  --color-product-subtle: rgba(161, 98, 7, 0.10);
-  --color-product-border: rgba(161, 98, 7, 0.28);
+  --color-product-subtle: rgba(150, 89, 10, 0.10);
+  --color-product-border: rgba(150, 89, 10, 0.28);
   --color-infra:        var(--prim-green);
   --color-infra-subtle: rgba(21, 128, 61, 0.10);
   --color-infra-border: rgba(21, 128, 61, 0.28);

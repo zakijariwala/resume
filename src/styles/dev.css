@@ -20,6 +20,20 @@
   --accent-soft: rgba(61, 220, 132, 0.10);
   --accent-line: rgba(61, 220, 132, 0.30);
 
+  /* Category colours, shared meaning with the main stylesheet, tuned for this dark ground */
+  --color-primary:        #A5B4FC;
+  --color-primary-subtle: rgba(165, 180, 252, 0.16);
+  --color-primary-border: rgba(165, 180, 252, 0.34);
+  --color-ai:        #C4B5FD;
+  --color-ai-subtle: rgba(196, 181, 253, 0.16);
+  --color-ai-border: rgba(196, 181, 253, 0.34);
+  --color-product:        #FBBF24;
+  --color-product-subtle: rgba(251, 191, 36, 0.16);
+  --color-product-border: rgba(251, 191, 36, 0.34);
+  --color-infra:        #34D399;
+  --color-infra-subtle: rgba(52, 211, 153, 0.16);
+  --color-infra-border: rgba(52, 211, 153, 0.34);
+
   --font-mono: 'JetBrains Mono', monospace;
   --font-body: 'Instrument Sans', sans-serif;
 
@@ -132,3 +146,15 @@ a { color: inherit; }
   transition: border-color 0.15s ease;
 }
 .d-link:hover { border-color: var(--accent); }
+
+.cat-ai      { --cat-color: var(--color-ai);      --cat-subtle: var(--color-ai-subtle);      --cat-border: var(--color-ai-border); }
+.cat-product { --cat-color: var(--color-product); --cat-subtle: var(--color-product-subtle); --cat-border: var(--color-product-border); }
+.cat-infra   { --cat-color: var(--color-infra);   --cat-subtle: var(--color-infra-subtle);   --cat-border: var(--color-infra-border); }
+.cat-primary { --cat-color: var(--color-primary); --cat-subtle: var(--color-primary-subtle); --cat-border: var(--color-primary-border); }
+
+/* Category signal on the case files: a coloured rule plus a written label,
+   so the meaning does not depend on the colour alone. */
+.dwork-case { border-left: 2px solid var(--cat-border, var(--line)); padding-left: var(--gutter); }
+.dwork-cat { color: var(--cat-color, var(--accent)); font-weight: 600; }
+.dwork-tag-sep { color: var(--faint); margin: 0 0.4em; }
+.dwork-metric { color: var(--cat-color, var(--accent)); }
