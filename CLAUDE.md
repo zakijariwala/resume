@@ -148,7 +148,12 @@ change one, re-measure — do not eyeball a replacement.
    each with a category-coloured left rule. Every number is stated here and nowhere else.
 3. `#about` — sticky left col (2–3 sentences + callout) + right col (prose)
 4. `#experience` — sidebar period/badge left + bullets + KPI row per role
-5. `#projects` — featured full-width card + standard card grid (up to 5)
+5. `#projects` — featured full-width card + standard card grid. Each card is
+   outcome-first: category badge, name, one-line problem, key outcome, tech
+   chips, then implementation bullets behind a native `<details>` disclosure.
+   Developer and Infrastructure modes open the disclosures automatically.
+6. `#thinking` — "How I think": five ordered steps (Problem → Hypothesis →
+   Build → Measure → Decide), each citing a real project as evidence.
 6. `#skills` — tabbed, six categories
 7. `#certifications` — three-column card grid
 8. `#contact` — two-column (links left + Formspree form right)
@@ -244,7 +249,10 @@ src/
     ContactSection.astro
     Footer.astro
     SectionHeader.astro             (reusable label + title)
-    StatCard.astro                  (hero stat card)
+    ProofStrip.astro                (metrics band under the hero)
+    ThinkingSection.astro           (How I think)
+    StatCard.astro                  (unreferenced since the hero stat grid moved
+                                     to ProofStrip — kept, not yet deleted)
     KpiRow.astro                    (experience KPI row)
   layouts/
     Base.astro
@@ -259,6 +267,7 @@ src/
     projects.json
     skills.json
     certifications.json
+    thinking.json
 public/
   admin/
     index.html                      (Decap CMS entry)

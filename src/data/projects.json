@@ -1,6 +1,7 @@
 [
   {
     "id": "zamaan_marine",
+    "category": "product",
     "infra_order": 60,
     "name": "Zamaan Marine Digital Ecosystem",
     "tagline": "JAMstack · B2B Automation",
@@ -54,6 +55,7 @@
   },
   {
     "id": "content_automation",
+    "category": "ai",
     "infra_order": 40,
     "name": "Content Automation Pipeline",
     "tagline": "LLM Orchestration · Multi-platform",
@@ -107,6 +109,7 @@
   },
   {
     "id": "zamaan_automation",
+    "category": "product",
     "infra_order": 50,
     "name": "Zamaan Automation",
     "tagline": "SEO Experiment · eBay Attribution",
@@ -156,6 +159,7 @@
   },
   {
     "id": "run_to",
+    "category": "product",
     "infra_order": 70,
     "name": "run.to",
     "tagline": "PWA · Route Generation",
@@ -205,6 +209,7 @@
   },
   {
     "id": "path_of_supplication",
+    "category": "product",
     "infra_order": 20,
     "name": "Path of Supplication",
     "tagline": "PWA · Offline-first",
@@ -258,6 +263,7 @@
   },
   {
     "id": "ian_xiaohei",
+    "category": "ai",
     "infra_order": 80,
     "name": "Ian Xiaohei Illustrations",
     "tagline": "Open Source · AI Tooling",
@@ -311,6 +317,7 @@
   },
   {
     "id": "gidstek_site",
+    "category": "infra",
     "infra_order": 30,
     "name": "GidsTek Website",
     "tagline": "Web Dev · Performance Turnaround",
@@ -356,6 +363,7 @@
   },
   {
     "id": "esp_pocket",
+    "category": "infra",
     "infra_order": 10,
     "name": "ESP-Pocket Reader",
     "tagline": "Embedded · Hardware",
@@ -393,6 +401,7 @@
   },
   {
     "id": "remote_dev_server",
+    "category": "infra",
     "infra_order": 0,
     "featured_infrastructure": true,
     "name": "Personal Remote Dev Server",

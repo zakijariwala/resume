@@ -50,6 +50,41 @@ const secondary = rest.filter(p => p.priority === 'secondary');
 [data-mode="infrastructure"] .projects-grid > * { order: var(--infra-order, 0); }
 </style>
 
+<script>
+// Recruiter and Curious open on the outcome; Developer and Infrastructure want
+// the implementation without an extra click. Reuses the mode-change event the
+// switcher already dispatches, so there is no second source of truth.
+const TECHNICAL_MODES = ['developer', 'infrastructure'];
+
+// Setting .open fires a toggle event, so the "did the visitor touch this"
+// listener has to ignore the changes we make ourselves.
+let syncing = false;
+
+function syncProjectDisclosures(mode: string) {
+  const open = TECHNICAL_MODES.includes(mode);
+  syncing = true;
+  document.querySelectorAll<HTMLDetailsElement>('.proj-details').forEach(d => {
+    if (d.dataset.userToggled === '1') return;
+    d.open = open;
+  });
+  // toggle events are queued as tasks, so clear the flag after they drain.
+  setTimeout(() => { syncing = false; }, 0);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll<HTMLDetailsElement>('.proj-details').forEach(d => {
+    d.addEventListener('toggle', () => {
+      if (!syncing) d.dataset.userToggled = '1';
+    });
+  });
+  syncProjectDisclosures(document.documentElement.dataset.mode || 'recruiter');
+});
+
+window.addEventListener('portfolio-mode-change', (e) => {
+  syncProjectDisclosures((e as CustomEvent).detail.mode);
+});
+</script>
+
 <style>
 .section-spacing {
   padding: var(--section-padding) 0;

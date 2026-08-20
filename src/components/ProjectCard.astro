@@ -16,6 +16,7 @@ interface Props {
     github: string;
     live_url?: string;
     year: string;
+    category?: 'ai' | 'product' | 'infra' | 'primary';
     infra_order?: number;
     featured_infrastructure?: boolean;
     bullets: Bullet[];
@@ -26,28 +27,35 @@ const { project } = Astro.props;
 // The Infrastructure featured slot renders this project as a full-width card,
 // so its grid card is withheld from that mode to avoid a duplicate.
 const gridHidden = project.featured_infrastructure ? 'hide-in-infrastructure' : '';
+const CATEGORY_LABEL: Record<string, string> = {
+  ai: 'AI', product: 'Product', infra: 'Infrastructure', primary: 'Product',
+};
+const category = project.category ?? 'primary';
+const categoryLabel = CATEGORY_LABEL[category];
 const visibleTech = project.tech.slice(0, 6);
 const isPrivate = !project.github || project.github === 'private';
 const hasLive = !!(project.live_url && project.live_url !== '');
 ---
 
 <div
-  class={`proj-card card fade-in ${gridHidden}`}
+  class={`proj-card card fade-in cat-${category} ${gridHidden}`}
   id={`project-${project.id}`}
   style={`--infra-order: ${project.infra_order ?? 0}`}
 >
   <div class="proj-header">
     <div class="proj-meta">
+      <span class={`category-badge cat-${category}`}>{categoryLabel}</span>
       <span class="project-tagline">{project.tagline}</span>
-      <span class="proj-year recruiter-dev infra-only">{project.year}</span>
     </div>
-    {project.featured_metric && (
-      <span class="project-metric">{project.featured_metric}</span>
-    )}
+    <span class="proj-year recruiter-dev infra-only">{project.year}</span>
   </div>
 
   <h3 class="proj-name">{project.name}</h3>
   <p class="proj-summary">{project.one_line_summary}</p>
+
+  {project.featured_metric && (
+    <p class="proj-outcome">{project.featured_metric}</p>
+  )}
 
   <div class="stack-chips">
     {visibleTech.map(t => (
@@ -55,11 +63,17 @@ const hasLive = !!(project.live_url && project.live_url !== '');
     ))}
   </div>
 
-  <ul class="proj-bullets">
-    {project.bullets.map(bullet => (
-      <li data-audience={bullet.audience.join(',')}>{bullet.text}</li>
-    ))}
-  </ul>
+  <details class="proj-details">
+    <summary class="proj-details-summary">
+      <span>How it was built</span>
+      <i class="ti ti-chevron-down" aria-hidden="true"></i>
+    </summary>
+    <ul class="proj-bullets">
+      {project.bullets.map(bullet => (
+        <li data-audience={bullet.audience.join(',')}>{bullet.text}</li>
+      ))}
+    </ul>
+  </details>
 
   {project.why_i_built_it && (
     <div class="callout curious-only">
@@ -101,6 +115,36 @@ const hasLive = !!(project.live_url && project.live_url !== '');
 </div>
 
 <style is:global>
+/* Shared with FeaturedProjectCard, which is a separate component. */
+.proj-details-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  list-style: none;
+  padding: var(--space-1) 0;
+  transition: color var(--motion-fast);
+}
+.proj-details-summary::-webkit-details-marker { display: none; }
+.proj-details-summary:hover,
+.proj-details[open] .proj-details-summary { color: var(--cat-color, var(--accent-text)); }
+.proj-details-summary i { transition: transform var(--motion-fast); }
+.proj-details[open] .proj-details-summary i { transform: rotate(180deg); }
+.proj-details-summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+@media (prefers-reduced-motion: reduce) {
+  .proj-details-summary i { transition: none; }
+}
+
 [data-mode="recruiter"] .proj-bullets li[data-audience]:not([data-audience*="recruiter"]):not([data-audience*="management"]) {
   display: none;
 }
@@ -112,6 +156,8 @@ const hasLive = !!(project.live_url && project.live_url !== '');
 
 <style>
 .proj-card {
+  border-left: 3px solid var(--cat-border, var(--border));
+  transition: border-color var(--motion-fast);
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
@@ -166,7 +212,46 @@ const hasLive = !!(project.live_url && project.live_url !== '');
   color: var(--text-muted);
   line-height: 1.7;
   margin: 0;
-  flex: 1;
+}
+
+/* The key outcome, stated once and given its category colour. */
+.proj-outcome {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  line-height: 1.3;
+  color: var(--cat-color, var(--accent-text));
+  margin: 0;
+  text-wrap: balance;
+}
+
+.proj-details {
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+  padding-top: var(--space-3);
+}
+.proj-details-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  list-style: none;
+  padding: var(--space-1) 0;
+  transition: color var(--motion-fast);
+}
+.proj-details-summary::-webkit-details-marker { display: none; }
+.proj-details-summary:hover { color: var(--cat-color, var(--accent-text)); }
+.proj-details-summary i { transition: transform var(--motion-fast); }
+.proj-details[open] .proj-details-summary i { transform: rotate(180deg); }
+.proj-details[open] .proj-details-summary { color: var(--cat-color, var(--accent-text)); }
+.proj-details .proj-bullets { padding-top: var(--space-3); }
+@media (prefers-reduced-motion: reduce) {
+  .proj-details-summary i { transition: none; }
 }
 .proj-bullets {
   list-style: disc;
@@ -187,7 +272,6 @@ const hasLive = !!(project.live_url && project.live_url !== '');
   margin: 0;
 }
 .proj-card-footer {
-  margin-top: auto;
   padding-top: var(--space-3);
   border-top: 1px solid var(--border);
   display: flex;

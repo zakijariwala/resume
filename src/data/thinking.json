@@ -1,0 +1,42 @@
+[
+  {
+    "step": "Problem",
+    "body": "Start with the thing that is actually broken, not the thing that is interesting to build.",
+    "evidence": "Existing route planners all required drawing the path by hand. That was the problem worth solving, not the map rendering.",
+    "project_id": "run_to",
+    "project_name": "run.to",
+    "cat": "product"
+  },
+  {
+    "step": "Hypothesis",
+    "body": "Write down what you expect to happen, and what result would prove you wrong, before writing code.",
+    "evidence": "Framed a formal experiment first: null and alternative hypotheses, and a quantitative 90-day success threshold.",
+    "project_id": "zamaan_automation",
+    "project_name": "Zamaan Automation",
+    "cat": "ai"
+  },
+  {
+    "step": "Build",
+    "body": "Build the smallest system that can answer the question. Constraints are a feature.",
+    "evidence": "Zero-build architecture: pure HTML, CSS and JS, no framework, no npm — 22,000+ records served offline at zero hosting cost.",
+    "project_id": "path_of_supplication",
+    "project_name": "Path of Supplication",
+    "cat": "product"
+  },
+  {
+    "step": "Measure",
+    "body": "Instrument the funnel, not the vanity number. If you cannot attribute it, you cannot learn from it.",
+    "evidence": "UTM attribution typed end to end, with an event schema tracking the full path from discovery through to the eBay redirect.",
+    "project_id": "zamaan_marine",
+    "project_name": "Zamaan Marine",
+    "cat": "product"
+  },
+  {
+    "step": "Decide",
+    "body": "Put the decision point in the plan up front, so killing something is a scheduled outcome rather than an admission.",
+    "evidence": "A 90-day decision gate built into the architecture, with the success threshold agreed before launch.",
+    "project_id": "zamaan_automation",
+    "project_name": "Zamaan Automation",
+    "cat": "infra"
+  }
+]
