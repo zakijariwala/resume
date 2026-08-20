@@ -13,6 +13,12 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+const canonical = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site).href
+  : Astro.url.pathname;
+const ogImage = Astro.site
+  ? new URL('/Zaki_Photo.jpeg', Astro.site).href
+  : '/Zaki_Photo.jpeg';
 ---
 
 <!DOCTYPE html>
@@ -27,6 +33,11 @@ const { title, description } = Astro.props;
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
   <link rel="icon" type="image/jpeg" href="/Zaki_Photo.jpeg" />
+  <link rel="canonical" href={canonical} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content={ogImage} />
   <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.21.0/dist/tabler-icons.min.css"

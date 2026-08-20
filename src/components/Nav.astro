@@ -3,6 +3,8 @@ import meta from '../data/meta.json';
 
 const { name } = meta;
 const resumeHref = meta.pdf_path;
+const HAS_SECTIONS = ['/', '/infra'];
+const sec = (hash: string) => (HAS_SECTIONS.includes(path) ? hash : '/' + hash);
 
 // The switcher is a set of page links now, not a radio group: Developer,
 // Curious and Infrastructure are separate routes. Mark the current one.
@@ -19,7 +21,7 @@ const isNow = Astro.url.pathname.replace(/\/$/, '').endsWith('/now');
 >
   <!-- Logo / name -->
   <a
-    href="#hero"
+    href={sec('#hero')}
     class="hidden lg:block font-body text-sm font-semibold truncate max-w-[200px] transition-colors duration-150"
     style="color: var(--text);"
     aria-label="Back to top"
@@ -29,11 +31,11 @@ const isNow = Astro.url.pathname.replace(/\/$/, '').endsWith('/now');
 
   <!-- Desktop nav links -->
   <nav class="hidden lg:flex items-center gap-5" aria-label="Main navigation">
-    <a href="#about" class="desktop-nav-link nav-link">About</a>
-    <a href="#experience" class="desktop-nav-link nav-link">Work</a>
-    <a href="#projects" class="desktop-nav-link nav-link">Projects</a>
-    <a href="#thinking" class="desktop-nav-link nav-link">Thinking</a>
-    <a href="#contact" class="desktop-nav-link nav-link">Contact</a>
+    <a href={sec('#about')} class="desktop-nav-link nav-link">About</a>
+    <a href={sec('#experience')} class="desktop-nav-link nav-link">Work</a>
+    <a href={sec('#projects')} class="desktop-nav-link nav-link">Projects</a>
+    <a href={sec('#thinking')} class="desktop-nav-link nav-link">Thinking</a>
+    <a href={sec('#contact')} class="desktop-nav-link nav-link">Contact</a>
     <a href="/now" class:list={['nav-link lab-nav-link', { active: isNow }]}>
       <i class="ti ti-flask" aria-hidden="true"></i>
       Now
@@ -95,11 +97,11 @@ const isNow = Astro.url.pathname.replace(/\/$/, '').endsWith('/now');
   style="height: var(--nav-height); background: var(--nav-bg); border-top: 1px solid var(--border); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);"
   aria-label="Mobile navigation"
 >
-  <a href="#about" class="mobile-nav-link mob-link"><i class="ti ti-user text-lg"></i><span>About</span></a>
-  <a href="#experience" class="mobile-nav-link mob-link"><i class="ti ti-briefcase text-lg"></i><span>Work</span></a>
-  <a href="#projects" class="mobile-nav-link mob-link"><i class="ti ti-code text-lg"></i><span>Projects</span></a>
-  <a href="#skills" class="mobile-nav-link mob-link"><i class="ti ti-cpu text-lg"></i><span>Skills</span></a>
-  <a href="#contact" class="mobile-nav-link mob-link"><i class="ti ti-mail text-lg"></i><span>Contact</span></a>
+  <a href={sec('#about')} class="mobile-nav-link mob-link"><i class="ti ti-user text-lg"></i><span>About</span></a>
+  <a href={sec('#experience')} class="mobile-nav-link mob-link"><i class="ti ti-briefcase text-lg"></i><span>Work</span></a>
+  <a href={sec('#projects')} class="mobile-nav-link mob-link"><i class="ti ti-code text-lg"></i><span>Projects</span></a>
+  <a href={sec('#skills')} class="mobile-nav-link mob-link"><i class="ti ti-cpu text-lg"></i><span>Skills</span></a>
+  <a href={sec('#contact')} class="mobile-nav-link mob-link"><i class="ti ti-mail text-lg"></i><span>Contact</span></a>
   <a href="/now" class:list={['mob-link', { active: isNow }]}><i class="ti ti-flask text-lg"></i><span>Now</span></a>
 </nav>
 
