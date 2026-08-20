@@ -49,8 +49,18 @@ collections:
               - { name: developer, label: Developer, widget: string }
               - { name: curious,   label: Curious,   widget: string }
               - { name: infrastructure, label: Infrastructure, widget: string }
+          - name: proof_metrics
+            label: Proof Strip Metrics
+            widget: list
+            fields:
+              - { name: value, label: Value, widget: string }
+              - { name: label, label: Label, widget: string }
+              - name: cat
+                label: Category
+                widget: select
+                options: [primary, ai, product, infra]
           - name: stats
-            label: Hero Stat Cards (max 4)
+            label: Hero Stat Cards (unused since the proof strip landed; kept for data continuity)
             widget: list
             max: 4
             fields:

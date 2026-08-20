@@ -1,0 +1,64 @@
+---
+import meta from '../data/meta.json';
+
+const { proof_metrics } = meta;
+---
+
+<section id="proof" class="proof-strip" aria-label="Key metrics">
+  <ul class="proof-list">
+    {proof_metrics.map((m, i) => (
+      <li class={`proof-item fade-in cat-${m.cat}`} style={`transition-delay: ${i * 0.04}s`}>
+        <span class="proof-value">{m.value}</span>
+        <span class="proof-label">{m.label}</span>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+.proof-strip {
+  padding: var(--space-10) 0;
+  border-bottom: 1px solid var(--border);
+}
+.proof-list {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--space-6);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.proof-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-left: var(--space-4);
+  /* The category colour rides a left rule rather than a filled panel, so the
+     strip stays neutral overall. */
+  border-left: 2px solid var(--cat-border, var(--border-strong));
+}
+.proof-value {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--cat-color, var(--text));
+  font-variant-numeric: tabular-nums;
+}
+.proof-label {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  line-height: 1.4;
+  color: var(--text-muted);
+  text-wrap: balance;
+}
+
+@media (max-width: 1024px) {
+  .proof-list { grid-template-columns: repeat(3, 1fr); gap: var(--space-5); }
+}
+@media (max-width: 560px) {
+  .proof-list { grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+  .proof-strip { padding: var(--space-8) 0; }
+  .proof-value { font-size: var(--text-2xl); }
+}
+</style>

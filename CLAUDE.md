@@ -48,7 +48,7 @@ Depth and authenticity over cleverness. Technical richness in Developer mode com
 - **Typography:** Fraunces display at prominent sizes; neutral body weight throughout
 - **Color:** Indigo accent (`--color-primary`), clean neutral surfaces
 - **Section labels:** Uppercase mono with gold horizontal-rule prefix — e.g., `WORK HISTORY`
-- **Hero right column:** 2×2 stat card grid (exactly 4 KPIs: uptime, users, servers, RTO)
+- **Hero right column:** none — the hero is a single column. Numbers live in the proof strip below it.
 - **Emphasis:** Titles, organisation names, numbers, availability status, certifications
 
 ### Developer Mode
@@ -58,7 +58,7 @@ Depth and authenticity over cleverness. Technical richness in Developer mode com
 - **Typography:** JetBrains Mono features more prominently in UI chrome and labels; body text tighter
 - **Color:** Green accent (`--color-infra`), slightly cooler/darker surfaces
 - **Section labels:** Code-comment style prefix — e.g., `// work_history`
-- **Hero right column:** Same 4 stat cards, framed with a technical-context strip below
+- **Hero right column:** none — see the proof strip below the hero
 - **Emphasis:** Stack, architecture decisions, GitHub links, build context, metrics with precision
 - **Rule:** No simulated or fake interactive elements. Technical credibility comes from real data, not theatre.
 
@@ -69,7 +69,7 @@ Depth and authenticity over cleverness. Technical richness in Developer mode com
 - **Typography:** Mono used for labels and chrome, as in Developer mode
 - **Color:** Steel accent (`--prim-steel`), cooler than both blue and green
 - **Section labels:** Uppercase mono with a steel vertical rule prefix — e.g., `OPERATIONS HISTORY`
-- **Hero right column:** The TCS operating figures from `experience.json` (uptime, users, engineers led, RTO), not the product stat cards
+- **Hero right column:** none — the operating figures appear in the proof strip below the hero
 - **Emphasis:** RHEL and Linux fleet operations, IBM Security Identity Manager, high availability and the 99.999% SLA, DR runbooks and the 50% RTO reduction, on-premise containerisation, Python and Bash automation, GCP PCA and AWS SAA
 - **Demoted:** Product-management framing. The coaching entry is withheld entirely via `hide_in_modes` in `experience.json`.
 - **Rule:** Reframes and reorders existing content only. No claim appears in this mode that is not already in the repo.
@@ -126,7 +126,7 @@ change one, re-measure — do not eyeball a replacement.
   come first; a shadow may reinforce a hover or elevation state, not replace them
 - Hardcode any hex/rgb value outside `:root`
 - Use `font-weight > 600` on the display font
-- Add more than 4 stat cards to the hero stat grid
+- Restate a metric in both the hero and the proof strip — each number appears once
 - Use `!important`
 
 ---
@@ -142,7 +142,10 @@ change one, re-measure — do not eyeball a replacement.
 ## Page Structure (in order)
 
 1. `<nav>` — fixed, blur backdrop, logo left + nav links center + mode switcher + theme toggle right
-2. `#hero` — two-column desktop (text+CTAs left, mode-adaptive right), single column mobile
+2. `#hero` — single column (eyebrow triad, name, role line, positioning statement,
+   supporting line, two CTAs). Curious mode is two-column, with its "currently" block on the right.
+3. `#proof` — full-width proof strip: six metrics from `meta.json` `proof_metrics`,
+   each with a category-coloured left rule. Every number is stated here and nowhere else.
 3. `#about` — sticky left col (2–3 sentences + callout) + right col (prose)
 4. `#experience` — sidebar period/badge left + bullets + KPI row per role
 5. `#projects` — featured full-width card + standard card grid (up to 5)

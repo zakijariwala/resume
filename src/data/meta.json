@@ -14,6 +14,29 @@
   "availability": "Targeting AI PM roles where product and engineering overlap. Mumbai-based, open to relocation.",
   "availability_infrastructure": "Open to infrastructure, SRE, and platform engineering roles. Mumbai-based, open to relocation.",
 
+  "hero_eyebrow": {
+    "recruiter":      [{ "word": "AI", "cat": "ai" }, { "word": "Product", "cat": "product" }, { "word": "Engineering", "cat": "infra" }],
+    "developer":      [{ "word": "Infrastructure", "cat": "infra" }, { "word": "AI", "cat": "ai" }, { "word": "Shipping", "cat": "product" }],
+    "curious":        [{ "word": "AI", "cat": "ai" }, { "word": "Product", "cat": "product" }, { "word": "Engineering", "cat": "infra" }],
+    "infrastructure": [{ "word": "Linux", "cat": "infra" }, { "word": "Identity", "cat": "primary" }, { "word": "High Availability", "cat": "infra" }]
+  },
+
+  "hero_statement": {
+    "recruiter":      "I build products where engineering meets real-world problems.",
+    "developer":      "I build products where engineering meets real-world problems.",
+    "curious":        "I build things because the alternatives were bad and I thought I could do better.",
+    "infrastructure": "I keep mission-critical systems running, and I automate the work that keeps them running."
+  },
+
+  "proof_metrics": [
+    { "value": "99.999%", "label": "Banking platform availability", "cat": "infra" },
+    { "value": "30,000+", "label": "Users supported",              "cat": "infra" },
+    { "value": "150+",    "label": "Servers operated",             "cat": "infra" },
+    { "value": "50%",     "label": "RTO reduction",                "cat": "infra" },
+    { "value": "85%",     "label": "Drafting time saved",          "cat": "ai" },
+    { "value": "4",       "label": "Products shipped",             "cat": "product" }
+  ],
+
   "taglines": {
     "recruiter": "AI Product Manager · Technical Lead",
     "developer": "Infrastructure + AI: shipping products in the gaps",
