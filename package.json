@@ -13,7 +13,8 @@
     "worker:deploy": "wrangler deploy --config worker/wrangler.toml",
     "worker:check": "wrangler deploy --config worker/wrangler.toml --dry-run",
     "db:migrate:local": "wrangler d1 migrations apply zakijariwala --config worker/wrangler.toml --local",
-    "db:migrate:remote": "wrangler d1 migrations apply zakijariwala --config worker/wrangler.toml --remote"
+    "db:migrate:remote": "wrangler d1 migrations apply zakijariwala --config worker/wrangler.toml --remote",
+    "resume": "node --experimental-strip-types scripts/resume.ts"
   },
   "dependencies": {
     "@astrojs/tailwind": "^5.1.0",

@@ -1,28 +1,17 @@
 /// <reference types="@cloudflare/workers-types" />
+import type { Env } from './env';
+import { json, notFound } from './lib/http';
+import { handleResume } from './resume';
 
-export interface Env {
-  DB: D1Database;
-  ASSETS: R2Bucket;
-}
+/** Opens older than this are deleted by the nightly retention sweep. */
+const RETENTION_DAYS = 180;
 
-type BindingStatus =
-  | { ok: true; detail: string }
-  | { ok: false; error: string };
-
-const json = (body: unknown, status = 200): Response =>
-  new Response(JSON.stringify(body, null, 2), {
-    status,
-    headers: {
-      'content-type': 'application/json; charset=utf-8',
-      // Health is a live probe; never let a CDN or browser answer from cache.
-      'cache-control': 'no-store',
-    },
-  });
+type BindingStatus = { ok: true; detail: string } | { ok: false; error: string };
 
 /**
- * Actually exercises the binding rather than checking it is defined.
- * A binding can be present and still fail at runtime — wrong id, deleted
- * database, missing permission — and that is exactly what this must catch.
+ * Exercises the binding rather than checking it is defined. A binding can be
+ * present and still fail — wrong id, deleted database, revoked permission —
+ * and that is exactly what this must catch.
  */
 async function checkD1(env: Env): Promise<BindingStatus> {
   try {
@@ -39,7 +28,6 @@ async function checkD1(env: Env): Promise<BindingStatus> {
 
 async function checkR2(env: Env): Promise<BindingStatus> {
   try {
-    // limit:1 keeps this to a single Class A op; the bucket may be empty.
     const listed = await env.ASSETS.list({ limit: 1 });
     return { ok: true, detail: `bucket reachable (${listed.objects.length} object(s) sampled)` };
   } catch (e) {
@@ -51,18 +39,28 @@ async function health(env: Env): Promise<Response> {
   const [db, r2] = await Promise.all([checkD1(env), checkR2(env)]);
   const ok = db.ok && r2.ok;
   return json(
-    {
-      status: ok ? 'ok' : 'degraded',
-      checked_at: new Date().toISOString(),
-      bindings: { DB: db, ASSETS: r2 },
-    },
-    // 503 so an uptime check treats a broken binding as down without parsing.
+    { status: ok ? 'ok' : 'degraded', checked_at: new Date().toISOString(), bindings: { DB: db, ASSETS: r2 } },
     ok ? 200 : 503,
   );
 }
 
+/**
+ * Retention: opens older than RETENTION_DAYS are deleted outright.
+ *
+ * The rows hold no identifier — a country code and a browser family — but
+ * keeping them forever still builds a history nobody asked for, so they go.
+ */
+async function sweepOpens(env: Env): Promise<number> {
+  const result = await env.DB.prepare(
+    `DELETE FROM resume_opens WHERE opened_at < datetime('now', ?1)`,
+  )
+    .bind(`-${RETENTION_DAYS} days`)
+    .run();
+  return result.meta?.changes ?? 0;
+}
+
 export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
+  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const { pathname } = new URL(request.url);
 
     if (pathname === '/api/health') {
@@ -72,8 +70,18 @@ export default {
       return health(env);
     }
 
-    // Anything else under the routed prefixes is not built yet. Returning 404
-    // here rather than falling through keeps the contract explicit.
-    return json({ error: 'not found', path: pathname }, 404);
+    const resume = /^\/r\/([^/]+)\/?$/.exec(pathname);
+    if (resume) return handleResume(request, env, ctx, decodeURIComponent(resume[1]));
+
+    return notFound(pathname);
+  },
+
+  async scheduled(_event: ScheduledController, env: Env, ctx: ExecutionContext): Promise<void> {
+    ctx.waitUntil(
+      sweepOpens(env).then(
+        (n) => console.log(`retention: deleted ${n} resume_opens row(s) older than ${RETENTION_DAYS} days`),
+        (e) => console.error('retention sweep failed', e),
+      ),
+    );
   },
 } satisfies ExportedHandler<Env>;

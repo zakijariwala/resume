@@ -248,3 +248,118 @@ Current limits and what Phase 3 uses:
 
 Nothing here approaches a limit. Later phases must re-check: D1 **writes**
 (100k/day) and KV writes (1k/day) are the binding constraints, not reads.
+
+---
+
+# Phase 4 — Tracked resume delivery
+
+One link per application, the right variant served, opens counted once.
+
+## How a variant is served
+
+| Variant | Where the file lives | How it is served |
+|---|---|---|
+| `product` | `public/Mohammad_Zaki_Jariwala_Resume.pdf`, in the repo | Worker streams it through from the site origin |
+| `infrastructure` | R2, key `resumes/infrastructure.pdf` | Worker streams it from the `ASSETS` bucket |
+
+`r2_key IS NULL` in `resume_variants` means "served from the repository". Any
+non-NULL key lives in R2 and **never enters the repo or `public/`**.
+
+`https://zakijariwala.space/Mohammad_Zaki_Jariwala_Resume.pdf` keeps working
+exactly as before. It is untracked, still linked from the site, and the Worker
+does not sit in front of it — the Worker only owns `/r/*` and `/api/*`, so
+there is no request loop when it fetches that path for the `product` variant.
+
+## Keeping non-product variants undiscoverable
+
+Four things have to hold, and all four are checked:
+
+1. R2 objects are not part of the Astro build. Verified: the only resume files
+   in `dist/` are the product PDF and its `.docx`, and no `resumes/` key
+   appears anywhere in the built site.
+2. `public/robots.txt` disallows `/r/` and `/api/`.
+3. Every `/r/:token` response carries `x-robots-tag: noindex, nofollow`, so a
+   crawler that ignores robots.txt still gets told.
+4. Responses are `cache-control: private, no-store` — a token URL is
+   per-application and must never sit in a shared cache.
+
+An unknown token and a malformed token return the **same** 404, so the endpoint
+cannot be used to discover which tokens exist.
+
+> **Still public, and separate from this:** `public/Mohammad_Zaki_Jariwala_Resume.docx`
+> is the same résumé in Word format at a guessable path. It is the product
+> variant, so it does not undermine the guarantee above, but it is worth
+> deciding whether it should be there at all.
+
+## Privacy
+
+Non-negotiable, and enforced by the schema rather than by policy:
+
+- **No IP address is stored, read, or forwarded.** There is no column that
+  could hold one. Country comes from the Cloudflare request property
+  (`request.cf.country`) as a two-letter code and nothing else.
+- **No raw user-agent is stored.** `userAgentFamily()` reduces the header to a
+  closed list — Chrome, Safari, Firefox, Edge, Opera, Samsung, PDF viewer, Bot,
+  Other, Unknown — and only that string is written.
+
+Stored columns on `resume_opens`, in full: `id`, `application_id`, `opened_at`,
+`coarse_country`, `user_agent_family`.
+
+### Retention
+
+The `scheduled` handler runs nightly at 04:17 UTC and deletes `resume_opens`
+rows older than **180 days**. The cron lives in `worker/wrangler.toml` under
+`[triggers]`. To run the sweep by hand:
+
+```bash
+npx wrangler d1 execute zakijariwala --config worker/wrangler.toml --remote \
+  --command "DELETE FROM resume_opens WHERE opened_at < datetime('now','-180 days')"
+```
+
+## Deduplication
+
+Opens are counted once per application per **10 minutes**. A PDF viewer that
+re-requests the file with a `Range` header, or a reader flipping back to the
+tab, does not inflate the count. The probe is one indexed read before the
+insert; the insert is skipped entirely when a recent row exists.
+
+Verified locally: two requests per token (a full GET and a ranged GET) produced
+exactly one row each.
+
+## Range requests
+
+Both paths honour `Range`, so the browser's PDF viewer renders inline instead
+of downloading:
+
+- R2: the request headers are passed to `ASSETS.get()` as both `range` and
+  `onlyIf`, and `Content-Range` is derived from the returned `R2Range`
+  (including the `suffix` form).
+- Static: `Range`, `If-Range`, `If-None-Match` and `If-Modified-Since` are
+  forwarded upstream and the response is streamed back with its status intact.
+
+Measured: `Range: bytes=0-1023` → `206`, `Content-Range: bytes 0-1023/111748`,
+1024 bytes returned, on both paths.
+
+## CLI
+
+Defaults to the **local** emulated database. Pass `--remote` to act on
+production — the default is deliberate, so a mistaken run touches a throwaway
+file on disk rather than the real bucket.
+
+```bash
+npm run resume -- upload infrastructure "Infrastructure / Systems" ~/infra-resume.pdf
+npm run resume -- link "Globex" "SRE" infrastructure
+npm run resume -- opens
+```
+
+`upload` refuses the `product` slug: that variant is served from the repo and
+has no R2 object.
+
+`link` mints a 128-bit URL-safe token and prints the ready-to-send link. Phase 5
+does this automatically when an application is created.
+
+## Budget
+
+Per resume open: 1 D1 read (dedupe probe), at most 1 D1 write, 1 R2 Class B op
+(or one subrequest for the product variant). At a hundred opens a day that is
+100 writes against a 100,000/day limit. The nightly sweep is one statement.

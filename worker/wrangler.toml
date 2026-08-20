@@ -25,6 +25,18 @@ routes = [
 [observability]
 enabled = true
 
+[vars]
+# Origin the static site is served from. The worker streams the repo-hosted
+# "product" resume through from here; that path is not routed to the worker,
+# so there is no request loop.
+SITE_ORIGIN = "https://zakijariwala.space"
+STATIC_RESUME_PATH = "/Mohammad_Zaki_Jariwala_Resume.pdf"
+
+# Nightly retention sweep. Cron triggers are the reason this is a standalone
+# Worker rather than a Pages Function — see docs/cloudflare.md.
+[triggers]
+crons = ["17 4 * * *"]
+
 # ── D1 ────────────────────────────────────────────────────────────────────
 # database_id is filled in after `wrangler d1 create` — see docs/cloudflare.md.
 # It is an identifier, not a secret, and is safe to commit.
