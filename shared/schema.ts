@@ -10,6 +10,15 @@ export const CATEGORIES = [
   'data', 'web', 'mobile', 'embedded', 'security',
 ] as const;
 
+// YAML reads an unquoted list item containing ": " as a one-key map
+// ("- Three layers: unit, e2e" → { "Three layers": "unit, e2e" }). Turn it back into text.
+const unmap = (v: unknown) =>
+  v && typeof v === 'object' && !Array.isArray(v) && Object.keys(v).length === 1
+    ? `${Object.keys(v)[0]}: ${String(Object.values(v)[0])}`
+    : v;
+const textList = (max: number, count: number) =>
+  z.preprocess((v) => (Array.isArray(v) ? v.map(unmap) : v), z.array(text(max)).max(count));
+
 const yearMonth = z.string().regex(/^\d{4}(-\d{2})?$/, 'expected YYYY or YYYY-MM');
 const text = (max: number) => z.string().trim().max(max);
 
@@ -43,14 +52,14 @@ export const projectSchema = z.object({
   }).partial().default({}),
   metrics: z.array(metricSchema).max(4).default([]),
   highlights: z.object({
-    recruiter: z.array(text(400)).max(5).default([]),
-    engineer: z.array(text(500)).max(6).default([]),
+    recruiter: textList(400, 5).default([]),
+    engineer: textList(500, 6).default([]),
     story: text(700).default(''),
   }).default({}),
-  skills: z.array(text(60)).max(10).default([]),
+  skills: textList(60, 10).default([]),
   ai_assisted: z.boolean().default(false),
   media: z.array(z.object({ path: z.string().min(1), alt: text(200).default('') })).max(3).default([]),
-  todo_owner: z.array(z.string()).default([]),
+  todo_owner: textList(1000, 50).default([]),
   generated: z.object({ at: z.coerce.string(), commit: z.coerce.string() }).partial().default({}),
 }).superRefine((p, ctx) => {
   if (p.publish && !p.summary) ctx.addIssue({ code: 'custom', path: ['summary'], message: 'required when publish is true' });

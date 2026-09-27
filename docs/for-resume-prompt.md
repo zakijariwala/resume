@@ -52,8 +52,9 @@ the depth is the credibility.
    No hype words (leveraged, cutting-edge, seamless, robust, revolutionary, passionate,
    spearheaded, synergy, world-class, game-changing). No emojis. Numbers as digits.
 5. **Updating.** If `for_resume/` exists: keep `slug` unchanged, keep anything between
-   `<!-- keep -->` and `<!-- /keep -->` verbatim, and refresh everything else against the
-   current code.
+   `<!-- keep -->` and `<!-- /keep -->` verbatim, keep a non-empty `highlights.story` and any
+   non-empty `links` exactly as they are (the owner writes those), use the owner's answers to
+   earlier `todo_owner` questions, and refresh everything else against the current code.
 6. **Not portfolio-worthy?** (fork, tutorial, dotfiles, abandoned stub, config dump) Still
    write `project.md` with `publish: false` and a one-line `reason`. Skip the body and
    do not write a deep-dive.
@@ -144,7 +145,9 @@ review, not a tutorial.
 
 ## When done
 
-1. Check the YAML parses and every key above is present with an allowed value.
+1. Check the YAML parses and every key above is present with an allowed value. Wrap every
+   list item and every string containing a colon in double quotes — an unquoted
+   `- Three layers: unit, e2e` is read as a map, not text.
 2. Search your output for the banned phrases in rules 2 and 4 and for anything resembling a
    secret; fix any hits.
 3. Print a short report: files written, `size` chosen and why, `todo_owner` items, anything
