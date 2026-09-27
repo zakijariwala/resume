@@ -1,7 +1,18 @@
 # zakijariwala.space — v2 architecture (proposal, pre-build)
 
-Status: **design agreed in principle, build not started.** Replaces the three-mode Astro 4
-site. Items marked **OPEN** need an owner answer before or during the relevant phase.
+Status: **P1–P4 built on `claude/architecture-revamp-prep-1hbfze`; P5 (cutover) and P6 (cleanup)
+pending.** Replaces the three-mode Astro 4 site. Setup: `docs/SETUP.md`.
+
+### Changes from the original plan
+
+- **The sync runs in GitHub Actions, not in the Worker.** Parsing and validating ~30 markdown
+  files can exceed the free plan's ~10 ms CPU per Worker invocation, and GitHub Actions has no
+  such limit. The Worker cron still owns the schedule: it fires `repository_dispatch`, which avoids
+  GitHub disabling scheduled workflows after 60 days of repo inactivity. The Worker stores state,
+  serves the snapshot and handles everything at runtime.
+- **Content is stored in D1, not R2.** Rows are small; R2 holds media and PDFs only.
+- **Astro 5.18**, the version approved. Astro 7 is current and can be adopted later.
+- **Headline:** option (c) as the H1 and option (b) as the lede underneath it.
 
 ---
 
@@ -50,12 +61,13 @@ server-rendered HTML forms with a few lines of inline JS.
 
 ```
  repos/*/for_resume/{project.md, deep-dive.md, media}
-            │  Mon 03:00 UTC cron (or "Resync" in admin)
+            ▲ 1 GraphQL call (all repos + metadata + file text), media via REST
+ GitHub Action "Sync and deploy": scripts/sync.ts → validate (zod) → secret-scan
+            │ POST /internal/ingest, PUT /internal/media/*
             ▼
  ┌──────────────────── Worker "zakijariwala" (Hono) ─────────────────────┐
- │ scheduled: 1 GitHub GraphQL call → all repos + metadata + for_resume  │
- │            text; fetch media only if hash changed; validate (zod);    │
- │            secret-scan; diff vs last snapshot                         │
+ │ scheduled: Mon 03:00 UTC → repository_dispatch "sync"                 │
+ │ /internal/*      ingest, snapshot, media upload (Bearer BUILD_TOKEN)  │
  │ /api/contact     Turnstile → D1 → email notify                        │
  │ /r/:token        tracked résumé variant link → log view → stream PDF  │
  │ /resume.pdf      streams current main PDF from R2 (counts downloads)  │
@@ -65,17 +77,17 @@ server-rendered HTML forms with a few lines of inline JS.
  │ everything else  static assets (Astro build output)                   │
  └───────┬───────────────────┬─────────────────────┬─────────────────────┘
          │                   │                     │
-   R2: raw md, media,   D1: flags, runs,      Email Routing: notify owner
-   PDFs, snapshot.json  messages, links,      (contact, résumé opens,
-                        views, settings        weekly digest)
+   R2: media, PDFs      D1: content, flags,   Email Routing: notify owner
+                        runs, messages,       (contact, résumé opens,
+                        links, settings        weekly digest)
          │
- content or flags changed → GitHub repository_dispatch
+ admin change → repository_dispatch "rebuild"
          ▼
  GitHub Action: fetch snapshot → astro build → wrangler deploy  (~2 min)
 ```
 
-Why the build runs in GitHub Actions and not in the Worker: builds need Node and minutes of
-CPU; Workers have neither. The Worker only decides *when* to build.
+Why the build and sync run in GitHub Actions and not in the Worker: they need Node and more
+CPU than a free Worker invocation allows. The Worker only decides *when* they run.
 
 Failure behaviour: an invalid or secret-flagged file is skipped and the previous version stays
 live; the problem is listed in admin and the digest. If the Worker is down, static pages keep
@@ -168,8 +180,9 @@ messages(id PK, name, email, body, at, read_at)
 settings(key PK, value)                                      -- availability, now, sections, ai_note...
 ```
 
-R2: `repos/<slug>/<commit>/…` (raw files), `media/<slug>/<hash>.<ext>`, `resume/<id>.pdf`,
-`snapshot/latest.json` (what the build consumes: visible projects + flags + profile settings).
+Content (`project_md`, `deep_dive_md`) lives in the `projects` table; the exact schema is
+`worker/migrations/0001_init.sql`. R2 holds `media/<slug>/<hash>.<ext>` and `resume/<id>.pdf`.
+The build consumes `/internal/snapshot`: visible projects + flags + admin settings.
 
 ---
 
@@ -177,8 +190,8 @@ R2: `repos/<slug>/<commit>/…` (raw files), `media/<slug>/<hash>.<ext>`, `resum
 
 | Constraint | Plan |
 |---|---|
-| ~50 outbound requests per Worker run | One GraphQL call fetches all repos and file text; media fetched only when changed; >40 changed images → spill to next run |
-| ~10 ms CPU per request | Worker does fetch/hash/validate only; markdown rendering happens at build |
+| ~50 outbound requests per Worker run | Not an issue: fetching runs in GitHub Actions |
+| ~10 ms CPU per request | Worker never parses markdown; validation is in the Action, rendering at build |
 | 100k Worker requests/day | Static assets don't count; only `/api`, `/r`, `/admin`, `/work` gate, `/resume.pdf` do |
 | Cron trigger slots | One (weekly sync); digest runs inside it |
 | Access seats | 1 needed |
@@ -202,13 +215,10 @@ R2: `repos/<slug>/<commit>/…` (raw files), `media/<slug>/<hash>.<ext>`, `resum
 
 ## 10. OPEN
 
-1. **Headline** — pick one or supply your own:
-   a. "Reliability engineer who leads — keeping banking infrastructure at 99.999% and shipping products end to end."
-   b. "I run critical infrastructure and turn it into outcomes: uptime, recovery, delivery."
-   c. "Systems engineer → technical lead. Reliability, cloud, and the decisions behind them."
-2. **`cos-os/`** (Chief-of-Staff workspace, Telegram bot, Notion sync workflows) is unrelated
-   to the site. Move to its own repo, or delete?
-3. **`misc/`** (old résumés, LinkedIn drafts, scripts). Move out, or delete?
-4. **Public repos show AI co-author trailers** in commit history. The site can't hide those;
-   decide whether future commits should omit them.
-5. **Framework** — approve Astro 5 + Hono and the dependency list in §2.
+1. **Deletion blocked:** removing `cos-os/`, `misc/`, the old `src/`, `public/`, `tailwind.config.mjs`,
+   `DESIGN*.md`, `CONTENT-GOVERNANCE.md`, `CMS-SETUP-GUIDE.md`, `HANDOVER.md`, `.agents/`,
+   `skills-lock.json` and the two `cos-*` workflows needs owner approval in the session.
+2. **GCP Professional Cloud Architect** is listed as completed (2026), taken from the August
+   truth fix. Confirm.
+3. **Skills dropped:** "Anthropic Claude API & Prompt Engineering", "AI Agent Design &
+   Deployment" and "Private AI Security Harnesses". Restore any you want in `content/profile.yaml`.

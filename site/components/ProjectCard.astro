@@ -1,0 +1,48 @@
+---
+import type { ProjectEntry } from '../lib/data';
+import { CATEGORY_LABEL, period } from '../lib/data';
+
+interface Props { project: ProjectEntry; large?: boolean; headingLevel?: 'h2' | 'h3' }
+const { project, large = false, headingLevel = 'h3' } = Astro.props;
+const p = project.data;
+const Heading = headingLevel;
+const metric = p.metrics[0];
+const outcome = p.highlights.recruiter[0];
+---
+<article class:list={['card', 'project', { large }]} data-categories={p.categories.join(' ')}>
+  <div class="top">
+    <ul class="chips">{p.categories.map((c) => <li class="tag">{CATEGORY_LABEL[c]}</li>)}</ul>
+    <span class="when mono">{period(p)}</span>
+  </div>
+  <Heading class="title"><a href={`/work/${project.id}/`}>{p.title}</a></Heading>
+  {p.tagline && <p class="tagline">{p.tagline}</p>}
+  <p class="summary">{p.summary}</p>
+  {large && outcome && <p class="outcome">{outcome}</p>}
+  {metric && (
+    <p class="metric"><strong>{metric.value}</strong> <span>{metric.label}</span></p>
+  )}
+  <div class="foot">
+    <ul class="chips">{p.stack.slice(0, large ? 5 : 3).map((s) => <li class="chip">{s}</li>)}</ul>
+    {p.repo.private && <span class="private mono" title="Source is private; this summary is published by the repo owner">private repo</span>}
+  </div>
+</article>
+
+<style>
+  .project { position: relative; display: flex; flex-direction: column; gap: 0.75rem; padding: 1.4rem; transition: border-color 0.15s ease; }
+  .project:hover { border-color: var(--line-strong); }
+  .project:focus-within { border-color: var(--accent); }
+  .top { display: flex; justify-content: space-between; gap: 1rem; align-items: center; }
+  .when { font-size: 0.75rem; color: var(--faint); white-space: nowrap; }
+  .title { font-size: var(--step-2); }
+  .large .title { font-size: var(--step-3); }
+  .title a { text-decoration: none; }
+  .title a::after { content: ''; position: absolute; inset: 0; border-radius: var(--radius); }
+  .tagline { margin: -0.4rem 0 0; font: 400 0.8rem/1.4 var(--font-mono); color: var(--muted); }
+  .summary { margin: 0; color: var(--text); }
+  .outcome { margin: 0; color: var(--muted); font-size: var(--step--1); border-left: 2px solid var(--accent); padding-left: 0.75rem; }
+  .metric { margin: 0; display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
+  .metric strong { font: 500 var(--step-2)/1 var(--font-display); color: var(--accent); }
+  .metric span { font-size: var(--step--1); color: var(--muted); }
+  .foot { margin-top: auto; padding-top: 0.5rem; display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+  .private { font-size: 0.7rem; color: var(--faint); }
+</style>

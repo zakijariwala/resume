@@ -1,0 +1,132 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import MetricStrip from '../../../components/MetricStrip.astro';
+import { CATEGORY_LABEL, formatDate, getProjects, getSettings, period, type ProjectEntry } from '../../../lib/data';
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return projects.map((project, i) => ({
+    params: { slug: project.id },
+    props: { project, next: projects[(i + 1) % projects.length] },
+  }));
+}
+
+const { project, next } = Astro.props as { project: ProjectEntry; next: ProjectEntry };
+const p = project.data;
+const { Content } = await render(project as unknown as CollectionEntry<'projects'>);
+const settings = await getSettings();
+const media = p.media.filter((m) => p.media_urls[m.path]);
+const STATUS: Record<string, string> = { active: 'Active', shipped: 'Shipped', maintained: 'Maintained', paused: 'Paused', archived: 'Archived', experiment: 'Experiment' };
+const status = STATUS[p.status];
+---
+<Base title={p.title} description={p.summary}>
+  <article class="container case">
+    <nav class="crumbs mono" aria-label="Breadcrumb"><a href="/work/">Work</a> / {p.title}</nav>
+
+    <header class="head">
+      <ul class="chips">{p.categories.map((c) => <li class="tag">{CATEGORY_LABEL[c]}</li>)}</ul>
+      <h1>{p.title}</h1>
+      {p.tagline && <p class="tagline mono">{p.tagline}</p>}
+      <p class="summary">{p.summary}</p>
+      <dl class="facts">
+        {p.role && <div><dt>Role</dt><dd>{p.role}</dd></div>}
+        {period(p) && <div><dt>When</dt><dd>{period(p)}</dd></div>}
+        <div><dt>Status</dt><dd>{status}</dd></div>
+        <div><dt>Source</dt><dd>{p.repo.private ? 'Private repository' : <a href={p.repo.url} rel="noopener">GitHub ↗</a>}</dd></div>
+        {p.links.live && <div><dt>Live</dt><dd><a href={p.links.live} rel="noopener">{new URL(p.links.live).host} ↗</a></dd></div>}
+        {p.links.demo && <div><dt>Demo</dt><dd><a href={p.links.demo} rel="noopener">Watch ↗</a></dd></div>}
+        {p.links.docs && <div><dt>Docs</dt><dd><a href={p.links.docs} rel="noopener">Read ↗</a></dd></div>}
+      </dl>
+    </header>
+
+    {p.highlights.recruiter.length > 0 && (
+      <section class="glance card" aria-labelledby="glance">
+        <h2 id="glance" class="eyebrow">At a glance</h2>
+        <ul>{p.highlights.recruiter.map((h) => <li>{h}</li>)}</ul>
+      </section>
+    )}
+
+    {p.metrics.length > 0 && <div class="metrics"><MetricStrip metrics={p.metrics} /></div>}
+
+    {p.highlights.story && (
+      <blockquote class="story"><p>{p.highlights.story}</p></blockquote>
+    )}
+
+    {media.length > 0 && (
+      <div class="media">
+        {media.map((m) => <figure><img src={p.media_urls[m.path]} alt={m.alt} loading="lazy" decoding="async" />{m.alt && <figcaption>{m.alt}</figcaption>}</figure>)}
+      </div>
+    )}
+
+    <div class="layout">
+      <div class="prose"><Content /></div>
+      <aside>
+        {p.highlights.engineer.length > 0 && (
+          <section>
+            <h2 class="eyebrow">Technical notes</h2>
+            <ul class="notes">{p.highlights.engineer.map((h) => <li>{h}</li>)}</ul>
+          </section>
+        )}
+        {p.stack.length > 0 && (
+          <section>
+            <h2 class="eyebrow">Stack</h2>
+            <ul class="chips">{p.stack.map((s) => <li class="chip">{s}</li>)}</ul>
+          </section>
+        )}
+        {p.skills.length > 0 && (
+          <section>
+            <h2 class="eyebrow">Demonstrates</h2>
+            <ul class="chips">{p.skills.map((s) => <li class="chip">{s}</li>)}</ul>
+          </section>
+        )}
+        {p.has_deep_dive && (
+          <a class="btn deep" href={`/work/${project.id}/deep-dive/`}>Read the deep-dive →</a>
+        )}
+      </aside>
+    </div>
+
+    <footer class="foot muted">
+      {p.repo.pushed_at && <p class="mono">Repository last updated {formatDate(p.repo.pushed_at)}.</p>}
+      {p.ai_assisted && settings.show_ai_note && <p class="mono">Built with AI-assisted tooling.</p>}
+      {next && next.id !== project.id && <p class="next">Next: <a href={`/work/${next.id}/`}>{next.data.title}</a></p>}
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .case { padding-top: 2rem; padding-bottom: 4rem; }
+  .crumbs { font-size: 0.75rem; color: var(--faint); }
+  .crumbs a { color: var(--muted); }
+  .head { margin: 2rem 0; max-width: 52rem; }
+  .head h1 { font-size: var(--step-4); margin-top: 1rem; }
+  .tagline { color: var(--muted); font-size: 0.85rem; margin: 0.75rem 0 0; }
+  .summary { font: 400 var(--step-1)/1.5 var(--font-display); margin: 1.25rem 0 0; }
+  .facts { display: flex; flex-wrap: wrap; gap: 0.75rem 2rem; margin: 1.75rem 0 0; font-size: var(--step--1); }
+  .facts dt { font: 500 0.7rem/1 var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--faint); margin-bottom: 0.35rem; }
+  .facts dd { margin: 0; }
+  .glance { padding: 1.4rem 1.5rem; margin: 2rem 0; max-width: 52rem; border-left: 3px solid var(--accent); }
+  .glance ul { margin: 1rem 0 0; }
+  .glance li { margin: 0.5rem 0; }
+  .metrics { margin: 2rem 0; max-width: 52rem; }
+  .story { margin: 3rem 0; max-width: 46rem; padding: 0; }
+  .story p { font: italic 400 var(--step-2)/1.4 var(--font-display); margin: 0; }
+  .story p::before { content: '“'; color: var(--accent); }
+  .story p::after { content: '”'; color: var(--accent); }
+  .media { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); margin: 2rem 0; }
+  .media img { border: 1px solid var(--line); border-radius: var(--radius); }
+  .media figcaption { font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; }
+  .layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 3rem; margin-top: 3rem; }
+  aside { display: flex; flex-direction: column; gap: 2rem; align-self: start; position: sticky; top: 5.5rem; }
+  aside .eyebrow { margin-bottom: 0.9rem; }
+  .notes { padding-left: 1rem; font-size: var(--step--1); color: var(--muted); }
+  .notes li { margin: 0.5rem 0; }
+  .deep { align-self: flex-start; }
+  .foot { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line); font-size: 0.8rem; }
+  .foot p { margin: 0.3rem 0; }
+  .next { font-size: var(--step-0); margin-top: 1rem !important; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: minmax(0, 1fr); }
+    aside { position: static; }
+  }
+</style>

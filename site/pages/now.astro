@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import { formatDate, getSettings } from '../lib/data';
+const settings = await getSettings();
+---
+<Base title="Now" description="What I'm working on at the moment.">
+  <section class="section container">
+    <SectionHead level="h1" eyebrow="Now" title="What I'm working on" />
+    {settings.now ? <p class="now">{settings.now}</p> : <p class="muted">Nothing to report this week.</p>}
+    {settings.activity.length > 0 && (
+      <>
+        <h2 class="eyebrow sub">Updated in the last two weeks</h2>
+        <ul class="activity">
+          {settings.activity.map((a) => <li><a href={`/work/${a.slug}/`}>{a.title}</a><span class="mono muted">{formatDate(a.pushed_at)}</span></li>)}
+        </ul>
+      </>
+    )}
+  </section>
+</Base>
+
+<style>
+  .now { font: 400 var(--step-2)/1.45 var(--font-display); max-width: 40ch; }
+  .sub { margin-top: 3rem; }
+  .activity { list-style: none; padding: 0; margin: 1rem 0 0; max-width: 40rem; }
+  .activity li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.6rem 0; border-top: 1px solid var(--line); }
+  .activity .mono { font-size: 0.75rem; }
+</style>

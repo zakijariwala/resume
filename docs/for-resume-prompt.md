@@ -149,4 +149,5 @@ review, not a tutorial.
    secret; fix any hits.
 3. Print a short report: files written, `size` chosen and why, `todo_owner` items, anything
    withheld for confidentiality, and any claim you were unsure about.
-4. Commit only `for_resume/` with message `docs(for_resume): update portfolio entry`.
+4. Commit only `for_resume/` with message `docs(for_resume): update portfolio entry`. Do not add
+   AI co-author trailers to the commit.

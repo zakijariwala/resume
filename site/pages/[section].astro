@@ -1,0 +1,37 @@
+---
+// Scaffolded sections (writing, talks, open-source, uses). A page is only built when
+// the section is switched on in admin and content/sections/<key>.yaml has items.
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import { getLiveSections, type Section } from '../lib/data';
+
+export async function getStaticPaths() {
+  return (await getLiveSections()).map((section) => ({ params: { section: section.key }, props: { section } }));
+}
+const { section } = Astro.props as { section: Section };
+---
+<Base title={section.title} description={section.intro}>
+  <section class="section container">
+    <SectionHead level="h1" eyebrow={section.title} title={section.intro || section.title} />
+    <ul class="items">
+      {section.items.map((i) => (
+        <li>
+          <div>
+            {i.url ? <a href={i.url} rel="noopener">{i.title}</a> : <span>{i.title}</span>}
+            {i.event && <span class="muted"> · {i.event}</span>}
+            {i.note && <p class="muted note">{i.note}</p>}
+          </div>
+          {i.date && <span class="mono muted">{i.date}</span>}
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .items { list-style: none; padding: 0; margin: 0; max-width: 48rem; }
+  .items li { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem 0; border-top: 1px solid var(--line); }
+  .items a { font-weight: 500; }
+  .note { margin: 0.3rem 0 0; font-size: var(--step--1); }
+  .mono { font-size: 0.75rem; white-space: nowrap; }
+</style>

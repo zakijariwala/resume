@@ -1,0 +1,8 @@
+# Articles and posts. Shown at /writing once enabled in admin and at least one item exists.
+title: Writing
+intro: Articles on cloud, reliability and building products.
+items: []
+# - title: "Passing AWS SAA-C03 without a cloud background (part 1)"
+#   url: https://medium.com/...
+#   date: 2024-06
+#   note: ""

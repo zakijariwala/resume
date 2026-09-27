@@ -1,0 +1,88 @@
+---
+import { getLiveSections, getProfile } from '../lib/data';
+const profile = await getProfile();
+const sections = await getLiveSections();
+const links = [
+  { href: '/work/', label: 'Work' },
+  { href: '/experience/', label: 'Experience' },
+  { href: '/skills/', label: 'Skills' },
+  ...sections.map((s) => ({ href: `/${s.key}/`, label: s.title })),
+  { href: '/now/', label: 'Now' },
+  { href: '/contact/', label: 'Contact' },
+];
+const current = Astro.url.pathname;
+---
+<header class="site-header">
+  <div class="container bar">
+    <a class="brand" href="/" aria-label={`${profile.name}, home`}>{profile.short_name}</a>
+    <nav aria-label="Main">
+      <ul>
+        {links.map((l) => (
+          <li><a href={l.href} aria-current={current.startsWith(l.href) ? 'page' : undefined}>{l.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <div class="actions">
+      <button class="theme" type="button" aria-label="Toggle colour theme" data-theme-toggle>
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg>
+      </button>
+      <a class="btn resume" href="/resume.pdf">Résumé</a>
+    </div>
+  </div>
+</header>
+
+<script>
+  document.querySelector('[data-theme-toggle]')?.addEventListener('click', () => {
+    const root = document.documentElement;
+    const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = dark ? 'light' : 'dark';
+    try { localStorage.setItem('theme', root.dataset.theme); } catch {}
+  });
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar { display: flex; align-items: center; gap: 1.5rem; min-height: 64px; }
+  .brand { font: 600 1.05rem/1 var(--font-display); text-decoration: none; white-space: nowrap; }
+  nav { flex: 1; }
+  ul { display: flex; gap: 0.25rem; list-style: none; margin: 0; padding: 0; }
+  nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 0.7rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: var(--step--1);
+    border-radius: 6px;
+  }
+  nav a:hover, nav a[aria-current='page'] { color: var(--text); }
+  nav a[aria-current='page'] { box-shadow: inset 0 -2px 0 var(--accent); border-radius: 0; }
+  .actions { display: flex; align-items: center; gap: 0.5rem; }
+  .theme {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .theme:hover { color: var(--text); border-color: var(--line-strong); }
+
+  @media (max-width: 760px) {
+    .bar { flex-wrap: wrap; gap: 0 1rem; padding-top: 0.5rem; }
+    .actions { margin-left: auto; }
+    nav { order: 3; flex-basis: 100%; overflow-x: auto; scrollbar-width: none; margin: 0 calc(-1 * var(--gutter)); padding: 0 calc(var(--gutter) - 0.7rem); }
+    nav::-webkit-scrollbar { display: none; }
+  }
+</style>

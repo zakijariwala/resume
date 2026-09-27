@@ -1,65 +1,77 @@
-name: Deploy to GitHub Pages
+name: Sync and deploy
 
+# sync     — Worker cron (Mon 03:00 UTC) or "Sync repos now" in admin: fetch every repo's for_resume/, rebuild, deploy
+# rebuild  — admin toggles / profile edits: rebuild from current data, deploy
+# push     — code changes on main: rebuild from current data, deploy
 on:
-  push:
-    branches: [ main ]
-  # Allows you to run this workflow manually from the Actions tab
+  repository_dispatch:
+    types: [sync, rebuild]
   workflow_dispatch:
+    inputs:
+      sync:
+        description: Fetch repos before building
+        type: boolean
+        default: true
+  push:
+    branches: [main]
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Allow one concurrent deployment
 concurrency:
-  group: 'pages'
-  cancel-in-progress: true
-
-env:
-  BUILD_PATH: '.' # default folder path
+  group: deploy
+  cancel-in-progress: false
 
 jobs:
-  build:
-    name: Build Website
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-          cache-dependency-path: ${{ env.BUILD_PATH }}/package-lock.json
-
-      - name: Setup GitHub Pages Config
-        id: pages
-        uses: actions/configure-pages@v5
-
-      - name: Install dependencies
-        run: npm ci
-        working-directory: ${{ env.BUILD_PATH }}
-
-      - name: Build static files with Astro
-        run: npm run build
-        working-directory: ${{ env.BUILD_PATH }}
-
-      - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ${{ env.BUILD_PATH }}/dist
-
   deploy:
-    name: Deploy to Pages
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
     runs-on: ubuntu-latest
+    env:
+      WORKER_URL: ${{ vars.WORKER_URL }}
+      BUILD_TOKEN: ${{ secrets.BUILD_TOKEN }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
+      SNAPSHOT_FILE: .snapshot.json
+      REQUIRE_SNAPSHOT: '1'
+      WRANGLER_SEND_METRICS: 'false'
     steps:
-      - name: Deploy compiled assets to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      - name: Configure wrangler
+        run: |
+          sed -i 's/REPLACE_WITH_D1_ID/${{ vars.D1_DATABASE_ID }}/' wrangler.jsonc
+          sed -i 's/"TURNSTILE_SITE_KEY": ""/"TURNSTILE_SITE_KEY": "${{ vars.TURNSTILE_SITE_KEY }}"/' wrangler.jsonc
+          sed -i 's|"ACCESS_TEAM_DOMAIN": ""|"ACCESS_TEAM_DOMAIN": "${{ vars.ACCESS_TEAM_DOMAIN }}"|' wrangler.jsonc
+          sed -i 's/"ACCESS_AUD": ""/"ACCESS_AUD": "${{ vars.ACCESS_AUD }}"/' wrangler.jsonc
+          sed -i 's/"OWNER_EMAIL": ""/"OWNER_EMAIL": "${{ vars.OWNER_EMAIL }}"/' wrangler.jsonc
+
+      - name: Apply database migrations
+        run: npx wrangler d1 migrations apply zakijariwala --remote
+
+      # First deploy only: the Worker must exist before the sync can post to it.
+      - name: Bootstrap Worker if not live
+        run: |
+          if ! curl -sf -o /dev/null -H "authorization: Bearer $BUILD_TOKEN" "$WORKER_URL/internal/snapshot"; then
+            echo "Worker not reachable — deploying an empty build first"
+            node --experimental-strip-types scripts/sync.ts bootstrap
+            npm run build
+            npx wrangler deploy
+          fi
+
+      - name: Sync repositories
+        if: github.event.action == 'sync' || (github.event_name == 'workflow_dispatch' && inputs.sync)
+        env:
+          GITHUB_TOKEN: ${{ secrets.PORTFOLIO_GITHUB_TOKEN }}
+        run: npm run sync
+
+      - name: Fetch snapshot
+        if: ${{ !(github.event.action == 'sync' || (github.event_name == 'workflow_dispatch' && inputs.sync)) }}
+        run: node --experimental-strip-types scripts/sync.ts snapshot
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy
+        run: npx wrangler deploy

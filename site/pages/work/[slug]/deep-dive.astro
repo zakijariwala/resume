@@ -1,0 +1,59 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import { getProjects, type ProjectEntry } from '../../../lib/data';
+
+// Only built for projects whose deep-dive exists and is switched on in admin.
+export async function getStaticPaths() {
+  const projects = new Map((await getProjects()).map((p) => [p.id, p]));
+  const dives = await getCollection('deepDives');
+  return dives
+    .filter((d) => projects.get(d.id)?.data.has_deep_dive)
+    .map((dive) => ({ params: { slug: dive.id }, props: { dive, project: projects.get(dive.id)! } }));
+}
+
+const { dive, project } = Astro.props as { dive: CollectionEntry<'deepDives'>; project: ProjectEntry };
+const d = dive.data as { title: string; summary: string };
+const { Content, headings } = await render(dive);
+const toc = headings.filter((h) => h.depth === 2);
+---
+<Base title={`${d.title} — deep-dive`} description={d.summary || project.data.summary}>
+  <article class="container dive">
+    <nav class="crumbs mono" aria-label="Breadcrumb">
+      <a href="/work/">Work</a> / <a href={`/work/${project.id}/`}>{project.data.title}</a> / Deep-dive
+    </nav>
+    <header>
+      <span class="eyebrow">Deep-dive</span>
+      <h1>{d.title}</h1>
+      {d.summary && <p class="summary">{d.summary}</p>}
+    </header>
+    <div class="layout">
+      {toc.length > 2 && (
+        <nav class="toc" aria-label="Contents">
+          <p class="eyebrow">Contents</p>
+          <ol>{toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
+        </nav>
+      )}
+      <div class="prose"><Content /></div>
+    </div>
+    <p class="back"><a href={`/work/${project.id}/`}>← Back to the {project.data.title} case study</a></p>
+  </article>
+</Base>
+
+<style>
+  .dive { padding-top: 2rem; padding-bottom: 4rem; }
+  .crumbs { font-size: 0.75rem; color: var(--faint); }
+  .crumbs a { color: var(--muted); }
+  header { margin: 2rem 0 3rem; max-width: 48rem; }
+  h1 { font-size: var(--step-4); margin-top: 1rem; }
+  .summary { font: 400 var(--step-1)/1.5 var(--font-display); color: var(--muted); margin-top: 1rem; }
+  .layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 3rem; }
+  .layout:not(:has(.toc)) { grid-template-columns: minmax(0, 1fr); }
+  .toc { position: sticky; top: 5.5rem; align-self: start; font-size: var(--step--1); }
+  .toc ol { padding-left: 1.1rem; margin: 0.9rem 0 0; color: var(--muted); }
+  .toc li { margin: 0.4rem 0; }
+  .toc a { color: var(--muted); text-decoration: none; }
+  .toc a:hover { color: var(--text); }
+  .back { margin-top: 4rem; }
+  @media (max-width: 900px) { .layout { grid-template-columns: minmax(0, 1fr); } .toc { position: static; } }
+</style>
