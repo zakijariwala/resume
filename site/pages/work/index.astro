@@ -1,0 +1,60 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import SectionHead from '../../components/SectionHead.astro';
+import { CATEGORY_LABEL, getProjects } from '../../lib/data';
+
+const projects = await getProjects();
+const categories = [...new Set(projects.flatMap((p) => p.data.categories))];
+---
+<Base title="Work" description="Projects I've scoped, built and run — outcome first, with case studies for depth.">
+  <section class="section container">
+    <SectionHead level="h1" eyebrow="Work" title="Projects, outcome first" />
+    <p class="muted intro">Each summary is written from the project's own repository and refreshed weekly. Open any card for the full case study.</p>
+
+    {categories.length > 1 && (
+      <div class="filters" role="group" aria-label="Filter by category" hidden data-filters>
+        <button type="button" aria-pressed="true" data-filter="">All</button>
+        {categories.map((c) => <button type="button" aria-pressed="false" data-filter={c}>{CATEGORY_LABEL[c]}</button>)}
+      </div>
+    )}
+
+    {projects.length === 0
+      ? <p>Projects are being refreshed — check back shortly.</p>
+      : <div class="grid" data-grid>{projects.map((p) => <ProjectCard project={p} headingLevel="h2" />)}</div>}
+  </section>
+</Base>
+
+<script>
+  // Progressive enhancement: without JS every project is simply listed.
+  const bar = document.querySelector<HTMLElement>('[data-filters]');
+  if (bar) {
+    bar.hidden = false;
+    const cards = document.querySelectorAll<HTMLElement>('[data-grid] > article');
+    bar.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('button[data-filter]');
+      if (!btn) return;
+      const f = btn.dataset.filter ?? '';
+      bar.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      cards.forEach((c) => { c.hidden = !!f && !(c.dataset.categories ?? '').split(' ').includes(f); });
+    });
+  }
+</script>
+
+<style>
+  .intro { max-width: 60ch; margin-top: -1rem; }
+  .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 2rem 0 1.5rem; }
+  .filters button {
+    font: 500 0.78rem/1 var(--font-mono);
+    min-height: 36px;
+    padding: 0 0.85rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .filters button[aria-pressed='true'] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); margin-top: 1.5rem; }
+  .grid > [hidden] { display: none; }
+</style>

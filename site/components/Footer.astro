@@ -1,0 +1,25 @@
+---
+import { getProfile } from '../lib/data';
+const profile = await getProfile();
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container row">
+    <p>© {year} {profile.name} · {profile.location}</p>
+    <ul class="links">
+      <li><a href={`mailto:${profile.links.email}`}>Email</a></li>
+      <li><a href={profile.links.linkedin} rel="me noopener">LinkedIn</a></li>
+      <li><a href={profile.links.github} rel="me noopener">GitHub</a></li>
+      <li><a href="/resume.json">resume.json</a></li>
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .site-footer { border-top: 1px solid var(--line); padding: 2rem 0 2.5rem; font-size: var(--step--1); color: var(--muted); }
+  .row { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; align-items: center; }
+  p { margin: 0; }
+  .links { display: flex; gap: 1.25rem; list-style: none; margin: 0; padding: 0; }
+  a { color: var(--muted); }
+  a:hover { color: var(--text); }
+</style>

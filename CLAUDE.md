@@ -1,223 +1,64 @@
-# CLAUDE.md — AI Context for zakijariwala.space Portfolio
+# CLAUDE.md — zakijariwala.space (v2)
 
-This file is the handoff document for any AI assistant working on this project.
-Read this before touching any code or content.
+Handoff for any AI assistant working on this repo. Read before changing code or content.
+Design rationale: `docs/ARCHITECTURE.md`. One-time setup: `docs/SETUP.md`.
 
----
+## What this is
 
-## Project Identity
+Portfolio for Mohammad Zaki Jariwala — systems engineer (TCS at SBI, 99.999% uptime,
+team lead) positioning for **reliability, cloud and technical leadership / product roles**.
+Lead with ownership and outcomes; engineering depth is the credibility layer, not the headline.
+There are no audience "modes" any more: depth is layered — outcome-first cards → case study
+→ story → optional deep-dive.
 
-**Owner:** J. Zaki — Systems Engineer, Mumbai. TCS deployed at SBI GITC.
-**Site:** zakijariwala.space
-**Purpose:** Professional portfolio targeting infrastructure, SRE, and platform engineering roles.
-**Hosting:** GitHub Pages (migrating to Cloudflare Pages). Astro static build, deployed via GitHub Actions.
-**CMS:** Decap CMS at `/admin/` — edits data files via GitHub API, triggers rebuild on save.
-
----
-
-## Current Stack
+## Layout
 
 ```
-Astro 4 + Tailwind CSS 3 + TypeScript
-GitHub Actions: push to main → npm run build → deploy to GitHub Pages
-src/data/*.json — single source of truth for all portfolio content
-Decap CMS — /public/admin/index.html + /public/admin/config.yml
+site/            Astro 5 static site (srcDir). Pages, components, styles, content loader.
+worker/          Cloudflare Worker (Hono): admin, contact, résumé, visibility gate, internal API, cron.
+shared/          Schema + secret scan used by the site, the Worker and the sync script.
+scripts/sync.ts  Runs in GitHub Actions: fetches every repo's for_resume/, posts to the Worker.
+content/         profile.yaml (experience, certs, skills…) and sections/*.yaml (scaffolded pages).
+fixtures/        Sample for_resume/ data for local dev and CI only. Never published.
+docs/            ARCHITECTURE, SETUP, for-resume-prompt (the prompt run in each repo).
 ```
 
-**Do not:**
-- Remove the Astro build step or revert to vanilla HTML
-- Move content out of src/data/ without updating the CMS config accordingly
-- Introduce React, Vue, or any client-side JS framework
-- Add runtime server-side code — this is a static site
-- Add npm dependencies without explicit instruction from the owner
+## How content flows
 
----
+1. Each repo has `for_resume/project.md` (+ optional `deep-dive.md`) written by the prompt in
+   `docs/for-resume-prompt.md`. Schema: `shared/schema.ts` — change both together.
+2. Weekly (Worker cron → `repository_dispatch`) or on demand from `/admin`, the *Sync and
+   deploy* workflow runs `scripts/sync.ts`: one GraphQL query for all repos, validate, secret-scan,
+   copy media to R2, POST to `/internal/ingest`.
+3. The Worker stores content in D1. Admin flags (visible / featured / order / deep-dive / pinned)
+   live beside it and are never overwritten by sync.
+4. The workflow fetches `/internal/snapshot`, builds Astro from it, and deploys the Worker + assets.
 
-## Three-Mode Identity System — Core Principle
+## Rules
 
-The portfolio has three audience modes: **Recruiter**, **Developer**, **Curious**.
+- **Invent nothing.** No metric, user count, date, employer or outcome that isn't in
+  `content/profile.yaml` or a repo's own `for_resume/`. Rewrite copy from facts; never add facts.
+- **Never describe how much AI was used to build something.** The only signal is a project's
+  `ai_assisted` flag, rendered as one neutral line and switchable in admin. Describing an AI
+  *feature of a product* is fine.
+- **Static first.** Public pages are prerendered. Only routes in `wrangler.jsonc`
+  `assets.run_worker_first` hit the Worker; keep that list short (free-plan request budget).
+- **Repo markdown is untrusted.** It is rendered on the same origin as `/admin`, so
+  `site/lib/markdown.ts` escapes raw HTML. Don't bypass it.
+- **No client-side framework.** Small inline scripts only, and every page must work without JS.
+- **Design tokens only.** Colours, fonts and sizes come from `:root` in `site/styles/global.css`,
+  with light and dark values. No hex values in components.
+- **Dependencies:** astro, hono, zod, yaml (+ dev: wrangler, workers-types, @astrojs/check,
+  typescript, @types/node). Ask the owner before adding any other dependency.
+- Commits: no AI co-author trailers unless the owner asks for them.
 
-This is not a content filter. Each mode is a distinct visual identity. A user switching between modes must feel they have encountered three different websites — different layout density, different typographic emphasis, different surface language, different section labeling, different tone. Content differences reinforce these identities but do not create them alone.
+## Commands
 
-Depth and authenticity over cleverness. Technical richness in Developer mode comes from information density and genuine stack/metric detail — not from simulated interfaces. Curiosity in Curious mode comes from editorial layout and personal voice — not from decorative flourishes.
-
-### Recruiter Mode
-
-- **Voice:** Formal, credential-first, metric-heavy, scannable in 60 seconds
-- **Layout:** Spacious, structured hierarchy, clear visual separation between roles
-- **Typography:** Fraunces display at prominent sizes; neutral body weight throughout
-- **Color:** Blue accent (`--accent-recruiter`), clean neutral surfaces
-- **Section labels:** Uppercase mono with gold horizontal-rule prefix — e.g., `WORK HISTORY`
-- **Hero right column:** 2×2 stat card grid (exactly 4 KPIs: uptime, users, servers, RTO)
-- **Emphasis:** Titles, organisation names, numbers, availability status, certifications
-
-### Developer Mode
-
-- **Voice:** Peer-to-peer, technical, shows-the-work, no hand-holding
-- **Layout:** Denser information per viewport, stack chips and metrics prominent
-- **Typography:** JetBrains Mono features more prominently in UI chrome and labels; body text tighter
-- **Color:** Green accent (`--accent-developer`), slightly cooler/darker surfaces
-- **Section labels:** Code-comment style prefix — e.g., `// work_history`
-- **Hero right column:** Same 4 stat cards, framed with a technical-context strip below
-- **Emphasis:** Stack, architecture decisions, GitHub links, build context, metrics with precision
-- **Rule:** No simulated or fake interactive elements. Technical credibility comes from real data, not theatre.
-
-### Curious Mode
-
-- **Voice:** Personal, narrative, first-person allowed, editorial, quiet dry wit acceptable
-- **Layout:** Editorial — more whitespace, wider prose columns, pull-quote treatments, "why I built it" always visible
-- **Typography:** Fraunces used more expressively; larger display at hero; more italic use; slightly looser line height
-- **Color:** Amber accent (`--accent-curious`), warmer surface tone in light mode
-- **Section labels:** Sentence-case plain text, no prefix — e.g., `What I've built`
-- **Hero right column:** Replaced entirely with a personal "currently" block — what's being built, explored, or thought about. No stat cards.
-- **Emphasis:** The reasoning behind decisions, the human context, the projects that matter personally
-
----
-
-## Design System (summary — full detail in DESIGN-SYSTEM.md)
-
-All design decisions reference semantic CSS custom properties. Never hardcode colors, sizes, or font names inside component styles. The token layer in `:root` is the single source of truth.
-
-**Color tokens:**
-- `--bg`, `--surface`, `--surface-raised`, `--border`, `--border-strong`
-- `--text`, `--text-muted`, `--text-disabled`
-- `--accent`, `--accent-subtle`, `--accent-border`, `--accent-text` (mode-reactive)
-- `--accent2`, `--accent2-subtle`, `--accent2-border` (fixed gold — structural use only)
-- `--status-active`, `--status-done`, `--status-pending`, `--status-dim`
-
-**Font roles:**
-- `--font-display` (Fraunces) → hero name, section titles, experience titles, project names, cert names, stat numbers, contact headline
-- `--font-mono` (JetBrains Mono) → section labels, metric chips, stack chips, timestamps, periods, form labels
-- `--font-body` (Inter) → all other text
-
-**Do not:**
-- Add a third accent color — extend the existing scale instead
-- Use `box-shadow` for depth — use border contrast and background contrast
-- Hardcode any hex/rgb value outside `:root`
-- Use `font-weight > 600` on the display font
-- Add more than 4 stat cards to the hero stat grid
-- Use `!important`
-
----
-
-## Page Structure (in order)
-
-1. `<nav>` — fixed, blur backdrop, logo left + nav links center + mode switcher + theme toggle right
-2. `#hero` — two-column desktop (text+CTAs left, mode-adaptive right), single column mobile
-3. `#about` — sticky left col (2–3 sentences + callout) + right col (prose)
-4. `#experience` — sidebar period/badge left + bullets + KPI row per role
-5. `#projects` — featured full-width card + standard card grid (up to 5)
-6. `#skills` — tabbed, six categories
-7. `#certifications` — three-column card grid
-8. `#contact` — two-column (links left + Formspree form right)
-9. `<footer>` — single line
-
-Every section opens with `.section-label` then `h2.section-title`. Both are mode-adaptive in text content.
-This pattern is mandatory — do not open a section without it.
-
----
-
-## JS (all inline, no external dependencies)
-
-- **Mode switching:** data-mode on html/body, CSS visibility classes (.recruiter-only, .dev-only, .curious-only, .all-modes)
-- **FOUC prevention:** synchronous inline script in <head> reads localStorage before first paint
-- **Mode toast:** brief notification on mode change
-- **Scroll fade-in:** IntersectionObserver on `.fade-in` → adds `.visible`
-- **Mobile menu:** hamburger toggle on #mobile-menu
-- **Skills tabs:** data-group on .skill-nav-btn → swaps .active on .skill-group divs
-- **Active nav link:** IntersectionObserver updates .active on nav links
-- **Theme toggle:** toggles data-theme="dark" on html/body
-
-No jQuery. No frameworks. No external JS except Google Fonts.
-
----
-
-## CMS (Decap CMS)
-
-Lives at `/public/admin/index.html` and `/public/admin/config.yml`.
-
-- **Backend:** github — repo zakijariwala/resume, branch main
-- **Auth:** GitHub OAuth app (see CMS-SETUP-GUIDE.md for activation steps)
-- **Collections:** maps to src/data/ file structure
-- **On save:** commits to main → GitHub Actions triggers → site rebuilds in ~2 minutes
-
-The CMS is a static HTML page. No server required.
-
----
-
-## Contact Form (Formspree)
-
-Contact form action: `https://formspree.io/f/YOUR_FORM_ID`
-To activate: register at formspree.io, get endpoint ID, replace placeholder in ContactSection.astro.
-
----
-
-## Patterns
-
-**Section header (mandatory on every section):**
-```html
-<SectionHeader label="Label text" title="Section title" />
-```
-Renders .section-label (mode-adaptive prefix style) + h2.section-title.
-
-**Fade-in entrance:**
-```html
-<div class="fade-in">...</div>
-```
-With optional `style="transition-delay: 0.15s"` for staggered siblings.
-
-**KPI:**
-```html
-<div class="kpi">
-  <span class="kpi-val">99.999%</span>
-  <span class="kpi-label">Uptime SLA</span>
-</div>
+```bash
+npm run dev        # site from fixtures
+npm run check      # astro check + Worker tsc
+npm run build      # static build (fixtures unless SNAPSHOT_FILE is set)
+npx wrangler dev   # Worker + site locally (needs .dev.vars, see docs/SETUP.md)
 ```
 
-**Metric chip:** `<span class="project-metric">Sub-10ms queries</span>`
-**Stack chip:** `<span class="stack-chip">Python</span>`
-
----
-
-## File Map
-
-```
-src/
-  components/
-    Nav.astro
-    Hero.astro
-    About.astro
-    ExperienceCard.astro
-    ExperienceSection.astro
-    ProjectCard.astro               (standard grid card)
-    FeaturedProjectCard.astro       (full-width featured card)
-    ProjectsSection.astro
-    SkillsSection.astro
-    CertificationsSection.astro
-    ContactSection.astro
-    Footer.astro
-    SectionHeader.astro             (reusable label + title)
-    StatCard.astro                  (hero stat card)
-    KpiRow.astro                    (experience KPI row)
-  layouts/
-    Base.astro
-  pages/
-    index.astro
-  styles/
-    global.css
-  data/
-    meta.json
-    experience.json
-    projects.json
-    skills.json
-    certifications.json
-public/
-  admin/
-    index.html                      (Decap CMS entry)
-    config.yml                      (Decap CMS config)
-  ZAKI.J_Resume.pdf
-CLAUDE.md
-DESIGN-SYSTEM.md
-CONTENT-GOVERNANCE.md
-CMS-SETUP-GUIDE.md
-```
+CI (`.github/workflows/ci.yml`) runs check, build and a Worker dry-run on every push.

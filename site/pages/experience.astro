@@ -1,0 +1,80 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import { getProfile } from '../lib/data';
+const profile = await getProfile();
+---
+<Base title="Experience" description={`${profile.name} — experience, certifications and education.`}>
+  <section class="section container">
+    <SectionHead level="h1" eyebrow="Experience" title="Roles, outcomes and credentials" />
+    <div class="cta">
+      <a class="btn" href="/resume.pdf">Download résumé (PDF)</a>
+      <a class="btn btn-ghost" href="/resume.json">JSON Resume</a>
+    </div>
+
+    <ol class="roles">
+      {profile.experience.map((r) => (
+        <li class="role">
+          <div class="when mono">{r.start} – {r.end ?? 'present'}</div>
+          <div>
+            <h2>{r.title}</h2>
+            <p class="org">{r.org}{r.client && <> · deployed at {r.client}</>}</p>
+            {r.kpis.length > 0 && (
+              <ul class="kpis">{r.kpis.map((k) => <li><strong>{k.value}</strong><span>{k.label}</span></li>)}</ul>
+            )}
+            <ul class="outcomes">{r.outcomes.map((o) => <li>{o}</li>)}</ul>
+            {r.detail.length > 0 && (
+              <details>
+                <summary>Technical detail</summary>
+                <ul>{r.detail.map((d) => <li>{d}</li>)}</ul>
+              </details>
+            )}
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="section container two">
+    <div>
+      <span class="eyebrow">Certifications</span>
+      <ul class="plain">
+        {profile.certifications.map((c) => (
+          <li><strong>{c.name}</strong><span class="muted">{c.issuer} · {c.status === 'completed' ? c.year : 'in progress'}</span></li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <span class="eyebrow">Education</span>
+      <ul class="plain">
+        {profile.education.map((e) => <li><strong>{e.degree}</strong><span class="muted">{e.institution} · {e.year}</span></li>)}
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .cta { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: -0.5rem; }
+  .roles { list-style: none; padding: 0; margin: 3rem 0 0; }
+  .role { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 2rem; padding: 2.5rem 0; border-top: 1px solid var(--line); }
+  .when { font-size: 0.8rem; color: var(--faint); padding-top: 0.4rem; }
+  .role h2 { font-size: var(--step-2); }
+  .org { color: var(--muted); margin: 0.4rem 0 0; }
+  .kpis { display: flex; flex-wrap: wrap; gap: 1.5rem 2.5rem; list-style: none; padding: 0; margin: 1.5rem 0; }
+  .kpis li { display: flex; flex-direction: column; }
+  .kpis strong { font: 500 var(--step-2)/1 var(--font-display); color: var(--accent); }
+  .kpis span { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
+  .outcomes { max-width: var(--measure); }
+  .outcomes li { margin: 0.6rem 0; }
+  details { margin-top: 1rem; max-width: var(--measure); font-size: var(--step--1); color: var(--muted); }
+  summary { cursor: pointer; font: 500 0.8rem/1 var(--font-mono); color: var(--text); min-height: 44px; display: flex; align-items: center; }
+  details li { margin: 0.5rem 0; }
+  .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; }
+  .plain { list-style: none; padding: 0; margin: 1.25rem 0 0; }
+  .plain li { display: flex; flex-direction: column; padding: 0.75rem 0; border-top: 1px solid var(--line); }
+  .plain span { font-size: var(--step--1); }
+  @media (max-width: 760px) {
+    .role { grid-template-columns: minmax(0, 1fr); gap: 0.5rem; }
+    .two { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

@@ -1,0 +1,83 @@
+{
+  "zamaan-marine": {
+    "name": "zamaan-marine",
+    "url": "",
+    "private": true,
+    "languages": [],
+    "topics": [],
+    "pushed_at": null,
+    "stars": 0
+  },
+  "content-automation": {
+    "name": "medium-workflow",
+    "url": "https://github.com/zakijariwala/medium-workflow",
+    "private": false,
+    "languages": [],
+    "topics": [],
+    "pushed_at": null,
+    "stars": 0
+  },
+  "zamaan-automation": {
+    "name": "ZamaanAutomation",
+    "url": "https://github.com/zakijariwala/ZamaanAutomation",
+    "private": false,
+    "languages": [],
+    "topics": [],
+    "pushed_at": null,
+    "stars": 0
+  },
+  "run-to": {
+    "name": "run.to",
+    "url": "https://github.com/zakijariwala/run.to",
+    "private": false,
+    "languages": [],
+    "topics": [],
+    "pushed_at": null,
+    "stars": 0
+  },
+  "path-of-supplication": {
+    "name": "DUASRON",
+    "url": "https://github.com/zakijariwala/DUASRON",
+    "private": false,
+    "languages": [],
+    "topics": [],
+    "pushed_at": null,
+    "stars": 0
+  },
+  "ian-xiaohei": {
+    "name": "ian-xiaohei-illustrations-english-claude-code",
+    "url": "https://github.com/zakijariwala/ian-xiaohei-illustrations-english-claude-code",
+    "private": false,
+    "languages": [],
+    "topics": [],
+    "pushed_at": null,
+    "stars": 0
+  },
+  "gidstek-site": {
+    "name": "gidstek-site",
+    "url": "",
+    "private": true,
+    "languages": [],
+    "topics": [],
+    "pushed_at": null,
+    "stars": 0
+  },
+  "esp-pocket": {
+    "name": "esp-pocket",
+    "url": "",
+    "private": true,
+    "languages": [],
+    "topics": [],
+    "pushed_at": null,
+    "stars": 0
+  },
+  "remote-dev-server": {
+    "name": "remote-dev-server",
+    "url": "",
+    "private": true,
+    "languages": [],
+    "topics": [],
+    "pushed_at": null,
+    "stars": 0
+  }
+}

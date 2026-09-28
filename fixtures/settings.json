@@ -1,0 +1,5 @@
+{
+  "_comment": "Local/CI fixture only. Production settings come from the Worker (admin panel).",
+  "featured": ["zamaan-marine", "path-of-supplication", "content-automation"],
+  "now": "Building a content automation pipeline that turns YouTube transcripts into publication-ready articles. Reading about product discovery and what makes an AI product useful once the novelty wears off."
+}

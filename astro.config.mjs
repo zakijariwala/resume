@@ -1,9 +1,11 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
 
-// https://astro.build/config
+// Static output only. Dynamic routes (contact, résumé, admin) live in the Worker.
 export default defineConfig({
-  output: 'static',
-  base: '/', // Configured for custom domain zakijariwala.space
-  integrations: [tailwind()]
+  site: 'https://zakijariwala.space',
+  srcDir: './site',
+  publicDir: './site/public',
+  outDir: './dist',
+  build: { format: 'directory' },
+  trailingSlash: 'ignore',
 });

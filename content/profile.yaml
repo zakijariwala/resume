@@ -1,0 +1,141 @@
+# Slow-changing profile content. Edit here (git keeps the history).
+# Fast-changing text — availability line and "now" note — is edited in /admin.
+# Rule: nothing goes in here that isn't true and checkable.
+
+name: Mohammad Zaki Jariwala
+short_name: Zaki Jariwala
+location: Navi Mumbai, India
+relocation: Open to relocation
+
+# Headline chosen from the two shortlisted options: the H1 states the direction,
+# the lede carries the proof.
+headline: Systems engineer → technical lead. Reliability, cloud, and the decisions behind them.
+lede: I run critical infrastructure and turn it into outcomes — uptime, recovery, delivery.
+intro: >-
+  Systems Engineer at Tata Consultancy Services, deployed at State Bank of India, keeping
+  Tier-1 banking platforms at 99.999% availability for 30,000+ users. I lead a team of five,
+  run disaster recovery for 150+ application servers, and cut recovery time by half. Outside
+  the day job I take my own products from problem to production.
+
+links:
+  email: jariwalazaki@gmail.com
+  linkedin: https://linkedin.com/in/zakijariwala
+  github: https://github.com/zakijariwala
+
+# Homepage proof strip. Each must trace to the experience entries below.
+proof:
+  - { value: "99.999%", label: "availability for Tier-1 banking platforms" }
+  - { value: "30,000+", label: "branch users supported" }
+  - { value: "150+", label: "application servers operated" }
+  - { value: "50%", label: "faster disaster recovery (RTO ~4h → <2h)" }
+  - { value: "5", label: "engineers led" }
+
+experience:
+  - id: tcs
+    title: Systems Engineer, IDM & Infrastructure
+    org: Tata Consultancy Services
+    client: State Bank of India (SBI GITC)
+    start: "2023"
+    end: null
+    kpis:
+      - { value: "99.999%", label: "Uptime" }
+      - { value: "30,000+", label: "Users" }
+      - { value: "5", label: "Engineers led" }
+      - { value: "50%", label: "RTO reduction" }
+    outcomes:
+      - Led an operations team delivering 99.999% availability for Tier-1 banking applications across 30,000+ branch users — setting priorities, mentoring 5 engineers and owning escalations end to end.
+      - Drove infrastructure modernisation — evaluated build-vs-buy trade-offs, secured stakeholder alignment and led adoption of on-premise container workflows within compliance boundaries, translating engineering constraints into a prioritised delivery roadmap for leadership.
+      - Designed and ran disaster recovery runbooks with application and database teams, cutting Recovery Time Objective by 50%.
+      - Automated recurring operations work (patch compliance, certificate rotation tracking, capacity reports), removing about 8 hours a week of manual effort across the team.
+    detail:
+      - Operated IBM Security Identity Manager (ISIM) on RHEL 8 — provisioning, access governance and policy enforcement across 150+ application servers in an on-premise Tier-1 banking datacentre, with active-passive HA clustering and automated health monitoring.
+      - Led on-premise containerisation of legacy IDM workflows — evaluated Podman vs Docker within RBI/SEBI compliance boundaries, defined container topology and orchestration, and secured sign-off from security and compliance stakeholders.
+      - Authored cross-team DR runbooks covering IDM primary/replica switchover, application server restart sequences and database consistency checks; RTO went from ~4 hours to under 2 through tabletop drills and live execution.
+      - Automation in Python and Bash.
+
+  - id: coaching
+    title: Founder & Technical Communication Coach
+    org: Independent coaching practice
+    client: null
+    start: "2025"
+    end: "2026"
+    kpis:
+      - { value: "50+", label: "Clients coached" }
+    outcomes:
+      - Built a coaching practice from zero — client acquisition, curriculum design and delivery for 50+ engineering and management professionals.
+      - Designed a structured curriculum covering STAR framing, stakeholder communication and senior-level interview strategy, iterating on client outcomes and feedback.
+      - Developed repeatable frameworks that help engineers explain complex work to non-technical decision-makers.
+    detail: []
+
+education:
+  - degree: B.Tech, Electronics and Communication Engineering
+    institution: Dharmsinh Desai University
+    year: "2023"
+
+# PCA status taken from the 2026-08 truth fix on the redesign branch — confirm.
+certifications:
+  - name: Professional Cloud Architect
+    issuer: Google Cloud
+    year: "2026"
+    status: completed
+  - name: AWS Certified Solutions Architect – Associate (SAA-C03)
+    issuer: Amazon Web Services
+    year: "2024"
+    status: completed
+  - name: Generative AI Leader
+    issuer: Google Cloud
+    year: "2024"
+    status: completed
+
+# Regrouped for the reliability / cloud / leadership positioning. Every item existed
+# in the previous site; none added. Levels: confident | familiar | learning.
+# Merged: "Python AI Pipelines & ETL" into Python; "STAR Behavioural Frameworks" into
+# Coaching; ESP32 / e-paper / hardware items into Embedded C++.
+# Dropped to avoid reading as AI-tool-dependent (restore if wanted): "Anthropic Claude
+# API & Prompt Engineering", "AI Agent Design & Deployment", "Private AI Security Harnesses".
+skills:
+  - group: Reliability & operations
+    items:
+      - { name: High-availability systems (99.999% SLA), level: confident }
+      - { name: Disaster recovery & runbook automation, level: confident }
+      - { name: Production incident management, level: confident }
+      - { name: Identity & access management (IDM), level: confident }
+      - { name: Linux (RHEL / Ubuntu), level: confident }
+      - { name: Windows Server, level: confident }
+      - { name: VMware / hypervisors, level: confident }
+  - group: Cloud & platform
+    items:
+      - { name: AWS (Solutions Architect), level: confident }
+      - { name: Google Cloud (Professional Cloud Architect), level: familiar }
+      - { name: Docker & containerisation, level: confident }
+      - { name: GitHub Actions / CI/CD, level: confident }
+      - { name: Cloudflare edge deployment, level: confident }
+      - { name: Oracle Cloud, level: confident }
+      - { name: Infrastructure as code, level: familiar }
+  - group: Leadership & delivery
+    items:
+      - { name: Cross-functional team leadership, level: confident }
+      - { name: Stakeholder communication, level: confident }
+      - { name: Roadmapping & prioritisation, level: familiar }
+      - { name: Coaching & mentoring, level: confident }
+  - group: Product
+    items:
+      - { name: 0-to-1 product development, level: confident }
+      - { name: Discovery & requirements definition, level: confident }
+      - { name: User research & beta testing, level: familiar }
+      - { name: Product analytics (PostHog), level: confident }
+      - { name: AI product scoping & feasibility, level: confident }
+  - group: Engineering
+    items:
+      - { name: Python (ETL, pipelines, scripting), level: confident }
+      - { name: JavaScript / TypeScript, level: confident }
+      - { name: Dart / Flutter, level: confident }
+      - { name: Astro, level: confident }
+      - { name: Supabase & PostGIS, level: confident }
+      - { name: SQLite, level: confident }
+      - { name: LLM orchestration & workflow design, level: confident }
+      - { name: Email automation (Brevo, ZeroBounce, Hunter.io), level: confident }
+      - { name: Embedded C++ (ESP32, ESP-IDF, PlatformIO), level: familiar }
+  - group: Languages
+    items:
+      - { name: French, level: learning }

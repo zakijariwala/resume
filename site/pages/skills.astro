@@ -1,0 +1,53 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import { getEvidence, getProfile } from '../lib/data';
+const profile = await getProfile();
+const evidence = await getEvidence();
+const LEVEL = { confident: 'Confident', familiar: 'Working knowledge', learning: 'Learning' } as const;
+---
+<Base title="Skills" description="Skills grouped by area, and the projects that demonstrate them.">
+  <section class="section container">
+    <SectionHead level="h1" eyebrow="Skills" title="What I work with" />
+    <div class="groups">
+      {profile.skills.map((g) => (
+        <section class="card group">
+          <h2>{g.group}</h2>
+          <ul>
+            {g.items.map((s) => <li><span>{s.name}</span><span class:list={['level', s.level]}>{LEVEL[s.level]}</span></li>)}
+          </ul>
+        </section>
+      ))}
+    </div>
+  </section>
+
+  {evidence.length > 0 && (
+    <section class="section container">
+      <SectionHead eyebrow="Evidence" title="Shown in projects" />
+      <p class="muted intro">Taken from each project's own write-up. Every entry links to where it was used.</p>
+      <ul class="evidence">
+        {evidence.map((e) => (
+          <li>
+            <span class="skill">{e.label}</span>
+            <span class="where">{e.projects.map((p, i) => <>{i > 0 && ', '}<a href={`/work/${p.slug}/`}>{p.title}</a></>)}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+</Base>
+
+<style>
+  .groups { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); }
+  .group { padding: 1.4rem; }
+  .group h2 { font-size: var(--step-1); margin-bottom: 1rem; }
+  .group ul { list-style: none; padding: 0; margin: 0; }
+  .group li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.5rem 0; border-top: 1px solid var(--line); font-size: var(--step--1); }
+  .level { font: 400 0.7rem/1.6 var(--font-mono); color: var(--faint); white-space: nowrap; }
+  .level.confident { color: var(--accent); }
+  .intro { margin-top: -1rem; }
+  .evidence { list-style: none; padding: 0; margin: 1.5rem 0 0; columns: 2 320px; column-gap: 3rem; }
+  .evidence li { break-inside: avoid; display: flex; flex-direction: column; padding: 0.6rem 0; border-top: 1px solid var(--line); }
+  .skill { font-weight: 500; }
+  .where { font-size: var(--step--1); color: var(--muted); }
+</style>

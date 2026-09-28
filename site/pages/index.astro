@@ -1,0 +1,125 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import SectionHead from '../components/SectionHead.astro';
+import MetricStrip from '../components/MetricStrip.astro';
+import { formatDate, getFeatured, getProfile, getProjects, getSettings } from '../lib/data';
+
+const profile = await getProfile();
+const settings = await getSettings();
+const all = await getProjects();
+const featured = await getFeatured();
+// If nothing is marked featured, fall back to the top of the ordered list.
+const shown = featured.length ? featured : all.slice(0, 3);
+const role = profile.experience[0];
+const current = profile.experience.find((e) => e.end === null) ?? role;
+---
+<Base description={`${profile.name}. ${profile.lede} ${profile.location}.`}>
+  <section class="hero container">
+    <p class="eyebrow">{profile.location} · {profile.relocation}</p>
+    <h1>{profile.headline.replace(' → ', '\u00a0→ ')}</h1>
+    <p class="lede">{profile.lede}</p>
+    <p class="intro">{profile.intro}</p>
+    <div class="cta">
+      <a class="btn" href="#work">See the work</a>
+      <a class="btn btn-ghost" href="/resume.pdf">Download résumé (PDF)</a>
+    </div>
+    {settings.availability && (
+      <p class="availability"><span class="dot" aria-hidden="true"></span>{settings.availability}</p>
+    )}
+  </section>
+
+  <section class="container proof" aria-label="Track record">
+    <MetricStrip metrics={profile.proof} caption={`${role.org} · ${role.client ?? ''}`} />
+  </section>
+
+  {shown.length > 0 && (
+    <section class="section" id="work">
+      <div class="container">
+        <SectionHead eyebrow="Selected work" title="Things I've owned end to end" link={all.length > shown.length ? { href: '/work/', label: `All ${all.length} projects` } : undefined} />
+        <div class:list={['featured', `n${shown.length}`]}>
+          {shown.map((p, i) => <ProjectCard project={p} large={i === 0 && shown.length !== 2} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="container split">
+      <div>
+        <SectionHead eyebrow="Experience" title="Where I am now" link={{ href: '/experience/', label: 'Full experience' }} />
+      </div>
+      <div class="role">
+        <h3>{current.title}</h3>
+        <p class="org">{current.org}{current.client && <> · {current.client}</>} <span class="mono">{current.start} – {current.end ?? 'present'}</span></p>
+        <ul>{current.outcomes.slice(0, 3).map((o) => <li>{o}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  {(settings.now || settings.activity.length > 0) && (
+    <section class="section">
+      <div class="container split">
+        <div>
+          <SectionHead eyebrow="Now" title="What I'm working on" link={{ href: '/now/', label: 'More' }} />
+        </div>
+        <div>
+          {settings.now && <p class="now">{settings.now}</p>}
+          {settings.activity.length > 0 && (
+            <ul class="activity">
+              {settings.activity.slice(0, 4).map((a) => (
+                <li><a href={`/work/${a.slug}/`}>{a.title}</a> <span class="mono muted">updated {formatDate(a.pushed_at)}</span></li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section contact">
+    <div class="container contact-inner">
+      <div>
+        <span class="eyebrow">Contact</span>
+        <h2>Hiring for reliability, cloud or technical leadership?</h2>
+      </div>
+      <div class="cta">
+        <a class="btn" href="/contact/">Get in touch</a>
+        <a class="btn btn-ghost" href={profile.links.linkedin} rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { padding-top: clamp(3rem, 10vw, 7rem); padding-bottom: clamp(2rem, 5vw, 3rem); max-width: calc(var(--max)); }
+  .hero h1 { font-size: var(--step-4); max-width: 24ch; margin-top: 1.25rem; }
+  .lede { font: 400 var(--step-1)/1.45 var(--font-display); font-style: italic; color: var(--muted); max-width: 44ch; margin: 1.25rem 0 0; }
+  .intro { max-width: 62ch; margin: 1.25rem 0 0; color: var(--muted); }
+  .cta { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 2rem; }
+  .availability { display: flex; align-items: baseline; gap: 0.6rem; margin: 1.5rem 0 0; font-size: var(--step--1); color: var(--muted); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); flex: none; }
+  .proof { padding-bottom: clamp(2rem, 6vw, 4rem); }
+
+  .featured { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .featured.n1 { grid-template-columns: minmax(0, 1fr); }
+  .featured.n3 > :global(:first-child) { grid-row: span 2; }
+  @media (max-width: 800px) { .featured { grid-template-columns: minmax(0, 1fr); } .featured.n3 > :global(:first-child) { grid-row: auto; } }
+
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 2rem; }
+  @media (max-width: 800px) { .split { grid-template-columns: minmax(0, 1fr); gap: 0; } }
+  .split :global(.section-head) { flex-direction: column; align-items: flex-start; }
+  .role h3 { font-size: var(--step-2); }
+  .org { color: var(--muted); margin: 0.4rem 0 1rem; }
+  .org .mono { font-size: 0.8rem; margin-left: 0.4rem; color: var(--faint); }
+  .role li { margin: 0.5rem 0; }
+  .now { font: 400 var(--step-1)/1.5 var(--font-display); }
+  .activity { list-style: none; padding: 0; margin: 1rem 0 0; }
+  .activity li { padding: 0.5rem 0; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .activity .mono { font-size: 0.75rem; }
+
+  .contact { background: var(--surface); }
+  .contact-inner { display: flex; justify-content: space-between; align-items: end; gap: 2rem; flex-wrap: wrap; }
+  .contact h2 { font-size: var(--step-3); margin-top: 0.75rem; max-width: 22ch; }
+  .contact .cta { margin: 0; }
+</style>

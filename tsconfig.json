@@ -1,9 +1,8 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    }
-  }
+    "allowImportingTsExtensions": true
+  },
+  "include": [".astro/types.d.ts", "site/**/*", "shared/**/*", "scripts/**/*"],
+  "exclude": ["dist", "worker", "src", "node_modules"]
 }

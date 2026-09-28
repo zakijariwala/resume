@@ -1,0 +1,81 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import { getProfile, getSettings } from '../lib/data';
+const profile = await getProfile();
+const settings = await getSettings();
+// Public key; the form is only rendered once Turnstile is configured for the build.
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
+---
+<Base title="Contact" description={`Contact ${profile.name}.`}>
+  <section class="section container layout">
+    <div>
+      <SectionHead level="h1" eyebrow="Contact" title="Let's talk" />
+      {settings.availability && <p class="lead">{settings.availability}</p>}
+      <ul class="direct">
+        <li><span class="mono">Email</span><a href={`mailto:${profile.links.email}`}>{profile.links.email}</a></li>
+        <li><span class="mono">LinkedIn</span><a href={profile.links.linkedin} rel="noopener">{profile.links.linkedin.replace(/^https:\/\/(www\.)?/, '')}</a></li>
+        <li><span class="mono">GitHub</span><a href={profile.links.github} rel="noopener">{profile.links.github.replace(/^https:\/\//, '')}</a></li>
+        <li><span class="mono">Based in</span>{profile.location} · {profile.relocation}</li>
+      </ul>
+    </div>
+
+    {siteKey && (
+      <form id="form" class="card" method="post" action="/api/contact">
+        <p class="status" role="status" data-status hidden></p>
+        <label for="name">Name</label>
+        <input id="name" name="name" required maxlength="100" autocomplete="name" />
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required maxlength="200" autocomplete="email" />
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required minlength="10" maxlength="5000" rows="6"></textarea>
+        <div class="hp" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" tabindex="-1" autocomplete="off" /></div>
+        <div class="cf-turnstile" data-sitekey={siteKey} data-theme="auto"></div>
+        <button class="btn" type="submit">Send message</button>
+      </form>
+    )}
+  </section>
+</Base>
+
+{siteKey && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+<script>
+  const MESSAGES: Record<string, string> = {
+    sent: 'Thanks — your message is on its way. I reply within a few days.',
+    invalid: 'Please check the fields: a name, a valid email and a message of at least 10 characters.',
+    challenge: 'The spam check did not complete. Please try again.',
+    limited: 'Too many messages from this connection. Please try again later or email me directly.',
+  };
+  const status = new URLSearchParams(location.search).get('status');
+  const el = document.querySelector<HTMLElement>('[data-status]');
+  if (el && status && MESSAGES[status]) {
+    el.textContent = MESSAGES[status];
+    el.dataset.kind = status === 'sent' ? 'ok' : 'error';
+    el.hidden = false;
+  }
+</script>
+
+<style>
+  .layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 3rem; align-items: start; }
+  .lead { font: 400 var(--step-1)/1.5 var(--font-display); max-width: 36ch; margin-top: -0.5rem; }
+  .direct { list-style: none; padding: 0; margin: 2rem 0 0; }
+  .direct li { display: flex; flex-direction: column; padding: 0.8rem 0; border-top: 1px solid var(--line); overflow-wrap: anywhere; }
+  .direct .mono { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--faint); margin-bottom: 0.2rem; }
+  form { padding: 1.5rem; display: flex; flex-direction: column; }
+  label { font-size: var(--step--1); font-weight: 500; margin: 1rem 0 0.35rem; }
+  label:first-of-type { margin-top: 0; }
+  input, textarea {
+    font: inherit;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--text);
+  }
+  input:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .hp { position: absolute; left: -9999px; }
+  .cf-turnstile { margin: 1.25rem 0; min-height: 65px; }
+  button { align-self: flex-start; }
+  .status { padding: 0.75rem 1rem; border-radius: 8px; margin: 0 0 1rem; font-size: var(--step--1); background: var(--accent-soft); }
+  .status[data-kind='error'] { color: var(--warn); }
+  @media (max-width: 800px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+</style>
