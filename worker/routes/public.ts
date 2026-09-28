@@ -76,6 +76,9 @@ pub.get('/media/:slug/:file', async (c) => {
   });
 });
 
+// `/work/*` in run_worker_first also catches the index; it has no gate, serve it as built.
+pub.get('/work/', (c) => c.env.ASSETS.fetch(c.req.raw));
+
 // Visibility gate: a project hidden in admin 404s immediately, before the rebuild lands.
 pub.get('/work/:slug/*', gate);
 pub.get('/work/:slug', gate);

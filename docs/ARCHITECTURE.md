@@ -218,7 +218,6 @@ The build consumes `/internal/snapshot`: visible projects + flags + admin settin
 1. **Deletion blocked:** removing `cos-os/`, `misc/`, the old `src/`, `public/`, `tailwind.config.mjs`,
    `DESIGN*.md`, `CONTENT-GOVERNANCE.md`, `CMS-SETUP-GUIDE.md`, `HANDOVER.md`, `.agents/`,
    `skills-lock.json` and the two `cos-*` workflows needs owner approval in the session.
-2. **GCP Professional Cloud Architect** is listed as completed (2026), taken from the August
-   truth fix. Confirm.
+2. ~~**GCP Professional Cloud Architect** completed (2026)~~ — confirmed by owner 2026-09-28.
 3. **Skills dropped:** "Anthropic Claude API & Prompt Engineering", "AI Agent Design &
    Deployment" and "Private AI Security Harnesses". Restore any you want in `content/profile.yaml`.

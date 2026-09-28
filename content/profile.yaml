@@ -72,7 +72,6 @@ education:
     institution: Dharmsinh Desai University
     year: "2023"
 
-# PCA status taken from the 2026-08 truth fix on the redesign branch — confirm.
 certifications:
   - name: Professional Cloud Architect
     issuer: Google Cloud
