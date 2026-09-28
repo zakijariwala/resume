@@ -1,7 +1,8 @@
 # zakijariwala.space — v2 architecture (proposal, pre-build)
 
-Status: **P1–P4 built on `claude/architecture-revamp-prep-1hbfze`; P5 (cutover) and P6 (cleanup)
-pending.** Replaces the three-mode Astro 4 site. Setup: `docs/SETUP.md`.
+Status: **P1–P5 code on `main`; old branches and v1 files removed (2026-09-28). Remaining:
+Cloudflare setup + domain cutover (`docs/SETUP.md` §1–11), then retire the Pages project and
+GitHub Pages.** Replaces the three-mode Astro 4 site. Setup: `docs/SETUP.md`.
 
 ### Changes from the original plan
 
@@ -215,9 +216,8 @@ The build consumes `/internal/snapshot`: visible projects + flags + admin settin
 
 ## 10. OPEN
 
-1. **Deletion blocked:** removing `cos-os/`, `misc/`, the old `src/`, `public/`, `tailwind.config.mjs`,
-   `DESIGN*.md`, `CONTENT-GOVERNANCE.md`, `CMS-SETUP-GUIDE.md`, `HANDOVER.md`, `.agents/`,
-   `skills-lock.json` and the two `cos-*` workflows needs owner approval in the session.
+1. ~~**Deletion blocked**~~ — v1 site, `cos-os/`, `misc/`, stale docs and `cos-*` workflows removed
+   with owner approval 2026-09-28.
 2. ~~**GCP Professional Cloud Architect** completed (2026)~~ — confirmed by owner 2026-09-28.
 3. **Skills dropped:** "Anthropic Claude API & Prompt Engineering", "AI Agent Design &
    Deployment" and "Private AI Security Harnesses". Restore any you want in `content/profile.yaml`.
