@@ -16,8 +16,8 @@ page. Touch nothing outside `for_resume/`.
 
 ## Who this is for
 
-The owner is a systems engineer (enterprise banking infrastructure, 99.999% availability,
-team lead) moving toward **reliability, cloud, and technical leadership / product roles**,
+The owner is a systems engineer (enterprise banking infrastructure, 99.9% availability,
+team lead) moving toward **technology strategy, cloud and AI architecture, and technical leadership**,
 and away from being seen as a hands-on coder only. Frame the work by **ownership, decisions,
 trade-offs, reliability, cost, delivery, and outcomes**. Keep technical detail fully
 accurate, but put it in the engineer bullets and the body — the recruiter layer leads with

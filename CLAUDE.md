@@ -5,8 +5,9 @@ Design rationale: `docs/ARCHITECTURE.md`. One-time setup: `docs/SETUP.md`.
 
 ## What this is
 
-Portfolio for Mohammad Zaki Jariwala — systems engineer (TCS at SBI, 99.999% uptime,
-team lead) positioning for **reliability, cloud and technical leadership / product roles**.
+Portfolio for Mohammad Zaki Jariwala — systems engineer (TCS at SBI, 99.9% uptime,
+team lead) positioning for **technology strategy, cloud and AI architecture, and technical leadership**
+(IT / AI strategy consulting and similar roles).
 Lead with ownership and outcomes; engineering depth is the credibility layer, not the headline.
 There are no audience "modes" any more: depth is layered — outcome-first cards → case study
 → story → optional deep-dive.

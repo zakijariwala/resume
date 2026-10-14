@@ -7,15 +7,16 @@ short_name: Zaki Jariwala
 location: Navi Mumbai, India
 relocation: Open to relocation
 
-# Headline chosen from the two shortlisted options: the H1 states the direction,
+# The H1 states the direction (technology strategy, cloud and AI architecture);
 # the lede carries the proof.
-headline: Systems engineer → technical lead. Reliability, cloud, and the decisions behind them.
-lede: I run critical infrastructure and turn it into outcomes — uptime, recovery, delivery.
+headline: Technology strategy, cloud and AI architecture, and the decisions behind them.
+lede: I turn technical constraints into roadmaps leadership can act on, then deliver them.
 intro: >-
-  Systems Engineer at Tata Consultancy Services, deployed at State Bank of India, keeping
-  Tier-1 banking platforms at 99.999% availability for 30,000+ users. I lead a team of five,
-  run disaster recovery for 150+ application servers, and cut recovery time by half. Outside
-  the day job I take my own products from problem to production.
+  Systems Engineer at Tata Consultancy Services on the State Bank of India engagement, keeping
+  Tier-1 banking platforms at 99.9% availability for 30,000+ users. I lead a team of five,
+  shaped the modernisation roadmap within RBI and SEBI rules, and cut disaster recovery time
+  by half. Outside the day job I scope and ship GenAI solutions, from a Claude-powered
+  outreach agent to an LLM content pipeline.
 
 links:
   email: jariwalazaki@gmail.com
@@ -24,7 +25,7 @@ links:
 
 # Homepage proof strip. Each must trace to the experience entries below.
 proof:
-  - { value: "99.999%", label: "availability for Tier-1 banking platforms" }
+  - { value: "99.9%", label: "availability for Tier-1 banking platforms" }
   - { value: "30,000+", label: "branch users supported" }
   - { value: "150+", label: "application servers operated" }
   - { value: "50%", label: "faster disaster recovery (RTO ~4h → <2h)" }
@@ -38,12 +39,12 @@ experience:
     start: "2023"
     end: null
     kpis:
-      - { value: "99.999%", label: "Uptime" }
+      - { value: "99.9%", label: "Uptime" }
       - { value: "30,000+", label: "Users" }
       - { value: "5", label: "Engineers led" }
       - { value: "50%", label: "RTO reduction" }
     outcomes:
-      - Led an operations team delivering 99.999% availability for Tier-1 banking applications across 30,000+ branch users — setting priorities, mentoring 5 engineers and owning escalations end to end.
+      - Led an operations team delivering 99.9% availability for Tier-1 banking applications across 30,000+ branch users — setting priorities, mentoring 5 engineers and owning escalations end to end.
       - Drove infrastructure modernisation — evaluated build-vs-buy trade-offs, secured stakeholder alignment and led adoption of on-premise container workflows within compliance boundaries, translating engineering constraints into a prioritised delivery roadmap for leadership.
       - Designed and ran disaster recovery runbooks with application and database teams, cutting Recovery Time Objective by 50%.
       - Automated recurring operations work (patch compliance, certificate rotation tracking, capacity reports), removing about 8 hours a week of manual effort across the team.
@@ -73,29 +74,41 @@ education:
     year: "2023"
 
 certifications:
+  - name: Claude Certified Architect – Professional
+    issuer: Anthropic
+    year: "2026"
+    status: completed
   - name: Professional Cloud Architect
     issuer: Google Cloud
     year: "2026"
     status: completed
   - name: AWS Certified Solutions Architect – Associate (SAA-C03)
     issuer: Amazon Web Services
-    year: "2024"
+    year: "2026"
     status: completed
   - name: Generative AI Leader
     issuer: Google Cloud
-    year: "2024"
+    year: "2026"
     status: completed
 
-# Regrouped for the reliability / cloud / leadership positioning. Every item existed
-# in the previous site; none added. Levels: confident | familiar | learning.
+# Ordered for the technology strategy / cloud & AI architecture positioning. Every item is
+# backed by experience or a project. Levels: confident | familiar | learning.
 # Merged: "Python AI Pipelines & ETL" into Python; "STAR Behavioural Frameworks" into
 # Coaching; ESP32 / e-paper / hardware items into Embedded C++.
-# Dropped to avoid reading as AI-tool-dependent (restore if wanted): "Anthropic Claude
-# API & Prompt Engineering", "AI Agent Design & Deployment", "Private AI Security Harnesses".
+# Restored 2026-10: "Anthropic Claude API & Prompt Engineering", "AI Agent Design &
+# Deployment". Still dropped: "Private AI Security Harnesses".
 skills:
+  - group: Strategy & AI
+    items:
+      - { name: Technology roadmapping & prioritisation, level: familiar }
+      - { name: Build-vs-buy & emerging technology evaluation, level: confident }
+      - { name: AI use-case scoping & feasibility, level: confident }
+      - { name: AI agent design & deployment, level: confident }
+      - { name: Anthropic Claude API & prompt engineering, level: confident }
+      - { name: Regulatory compliance (RBI / SEBI), level: confident }
   - group: Reliability & operations
     items:
-      - { name: High-availability systems (99.999% SLA), level: confident }
+      - { name: High-availability systems (99.9% SLA), level: confident }
       - { name: Disaster recovery & runbook automation, level: confident }
       - { name: Production incident management, level: confident }
       - { name: Identity & access management (IDM), level: confident }
@@ -115,7 +128,6 @@ skills:
     items:
       - { name: Cross-functional team leadership, level: confident }
       - { name: Stakeholder communication, level: confident }
-      - { name: Roadmapping & prioritisation, level: familiar }
       - { name: Coaching & mentoring, level: confident }
   - group: Product
     items:
@@ -123,7 +135,6 @@ skills:
       - { name: Discovery & requirements definition, level: confident }
       - { name: User research & beta testing, level: familiar }
       - { name: Product analytics (PostHog), level: confident }
-      - { name: AI product scoping & feasibility, level: confident }
   - group: Engineering
     items:
       - { name: Python (ETL, pipelines, scripting), level: confident }

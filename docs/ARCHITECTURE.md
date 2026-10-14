@@ -1,8 +1,11 @@
 # zakijariwala.space — v2 architecture (proposal, pre-build)
 
-Status: **P1–P5 code on `main`; old branches and v1 files removed (2026-09-28). Remaining:
-Cloudflare setup + domain cutover (`docs/SETUP.md` §1–11), then retire the Pages project and
-GitHub Pages.** Replaces the three-mode Astro 4 site. Setup: `docs/SETUP.md`.
+Status: **P1–P5 code on `main`; old branches and v1 files removed (2026-09-28).
+Setup progress (checked 2026-10-14): §1 done — D1 `zakijariwala`, R2 `zakijariwala` and the
+`zakijariwala` Worker exist; D1 has no tables yet, so no deploy has succeeded. Blocked on §8:
+the repo has no Actions secrets/variables, so every *Sync and deploy* run fails at the first
+wrangler call (the workflow now names the missing values). Then §9–11 (first deploy, résumé
+upload, domain cutover), then retire the Pages project and GitHub Pages.** Replaces the three-mode Astro 4 site. Setup: `docs/SETUP.md`.
 
 ### Changes from the original plan
 
@@ -21,7 +24,7 @@ GitHub Pages.** Replaces the three-mode Astro 4 site. Setup: `docs/SETUP.md`.
 
 | Topic | Decision |
 |---|---|
-| Positioning | Reliability / cloud engineer moving into technical leadership and product ownership. Lead with ownership and outcomes; engineering depth is the credibility layer, not the headline. |
+| Positioning | Systems engineer moving into technology strategy, cloud and AI architecture, and technical leadership (updated 2026-10; was reliability / product). Lead with ownership and outcomes; engineering depth is the credibility layer, not the headline. |
 | Audience modes | **Removed.** One site. Audiences served by depth: outcome-first cards (recruiters) → case study (engineers) → `story` field (personal voice) → optional deep-dive (hiring managers). |
 | Project source | `for_resume/` in every owned repo, public and private, fetched weekly. Schema: `docs/for-resume-prompt.md`. |
 | Publishing | Automatic on sync. Admin toggles override. |
@@ -219,5 +222,5 @@ The build consumes `/internal/snapshot`: visible projects + flags + admin settin
 1. ~~**Deletion blocked**~~ — v1 site, `cos-os/`, `misc/`, stale docs and `cos-*` workflows removed
    with owner approval 2026-09-28.
 2. ~~**GCP Professional Cloud Architect** completed (2026)~~ — confirmed by owner 2026-09-28.
-3. **Skills dropped:** "Anthropic Claude API & Prompt Engineering", "AI Agent Design &
-   Deployment" and "Private AI Security Harnesses". Restore any you want in `content/profile.yaml`.
+3. ~~**Skills dropped**~~ — "Anthropic Claude API & Prompt Engineering" and "AI Agent Design &
+   Deployment" restored under *Strategy & AI* (2026-10). "Private AI Security Harnesses" stays out.

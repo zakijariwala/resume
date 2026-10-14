@@ -13,7 +13,7 @@ interface Props {
 }
 const profile = await getProfile();
 const { title, description = `${profile.name} — ${profile.headline}`, jsonLd, noindex = false } = Astro.props;
-const fullTitle = title ? `${title} · ${profile.short_name}` : `${profile.name} — Reliability, cloud & technical leadership`;
+const fullTitle = title ? `${title} · ${profile.short_name}` : `${profile.name} — Technology strategy, cloud & AI architecture`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const person = {
   '@context': 'https://schema.org',
